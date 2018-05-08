@@ -9,17 +9,17 @@ from subprocess import call
 import numpy as np
 from classy import Class
 
-from .config_strings import picola_config
+from config_strings import picola_config
 
 
-def omega_cdm_sample(lower = 0.2, upper = 0.3, N= 500):
+def omega_cdm_sample(lower = 0.227, upper = 0.327, N= 500):
     """
     Draw uniform samples of Omega_cdm from a flat prior.
 
     :param lower:
-        Lower value of distribution. Default is 0.2, so O_m is 0.25
+        Lower value of distribution. Default is 0.227, so O_m is 0.25
     :param upper:
-        Upper value of distribution. Default is 0.3, so O_m is 0.3
+        Upper value of distribution. Default is 0.327, so O_m is 0.3
     :param N:
         Number of samples to draw. Default is 500.
     :return:
@@ -100,28 +100,29 @@ def compute_pk(o_cdm, ln_10_As, outputdir):
     z = 20.0 #Note maybe allow to vary, or make global
     params = {
         'output': 'mPk',
-        'ln10^{10}A_s ': ln_10_As,
+        'ln10^{10}A_s': ln_10_As,
+        'P_k_max_h/Mpc': 100.0,
         'n_s': 0.96,
         'h': 0.7,
         'non linear': 'halofit',
-        'omega_b': 0.05,
+        'omega_b': 0.022,
         'omega_cdm': o_cdm,
         'z_pk': z}
 
     cosmo = Class()
     cosmo.set(params)
 
-    cosmo.compute(level = ["nonlinear"])
-    sigma_8 = cosmo.sigma(8, z)
+    cosmo.compute()#level = ["initnonlinear"])
+    sigma_8 = cosmo.sigma(8/0.7, z)
 
     k_size = 600
-    ks = np.logspace(-5, 2, k_size).reshape(k_size,1,1)
+    ks = np.logspace(-3, 1.5, k_size).reshape(k_size,1,1)
     zs = np.array([z])
 
-    pks =  cosmo.get_pk(ks, zs, k_size, 1, 1)
+    pks =  cosmo.get_pk(ks, zs, k_size, 1, 1)[:,0,0]
 
-    np.savetxt(path.join(outputdir, 'class_pk.dat'), np.c_[ks, pks],\
-               delimimiter = '\t', header = 'O_cdm = %.2f\t ln10^10A_s = %.2f'%(o_cdm, ln_10_As))
+    np.savetxt(path.join(outputdir, 'class_pk.dat'), np.c_[ks[:,0,0], pks],\
+               delimiter = ' ')
 
     return sigma_8
 
@@ -132,7 +133,7 @@ def write_picola_params(o_cdm, sigma_8, outputdir, jobname):
     formatted_config = picola_config.format(outputdir=outputdir,\
                                             file_base = jobname,
                                             ocdm = o_cdm,
-                                            olambda = 0.95 - o_cdm,
+                                            olambda = 0.977 - o_cdm,
                                             sigma8 = sigma_8)
 
     with open(fname, 'w') as f:
@@ -149,13 +150,17 @@ if __name__ == "__main__":
 
     for idx, (o, a) in enumerate(zip(o_cdm, ln10As)):
         sub_outputdir = path.join(outputdir, 'Box%03d'%idx)
+        sub_jobname = jobname + '_%03d'%idx
         if not path.isdir(sub_outputdir):
             mkdir(sub_outputdir)
 
-        with open(path.join(sub_outputdir, 'output_redshifts.dat', 'w')) as f:
+        with open(path.join(sub_outputdir, 'output_redshifts.dat'), 'w') as f:
             f.write("0.0, 10") #all we need
 
         sigma_8 = compute_pk(o, a, sub_outputdir)
+        with open(path.join(sub_outputdir, 'input_params.dat'), 'w') as f:
+            f.write("O_cdm: %f\nln10As: %f\nsigma_8: %f"%(o, a, sigma_8))
+
         write_picola_params(o, sigma_8, sub_outputdir, jobname)
         command = make_sherlock_command(jobname, sub_outputdir)
 
