@@ -187,8 +187,8 @@ NumFilesWrittenInParallel   4                                    % limits the nu
 % =========================
 UseCOLA          1           % Whether or not to use the COLA method (1=true, 0=false).
 Buffer           1.3         % The amount of extra memory to reserve for particles moving between tasks during runtime.
-Nmesh            256         % This is the size of the FFT grid used to compute the displacement field and gravitational forces.
-Nsample          256         % This sets the total number of particles in the simulation, such that Ntot = Nsample^3.
+Nmesh            512         % This is the size of the FFT grid used to compute the displacement field and gravitational forces.
+Nsample          512         % This sets the total number of particles in the simulation, such that Ntot = Nsample^3.
 Box              512.0      % The Periodic box size of simulation.
 Init_Redshift    20.0         % The redshift to begin timestepping from (redshift = 9 works well for COLA)
 Seed             5001        % Seed for IC-generator
