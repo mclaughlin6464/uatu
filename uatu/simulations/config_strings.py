@@ -170,7 +170,7 @@ lensing_verbose = 0
 output_verbose = 1
 
 """
-
+# TODO have to fix the baryon numbers, they're wrong!!!
 picola_config = """
 % =============================== %
 % This is the run parameters file %

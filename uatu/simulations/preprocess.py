@@ -42,6 +42,8 @@ def convert_all_particles(directory, **kwargs):
         print subdir
         convert_particles_to_density(subdir, **kwargs)
 
+    # TODO delte the particles?
+
 if __name__ == "__main__":
     from sys import argv
 

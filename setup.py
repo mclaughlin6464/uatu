@@ -6,4 +6,4 @@ setup(name='uatu',
         author='Sean McLaughlin',
         author_email='swmclau2@stanford.edu',
         url='https://github.com/mclaughlin6464/uatu',
-        packages=['uatu', 'uatu.simulations'])
+        packages=['uatu', 'uatu.simulations', 'uatu.watchers'])
