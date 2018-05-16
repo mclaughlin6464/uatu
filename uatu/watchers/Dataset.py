@@ -35,6 +35,7 @@ def get_xy_from_dir(dir):
     assert path.isdir(dir)
 
     X = np.load(path.join(dir, 'particle_hist.npy'))
+    X = X.reshape((X.shape[0], X.shape[1], X.shape[2], X.shape[3], 1))
     with open(path.join(dir, 'input_params.dat')) as f:
         for line in f:
             if line[0] == 'O':

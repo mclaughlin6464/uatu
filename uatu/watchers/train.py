@@ -10,7 +10,7 @@ def train(model_init_fn, optimizer_init_fn,data, device, num_epochs = 1, print_e
     train_dset, val_dset, _ = data
     with tf.device(device):
 
-        x = tf.placeholder(tf.float32, [None, 64,64,64])
+        x = tf.placeholder(tf.float32, [None, 64,64,64,1])
         y = tf.placeholder(tf.float32, [None,2])
 
         training = tf.placeholder(tf.bool, name='training')
@@ -31,7 +31,7 @@ def train(model_init_fn, optimizer_init_fn,data, device, num_epochs = 1, print_e
         for epoch in xrange(num_epochs):
             print 'Starting epoch %d' % epoch
             for x_np, y_np in train_dset:
-                feed_dict = {x: x_np, y: y_np, training: 1}
+                feed_dict = {x: x_np, y: y_np, training: True}
                 loss_np, _ = sess.run([loss, train_op], feed_dict=feed_dict)
                 if t % print_every == 0:
                     print 'Iteration %d, loss = %.4f' % (t, loss_np)
