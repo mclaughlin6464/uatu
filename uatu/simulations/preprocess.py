@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 from glob import glob
 
-def convert_particles_to_density(directory, Lbox = 512, Lvoxel = 2, N_voxels_per_side = 64):
+def convert_particles_to_density(directory, Lbox = 512, Lvoxel = 2, N_voxels_per_side = 4):
 
     reader = pd.read_csv(path.join(directory, 'uatu_z0p000.0'), delim_whitespace = True, chunksize = 5000)
 
@@ -41,6 +41,8 @@ def convert_all_particles(directory, **kwargs):
     for subdir in sorted(all_subdirs):
         print subdir
         convert_particles_to_density(subdir, **kwargs)
+
+    # TODO delte the particles?
 
 if __name__ == "__main__":
     from sys import argv
