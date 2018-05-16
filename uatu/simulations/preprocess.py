@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 from glob import glob
 
-def convert_particles_to_density(directory, Lbox = 512, Lvoxel = 2, N_voxels_per_side = 64):
+def convert_particles_to_density(directory, Lbox = 512, Lvoxel = 2, N_voxels_per_side = 4):
 
     reader = pd.read_csv(path.join(directory, 'uatu_z0p000.0'), delim_whitespace = True, chunksize = 5000)
 
