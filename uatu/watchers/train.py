@@ -15,9 +15,8 @@ def train(model_init_fn, optimizer_init_fn,data, device, num_epochs = 1, print_e
 
         training = tf.placeholder(tf.bool, name='training')
 
-        predictions = model_init_fn(x, training)
-
-        loss = tf.losses.absolute_difference(labels=y, predictions=predictions)
+        preds = model_init_fn(x, training)
+        loss = tf.losses.absolute_difference(labels=y, predictions=preds)
         #loss = tf.reduce_mean(loss)
 
         optimizer = optimizer_init_fn()

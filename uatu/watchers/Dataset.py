@@ -56,16 +56,24 @@ def get_all_xy(dir):
 
     assert path.isdir(dir)
     Xs, Ys = [], []
+    import os
+    print dir
+    print path.isdir(dir)
+    print os.listdir(dir)
     all_subdirs = glob(path.join(dir, 'Box*/'))
     for subdir in sorted(all_subdirs):
         print subdir
         try:
             X,Y = get_xy_from_dir(subdir)
+            assert X.shape[1] == 64
             Xs.append(X)
             Ys.append(Y)
-
         except IOError: #TODO only for testing!
             print 'Failed on %s'%subdir
+        except ValueError: #wrong shape
+            print 'Skipped %s'%subdir
+        except AssertionError:
+            print 'Skipped %s'%subdir
 
     return np.vstack(Xs), np.vstack(Ys)
 
