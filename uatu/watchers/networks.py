@@ -14,10 +14,6 @@ def standard_convnet_init_fn(inputs, training= False):
     #prob = tf.cond(training, lambda : 0.5, lambda : 1.0) #should i do some fancier tf stuff?
     axis = -1
     # NOTE ask waren if i need separate relus
-<<<<<<< HEAD
-    layers = [ tf.keras.layers.Conv3D(2,input_shape = (64,64,64,1), kernel_size=62, padding='same',
-                                  kernel_initializer=initializer),
-=======
     conv1_out = tf.layers.conv3d(inputs, 2, kernel_size=62, padding='same',
                                   kernel_initializer=initializer)
     bn1_out = tf.layers.batch_normalization(conv1_out, axis = axis, training=training)
