@@ -214,7 +214,7 @@ FileWithInputTransfer  /home/users/swmclau2/picola/l-picola/files/input_transfer
 % Cosmological Parameters
 % =======================
 Omega            {ocdm:.2f}        % Total matter density (CDM + Baryons at z=0).
-OmegaBaryon      0.05        % Baryon density (at z=0).
+OmegaBaryon      0.022        % Baryon density (at z=0).
 OmegaLambda      {olambda:.2f}        % Dark Energy density (at z=0)
 HubbleParam      0.7         % Hubble parameter, 'little h' (only used for power spectrum parameterization).
 Sigma8           {sigma8:.2f}        % Power spectrum normalization (power spectrum may already be normalized correctly).

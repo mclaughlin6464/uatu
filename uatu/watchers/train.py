@@ -35,7 +35,7 @@ def train(model_init_fn, optimizer_init_fn,data, device, num_epochs = 1, print_e
                 loss_np, _  = sess.run([loss, train_op], feed_dict=feed_dict)
                 if t % print_every == 0:
                     print 'Iteration %d, loss = %.4f' % (t, loss_np)
-                    check_accuracy(sess, val_dset, x, predictions, training=training)
+                    check_accuracy(sess, val_dset, x, preds, training=training)
                     print()
                 t += 1
 

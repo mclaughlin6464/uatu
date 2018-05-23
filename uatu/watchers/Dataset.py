@@ -56,10 +56,6 @@ def get_all_xy(dir):
 
     assert path.isdir(dir)
     Xs, Ys = [], []
-    import os
-    print dir
-    print path.isdir(dir)
-    print os.listdir(dir)
     all_subdirs = glob(path.join(dir, 'Box*/'))
     for subdir in sorted(all_subdirs):
         print subdir
