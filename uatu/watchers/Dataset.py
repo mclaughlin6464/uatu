@@ -30,13 +30,13 @@ class Dataset(object):
             # NOTE could flip, rotate axes as well
             return iter((np.swapaxes(self.X[i:i + B], a,b), self.Y[i:i + B]) for i in xrange(0, N, B))
 
-def get_xy_from_dir(dir):
+def get_xy_from_dir(dir, boxno):
 
     assert path.isdir(dir)
 
-    X = np.load(path.join(dir, 'particle_hist.npy'))
+    X = np.load(path.join(dir, 'particle_hist_%03d.npy'%boxno))
     X = X.reshape((X.shape[0], X.shape[1], X.shape[2], X.shape[3], 1))
-    with open(path.join(dir, 'input_params.dat')) as f:
+    with open(path.join(dir, 'input_params%03d.dat'%boxno)) as f:
         for line in f:
             if line[0] == 'O':
                 splitline = line.split(':')
@@ -57,7 +57,7 @@ def get_all_xy(dir):
     assert path.isdir(dir)
     Xs, Ys = [], []
     all_subdirs = glob(path.join(dir, 'Box*/'))
-    for subdir in sorted(all_subdirs):
+    for boxno, subdir in enumerate(sorted(all_subdirs)):
         print subdir
         try:
             X,Y = get_xy_from_dir(subdir)

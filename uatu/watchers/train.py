@@ -53,12 +53,12 @@ def check_accuracy(sess, dset, x, scores, training=None):
 
     Returns: Nothing, but prints the accuracy of the model
     """
-    num_correct, num_samples = 0, 0
+    perc_error = []
     for x_batch, y_batch in dset:
         feed_dict = {x: x_batch, training: 0}
-        scores_np = sess.run(scores, feed_dict=feed_dict)
-        y_pred = scores_np.argmax(axis=1)
-        num_samples += x_batch.shape[0]
-        num_correct += (y_pred == y_batch).sum()
-    acc = float(num_correct) / num_samples
-    print 'Got %d / %d correct (%.2f%%)' % (num_correct, num_samples, 100 * acc)
+        y_pred = sess.run(scores, feed_dict=feed_dict)
+        
+        print y_pred, y_batch, (y_pred-y_batch)/y_batch
+        print '*'*30
+    #acc = float(num_correct) / num_samples
+    #print 'Got %d / %d correct (%.2f%%)' % (num_correct, num_samples, 100 * acc)
