@@ -1,0 +1,2 @@
+model_checkpoint_path: "shallow_test"
+all_model_checkpoint_paths: "shallow_test"
