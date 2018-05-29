@@ -26,7 +26,7 @@ def train(model_init_fn, optimizer_init_fn,data, device, fname, restore = False,
         with tf.control_dependencies(update_ops):
             train_op = optimizer.minimize(loss)
 
-    with tf.device('cpu0'):
+    with tf.device('/cpu:0'):
 
         saver = tf.train.Saver()
 
@@ -41,7 +41,9 @@ def train(model_init_fn, optimizer_init_fn,data, device, fname, restore = False,
             for x_np, y_np in train_dset:
                 feed_dict = {x: x_np, y: y_np, training: True}
                 #loss_np, update_ops_np = sess.run([loss,update_ops], feed_dict=feed_dict)
-                loss_np, _  = sess.run([loss, train_op], feed_dict=feed_dict)
+                loss_np, preds_np, _  = sess.run([loss, preds, train_op], feed_dict=feed_dict)
+                print preds_np
+                print y_np
                 if t % print_every == 0:
                     print 'Iteration %d, loss = %.4f' % (t, loss_np)
                     check_accuracy(sess, val_dset, x, preds, training=training)
@@ -97,7 +99,7 @@ def check_accuracy(sess, dset, x, scores, training=None):
         feed_dict = {x: x_batch, training: 0}
         y_pred = sess.run(scores, feed_dict=feed_dict)
         
-        print y_pred, y_batch, (y_pred-y_batch)/y_batch
+        print y_pred, '\n', y_batch#,'\n'#, (y_pred-y_batch)/y_batch
         print '*'*30
     #acc = float(num_correct) / num_samples
     #print 'Got %d / %d correct (%.2f%%)' % (num_correct, num_samples, 100 * acc)
