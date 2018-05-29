@@ -4,8 +4,9 @@ Mostly copied from the CS231n notes
 """
 
 import tensorflow as tf
+import numpy as np
 
-def train(model_init_fn, optimizer_init_fn,data, device, num_epochs = 1, print_every = 10):
+def train(model_init_fn, optimizer_init_fn,data, device, fname, restore = False,num_epochs = 1, print_every = 10):
     tf.reset_default_graph()
     train_dset, val_dset, _ = data
     with tf.device(device):
@@ -19,13 +20,18 @@ def train(model_init_fn, optimizer_init_fn,data, device, num_epochs = 1, print_e
         loss = tf.losses.absolute_difference(labels=y, predictions=preds)
         #loss = tf.reduce_mean(loss)
 
+        saver = tf.train.Saver()
+
         optimizer = optimizer_init_fn()
         update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
         with tf.control_dependencies(update_ops):
             train_op = optimizer.minimize(loss)
 
     with tf.Session() as sess:
-        sess.run(tf.global_variables_initializer())
+        if restore:
+            saver.restore(sess, fname)
+        else:
+            sess.run(tf.global_variables_initializer())
         t = 0
         for epoch in xrange(num_epochs):
             print 'Starting epoch %d' % epoch
@@ -37,8 +43,38 @@ def train(model_init_fn, optimizer_init_fn,data, device, num_epochs = 1, print_e
                     print 'Iteration %d, loss = %.4f' % (t, loss_np)
                     check_accuracy(sess, val_dset, x, preds, training=training)
                     print()
+                    saver.save(sess, fname)
                 t += 1
 
+        saver.save(sess, fname) #save one last time
+
+def test(model_init_fn, data,n_samples, device, fname, samples_fname_base):
+    tf.reset_default_graph()
+    with tf.device(device):
+
+        x = tf.placeholder(tf.float32, [None, 64,64,64,1])
+
+        training = tf.placeholder(tf.bool, name='training')
+
+        preds = model_init_fn(x, training)
+
+        saver = tf.train.Saver()
+
+
+    with tf.Session() as sess:
+        saver.restore(sess, fname)
+        print 'Starting sampling'
+        for x_np in data:
+            samples = []
+            feed_dict = {x: x_np, training: False}
+            #loss_np, update_ops_np = sess.run([loss,update_ops], feed_dict=feed_dict)
+
+            for i in xrange(n_samples):
+                preds_np  = sess.run(preds, feed_dict=feed_dict)
+                samples.append(preds_np)
+
+            samples = np.vstack(samples)
+            np.savetxt(samples_fname_base + '_%02d.npy'%i, samples)
 
 def check_accuracy(sess, dset, x, scores, training=None):
     """
