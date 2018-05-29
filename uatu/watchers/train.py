@@ -17,15 +17,18 @@ def train(model_init_fn, optimizer_init_fn,data, device, fname, restore = False,
         training = tf.placeholder(tf.bool, name='training')
 
         preds = model_init_fn(x, training)
-        loss = tf.losses.absolute_difference(labels=y, predictions=preds)
+        loss = tf.losses.absolute_difference(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
         #loss = tf.reduce_mean(loss)
 
-        saver = tf.train.Saver()
 
         optimizer = optimizer_init_fn()
         update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
         with tf.control_dependencies(update_ops):
             train_op = optimizer.minimize(loss)
+
+    with tf.device('cpu0'):
+
+        saver = tf.train.Saver()
 
     with tf.Session() as sess:
         if restore:

@@ -40,7 +40,7 @@ T_cmb = 2.726
 
 3) baryon density: either 'Omega_b' or 'omega_b' (default: 'omega_b' set to 0.02253)
 
-Omega_b = 0.05
+Omega_b = 0.022
 #omega_b = 0.0266691
 
 4) ultra-relativistic species / massless neutrino density: either 'N_eff' or 'Omega_ur' or 'omega_ur' (default: 'N_eff' set to 3.04)
