@@ -60,7 +60,7 @@ def get_all_xy(dir):
     for boxno, subdir in enumerate(sorted(all_subdirs)):
         print subdir
         try:
-            X,Y = get_xy_from_dir(subdir)
+            X,Y = get_xy_from_dir(subdir, boxno)
             assert X.shape[1] == 64
             Xs.append(X)
             Ys.append(Y)

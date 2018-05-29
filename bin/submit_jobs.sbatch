@@ -5,4 +5,4 @@
 #SBATCH -o submit_jobs.out
 #SBATCH --ntasks=1
 
-python ~swmclau2/Git/uatu/uatu/simulations/submit_sims.py 500 /home/users/swmclau2/scratch/UatuTraining2/
+python ~swmclau2/Git/uatu/uatu/simulations/submit_sims.py 20 /home/users/swmclau2/scratch/UatuTest2/

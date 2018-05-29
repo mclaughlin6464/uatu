@@ -2,9 +2,81 @@
   from ._conv import register_converters as _register_converters
 /home/users/swmclau2/.local/lib/python2.7/site-packages/sklearn/model_selection/_split.py:2026: FutureWarning: From version 0.21, test_size will always complement train_size unless both are specified.
   FutureWarning)
-2018-05-28 13:33:06.380609: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 0 with properties: 
+2018-05-29 10:18:45.234935: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 0 with properties: 
 name: GeForce GTX TITAN Black major: 3 minor: 5 memoryClockRate(GHz): 0.98
 pciBusID: 0000:04:00.0
 totalMemory: 5.94GiB freeMemory: 5.86GiB
-2018-05-28 13:33:06.380690: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1312] Adding visible gpu devices: 0
-2018-05-28 13:33:13.427465: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 5664 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN Black, pci bus id: 0000:04:00.0, compute capability: 3.5)
+2018-05-29 10:18:45.235434: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1312] Adding visible gpu devices: 0
+2018-05-29 10:18:52.948746: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 5664 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN Black, pci bus id: 0000:04:00.0, compute capability: 3.5)
+2018-05-29 10:36:20.731394: W tensorflow/core/framework/op_kernel.cc:1202] OP_REQUIRES failed at save_restore_v2_ops.cc:109 : Not found: ; No such file or directory
+0.367160081863
+Starting epoch 0
+Iteration 0, loss = 0.6546
+[[12.808364  -9.140896 ]
+ [12.975875  -9.267827 ]
+ [13.048795  -9.316903 ]
+ [12.908407  -9.212377 ]
+ [12.930965  -9.229442 ]
+ [12.709922  -9.074029 ]
+ [13.042171  -9.3131   ]
+ [12.941574  -9.237091 ]
+ [12.843993  -9.167324 ]
+ [12.991891  -9.275787 ]
+ [12.87627   -9.19323  ]
+ [12.848722  -9.174033 ]
+ [12.943068  -9.24365  ]
+ [13.018117  -9.2939625]
+ [12.899193  -9.207299 ]
+ [12.890588  -9.202942 ]
+ [12.880023  -9.194119 ]
+ [12.976029  -9.264465 ]
+ [12.865643  -9.187086 ]
+ [12.787618  -9.125369 ]] [[0.343403 0.070558]
+ [0.343403 0.070558]
+ [0.343403 0.070558]
+ [0.343403 0.070558]
+ [0.343403 0.070558]
+ [0.343403 0.070558]
+ [0.343403 0.070558]
+ [0.343403 0.070558]
+ [0.343403 0.070558]
+ [0.343403 0.070558]
+ [0.343403 0.070558]
+ [0.343403 0.070558]
+ [0.343403 0.070558]
+ [0.343403 0.070558]
+ [0.343403 0.070558]
+ [0.343403 0.070558]
+ [0.343403 0.070558]
+ [0.343403 0.070558]
+ [0.343403 0.070558]
+ [0.343403 0.070558]] [[  36.29834601 -130.55151568]
+ [  36.78614311 -132.3504781 ]
+ [  36.99848792 -133.0460205 ]
+ [  36.58967514 -131.56459359]
+ [  36.65536534 -131.80645204]
+ [  36.01167968 -129.60382903]
+ [  36.97919798 -132.99211799]
+ [  36.68625812 -131.91486528]
+ [  36.40209954 -130.92607594]
+ [  36.8327822  -132.46329762]
+ [  36.49609146 -131.29322933]
+ [  36.41587132 -131.02116224]
+ [  36.6906071  -132.00782954]
+ [  36.90915324 -132.72088889]
+ [  36.56284252 -131.49263347]
+ [  36.53778449 -131.43087807]
+ [  36.50701946 -131.30583993]
+ [  36.786593   -132.30283358]
+ [  36.46514313 -131.20615813]
+ [  36.23793235 -130.33145883]]
+******************************
+()
+Traceback (most recent call last):
+  File "train_standard_net.py", line 24, in <module>
+    train(shallow_convnet_init_fn, standard_optimizer_init_fn, data, device, num_epochs = 100, fname = 'tmp.ckpt', print_every = 1) 
+  File "/home/users/swmclau2/.local/lib/python2.7/site-packages/uatu/watchers/train.py", line 47, in train
+    saver.save(sess, fname)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/training/saver.py", line 1675, in save
+    raise exc
+ValueError: Parent directory of tmp.ckpt doesn't exist, can't save.

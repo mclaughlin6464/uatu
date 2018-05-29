@@ -20,12 +20,13 @@ def train(model_init_fn, optimizer_init_fn,data, device, fname, restore = False,
         loss = tf.losses.absolute_difference(labels=y, predictions=preds)
         #loss = tf.reduce_mean(loss)
 
-        saver = tf.train.Saver()
-
         optimizer = optimizer_init_fn()
         update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
         with tf.control_dependencies(update_ops):
             train_op = optimizer.minimize(loss)
+
+    with tf.device('/cpu:0'):
+        saver = tf.train.Saver()
 
     with tf.Session() as sess:
         if restore:
@@ -43,10 +44,10 @@ def train(model_init_fn, optimizer_init_fn,data, device, fname, restore = False,
                     print 'Iteration %d, loss = %.4f' % (t, loss_np)
                     check_accuracy(sess, val_dset, x, preds, training=training)
                     print()
-                    saver.save(sess, fname)
+                    saver.save(sess, fname, global_step = t)
                 t += 1
 
-        saver.save(sess, fname) #save one last time
+        saver.save(sess, fname, global_step = t) #save one last time
 
 def test(model_init_fn, data,n_samples, device, fname, samples_fname_base):
     tf.reset_default_graph()
@@ -94,7 +95,7 @@ def check_accuracy(sess, dset, x, scores, training=None):
         feed_dict = {x: x_batch, training: 0}
         y_pred = sess.run(scores, feed_dict=feed_dict)
         
-        print y_pred, y_batch, (y_pred-y_batch)/y_batch
+        print y_pred,'\n', y_batch,'\n', (y_pred-y_batch)/y_batch
         print '*'*30
     #acc = float(num_correct) / num_samples
     #print 'Got %d / %d correct (%.2f%%)' % (num_correct, num_samples, 100 * acc)
