@@ -113,7 +113,7 @@ def compute_pk(o_cdm, ln_10_As, outputdir):
     cosmo.set(params)
 
     cosmo.compute()#level = ["initnonlinear"])
-    sigma_8 = cosmo.sigma(8/0.7, z)
+    sigma_8 = cosmo.sigma(8/0.7, 0)
 
     k_size = 600
     ks = np.logspace(-3, 1.5, k_size).reshape(k_size,1,1)
@@ -158,7 +158,7 @@ if __name__ == "__main__":
             f.write("0.0, 10") #all we need
 
         sigma_8 = compute_pk(o, a, sub_outputdir)
-        with open(path.join(sub_outputdir, 'input_params.dat'), 'w') as f:
+        with open(path.join(sub_outputdir, 'input_params%03d.dat'%idx), 'w') as f:
             f.write("O_cdm: %f\nln10As: %f\nsigma_8: %f"%(o, a, sigma_8))
 
         write_picola_params(o, sigma_8, sub_outputdir, jobname)

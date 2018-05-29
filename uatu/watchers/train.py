@@ -17,7 +17,7 @@ def train(model_init_fn, optimizer_init_fn,data, device, fname, restore = False,
         training = tf.placeholder(tf.bool, name='training')
 
         preds = model_init_fn(x, training)
-        loss = tf.losses.absolute_difference(labels=y, predictions=preds)
+        loss = tf.losses.absolute_difference(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
         #loss = tf.reduce_mean(loss)
 
         optimizer = optimizer_init_fn()

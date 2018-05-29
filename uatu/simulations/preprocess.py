@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 from glob import glob
 
-def convert_particles_to_density(directory, Lbox = 512, Lvoxel = 2, N_voxels_per_side = 4):
+def convert_particles_to_density(directory,boxno, Lbox = 512, Lvoxel = 2, N_voxels_per_side = 4 ):
 
     reader = pd.read_csv(path.join(directory, 'uatu_z0p000.0'), delim_whitespace = True, chunksize = 5000)
 
@@ -33,14 +33,14 @@ def convert_particles_to_density(directory, Lbox = 512, Lvoxel = 2, N_voxels_per
     voxel_list = np.vstack(np.split(y, N_voxels_per_side, axis = 3))
 
     print np.cbrt(np.sum(voxel_list))
-    np.save(path.join(directory, 'particle_hist.npy'), voxel_list)
+    np.save(path.join(directory, 'particle_hist_%03d.npy'%boxno), voxel_list)
 
 def convert_all_particles(directory, **kwargs):
 
     all_subdirs = glob(path.join(directory, 'Box*/'))
-    for subdir in sorted(all_subdirs):
+    for boxno, subdir in enumerate(sorted(all_subdirs)):
         print subdir
-        convert_particles_to_density(subdir, **kwargs)
+        convert_particles_to_density(subdir,boxno, **kwargs)
 
     # TODO delte the particles?
 
