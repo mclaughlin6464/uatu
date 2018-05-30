@@ -3,7 +3,10 @@ This module holds all the neural network models for uatu.
 
 To start, their architecture will be mostly hardcoded, but I may generalize it in the futuere.
 """
-import tensorflow as tf
+try:
+    import tensorflow as tf
+except:
+    pass
 
 def standard_convnet_init_fn(inputs, training= False):
 
@@ -73,11 +76,7 @@ def shallow_convnet_init_fn(inputs, training= False):
 
     ap2_out = tf.layers.average_pooling3d(lr2_out, pool_size=(14, 14, 14), strides = 2)
 
-    conv3_out = tf.layers.conv3d(ap2_out, 24, kernel_size=(2, 2, 2), padding='same')
-    #                  kernel_initializer=initializer)
-    bn3_out = tf.layers.batch_normalization(conv3_out, axis = axis, training= training)
-    lr3_out = tf.nn.leaky_relu(bn3_out, alpha=0.01)
-    flat_out = tf.layers.flatten(lr3_out)
+    flat_out = tf.layers.flatten(ap2_out)
     dense1_out = tf.layers.dense(flat_out, 1024)# kernel_initializer=initializer)
     #drop1_out = tf.layers.dropout(dense1_out, training=training)
     lr7_out =  tf.nn.leaky_relu(dense1_out, alpha=0.01)

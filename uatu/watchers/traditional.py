@@ -4,10 +4,15 @@ Perform a traditional analysis on the matter correlation function.
 from os import path
 from glob import glob
 import numpy as np
+print 'hi'
 from nbodykit.source.catalog import CSVCatalog
+print 'b'
 from nbodykit.algorithms.paircount_tpcf.tpcf import SimulationBox2PCF
+print 'c'
 from nbodykit.cosmology.correlation import CorrelationFunction
+print 'd'
 from nbodykit.cosmology.power.halofit import HalofitPower
+print 'e'
 from nbodykit.cosmology import Cosmology
 import emcee as mc
 

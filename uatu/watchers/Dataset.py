@@ -52,12 +52,15 @@ def get_xy_from_dir(dir, boxno):
 
     return X, Y
 
-def get_all_xy(dir):
+def get_all_xy(dir, max = None):
 
     assert path.isdir(dir)
     Xs, Ys = [], []
-    all_subdirs = glob(path.join(dir, 'Box*/'))
-    for boxno, subdir in enumerate(sorted(all_subdirs)):
+    all_subdirs = sorted(glob(path.join(dir, 'Box*/')))
+    if max is not None:
+        all_subdirs = all_subdirs[:max] 
+
+    for boxno, subdir in enumerate(all_subdirs):
         print subdir
         try:
             X,Y = get_xy_from_dir(subdir, boxno)

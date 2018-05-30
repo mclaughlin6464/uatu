@@ -3,7 +3,10 @@ Train the neural network passed in.
 Mostly copied from the CS231n notes
 """
 
-import tensorflow as tf
+try:
+    import tensorflow as tf
+except:
+    pass
 import numpy as np
 
 def train(model_init_fn, optimizer_init_fn,data, device, fname, restore = False,num_epochs = 1, print_every = 10):
@@ -39,7 +42,9 @@ def train(model_init_fn, optimizer_init_fn,data, device, fname, restore = False,
             for x_np, y_np in train_dset:
                 feed_dict = {x: x_np, y: y_np, training: True}
                 #loss_np, update_ops_np = sess.run([loss,update_ops], feed_dict=feed_dict)
-                loss_np, _  = sess.run([loss, train_op], feed_dict=feed_dict)
+                loss_np, preds_np, _  = sess.run([loss,preds, train_op], feed_dict=feed_dict)
+                print preds_np
+                print y_np
                 if t % print_every == 0:
                     print 'Iteration %d, loss = %.4f' % (t, loss_np)
                     check_accuracy(sess, val_dset, x, preds, training=training)
