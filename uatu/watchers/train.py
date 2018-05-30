@@ -9,7 +9,7 @@ except:
     pass
 import numpy as np
 
-def train(model_init_fn, optimizer_init_fn,data, device, fname, restore = False,num_epochs = 1, print_every = 10):
+def train(model_init_fn, optimizer_init_fn,data, device, fname, restore = False,num_epochs = 1, print_every = 10, lr = 0.0005):
     tf.reset_default_graph()
     train_dset, val_dset, _ = data
     with tf.device(device):
@@ -20,10 +20,12 @@ def train(model_init_fn, optimizer_init_fn,data, device, fname, restore = False,
         training = tf.placeholder(tf.bool, name='training')
 
         preds = model_init_fn(x, training)
-        loss = tf.losses.absolute_difference(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
+        #loss = tf.losses.absolute_difference(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
+        loss = tf.losses.mean_squared_error(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
+
         #loss = tf.reduce_mean(loss)
 
-        optimizer = optimizer_init_fn()
+        optimizer = optimizer_init_fn(lr)
         update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
         with tf.control_dependencies(update_ops):
             train_op = optimizer.minimize(loss)
@@ -43,9 +45,8 @@ def train(model_init_fn, optimizer_init_fn,data, device, fname, restore = False,
             for x_np, y_np in train_dset:
                 feed_dict = {x: x_np, y: y_np, training: True}
                 #loss_np, update_ops_np = sess.run([loss,update_ops], feed_dict=feed_dict)
-                loss_np, preds_np, _  = sess.run([loss,preds, train_op], feed_dict=feed_dict)
-                print preds_np
-                print y_np
+                loss_np, _  = sess.run([loss, train_op], feed_dict=feed_dict)
+
                 if t % print_every == 0:
                     print 'Iteration %d, loss = %.4f' % (t, loss_np)
                     check_accuracy(sess, val_dset, x, preds, training=training)

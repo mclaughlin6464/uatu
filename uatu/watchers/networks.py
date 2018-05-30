@@ -11,7 +11,7 @@ except:
 def standard_convnet_init_fn(inputs, training= False):
 
     #TODO add more customization
-    #initializer = tf.variance_scaling_initializer(scale=2.0)
+    initializer = tf.variance_scaling_initializer(scale=2.0)
     # TODO gotta be a better way to do this?
     #prob = tf.cond(training, lambda : 0.5, lambda : 1.0) #should i do some fancier tf stuff?
     axis = -1
@@ -142,6 +142,104 @@ def bayesian_convnet_init_fn(inputs, bayes_prob=0.95,  training= False):
 
     return dense3_out
 
+
+def shallow_convnet_init_fn(inputs, training=False):
+    # TODO add more customization
+    initializer = tf.variance_scaling_initializer(scale=2.0)
+    # TODO gotta be a better way to do this?
+    # prob = tf.cond(training, lambda : 0.5, lambda : 1.0) #should i do some fancier tf stuff?
+    axis = -1
+    # NOTE ask waren if i need separate relus
+    conv1_out = tf.layers.conv3d(inputs, 2, kernel_size=32, padding='same',
+                                 kernel_initializer=initializer)
+    bn1_out = tf.layers.batch_normalization(conv1_out, axis=axis, training=training)
+    lr1_out = tf.nn.leaky_relu(bn1_out, alpha=0.01)
+    ap1_out = tf.layers.average_pooling3d(lr1_out, pool_size=(24,24,24), strides=2)
+    conv2_out = tf.layers.conv3d(ap1_out, 12, kernel_size=16, padding='same',
+                                 kernel_initializer=initializer)
+    bn2_out = tf.layers.batch_normalization(conv2_out, axis=axis, training=training)
+    lr2_out = tf.nn.leaky_relu(bn2_out, alpha=0.01)
+
+    ap2_out = tf.layers.average_pooling3d(lr2_out, pool_size=(8, 8, 8), strides=2)
+
+    conv3_out = tf.layers.conv3d(ap2_out, 64, kernel_size=4, padding='same',
+                                 kernel_initializer=initializer)
+    bn3_out = tf.layers.batch_normalization(conv3_out, axis=axis, training=training)
+    lr3_out = tf.nn.leaky_relu(bn3_out, alpha=0.01)
+    # conv4_out = tf.layers.conv3d(lr3_out, 64, kernel_size=(4, 4, 4), padding='same')
+    #                  kernel_initializer=initializer)
+    # bn4_out = tf.layers.batch_normalization(conv4_out, axis = axis, training=training)
+    # lr4_out = tf.nn.leaky_relu(bn4_out, alpha=0.01)
+    # conv5_out =  tf.layers.conv3d(lr4_out, 128, kernel_size=(3, 3, 3), padding='same')
+    #                  kernel_initializer=initializer)
+    # bn5_out= tf.layers.batch_normalization(conv5_out, axis = axis, training=training)
+    # lr5_out = tf.nn.leaky_relu(bn5_out, alpha=0.01)
+    # conv6_out = tf.layers.conv3d(lr5_out, 128, kernel_size=(2, 2, 2), padding='same')
+    #                  kernel_initializer=initializer)
+    # bn6_out = tf.layers.batch_normalization(conv6_out, axis = axis, training= training)
+    # lr6_out = tf.nn.leaky_relu(bn6_out, alpha=0.01)
+    flat_out = tf.layers.flatten(lr3_out)
+    dense1_out = tf.layers.dense(flat_out, 1024)  # kernel_initializer=initializer)
+    drop1_out = tf.layers.dropout(dense1_out, training=training)
+    lr7_out = tf.nn.leaky_relu(drop1_out, alpha=0.01)
+
+    dense2_out = tf.layers.dense(lr7_out, 256)  # kernel_initializer=initializer)
+    drop2_out = tf.layers.dropout(dense2_out, training=training)
+    lr8_out = tf.nn.leaky_relu(drop2_out, alpha=0.01)
+    dense3_out = tf.layers.dense(lr8_out, 2)  # kernel_initializer=initializer)
+
+    return dense3_out
+
+def shallow_bayesian_convnet_init_fn(inputs, bayes_prob = 0.95, training=False):
+    # TODO add more customization
+    initializer = tf.variance_scaling_initializer(scale=2.0)
+    # TODO gotta be a better way to do this?
+    # prob = tf.cond(training, lambda : 0.5, lambda : 1.0) #should i do some fancier tf stuff?
+    axis = -1
+    # NOTE ask waren if i need separate relus
+    conv1_out = tf.layers.conv3d(inputs, 2, kernel_size=32, padding='same',
+                                 kernel_initializer=initializer)
+    bd1_out = tf.layers.dropout(conv1_out, rate = bayes_prob, training=True)
+    bn1_out = tf.layers.batch_normalization(bd1_out, axis=axis, training=training)
+    lr1_out = tf.nn.leaky_relu(bn1_out, alpha=0.01)
+    ap1_out = tf.layers.average_pooling3d(lr1_out, pool_size=(24,24,24), strides=2)
+    conv2_out = tf.layers.conv3d(ap1_out, 12, kernel_size=16, padding='same',
+                                 kernel_initializer=initializer)
+    bd2_out = tf.layers.dropout(conv2_out, rate = bayes_prob, training=True)
+    bn2_out = tf.layers.batch_normalization(bd2_out, axis=axis, training=training)
+    lr2_out = tf.nn.leaky_relu(bn2_out, alpha=0.01)
+
+    ap2_out = tf.layers.average_pooling3d(lr2_out, pool_size=(8, 8, 8), strides=2)
+
+    conv3_out = tf.layers.conv3d(ap2_out, 64, kernel_size=4, padding='same',
+                                 kernel_initializer=initializer)
+    bd3_out = tf.layers.dropout(conv3_out, rate = bayes_prob, training=True)
+    bn3_out = tf.layers.batch_normalization(bd3_out, axis=axis, training=training)
+    lr3_out = tf.nn.leaky_relu(bn3_out, alpha=0.01)
+    # conv4_out = tf.layers.conv3d(lr3_out, 64, kernel_size=(4, 4, 4), padding='same')
+    #                  kernel_initializer=initializer)
+    # bn4_out = tf.layers.batch_normalization(conv4_out, axis = axis, training=training)
+    # lr4_out = tf.nn.leaky_relu(bn4_out, alpha=0.01)
+    # conv5_out =  tf.layers.conv3d(lr4_out, 128, kernel_size=(3, 3, 3), padding='same')
+    #                  kernel_initializer=initializer)
+    # bn5_out= tf.layers.batch_normalization(conv5_out, axis = axis, training=training)
+    # lr5_out = tf.nn.leaky_relu(bn5_out, alpha=0.01)
+    # conv6_out = tf.layers.conv3d(lr5_out, 128, kernel_size=(2, 2, 2), padding='same')
+    #                  kernel_initializer=initializer)
+    # bn6_out = tf.layers.batch_normalization(conv6_out, axis = axis, training= training)
+    # lr6_out = tf.nn.leaky_relu(bn6_out, alpha=0.01)
+    flat_out = tf.layers.flatten(lr3_out)
+    dense1_out = tf.layers.dense(flat_out, 1024)  # kernel_initializer=initializer)
+    drop1_out = tf.layers.dropout(dense1_out, training=training)
+    lr7_out = tf.nn.leaky_relu(drop1_out, alpha=0.01)
+
+    dense2_out = tf.layers.dense(lr7_out, 256)  # kernel_initializer=initializer)
+    drop2_out = tf.layers.dropout(dense2_out, training=training)
+    lr8_out = tf.nn.leaky_relu(drop2_out, alpha=0.01)
+    dense3_out = tf.layers.dense(lr8_out, 2)  # kernel_initializer=initializer)
+
+    return dense3_out
+
 def standard_convnet_init_ob(inputs, training= False):
 
     #TODO add more customization
@@ -191,5 +289,5 @@ def standard_convnet_init_ob(inputs, training= False):
 
     return model(inputs)
 
-def standard_optimizer_init_fn():
-    return tf.train.AdamOptimizer(learning_rate = 0.01)#(learning_rate=0.005)
+def standard_optimizer_init_fn(lr = 0.0005):
+    return tf.train.AdamOptimizer(learning_rate=lr)
