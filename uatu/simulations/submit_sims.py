@@ -12,7 +12,7 @@ from classy import Class
 from config_strings import picola_config
 
 
-def omega_cdm_sample(lower = 0.227, upper = 0.327, N= 500):
+def omega_cdm_sample(lower = 0.1176, upper = 0.1666, N= 500):
     """
     Draw uniform samples of Omega_cdm from a flat prior.
 
@@ -113,7 +113,6 @@ def compute_pk(o_cdm, ln_10_As, outputdir):
     cosmo.set(params)
 
     cosmo.compute()#level = ["initnonlinear"])
-    sigma_8 = cosmo.sigma(8/0.7, 0)
 
     k_size = 600
     ks = np.logspace(-3, 1.5, k_size).reshape(k_size,1,1)
@@ -124,16 +123,22 @@ def compute_pk(o_cdm, ln_10_As, outputdir):
     np.savetxt(path.join(outputdir, 'class_pk.dat'), np.c_[ks[:,0,0], pks],\
                delimiter = ' ')
 
-    return sigma_8
+    return cosmo.sigma8()
 
 def write_picola_params(o_cdm, sigma_8, outputdir, jobname):
 
     fname = path.join(outputdir, '%s.dat'%jobname)
 
+    #convert to actual Ocdm
+    Ocdm = o_cdm/(0.7**2)
+    Ob = 0.022/(0.7**2)
+    Om = Ocdm+Ob
+
     formatted_config = picola_config.format(outputdir=outputdir,\
                                             file_base = jobname,
-                                            ocdm = o_cdm,
-                                            olambda = 0.977 - o_cdm,
+                                            ocdm = O_cdm,
+                                            ob = Ob,
+                                            olambda = 1 - Om,
                                             sigma8 = sigma_8)
 
     with open(fname, 'w') as f:
@@ -147,8 +152,9 @@ if __name__ == "__main__":
 
     o_cdm = omega_cdm_sample(N=N)
     ln10As = A_s_sample(N = N)
+    Om = o_cdm/(0.7**2) + 0.022/(0.7**2)
 
-    for idx, (o, a) in enumerate(zip(o_cdm, ln10As)):
+    for idx, (o,om, a) in enumerate(zip(o_cdm,Om, ln10As)):
         sub_outputdir = path.join(outputdir, 'Box%03d'%idx)
         sub_jobname = jobname + '_%03d'%idx
         if not path.isdir(sub_outputdir):
@@ -159,7 +165,7 @@ if __name__ == "__main__":
 
         sigma_8 = compute_pk(o, a, sub_outputdir)
         with open(path.join(sub_outputdir, 'input_params%03d.dat'%idx), 'w') as f:
-            f.write("O_cdm: %f\nln10As: %f\nsigma_8: %f"%(o, a, sigma_8))
+            f.write("O_m: %f\nln10As: %f\nsigma_8: %f"%(om, a, sigma_8))
 
         write_picola_params(o, sigma_8, sub_outputdir, jobname)
         command = make_sherlock_command(jobname, sub_outputdir)

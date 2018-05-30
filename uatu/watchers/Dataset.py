@@ -40,7 +40,7 @@ def get_xy_from_dir(dir, boxno):
         for line in f:
             if line[0] == 'O':
                 splitline = line.split(':')
-                omega_m = float(splitline[-1]) + 0.022 # TODO FIX BARYONS
+                omega_m = float(splitline[-1])# + 0.022 # TODO FIX BARYONS
 
             elif line[0] == 's':
                 splitline = line.split(':')
