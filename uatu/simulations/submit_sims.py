@@ -12,7 +12,7 @@ from classy import Class
 from config_strings import picola_config
 
 
-def omega_cdm_sample(lower = 0.1176, upper = 0.1666, N= 500):
+def omega_cdm_sample(lower = 0.1, upper = 0.15, N= 500):
     """
     Draw uniform samples of Omega_cdm from a flat prior.
 

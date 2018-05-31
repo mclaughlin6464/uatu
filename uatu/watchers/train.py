@@ -9,7 +9,27 @@ except:
     pass
 import numpy as np
 
-def train(model_init_fn, optimizer_init_fn,data, device, fname, restore = False,num_epochs = 1, print_every = 10, lr = 0.0005):
+def standard_cost_fn(y, preds):
+    return tf.losses.mean_squared_error(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
+
+def bayes_cost_fn(y, preds):
+    log_s1 = tf.slice(preds, [0, 2], [-1, 1])
+    log_s2 = tf.slice(preds, [0, 3], [-1, 1])
+    rho = tf.tanh(tf.slice(preds, [0, 4], [-1, 1]))
+    mu1 = tf.slice(preds, [0, 0], [-1, 1])
+    mu2 = tf.slice(preds, [0, 1], [-1, 1])
+    # avoiding building a matrix...
+
+    z = tf.pow(mu1 - tf.slice(y, [0, 0], [-1, 1]), 2.) * tf.exp(-log_s1) + \
+        tf.pow(mu2 - tf.slice(y, [0, 1], [-1, 1]), 2.) * tf.exp(-log_s2) - \
+        2 * rho * (mu1 - tf.slice(y, [0, 0], [-1, 1])) * (mu2 - tf.slice(y, [0, 1], [-1, 1])) * tf.sqrt(
+        tf.exp(-log_s1) * tf.exp(-log_s2))
+
+    return tf.reduce_mean(z / (2 * (1 - tf.pow(rho, 2.))) + 2 * np.pi * tf.sqrt(
+        tf.exp(-log_s1) * tf.exp(-log_s2) * (1 - tf.pow(rho, 2.))))
+
+def train(model_init_fn, optimizer_init_fn, cost_fn, data, device, fname,\
+          restore = False,num_epochs = 1, print_every = 10, lr = 0.0005):
     tf.reset_default_graph()
     train_dset, val_dset, _ = data
     with tf.device(device):
@@ -21,7 +41,7 @@ def train(model_init_fn, optimizer_init_fn,data, device, fname, restore = False,
 
         preds = model_init_fn(x, training)
         #loss = tf.losses.absolute_difference(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
-        loss = tf.losses.mean_squared_error(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
+        loss = cost_fn(y, preds)
 
         #loss = tf.reduce_mean(loss)
 
