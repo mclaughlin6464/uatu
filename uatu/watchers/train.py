@@ -118,9 +118,27 @@ def check_accuracy(sess, dset, x, scores, training=None):
     Returns: Nothing, but prints the accuracy of the model
     """
     perc_error = []
+    do_chi2 = False
     for x_batch, y_batch in dset:
         feed_dict = {x: x_batch, training: 0}
         y_pred = sess.run(scores, feed_dict=feed_dict)
-        perc_error.append((y_pred-y_batch)/(y_batch)) 
-    acc = np.array(perc_error).mean(axis = 0)
-    print 'Om: %.2f%%, s8: %.2f%% accuracy' % (100 * acc[0], 100*acc[1])
+        if y_pred.shape[1] == 2:
+            perc_error.append((y_pred[:,:2]-y_batch)/(y_batch))
+        else: # chi2
+            do_chi2 = True
+            mu1, mu2, log_s1, log_s2, rho = y_pred.T
+            rho = np.tanh(rho)
+
+            z = (mu1 - y_batch[:,0])**2 * np.exp(-log_s1) + \
+                (mu2 - y_batch[:,1])**2 * np.exp(-log_s2) - \
+                2 * rho * (mu1 - y_batch[:,0]) * (mu2 - y_batch[:,1]) * np.sqrt(np.exp(-log_s1) * np.exp(-log_s2))
+
+            chi2= (z / (2 * (1 - rho**2.)) + 2 * np.pi * np.sqrt(
+                np.exp(-log_s1) * np.exp(-log_s2) * (1 - rho**2.)))
+            perc_error.append(np.mean(chi2))
+
+    if not do_chi2:
+        acc = np.array(perc_error).mean(axis = 0)
+        print 'Om: %.2f%%, s8: %.2f%% accuracy' % (100 * acc[0], 100*acc[1])
+    else:
+        print 'chi2: %.3f'%(np.mean(perc_error)/5)

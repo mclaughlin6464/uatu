@@ -1,2 +1,2 @@
-model_checkpoint_path: "shallow_test"
-all_model_checkpoint_paths: "shallow_test"
+model_checkpoint_path: "shallow_bayes_test-0"
+all_model_checkpoint_paths: "shallow_bayes_test-0"
