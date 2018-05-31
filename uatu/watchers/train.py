@@ -101,8 +101,6 @@ def check_accuracy(sess, dset, x, scores, training=None):
     for x_batch, y_batch in dset:
         feed_dict = {x: x_batch, training: 0}
         y_pred = sess.run(scores, feed_dict=feed_dict)
-        
-        print y_pred, '\n', y_batch#,'\n'#, (y_pred-y_batch)/y_batch
-        print '*'*30
-    #acc = float(num_correct) / num_samples
-    #print 'Got %d / %d correct (%.2f%%)' % (num_correct, num_samples, 100 * acc)
+        perc_error.append((y_pred-y_batch)/(y_batch)) 
+    acc = np.array(perc_error).mean(axis = 0)
+    print 'Om: %.2f%%, s8: %.2f%% accuracy' % (100 * acc[0], 100*acc[1])
