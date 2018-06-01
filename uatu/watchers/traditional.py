@@ -15,8 +15,12 @@ def compute_xi_from_box(bins, boxdir):
     names  = ['x', 'y','z','vx','vy','vz']
     f = CSVCatalog(path.join(boxdir, 'uatu_z0p000.0'), names)
 
+    downsample_idxs = np.random.choice(f['x'].shape[0], int(1e-3*f['x'].shape[0]), replace = False)
+    d_idxs = np.zeros((f['x'].shape[0],))
+    d_idxs[downsample_idxs] = 1
+    f = f[d_idxs.astype(bool)]
     f['Position'] = np.c_[f['x'], f['y'], f['z']]
-    s = SimulationBox2PCF('1d', f, bins, BoxSize = 512.0)
+    s = SimulationBox2PCF('1d', f, bins, BoxSize = 512.0, show_progress = True)
 
     return s.corr
 

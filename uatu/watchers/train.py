@@ -138,7 +138,7 @@ def check_accuracy(sess, dset, x, scores, training=None):
             perc_error.append(np.mean(chi2))
 
     if not do_chi2:
-        acc = np.array(perc_error).mean(axis = 0)
+        acc = np.array(perc_error[0]).mean(axis = 0)
         print 'Om: %.2f%%, s8: %.2f%% accuracy' % (100 * acc[0], 100*acc[1])
     else:
         print 'chi2: %.3f'%(np.mean(perc_error)/5)

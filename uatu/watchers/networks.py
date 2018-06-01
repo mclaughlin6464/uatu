@@ -98,7 +98,7 @@ def bayesian_convnet_init_fn(inputs, bayes_prob=0.95,  training= False):
     # NOTE ask waren if i need separate relus
     conv1_out = tf.layers.conv3d(inputs, 2, kernel_size=62, padding='same')
     #                              kernel_initializer=initializer)
-    bd1_out = tf.layers.dropout(conv1_out, rate = bayes_prob, training = True)
+    bd1_out = tf.nn.dropout(conv1_out, keep_prob = bayes_prob)#, training = True)
     bn1_out = tf.layers.batch_normalization(bd1_out, axis = axis, training=training)
     lr1_out = tf.nn.leaky_relu(bn1_out, alpha=0.01)
     ap1_out = tf.layers.average_pooling3d(lr1_out, pool_size=(31, 31, 31), strides = 2)
@@ -190,22 +190,22 @@ def shallow_convnet_init_fn(inputs, training=False):
 
     return dense3_out
 
-def shallow_bayesian_convnet_init_fn(inputs, bayes_prob = 0.95, training=False):
+def shallow_bayesian_convnet_init_fn(inputs, keep_prob = 0.95, training=False):
     # TODO add more customization
     initializer = tf.variance_scaling_initializer(scale=2.0)
     # TODO gotta be a better way to do this?
     # prob = tf.cond(training, lambda : 0.5, lambda : 1.0) #should i do some fancier tf stuff?
     axis = -1
-    #bayes_prob = tf.cast(bayes_prob, tf.float32)
+    keep_prob = tf.cast(keep_prob, tf.float32)
     conv1_out = tf.layers.conv3d(inputs, 2, kernel_size=32, padding='same',
                                  kernel_initializer=initializer)
-    bd1_out = tf.nn.dropout(conv1_out, keep_prob= bayes_prob)
+    bd1_out = tf.nn.dropout(conv1_out, keep_prob= keep_prob)
     bn1_out = tf.layers.batch_normalization(bd1_out, axis=axis, training=training)
     lr1_out = tf.nn.leaky_relu(bn1_out, alpha=0.01)
     ap1_out = tf.layers.average_pooling3d(lr1_out, pool_size=(24,24,24), strides=2)
     conv2_out = tf.layers.conv3d(ap1_out, 12, kernel_size=16, padding='same',
                                  kernel_initializer=initializer)
-    bd2_out = tf.nn.dropout(conv2_out, keep_prob = bayes_prob)
+    bd2_out = tf.nn.dropout(conv2_out, keep_prob = keep_prob)
     bn2_out = tf.layers.batch_normalization(bd2_out, axis=axis, training=training)
     lr2_out = tf.nn.leaky_relu(bn2_out, alpha=0.01)
 
@@ -213,7 +213,7 @@ def shallow_bayesian_convnet_init_fn(inputs, bayes_prob = 0.95, training=False):
 
     conv3_out = tf.layers.conv3d(ap2_out, 64, kernel_size=4, padding='same',
                                  kernel_initializer=initializer)
-    bd3_out = tf.nn.dropout(conv3_out, keep_prob = bayes_prob)
+    bd3_out = tf.nn.dropout(conv3_out, keep_prob = keep_prob)
     bn3_out = tf.layers.batch_normalization(bd3_out, axis=axis, training=training)
     lr3_out = tf.nn.leaky_relu(bn3_out, alpha=0.01)
     # conv4_out = tf.layers.conv3d(lr3_out, 64, kernel_size=(4, 4, 4), padding='same')
