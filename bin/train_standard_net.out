@@ -2,11 +2,10 @@
   from ._conv import register_converters as _register_converters
 /home/users/swmclau2/.local/lib/python2.7/site-packages/sklearn/model_selection/_split.py:2026: FutureWarning: From version 0.21, test_size will always complement train_size unless both are specified.
   FutureWarning)
-2018-05-31 19:57:47.108245: I tensorflow/core/platform/cpu_feature_guard.cc:140] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
-2018-05-31 19:57:47.391456: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 0 with properties: 
-name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+2018-06-01 14:53:06.338264: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 0 with properties: 
+name: GeForce GTX TITAN Black major: 3 minor: 5 memoryClockRate(GHz): 0.98
 pciBusID: 0000:04:00.0
-totalMemory: 11.93GiB freeMemory: 11.81GiB
-2018-05-31 19:57:47.391496: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1312] Adding visible gpu devices: 0
-2018-05-31 19:57:54.526562: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11435 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:04:00.0, compute capability: 5.2)
-slurmstepd: error: *** JOB 19096121 ON sh-19-06 CANCELLED AT 2018-06-01T03:57:34 DUE TO TIME LIMIT ***
+totalMemory: 5.94GiB freeMemory: 5.86GiB
+2018-06-01 14:53:06.338672: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1312] Adding visible gpu devices: 0
+2018-06-01 14:53:06.803406: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 5665 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN Black, pci bus id: 0000:04:00.0, compute capability: 3.5)
+slurmstepd: error: *** JOB 19123388 ON sh-14-06 CANCELLED AT 2018-06-01T22:52:07 DUE TO TIME LIMIT ***

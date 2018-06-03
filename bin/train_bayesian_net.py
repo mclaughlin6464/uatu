@@ -4,9 +4,9 @@ from os import path
 from time import time
 t0 = time()
 #dir = '/scratch/users/swmclau2/UatuTraining2/'
-dir = '/home/users/swmclau2/scratch/UatuTraining3/'
+dir = '/home/users/swmclau2/scratch/UatuTraining4/'
 
-X, y = get_all_xy(dir, max = 100)
+X, y = get_all_xy(dir, max = 5)
 #X, y = get_xy_from_dir( path.join(dir, 'Box000'), 0)
 X_train, X_test, y_train, y_test = train_test_split(X, y, train_size = 0.7)
 
@@ -21,4 +21,4 @@ data = (train_dset, test_dset, None)
 device = "/device:GPU:0"
 #device = '/cpu:0'
 print time() - t0
-train(shallow_bayesian_convnet_init_fn, standard_optimizer_init_fn, bayes_cost_fn, data, device, num_epochs = 500, fname = '/home/users/swmclau2/scratch/tmp_bayes', print_every = 10, lr = 0.0005) 
+train(shallow_bayesian_convnet_init_fn, standard_optimizer_init_fn, bayes_cost_fn, data, device, num_epochs = 1, fname = '/home/users/swmclau2/scratch/tmp_bayes', print_every = 1, lr = 0.0005) 

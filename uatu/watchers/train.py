@@ -69,7 +69,7 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, device, fname,\
 
                 if t % print_every == 0:
                     print 'Iteration %d, loss = %.4f' % (t, loss_np)
-                    check_accuracy(sess, val_dset, x, preds, training=training)
+                    #check_accuracy(sess, val_dset, x, preds, training=training)
                     print()
                     saver.save(sess, fname, global_step = t)
                 t += 1

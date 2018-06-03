@@ -35,7 +35,7 @@ def compute_cov_from_all_boxes(bins, dir):
 
     xis = np.array(xis)
 
-    return np.cov(xis, axis = 0)
+    return np.cov(xis)#, axis = 0)
 
 def lnprior(theta):
     Om, s8 = theta

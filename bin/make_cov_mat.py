@@ -4,7 +4,7 @@ import numpy as np
 from time import time
 
 t0 = time()
-fname = '/home/users/swmclau2/scratch/UatuTraining3/'
+fname = '/home/users/swmclau2/scratch/UatuTraining4/'
 
 bins = np.logspace(-0.5, 1.6, 10)
 np.savetxt('/home/users/swmclau2/scratch/uatu_bins.npy', bins)
