@@ -21,12 +21,16 @@ def bayes_cost_fn(y, preds):
     # avoiding building a matrix...
 
     z = tf.pow(mu1 - tf.slice(y, [0, 0], [-1, 1]), 2.) * tf.exp(-log_s1) + \
-        tf.pow(mu2 - tf.slice(y, [0, 1], [-1, 1]), 2.) * tf.exp(-log_s2) - \
-        2 * rho * (mu1 - tf.slice(y, [0, 0], [-1, 1])) * (mu2 - tf.slice(y, [0, 1], [-1, 1])) * tf.sqrt(
-        tf.exp(-log_s1) * tf.exp(-log_s2))
+        tf.pow(mu2 - tf.slice(y, [0, 1], [-1, 1]), 2.) * tf.exp(-log_s2)# - \
+        #2 * rho * (mu1 - tf.slice(y, [0, 0], [-1, 1])) * (mu2 - tf.slice(y, [0, 1], [-1, 1])) * tf.sqrt(
+        #tf.exp(-log_s1) * tf.exp(-log_s2))
 
-    return tf.reduce_mean(z / (2 * (1 - tf.pow(rho, 2.))) + 2 * np.pi * tf.sqrt(
-        tf.exp(-log_s1) * tf.exp(-log_s2) * (1 - tf.pow(rho, 2.))))
+    return tf.reduce_mean(z / 2 + 2 * np.pi * tf.sqrt(
+        tf.exp(log_s1) * tf.exp(log_s2))), mu1, mu2, log_s1, log_s2, rho
+    #return tf.reduce_mean(z / (2 * (1 - tf.pow(rho, 2.))) + 2 * np.pi * tf.sqrt(
+    #    tf.exp(log_s1) * tf.exp(log_s2) * (1 - tf.pow(rho, 2.)))), mu1, mu2, log_s1, log_s2, rho
+
+
 
 def train(model_init_fn, optimizer_init_fn, cost_fn, data, device, fname,\
           restore = False,num_epochs = 1, print_every = 10, lr = 0.0005):
@@ -39,9 +43,9 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, device, fname,\
 
         training = tf.placeholder(tf.bool, name='training')
 
-        preds = model_init_fn(x, training)
+        preds = model_init_fn(x, training=training)
         #loss = tf.losses.absolute_difference(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
-        loss = cost_fn(y, preds)
+        loss, mu1, mu2, log_s1, log_s2, rho = cost_fn(y, preds)
 
         #loss = tf.reduce_mean(loss)
 
@@ -63,12 +67,14 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, device, fname,\
         for epoch in xrange(num_epochs):
             print 'Starting epoch %d' % epoch
             for x_np, y_np in train_dset:
+                print 'Hi'
                 feed_dict = {x: x_np, y: y_np, training: True}
                 #loss_np, update_ops_np = sess.run([loss,update_ops], feed_dict=feed_dict)
-                loss_np, _  = sess.run([loss, train_op], feed_dict=feed_dict)
+                loss_np, mu1_np, mu2_np, log_s1_np, log_s2_np, rho_np, _  = sess.run([loss, mu1, mu2, log_s1, log_s2, rho , train_op], feed_dict=feed_dict)
 
                 if t % print_every == 0:
                     print 'Iteration %d, loss = %.4f' % (t, loss_np)
+                    print mu1_np, mu2_np, np.exp(log_s1_np), np.exp(log_s1_np), rho_np
                     check_accuracy(sess, val_dset, x, preds, training=training)
                     print()
                     saver.save(sess, fname, global_step = t)
