@@ -212,6 +212,55 @@ def shallow_bayesian_convnet_init_fn(inputs, training=False, keep_prob = 0.95):
 
     return dense3_out
 
+def very_shallow_convnet_init_fn(inputs, training=False):
+    # TODO add more customization
+    initializer = tf.variance_scaling_initializer(scale=2.0)
+    # TODO gotta be a better way to do this?
+    # prob = tf.cond(training, lambda : 0.5, lambda : 1.0) #should i do some fancier tf stuff?
+
+    axis = -1
+
+    # NOTE ask waren if i need separate relus
+    conv1_out = tf.layers.conv3d(inputs, 2, kernel_size=32, padding='same',
+                                 kernel_initializer=initializer)
+    bn1_out = tf.layers.batch_normalization(conv1_out, axis=axis, training=training)
+    lr1_out = tf.nn.leaky_relu(bn1_out, alpha=0.01)
+    ap1_out = tf.layers.average_pooling3d(lr1_out, pool_size=(24,24,24), strides=2)
+
+    flat_out = tf.layers.flatten(ap1_out)
+    dense1_out = tf.layers.dense(flat_out, 1024)  # kernel_initializer=initializer)
+    drop1_out = tf.layers.dropout(dense1_out, training=training)
+    lr7_out = tf.nn.leaky_relu(drop1_out, alpha=0.01)
+
+    dense2_out = tf.layers.dense(lr7_out, 256)  # kernel_initializer=initializer)
+
+    return dense2_out
+
+def very_shallow_bayesian_convnet_init_fn(inputs, training=False, keep_prob = 0.95):
+    # TODO add more customization
+    initializer = tf.variance_scaling_initializer(scale=2.0)
+    # TODO gotta be a better way to do this?
+    # prob = tf.cond(training, lambda : 0.5, lambda : 1.0) #should i do some fancier tf stuff?
+
+    axis = -1
+
+    # NOTE ask waren if i need separate relus
+    conv1_out = tf.layers.conv3d(inputs, 2, kernel_size=32, padding='same',
+                                 kernel_initializer=initializer)
+    bd1_out = tf.layers.dropout(conv1_out, rate= 1-keep_prob, training = True)
+    bn1_out = tf.layers.batch_normalization(bd1_out, axis=axis, training=training)
+    lr1_out = tf.nn.leaky_relu(bn1_out, alpha=0.01)
+    ap1_out = tf.layers.average_pooling3d(lr1_out, pool_size=(24,24,24), strides=2)
+
+    flat_out = tf.layers.flatten(ap1_out)
+    dense1_out = tf.layers.dense(flat_out, 1024)  # kernel_initializer=initializer)
+    drop1_out = tf.layers.dropout(dense1_out, training=training)
+    lr7_out = tf.nn.leaky_relu(drop1_out, alpha=0.01)
+
+    dense2_out = tf.layers.dense(lr7_out, 256)  # kernel_initializer=initializer)
+
+    return dense2_out
+
     
 def standard_convnet_init_ob(inputs, training= False):
 
