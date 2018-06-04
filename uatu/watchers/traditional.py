@@ -22,7 +22,7 @@ def compute_xi_from_box(bins, boxdir):
     f['Position'] = np.c_[f['x'], f['y'], f['z']]
     s = SimulationBox2PCF('1d', f, bins, BoxSize = 512.0, show_progress = True)
 
-    return s.corr
+    return np.array([x[0] for x in s.corr.data])
 
 def compute_cov_from_all_boxes(bins, dir):
 
@@ -34,6 +34,9 @@ def compute_cov_from_all_boxes(bins, dir):
         xis.append(compute_xi_from_box(bins, subdir))
 
     xis = np.array(xis)
+    print type(xis), xis.shape
+    print xis.dtype
+    print xis
 
     return np.cov(xis)#, axis = 0)
 

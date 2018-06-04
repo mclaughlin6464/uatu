@@ -8,6 +8,7 @@ try:
 except:
     pass
 import numpy as np
+import sys
 
 def standard_cost_fn(y, preds):
     return tf.losses.mean_squared_error(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
@@ -15,18 +16,22 @@ def standard_cost_fn(y, preds):
 def bayes_cost_fn(y, preds):
     log_s1 = tf.slice(preds, [0, 2], [-1, 1])
     log_s2 = tf.slice(preds, [0, 3], [-1, 1])
-    rho = tf.tanh(tf.slice(preds, [0, 4], [-1, 1]))
+    #rho = tf.tanh(tf.slice(preds, [0, 4], [-1, 1]))
     mu1 = tf.slice(preds, [0, 0], [-1, 1])
     mu2 = tf.slice(preds, [0, 1], [-1, 1])
     # avoiding building a matrix...
 
     z = tf.pow(mu1 - tf.slice(y, [0, 0], [-1, 1]), 2.) * tf.exp(-log_s1) + \
-        tf.pow(mu2 - tf.slice(y, [0, 1], [-1, 1]), 2.) * tf.exp(-log_s2) - \
-        2 * rho * (mu1 - tf.slice(y, [0, 0], [-1, 1])) * (mu2 - tf.slice(y, [0, 1], [-1, 1])) * tf.sqrt(
-        tf.exp(-log_s1) * tf.exp(-log_s2))
+        tf.pow(mu2 - tf.slice(y, [0, 1], [-1, 1]), 2.) * tf.exp(-log_s2)# - \
+        #2 * rho * (mu1 - tf.slice(y, [0, 0], [-1, 1])) * (mu2 - tf.slice(y, [0, 1], [-1, 1])) * tf.sqrt(
+        #tf.exp(-log_s1) * tf.exp(-log_s2))
 
-    return tf.reduce_mean(z / (2 * (1 - tf.pow(rho, 2.))) + 2 * np.pi * tf.sqrt(
-        tf.exp(-log_s1) * tf.exp(-log_s2) * (1 - tf.pow(rho, 2.))))
+    return tf.reduce_mean(z / 2 + 2 * np.pi * tf.sqrt(
+        tf.exp(log_s1) * tf.exp(log_s2)))#, mu1, mu2, log_s1, log_s2, rho
+    #return tf.reduce_mean(z / (2 * (1 - tf.pow(rho, 2.))) + 2 * np.pi * tf.sqrt(
+    #    tf.exp(log_s1) * tf.exp(log_s2) * (1 - tf.pow(rho, 2.)))), mu1, mu2, log_s1, log_s2, rho
+
+
 
 def train(model_init_fn, optimizer_init_fn, cost_fn, data, device, fname,\
           restore = False,num_epochs = 1, print_every = 10, lr = 0.0005):
@@ -39,7 +44,7 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, device, fname,\
 
         training = tf.placeholder(tf.bool, name='training')
 
-        preds = model_init_fn(x, training)
+        preds = model_init_fn(x, training=training)
         #loss = tf.losses.absolute_difference(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
         loss = cost_fn(y, preds)
 
@@ -62,17 +67,23 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, device, fname,\
         t = 0
         for epoch in xrange(num_epochs):
             print 'Starting epoch %d' % epoch
+            sys.stdout.flush()
             for x_np, y_np in train_dset:
+                print 'Hi', t
+                sys.stdout.flush()
                 feed_dict = {x: x_np, y: y_np, training: True}
                 #loss_np, update_ops_np = sess.run([loss,update_ops], feed_dict=feed_dict)
                 loss_np, _  = sess.run([loss, train_op], feed_dict=feed_dict)
 
                 if t % print_every == 0:
                     print 'Iteration %d, loss = %.4f' % (t, loss_np)
-                    #check_accuracy(sess, val_dset, x, preds, training=training)
-                    print()
+                    sys.stdout.flush()
+                    check_accuracy(sess, val_dset, x, preds, training=training)
+                    print
+                    sys.stdout.flush()
                     saver.save(sess, fname, global_step = t)
                 t += 1
+                sys.stdout.flush()
 
         saver.save(sess, fname, global_step = t) #save one last time
 
@@ -126,13 +137,14 @@ def check_accuracy(sess, dset, x, scores, training=None):
             perc_error.append((y_pred[:,:2]-y_batch)/(y_batch))
         else: # chi2
             do_chi2 = True
-            mu1, mu2, log_s1, log_s2, rho = y_pred.T
-            rho = np.tanh(rho)
+            mu1, mu2, log_s1, log_s2 = y_pred.T
+            #rho = np.tanh(rho)
 
             z = (mu1 - y_batch[:,0])**2 * np.exp(-log_s1) + \
-                (mu2 - y_batch[:,1])**2 * np.exp(-log_s2) - \
-                2 * rho * (mu1 - y_batch[:,0]) * (mu2 - y_batch[:,1]) * np.sqrt(np.exp(-log_s1) * np.exp(-log_s2))
+                (mu2 - y_batch[:,1])**2 * np.exp(-log_s2)# - \
+                #2 * rho * (mu1 - y_batch[:,0]) * (mu2 - y_batch[:,1]) * np.sqrt(np.exp(-log_s1) * np.exp(-log_s2))
 
+            rho = 0
             chi2= (z / (2 * (1 - rho**2.)) + 2 * np.pi * np.sqrt(
                 np.exp(-log_s1) * np.exp(-log_s2) * (1 - rho**2.)))
             perc_error.append(np.mean(chi2))
