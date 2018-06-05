@@ -90,7 +90,7 @@ class DatasetFromFile(object):
         
         f = h5py.File(self.fname, 'r')
         outputX, outputY = [] ,[]
-        print 'Next', self.counter, self.test_idxs is None
+        #print 'Next', self.counter, self.test_idxs is None
         for i in self.idxs[self.counter:self.counter+self.batch_size]:
             bn, sbn = i 
             X = f['Box%03d'%bn]['X'][sbn]

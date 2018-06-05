@@ -14,6 +14,7 @@ def standard_cost_fn(y, preds):
     return tf.losses.mean_squared_error(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
 
 def bayes_cost_fn(y, preds):
+    '''
     log_s1 = tf.slice(preds, [0, 2], [-1, 1])
     log_s2 = tf.slice(preds, [0, 3], [-1, 1])
     #rho = tf.tanh(tf.slice(preds, [0, 4], [-1, 1]))
@@ -21,16 +22,35 @@ def bayes_cost_fn(y, preds):
     mu2 = tf.slice(preds, [0, 1], [-1, 1])
     # avoiding building a matrix...
 
-    z = tf.pow(mu1 - tf.slice(y, [0, 0], [-1, 1]), 2.) * tf.exp(-log_s1) + \
-        tf.pow(mu2 - tf.slice(y, [0, 1], [-1, 1]), 2.) * tf.exp(-log_s2)# - \
+    z = tf.pow(mu1 - tf.slice(y, [0, 0], [-1, 1]), 2.) / (tf.exp(log_s1)+ 1e-3) + \
+        tf.pow(mu2 - tf.slice(y, [0, 1], [-1, 1]), 2.) / (tf.exp(log_s2)+1e-3)# - \
         #2 * rho * (mu1 - tf.slice(y, [0, 0], [-1, 1])) * (mu2 - tf.slice(y, [0, 1], [-1, 1])) * tf.sqrt(
         #tf.exp(-log_s1) * tf.exp(-log_s2))
 
-    return tf.reduce_mean(z / 2 + 2 * np.pi * tf.sqrt(
-        tf.exp(log_s1) * tf.exp(log_s2)))#, mu1, mu2, log_s1, log_s2, rho
+    return tf.reduce_mean(z +  log_s1 + log_s2), mu1, mu2, log_s1, log_s2, z#, rho
     #return tf.reduce_mean(z / (2 * (1 - tf.pow(rho, 2.))) + 2 * np.pi * tf.sqrt(
     #    tf.exp(log_s1) * tf.exp(log_s2) * (1 - tf.pow(rho, 2.)))), mu1, mu2, log_s1, log_s2, rho
+    '''
+    num_out = 2 
+    s = tf.slice(preds , [0,num_out/2] , [-1,num_out/2] )
+    y_conv = tf.slice(preds , [0,0] , [-1,num_out/2] )
+    return tf.reduce_mean( tf.pow( y_conv -  y , 2.) * tf.exp(-s) + s)#  ,axis=1)# , [-1 , 1 ])
 
+def original_bayes_cost_fn(y, preds):
+    log_s1 = tf.slice(preds, [0, 2], [-1, 1])
+    log_s2 = tf.slice(preds, [0, 3], [-1, 1])
+    rho = 0.9*tf.tanh(tf.slice(preds, [0, 4], [-1, 1]))
+    mu1 = tf.slice(preds, [0, 0], [-1, 1])
+    mu2 = tf.slice(preds, [0, 1], [-1, 1])
+    # avoiding building a matrix...
+
+    z = tf.pow(mu1 - tf.slice(y, [0, 0], [-1, 1]), 2.) / (tf.exp(log_s1)+ 1e-3) + \
+        tf.pow(mu2 - tf.slice(y, [0, 1], [-1, 1]), 2.) / (tf.exp(log_s2)+1e-3) - \
+        2 * rho * (mu1 - tf.slice(y, [0, 0], [-1, 1])) * (mu2 - tf.slice(y, [0, 1], [-1, 1])) / tf.sqrt(
+        tf.exp(log_s1) * tf.exp(log_s2)+1e-6)
+
+    return tf.reduce_mean(z / (2.0 * (1 - tf.pow(rho, 2.))) + 
+        (log_s1 + log_s2 + tf.log(1 - tf.pow(rho, 2.)))/2.0 )
 
 
 def train(model_init_fn, optimizer_init_fn, cost_fn, data, device, fname,\
@@ -46,6 +66,7 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, device, fname,\
 
         preds = model_init_fn(x, training=training)
         #loss = tf.losses.absolute_difference(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
+        #loss, mu1, mu2, log_s1, log_s2, z = cost_fn(y, preds)
         loss = cost_fn(y, preds)
 
         #loss = tf.reduce_mean(loss)
@@ -53,7 +74,10 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, device, fname,\
         optimizer = optimizer_init_fn(lr)
         update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
         with tf.control_dependencies(update_ops):
-            train_op = optimizer.minimize(loss)
+            #train_op = optimizer.minimize(loss)
+            gvs = optimizer.compute_gradients(loss)
+            capped_gvs = [(tf.clip_by_value(grad, -1., 1.), var) for grad, var in gvs]
+            train_op = optimizer.apply_gradients(capped_gvs)
 
     with tf.device('/cpu:0'):
 
@@ -69,15 +93,18 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, device, fname,\
             print 'Starting epoch %d' % epoch
             sys.stdout.flush()
             for x_np, y_np in train_dset:
-                print 'Hi', t
+                print t,
                 sys.stdout.flush()
                 feed_dict = {x: x_np, y: y_np, training: True}
                 #loss_np, update_ops_np = sess.run([loss,update_ops], feed_dict=feed_dict)
+                #loss_np,mu1_np,mu2_np, log_s1_np, log_s2_np, z_np, _  = sess.run([loss,mu1,mu2,log_s1, log_s2, z, train_op], feed_dict=feed_dict)
                 loss_np, _  = sess.run([loss, train_op], feed_dict=feed_dict)
+
+                print loss_np#,mu1_np, mu2_np, np.exp(log_s1_np), np.exp(log_s2_np), z_np
 
                 if t % print_every == 0:
                     print 'Iteration %d, loss = %.4f' % (t, loss_np)
-                    sys.stdout.flush()
+                    sys.stdout.flush() 
                     check_accuracy(sess, val_dset, x, preds, training=training)
                     print
                     sys.stdout.flush()
@@ -135,18 +162,23 @@ def check_accuracy(sess, dset, x, scores, training=None):
         y_pred = sess.run(scores, feed_dict=feed_dict)
         if y_pred.shape[1] == 2:
             perc_error.append((y_pred[:,:2]-y_batch)/(y_batch))
+
         else: # chi2
             do_chi2 = True
-            mu1, mu2, log_s1, log_s2 = y_pred.T
-            #rho = np.tanh(rho)
+            if y_pred.shape[1] == 4:
+                mu1, mu2, log_s1, log_s2 = y_pred.T
+                rho = 0
+            else:
+                mu1, mu2, log_s1, log_s2, rho = y_pred.T
 
-            z = (mu1 - y_batch[:,0])**2 * np.exp(-log_s1) + \
-                (mu2 - y_batch[:,1])**2 * np.exp(-log_s2)# - \
-                #2 * rho * (mu1 - y_batch[:,0]) * (mu2 - y_batch[:,1]) * np.sqrt(np.exp(-log_s1) * np.exp(-log_s2))
+            rho = 0.9*np.tanh(rho)
 
-            rho = 0
-            chi2= (z / (2 * (1 - rho**2.)) + 2 * np.pi * np.sqrt(
-                np.exp(-log_s1) * np.exp(-log_s2) * (1 - rho**2.)))
+            z = (mu1 - y_batch[:,0])**2 /(np.exp(log_s1)+1e-3) + \
+                (mu2 - y_batch[:,1])**2 /(np.exp(log_s2)+1e-3) - \
+                2 * rho * (mu1 - y_batch[:,0]) * (mu2 - y_batch[:,1]) / np.sqrt(np.exp(log_s1) * np.exp(log_s2)+1e-6)
+
+            chi2= (z / (2 * (1 - rho**2.)) + 
+                log_s1 + log_s2 + np.log(1 - rho**2.))
             perc_error.append(np.mean(chi2))
 
     if not do_chi2:

@@ -18,4 +18,4 @@ data = (train_dset, test_dset, None)
 device = "/device:GPU:0"
 #device = '/cpu:0'
 print time() - t0
-train(shallow_bayesian_convnet_init_fn, standard_optimizer_init_fn, bayes_cost_fn, data, device, num_epochs = 100, fname = '/home/users/swmclau2/scratch/bayes_shallow', print_every = 500, lr = 0.0005) 
+train(shallow_bayesian_convnet_init_fn, standard_optimizer_init_fn, bayes_cost_fn, data, device, num_epochs = 100, fname = '/home/users/swmclau2/scratch/bayes_shallow', print_every = 500, lr = 0.00005) 

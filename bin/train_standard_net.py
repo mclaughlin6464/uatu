@@ -17,4 +17,4 @@ data = (train_dset, test_dset, None)
 device = "/device:GPU:0"
 #device = '/cpu:0'
 print time() - t0
-train(shallow_convnet_init_fn, standard_optimizer_init_fn, standard_cost_fn, data, device, num_epochs = 100, fname = '/home/users/swmclau2/scratch/standard_net', print_every = 1, lr = 0.0001) 
+train(shallow_convnet_init_fn, standard_optimizer_init_fn, standard_cost_fn, data, device, num_epochs = 100, fname = '/home/users/swmclau2/scratch/standard_net', print_every = 500, lr = 0.0001) 
