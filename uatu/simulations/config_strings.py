@@ -191,7 +191,7 @@ Nmesh            512         % This is the size of the FFT grid used to compute 
 Nsample          512         % This sets the total number of particles in the simulation, such that Ntot = Nsample^3.
 Box              512.0      % The Periodic box size of simulation.
 Init_Redshift    20.0         % The redshift to begin timestepping from (redshift = 9 works well for COLA)
-Seed             5001        % Seed for IC-generator
+Seed             {seed}      % Seed for IC-generator
 SphereMode       0           % If "1" only modes with |k| < k_Nyquist are used to generate initial conditions (i.e. a sphere in k-space),
                              % otherwise modes with |k_x|,|k_y|,|k_z| < k_Nyquist are used (i.e. a cube in k-space).
 
