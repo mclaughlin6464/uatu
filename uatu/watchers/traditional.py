@@ -53,9 +53,10 @@ def lnprior(theta):
 def lnliklihood(theta, bins, obs_xi, invcov):
 
     Om, s8 = theta
-    Ocdm = Om - 0.022/(0.7**2)
+    Ob = 0.022/(0.7**2)
+    Ocdm = Om - Ob
     cosmo = Cosmology(h=0.7, T0_cmb=2.726,
-                      Omega_b = 0.022/(0.7**2),
+                      Omega_b = 0.022,
                       Omega0_cdm=Ocdm,
                       P_k_max = 100.0,
                       n_s=0.96).match(s8)
@@ -82,7 +83,7 @@ def simulate_analysis(obsboxdir, bins, invcov, nwalkers, nsteps, ncores):
 
     pos0 = np.random.randn(nwalkers, 2)
     pos0*=0.05
-    pos0+= np.array([0.25, 0.8])
+    pos0+= np.array([0.3, 0.9])
     sampler.run_mcmc(pos0, nsteps)
 
     return sampler.flatchain

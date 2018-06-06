@@ -54,7 +54,7 @@ def original_bayes_cost_fn(y, preds):
 
 
 def train(model_init_fn, optimizer_init_fn, cost_fn, data, device, fname,\
-          restore = False,num_epochs = 1, print_every = 10, lr_np = 0.0005):
+          restore = False,num_epochs = 1, print_every = 10):
     tf.reset_default_graph()
     train_dset, val_dset, _ = data
     with tf.device(device):

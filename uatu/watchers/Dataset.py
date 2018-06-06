@@ -32,7 +32,8 @@ class Dataset(object):
             return iter((np.swapaxes(self.X[i:i + B], a,b), self.Y[i:i + B]) for i in xrange(0, N, B))
 
 class DatasetFromFile(object):
-    def __init__(self, fname, batch_size, shuffle=False, augment = True, test_idxs = None, train_test_split=0.7):
+    def __init__(self, fname, batch_size, shuffle=False, augment = True, test_idxs = None,\
+                 train_test_split=0.7, take_log = False):
 
         assert path.isfile(fname)
 
@@ -40,6 +41,8 @@ class DatasetFromFile(object):
         self.augment = augment
         
         self.fname = fname
+
+        self.take_log = take_log
 
         f = h5py.File(fname, 'r')
         n_boxes = len(f.keys()) 
@@ -98,6 +101,11 @@ class DatasetFromFile(object):
             if self.augment:
                 a,b = np.random.randint(0, 3, size = 2) #randomly swap two axes, to rotate the input array
                 X = np.swapaxes(X, a,b)
+            if self.take_log:
+                X = np.array(X) # for some reason have to do this
+                X[X==0] = 1e-6
+                X = np.log10(X)
+
             outputX.append(X)
             outputY.append(Y)
         f.close()
