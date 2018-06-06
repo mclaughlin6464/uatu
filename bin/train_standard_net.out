@@ -1,3966 +1,711 @@
 /home/users/swmclau2/.local/lib/python2.7/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
   from ._conv import register_converters as _register_converters
-2018-06-04 18:06:12.828191: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 0 with properties: 
+2018-06-05 23:23:42.534042: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 0 with properties: 
 name: GeForce GTX TITAN Black major: 3 minor: 5 memoryClockRate(GHz): 0.98
-pciBusID: 0000:85:00.0
+pciBusID: 0000:89:00.0
 totalMemory: 5.94GiB freeMemory: 5.86GiB
-2018-06-04 18:06:12.828268: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1312] Adding visible gpu devices: 0
-2018-06-04 18:06:13.257865: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 5664 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN Black, pci bus id: 0000:85:00.0, compute capability: 3.5)
-0.0245311260223
+2018-06-05 23:23:42.534117: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1312] Adding visible gpu devices: 0
+2018-06-05 23:23:42.956944: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 5664 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN Black, pci bus id: 0000:89:00.0, compute capability: 3.5)
+0.0163080692291
 Starting epoch 0
-Next 0 False
-Hi 0
-Iteration 0, loss = 510.7817
-Next 0 True
-Next 32 True
-Next 64 True
-Next 96 True
-Next 128 True
-Next 160 True
-Next 192 True
-Next 224 True
-Next 256 True
-Next 288 True
-Next 320 True
-Next 352 True
-Next 384 True
-Next 416 True
-Next 448 True
-Next 480 True
-Next 512 True
-Next 544 True
-Next 576 True
-Next 608 True
-Next 640 True
-Next 672 True
-Next 704 True
-Next 736 True
-Next 768 True
-Next 800 True
-Next 832 True
-Next 864 True
-Next 896 True
-Next 928 True
-Next 960 True
-Next 992 True
-Next 1024 True
-Next 1056 True
-Next 1088 True
-Next 1120 True
-Next 1152 True
-Next 1184 True
-Next 1216 True
-Next 1248 True
-Next 1280 True
-Next 1312 True
-Next 1344 True
-Next 1376 True
-Next 1408 True
-Next 1440 True
-Next 1472 True
-Next 1504 True
-Next 1536 True
-Next 1568 True
-Next 1600 True
-Next 1632 True
-Next 1664 True
-Next 1696 True
-Next 1728 True
-Next 1760 True
-Next 1792 True
-Next 1824 True
-Next 1856 True
-Next 1888 True
-Next 1920 True
-Next 1952 True
-Next 1984 True
-Next 2016 True
-Next 2048 True
-Next 2080 True
-Next 2112 True
-Next 2144 True
-Next 2176 True
-Next 2208 True
-Next 2240 True
-Next 2272 True
-Next 2304 True
-Next 2336 True
-Next 2368 True
-Next 2400 True
-Next 2432 True
-Next 2464 True
-Next 2496 True
-Next 2528 True
-Next 2560 True
-Next 2592 True
-Next 2624 True
-Next 2656 True
-Next 2688 True
-Next 2720 True
-Next 2752 True
-Next 2784 True
-Next 2816 True
-Next 2848 True
-Next 2880 True
-Next 2912 True
-Next 2944 True
-Next 2976 True
-Next 3008 True
-Next 3040 True
-Next 3072 True
-Next 3104 True
-Next 3136 True
-Next 3168 True
-Next 3200 True
-Next 3232 True
-Next 3264 True
-Next 3296 True
-Next 3328 True
-Next 3360 True
-Next 3392 True
-Next 3424 True
-Next 3456 True
-Next 3488 True
-Next 3520 True
-Next 3552 True
-Next 3584 True
-Next 3616 True
-Next 3648 True
-Next 3680 True
-Next 3712 True
-Next 3744 True
-Next 3776 True
-Next 3808 True
-Next 3840 True
-Next 3872 True
-Next 3904 True
-Next 3936 True
-Next 3968 True
-Next 4000 True
-Next 4032 True
-Next 4064 True
-Next 4096 True
-Next 4128 True
-Next 4160 True
-Next 4192 True
-Next 4224 True
-Next 4256 True
-Next 4288 True
-Next 4320 True
-Next 4352 True
-Next 4384 True
-Next 4416 True
-Next 4448 True
-Next 4480 True
-Next 4512 True
-Next 4544 True
-Next 4576 True
-Next 4608 True
-Next 4640 True
-Next 4672 True
-Next 4704 True
-Next 4736 True
-Next 4768 True
-Om: -1838.37%, s8: 411.93% accuracy
+0 271.01944
+Iteration 0, loss = 271.0194
+Om: 285.45%, s8: 264.07% accuracy
 
-Next 32 False
-Hi 1
-Next 64 False
-Hi 2
-Next 96 False
-Hi 3
-Next 128 False
-Hi 4
-Next 160 False
-Hi 5
-Next 192 False
-Hi 6
-Next 224 False
-Hi 7
-Next 256 False
-Hi 8
-Next 288 False
-Hi 9
-Next 320 False
-Hi 10
-Next 352 False
-Hi 11
-Next 384 False
-Hi 12
-Next 416 False
-Hi 13
-Next 448 False
-Hi 14
-Next 480 False
-Hi 15
-Next 512 False
-Hi 16
-Next 544 False
-Hi 17
-Next 576 False
-Hi 18
-Next 608 False
-Hi 19
-Next 640 False
-Hi 20
-Next 672 False
-Hi 21
-Next 704 False
-Hi 22
-Next 736 False
-Hi 23
-Next 768 False
-Hi 24
-Next 800 False
-Hi 25
-Next 832 False
-Hi 26
-Next 864 False
-Hi 27
-Next 896 False
-Hi 28
-Next 928 False
-Hi 29
-Next 960 False
-Hi 30
-Next 992 False
-Hi 31
-Next 1024 False
-Hi 32
-Next 1056 False
-Hi 33
-Next 1088 False
-Hi 34
-Next 1120 False
-Hi 35
-Next 1152 False
-Hi 36
-Next 1184 False
-Hi 37
-Next 1216 False
-Hi 38
-Next 1248 False
-Hi 39
-Next 1280 False
-Hi 40
-Next 1312 False
-Hi 41
-Next 1344 False
-Hi 42
-Next 1376 False
-Hi 43
-Next 1408 False
-Hi 44
-Next 1440 False
-Hi 45
-Next 1472 False
-Hi 46
-Next 1504 False
-Hi 47
-Next 1536 False
-Hi 48
-Next 1568 False
-Hi 49
-Next 1600 False
-Hi 50
-Next 1632 False
-Hi 51
-Next 1664 False
-Hi 52
-Next 1696 False
-Hi 53
-Next 1728 False
-Hi 54
-Next 1760 False
-Hi 55
-Next 1792 False
-Hi 56
-Next 1824 False
-Hi 57
-Next 1856 False
-Hi 58
-Next 1888 False
-Hi 59
-Next 1920 False
-Hi 60
-Next 1952 False
-Hi 61
-Next 1984 False
-Hi 62
-Next 2016 False
-Hi 63
-Next 2048 False
-Hi 64
-Next 2080 False
-Hi 65
-Next 2112 False
-Hi 66
-Next 2144 False
-Hi 67
-Next 2176 False
-Hi 68
-Next 2208 False
-Hi 69
-Next 2240 False
-Hi 70
-Next 2272 False
-Hi 71
-Next 2304 False
-Hi 72
-Next 2336 False
-Hi 73
-Next 2368 False
-Hi 74
-Next 2400 False
-Hi 75
-Next 2432 False
-Hi 76
-Next 2464 False
-Hi 77
-Next 2496 False
-Hi 78
-Next 2528 False
-Hi 79
-Next 2560 False
-Hi 80
-Next 2592 False
-Hi 81
-Next 2624 False
-Hi 82
-Next 2656 False
-Hi 83
-Next 2688 False
-Hi 84
-Next 2720 False
-Hi 85
-Next 2752 False
-Hi 86
-Next 2784 False
-Hi 87
-Next 2816 False
-Hi 88
-Next 2848 False
-Hi 89
-Next 2880 False
-Hi 90
-Next 2912 False
-Hi 91
-Next 2944 False
-Hi 92
-Next 2976 False
-Hi 93
-Next 3008 False
-Hi 94
-Next 3040 False
-Hi 95
-Next 3072 False
-Hi 96
-Next 3104 False
-Hi 97
-Next 3136 False
-Hi 98
-Next 3168 False
-Hi 99
-Next 3200 False
-Hi 100
-Next 3232 False
-Hi 101
-Next 3264 False
-Hi 102
-Next 3296 False
-Hi 103
-Next 3328 False
-Hi 104
-Next 3360 False
-Hi 105
-Next 3392 False
-Hi 106
-Next 3424 False
-Hi 107
-Next 3456 False
-Hi 108
-Next 3488 False
-Hi 109
-Next 3520 False
-Hi 110
-Next 3552 False
-Hi 111
-Next 3584 False
-Hi 112
-Next 3616 False
-Hi 113
-Next 3648 False
-Hi 114
-Next 3680 False
-Hi 115
-Next 3712 False
-Hi 116
-Next 3744 False
-Hi 117
-Next 3776 False
-Hi 118
-Next 3808 False
-Hi 119
-Next 3840 False
-Hi 120
-Next 3872 False
-Hi 121
-Next 3904 False
-Hi 122
-Next 3936 False
-Hi 123
-Next 3968 False
-Hi 124
-Next 4000 False
-Hi 125
-Next 4032 False
-Hi 126
-Next 4064 False
-Hi 127
-Next 4096 False
-Hi 128
-Next 4128 False
-Hi 129
-Next 4160 False
-Hi 130
-Next 4192 False
-Hi 131
-Next 4224 False
-Hi 132
-Next 4256 False
-Hi 133
-Next 4288 False
-Hi 134
-Next 4320 False
-Hi 135
-Next 4352 False
-Hi 136
-Next 4384 False
-Hi 137
-Next 4416 False
-Hi 138
-Next 4448 False
-Hi 139
-Next 4480 False
-Hi 140
-Next 4512 False
-Hi 141
-Next 4544 False
-Hi 142
-Next 4576 False
-Hi 143
-Next 4608 False
-Hi 144
-Next 4640 False
-Hi 145
-Next 4672 False
-Hi 146
-Next 4704 False
-Hi 147
-Next 4736 False
-Hi 148
-Next 4768 False
-Hi 149
-Next 4800 False
-Hi 150
-Next 4832 False
-Hi 151
-Next 4864 False
-Hi 152
-Next 4896 False
-Hi 153
-Next 4928 False
-Hi 154
-Next 4960 False
-Hi 155
-Next 4992 False
-Hi 156
-Next 5024 False
-Hi 157
-Next 5056 False
-Hi 158
-Next 5088 False
-Hi 159
-Next 5120 False
-Hi 160
-Next 5152 False
-Hi 161
-Next 5184 False
-Hi 162
-Next 5216 False
-Hi 163
-Next 5248 False
-Hi 164
-Next 5280 False
-Hi 165
-Next 5312 False
-Hi 166
-Next 5344 False
-Hi 167
-Next 5376 False
-Hi 168
-Next 5408 False
-Hi 169
-Next 5440 False
-Hi 170
-Next 5472 False
-Hi 171
-Next 5504 False
-Hi 172
-Next 5536 False
-Hi 173
-Next 5568 False
-Hi 174
-Next 5600 False
-Hi 175
-Next 5632 False
-Hi 176
-Next 5664 False
-Hi 177
-Next 5696 False
-Hi 178
-Next 5728 False
-Hi 179
-Next 5760 False
-Hi 180
-Next 5792 False
-Hi 181
-Next 5824 False
-Hi 182
-Next 5856 False
-Hi 183
-Next 5888 False
-Hi 184
-Next 5920 False
-Hi 185
-Next 5952 False
-Hi 186
-Next 5984 False
-Hi 187
-Next 6016 False
-Hi 188
-Next 6048 False
-Hi 189
-Next 6080 False
-Hi 190
-Next 6112 False
-Hi 191
-Next 6144 False
-Hi 192
-Next 6176 False
-Hi 193
-Next 6208 False
-Hi 194
-Next 6240 False
-Hi 195
-Next 6272 False
-Hi 196
-Next 6304 False
-Hi 197
-Next 6336 False
-Hi 198
-Next 6368 False
-Hi 199
-Next 6400 False
-Hi 200
-Next 6432 False
-Hi 201
-Next 6464 False
-Hi 202
-Next 6496 False
-Hi 203
-Next 6528 False
-Hi 204
-Next 6560 False
-Hi 205
-Next 6592 False
-Hi 206
-Next 6624 False
-Hi 207
-Next 6656 False
-Hi 208
-Next 6688 False
-Hi 209
-Next 6720 False
-Hi 210
-Next 6752 False
-Hi 211
-Next 6784 False
-Hi 212
-Next 6816 False
-Hi 213
-Next 6848 False
-Hi 214
-Next 6880 False
-Hi 215
-Next 6912 False
-Hi 216
-Next 6944 False
-Hi 217
-Next 6976 False
-Hi 218
-Next 7008 False
-Hi 219
-Next 7040 False
-Hi 220
-Next 7072 False
-Hi 221
-Next 7104 False
-Hi 222
-Next 7136 False
-Hi 223
-Next 7168 False
-Hi 224
-Next 7200 False
-Hi 225
-Next 7232 False
-Hi 226
-Next 7264 False
-Hi 227
-Next 7296 False
-Hi 228
-Next 7328 False
-Hi 229
-Next 7360 False
-Hi 230
-Next 7392 False
-Hi 231
-Next 7424 False
-Hi 232
-Next 7456 False
-Hi 233
-Next 7488 False
-Hi 234
-Next 7520 False
-Hi 235
-Next 7552 False
-Hi 236
-Next 7584 False
-Hi 237
-Next 7616 False
-Hi 238
-Next 7648 False
-Hi 239
-Next 7680 False
-Hi 240
-Next 7712 False
-Hi 241
-Next 7744 False
-Hi 242
-Next 7776 False
-Hi 243
-Next 7808 False
-Hi 244
-Next 7840 False
-Hi 245
-Next 7872 False
-Hi 246
-Next 7904 False
-Hi 247
-Next 7936 False
-Hi 248
-Next 7968 False
-Hi 249
-Next 8000 False
-Hi 250
-Next 8032 False
-Hi 251
-Next 8064 False
-Hi 252
-Next 8096 False
-Hi 253
-Next 8128 False
-Hi 254
-Next 8160 False
-Hi 255
-Next 8192 False
-Hi 256
-Next 8224 False
-Hi 257
-Next 8256 False
-Hi 258
-Next 8288 False
-Hi 259
-Next 8320 False
-Hi 260
-Next 8352 False
-Hi 261
-Next 8384 False
-Hi 262
-Next 8416 False
-Hi 263
-Next 8448 False
-Hi 264
-Next 8480 False
-Hi 265
-Next 8512 False
-Hi 266
-Next 8544 False
-Hi 267
-Next 8576 False
-Hi 268
-Next 8608 False
-Hi 269
-Next 8640 False
-Hi 270
-Next 8672 False
-Hi 271
-Next 8704 False
-Hi 272
-Next 8736 False
-Hi 273
-Next 8768 False
-Hi 274
-Next 8800 False
-Hi 275
-Next 8832 False
-Hi 276
-Next 8864 False
-Hi 277
-Next 8896 False
-Hi 278
-Next 8928 False
-Hi 279
-Next 8960 False
-Hi 280
-Next 8992 False
-Hi 281
-Next 9024 False
-Hi 282
-Next 9056 False
-Hi 283
-Next 9088 False
-Hi 284
-Next 9120 False
-Hi 285
-Next 9152 False
-Hi 286
-Next 9184 False
-Hi 287
-Next 9216 False
-Hi 288
-Next 9248 False
-Hi 289
-Next 9280 False
-Hi 290
-Next 9312 False
-Hi 291
-Next 9344 False
-Hi 292
-Next 9376 False
-Hi 293
-Next 9408 False
-Hi 294
-Next 9440 False
-Hi 295
-Next 9472 False
-Hi 296
-Next 9504 False
-Hi 297
-Next 9536 False
-Hi 298
-Next 9568 False
-Hi 299
-Next 9600 False
-Hi 300
-Next 9632 False
-Hi 301
-Next 9664 False
-Hi 302
-Next 9696 False
-Hi 303
-Next 9728 False
-Hi 304
-Next 9760 False
-Hi 305
-Next 9792 False
-Hi 306
-Next 9824 False
-Hi 307
-Next 9856 False
-Hi 308
-Next 9888 False
-Hi 309
-Next 9920 False
-Hi 310
-Next 9952 False
-Hi 311
-Next 9984 False
-Hi 312
-Next 10016 False
-Hi 313
-Next 10048 False
-Hi 314
-Next 10080 False
-Hi 315
-Next 10112 False
-Hi 316
-Next 10144 False
-Hi 317
-Next 10176 False
-Hi 318
-Next 10208 False
-Hi 319
-Next 10240 False
-Hi 320
-Next 10272 False
-Hi 321
-Next 10304 False
-Hi 322
-Next 10336 False
-Hi 323
-Next 10368 False
-Hi 324
-Next 10400 False
-Hi 325
-Next 10432 False
-Hi 326
-Next 10464 False
-Hi 327
-Next 10496 False
-Hi 328
-Next 10528 False
-Hi 329
-Next 10560 False
-Hi 330
-Next 10592 False
-Hi 331
-Next 10624 False
-Hi 332
-Next 10656 False
-Hi 333
-Next 10688 False
-Hi 334
-Next 10720 False
-Hi 335
-Next 10752 False
-Hi 336
-Next 10784 False
-Hi 337
-Next 10816 False
-Hi 338
-Next 10848 False
-Hi 339
-Next 10880 False
-Hi 340
-Next 10912 False
-Hi 341
-Next 10944 False
-Hi 342
-Next 10976 False
-Hi 343
-Next 11008 False
-Hi 344
-Next 11040 False
-Hi 345
-Next 11072 False
-Hi 346
-Next 11104 False
-Hi 347
-Next 11136 False
-Hi 348
-Next 11168 False
-Hi 349
+1 392.4555
+2 228.95221
+3 185.16016
+4 199.63303
+5 138.34006
+6 164.07433
+7 149.28043
+8 129.72418
+9 159.9164
+10 96.17479
+11 76.14876
+12 67.780655
+13 74.24473
+14 80.06602
+15 87.3006
+16 51.942204
+17 87.20651
+18 68.700386
+19 51.623253
+20 35.206764
+21 44.241966
+22 45.95192
+23 51.5489
+24 51.719345
+25 40.672813
+26 36.096466
+27 32.46693
+28 23.089502
+29 27.171015
+30 21.14743
+31 19.137749
+32 24.502222
+33 19.721167
+34 20.333784
+35 14.388329
+36 21.392052
+37 16.872356
+38 18.085428
+39 18.040907
+40 14.127506
+41 18.13264
+42 16.757864
+43 13.580987
+44 14.907919
+45 12.595623
+46 11.9274435
+47 9.846446
+48 11.482548
+49 10.054373
+50 9.440495
+51 7.2958345
+52 9.6899
+53 9.068165
+54 10.071804
+55 8.357172
+56 8.044027
+57 8.665358
+58 8.293799
+59 9.023706
+60 7.9450817
+61 9.26601
+62 8.186572
+63 6.3913527
+64 8.171065
+65 6.720986
+66 7.513243
+67 5.9227495
+68 6.555871
+69 7.3508744
+70 6.6014814
+71 6.427541
+72 6.2875113
+73 7.3271484
+74 6.178301
+75 5.9152007
+76 6.1185613
+77 6.666962
+78 8.0454235
+79 6.9812264
+80 6.4743094
+81 6.4447546
+82 5.57601
+83 6.9846125
+84 5.987755
+85 5.7313704
+86 8.019998
+87 5.124837
+88 6.110506
+89 4.8609877
+90 4.8318257
+91 7.6173735
+92 7.222467
+93 4.9101076
+94 5.198735
+95 5.905936
+96 4.7777057
+97 6.302188
+98 5.1712456
+99 5.3125257
+100 3.9325967
+101 6.793122
+102 6.646349
+103 5.210507
+104 6.598994
+105 5.782831
+106 5.690954
+107 4.9299936
+108 4.673214
+109 5.494267
+110 4.6061344
+111 4.53712
+112 4.9908543
+113 4.8087697
+114 3.6643553
+115 6.8297915
+116 5.910742
+117 5.7474556
+118 6.205474
+119 3.784647
+120 3.7687416
+121 4.33513
+122 5.7279296
+123 4.7652864
+124 4.226593
+125 5.6632986
+126 4.760577
+127 4.9743657
+128 4.2200794
+129 5.4487205
+130 5.4700346
+131 3.4163463
+132 4.3470306
+133 4.6163635
+134 3.3038905
+135 4.718715
+136 4.8464403
+137 3.3115475
+138 3.2058158
+139 3.937506
+140 3.8569245
+141 4.431297
+142 3.9617705
+143 3.7406225
+144 3.979228
+145 3.7104998
+146 3.7120485
+147 4.2346973
+148 3.9228995
+149 5.0326023
+150 3.4729095
+151 3.6747274
+152 4.148567
+153 3.6459627
+154 4.100607
+155 3.2352679
+156 3.507209
+157 3.179601
+158 3.6909409
+159 2.532548
+160 3.42888
+161 3.7141984
+162 3.953392
+163 3.9253333
+164 3.7316642
+165 4.6719246
+166 4.3129816
+167 3.2449198
+168 3.1621327
+169 2.9768162
+170 3.7491937
+171 3.4354844
+172 3.0137148
+173 3.726143
+174 3.9787807
 Starting epoch 1
-Next 0 False
-Hi 350
-Next 32 False
-Hi 351
-Next 64 False
-Hi 352
-Next 96 False
-Hi 353
-Next 128 False
-Hi 354
-Next 160 False
-Hi 355
-Next 192 False
-Hi 356
-Next 224 False
-Hi 357
-Next 256 False
-Hi 358
-Next 288 False
-Hi 359
-Next 320 False
-Hi 360
-Next 352 False
-Hi 361
-Next 384 False
-Hi 362
-Next 416 False
-Hi 363
-Next 448 False
-Hi 364
-Next 480 False
-Hi 365
-Next 512 False
-Hi 366
-Next 544 False
-Hi 367
-Next 576 False
-Hi 368
-Next 608 False
-Hi 369
-Next 640 False
-Hi 370
-Next 672 False
-Hi 371
-Next 704 False
-Hi 372
-Next 736 False
-Hi 373
-Next 768 False
-Hi 374
-Next 800 False
-Hi 375
-Next 832 False
-Hi 376
-Next 864 False
-Hi 377
-Next 896 False
-Hi 378
-Next 928 False
-Hi 379
-Next 960 False
-Hi 380
-Next 992 False
-Hi 381
-Next 1024 False
-Hi 382
-Next 1056 False
-Hi 383
-Next 1088 False
-Hi 384
-Next 1120 False
-Hi 385
-Next 1152 False
-Hi 386
-Next 1184 False
-Hi 387
-Next 1216 False
-Hi 388
-Next 1248 False
-Hi 389
-Next 1280 False
-Hi 390
-Next 1312 False
-Hi 391
-Next 1344 False
-Hi 392
-Next 1376 False
-Hi 393
-Next 1408 False
-Hi 394
-Next 1440 False
-Hi 395
-Next 1472 False
-Hi 396
-Next 1504 False
-Hi 397
-Next 1536 False
-Hi 398
-Next 1568 False
-Hi 399
-Next 1600 False
-Hi 400
-Next 1632 False
-Hi 401
-Next 1664 False
-Hi 402
-Next 1696 False
-Hi 403
-Next 1728 False
-Hi 404
-Next 1760 False
-Hi 405
-Next 1792 False
-Hi 406
-Next 1824 False
-Hi 407
-Next 1856 False
-Hi 408
-Next 1888 False
-Hi 409
-Next 1920 False
-Hi 410
-Next 1952 False
-Hi 411
-Next 1984 False
-Hi 412
-Next 2016 False
-Hi 413
-Next 2048 False
-Hi 414
-Next 2080 False
-Hi 415
-Next 2112 False
-Hi 416
-Next 2144 False
-Hi 417
-Next 2176 False
-Hi 418
-Next 2208 False
-Hi 419
-Next 2240 False
-Hi 420
-Next 2272 False
-Hi 421
-Next 2304 False
-Hi 422
-Next 2336 False
-Hi 423
-Next 2368 False
-Hi 424
-Next 2400 False
-Hi 425
-Next 2432 False
-Hi 426
-Next 2464 False
-Hi 427
-Next 2496 False
-Hi 428
-Next 2528 False
-Hi 429
-Next 2560 False
-Hi 430
-Next 2592 False
-Hi 431
-Next 2624 False
-Hi 432
-Next 2656 False
-Hi 433
-Next 2688 False
-Hi 434
-Next 2720 False
-Hi 435
-Next 2752 False
-Hi 436
-Next 2784 False
-Hi 437
-Next 2816 False
-Hi 438
-Next 2848 False
-Hi 439
-Next 2880 False
-Hi 440
-Next 2912 False
-Hi 441
-Next 2944 False
-Hi 442
-Next 2976 False
-Hi 443
-Next 3008 False
-Hi 444
-Next 3040 False
-Hi 445
-Next 3072 False
-Hi 446
-Next 3104 False
-Hi 447
-Next 3136 False
-Hi 448
-Next 3168 False
-Hi 449
-Next 3200 False
-Hi 450
-Next 3232 False
-Hi 451
-Next 3264 False
-Hi 452
-Next 3296 False
-Hi 453
-Next 3328 False
-Hi 454
-Next 3360 False
-Hi 455
-Next 3392 False
-Hi 456
-Next 3424 False
-Hi 457
-Next 3456 False
-Hi 458
-Next 3488 False
-Hi 459
-Next 3520 False
-Hi 460
-Next 3552 False
-Hi 461
-Next 3584 False
-Hi 462
-Next 3616 False
-Hi 463
-Next 3648 False
-Hi 464
-Next 3680 False
-Hi 465
-Next 3712 False
-Hi 466
-Next 3744 False
-Hi 467
-Next 3776 False
-Hi 468
-Next 3808 False
-Hi 469
-Next 3840 False
-Hi 470
-Next 3872 False
-Hi 471
-Next 3904 False
-Hi 472
-Next 3936 False
-Hi 473
-Next 3968 False
-Hi 474
-Next 4000 False
-Hi 475
-Next 4032 False
-Hi 476
-Next 4064 False
-Hi 477
-Next 4096 False
-Hi 478
-Next 4128 False
-Hi 479
-Next 4160 False
-Hi 480
-Next 4192 False
-Hi 481
-Next 4224 False
-Hi 482
-Next 4256 False
-Hi 483
-Next 4288 False
-Hi 484
-Next 4320 False
-Hi 485
-Next 4352 False
-Hi 486
-Next 4384 False
-Hi 487
-Next 4416 False
-Hi 488
-Next 4448 False
-Hi 489
-Next 4480 False
-Hi 490
-Next 4512 False
-Hi 491
-Next 4544 False
-Hi 492
-Next 4576 False
-Hi 493
-Next 4608 False
-Hi 494
-Next 4640 False
-Hi 495
-Next 4672 False
-Hi 496
-Next 4704 False
-Hi 497
-Next 4736 False
-Hi 498
-Next 4768 False
-Hi 499
-Next 4800 False
-Hi 500
-Iteration 500, loss = 1.3733
-Next 0 True
-Next 32 True
-Next 64 True
-Next 96 True
-Next 128 True
-Next 160 True
-Next 192 True
-Next 224 True
-Next 256 True
-Next 288 True
-Next 320 True
-Next 352 True
-Next 384 True
-Next 416 True
-Next 448 True
-Next 480 True
-Next 512 True
-Next 544 True
-Next 576 True
-Next 608 True
-Next 640 True
-Next 672 True
-Next 704 True
-Next 736 True
-Next 768 True
-Next 800 True
-Next 832 True
-Next 864 True
-Next 896 True
-Next 928 True
-Next 960 True
-Next 992 True
-Next 1024 True
-Next 1056 True
-Next 1088 True
-Next 1120 True
-Next 1152 True
-Next 1184 True
-Next 1216 True
-Next 1248 True
-Next 1280 True
-Next 1312 True
-Next 1344 True
-Next 1376 True
-Next 1408 True
-Next 1440 True
-Next 1472 True
-Next 1504 True
-Next 1536 True
-Next 1568 True
-Next 1600 True
-Next 1632 True
-Next 1664 True
-Next 1696 True
-Next 1728 True
-Next 1760 True
-Next 1792 True
-Next 1824 True
-Next 1856 True
-Next 1888 True
-Next 1920 True
-Next 1952 True
-Next 1984 True
-Next 2016 True
-Next 2048 True
-Next 2080 True
-Next 2112 True
-Next 2144 True
-Next 2176 True
-Next 2208 True
-Next 2240 True
-Next 2272 True
-Next 2304 True
-Next 2336 True
-Next 2368 True
-Next 2400 True
-Next 2432 True
-Next 2464 True
-Next 2496 True
-Next 2528 True
-Next 2560 True
-Next 2592 True
-Next 2624 True
-Next 2656 True
-Next 2688 True
-Next 2720 True
-Next 2752 True
-Next 2784 True
-Next 2816 True
-Next 2848 True
-Next 2880 True
-Next 2912 True
-Next 2944 True
-Next 2976 True
-Next 3008 True
-Next 3040 True
-Next 3072 True
-Next 3104 True
-Next 3136 True
-Next 3168 True
-Next 3200 True
-Next 3232 True
-Next 3264 True
-Next 3296 True
-Next 3328 True
-Next 3360 True
-Next 3392 True
-Next 3424 True
-Next 3456 True
-Next 3488 True
-Next 3520 True
-Next 3552 True
-Next 3584 True
-Next 3616 True
-Next 3648 True
-Next 3680 True
-Next 3712 True
-Next 3744 True
-Next 3776 True
-Next 3808 True
-Next 3840 True
-Next 3872 True
-Next 3904 True
-Next 3936 True
-Next 3968 True
-Next 4000 True
-Next 4032 True
-Next 4064 True
-Next 4096 True
-Next 4128 True
-Next 4160 True
-Next 4192 True
-Next 4224 True
-Next 4256 True
-Next 4288 True
-Next 4320 True
-Next 4352 True
-Next 4384 True
-Next 4416 True
-Next 4448 True
-Next 4480 True
-Next 4512 True
-Next 4544 True
-Next 4576 True
-Next 4608 True
-Next 4640 True
-Next 4672 True
-Next 4704 True
-Next 4736 True
-Next 4768 True
-Om: -5.59%, s8: -9.44% accuracy
-
-Next 4832 False
-Hi 501
-Next 4864 False
-Hi 502
-Next 4896 False
-Hi 503
-Next 4928 False
-Hi 504
-Next 4960 False
-Hi 505
-Next 4992 False
-Hi 506
-Next 5024 False
-Hi 507
-Next 5056 False
-Hi 508
-Next 5088 False
-Hi 509
-Next 5120 False
-Hi 510
-Next 5152 False
-Hi 511
-Next 5184 False
-Hi 512
-Next 5216 False
-Hi 513
-Next 5248 False
-Hi 514
-Next 5280 False
-Hi 515
-Next 5312 False
-Hi 516
-Next 5344 False
-Hi 517
-Next 5376 False
-Hi 518
-Next 5408 False
-Hi 519
-Next 5440 False
-Hi 520
-Next 5472 False
-Hi 521
-Next 5504 False
-Hi 522
-Next 5536 False
-Hi 523
-Next 5568 False
-Hi 524
-Next 5600 False
-Hi 525
-Next 5632 False
-Hi 526
-Next 5664 False
-Hi 527
-Next 5696 False
-Hi 528
-Next 5728 False
-Hi 529
-Next 5760 False
-Hi 530
-Next 5792 False
-Hi 531
-Next 5824 False
-Hi 532
-Next 5856 False
-Hi 533
-Next 5888 False
-Hi 534
-Next 5920 False
-Hi 535
-Next 5952 False
-Hi 536
-Next 5984 False
-Hi 537
-Next 6016 False
-Hi 538
-Next 6048 False
-Hi 539
-Next 6080 False
-Hi 540
-Next 6112 False
-Hi 541
-Next 6144 False
-Hi 542
-Next 6176 False
-Hi 543
-Next 6208 False
-Hi 544
-Next 6240 False
-Hi 545
-Next 6272 False
-Hi 546
-Next 6304 False
-Hi 547
-Next 6336 False
-Hi 548
-Next 6368 False
-Hi 549
-Next 6400 False
-Hi 550
-Next 6432 False
-Hi 551
-Next 6464 False
-Hi 552
-Next 6496 False
-Hi 553
-Next 6528 False
-Hi 554
-Next 6560 False
-Hi 555
-Next 6592 False
-Hi 556
-Next 6624 False
-Hi 557
-Next 6656 False
-Hi 558
-Next 6688 False
-Hi 559
-Next 6720 False
-Hi 560
-Next 6752 False
-Hi 561
-Next 6784 False
-Hi 562
-Next 6816 False
-Hi 563
-Next 6848 False
-Hi 564
-Next 6880 False
-Hi 565
-Next 6912 False
-Hi 566
-Next 6944 False
-Hi 567
-Next 6976 False
-Hi 568
-Next 7008 False
-Hi 569
-Next 7040 False
-Hi 570
-Next 7072 False
-Hi 571
-Next 7104 False
-Hi 572
-Next 7136 False
-Hi 573
-Next 7168 False
-Hi 574
-Next 7200 False
-Hi 575
-Next 7232 False
-Hi 576
-Next 7264 False
-Hi 577
-Next 7296 False
-Hi 578
-Next 7328 False
-Hi 579
-Next 7360 False
-Hi 580
-Next 7392 False
-Hi 581
-Next 7424 False
-Hi 582
-Next 7456 False
-Hi 583
-Next 7488 False
-Hi 584
-Next 7520 False
-Hi 585
-Next 7552 False
-Hi 586
-Next 7584 False
-Hi 587
-Next 7616 False
-Hi 588
-Next 7648 False
-Hi 589
-Next 7680 False
-Hi 590
-Next 7712 False
-Hi 591
-Next 7744 False
-Hi 592
-Next 7776 False
-Hi 593
-Next 7808 False
-Hi 594
-Next 7840 False
-Hi 595
-Next 7872 False
-Hi 596
-Next 7904 False
-Hi 597
-Next 7936 False
-Hi 598
-Next 7968 False
-Hi 599
-Next 8000 False
-Hi 600
-Next 8032 False
-Hi 601
-Next 8064 False
-Hi 602
-Next 8096 False
-Hi 603
-Next 8128 False
-Hi 604
-Next 8160 False
-Hi 605
-Next 8192 False
-Hi 606
-Next 8224 False
-Hi 607
-Next 8256 False
-Hi 608
-Next 8288 False
-Hi 609
-Next 8320 False
-Hi 610
-Next 8352 False
-Hi 611
-Next 8384 False
-Hi 612
-Next 8416 False
-Hi 613
-Next 8448 False
-Hi 614
-Next 8480 False
-Hi 615
-Next 8512 False
-Hi 616
-Next 8544 False
-Hi 617
-Next 8576 False
-Hi 618
-Next 8608 False
-Hi 619
-Next 8640 False
-Hi 620
-Next 8672 False
-Hi 621
-Next 8704 False
-Hi 622
-Next 8736 False
-Hi 623
-Next 8768 False
-Hi 624
-Next 8800 False
-Hi 625
-Next 8832 False
-Hi 626
-Next 8864 False
-Hi 627
-Next 8896 False
-Hi 628
-Next 8928 False
-Hi 629
-Next 8960 False
-Hi 630
-Next 8992 False
-Hi 631
-Next 9024 False
-Hi 632
-Next 9056 False
-Hi 633
-Next 9088 False
-Hi 634
-Next 9120 False
-Hi 635
-Next 9152 False
-Hi 636
-Next 9184 False
-Hi 637
-Next 9216 False
-Hi 638
-Next 9248 False
-Hi 639
-Next 9280 False
-Hi 640
-Next 9312 False
-Hi 641
-Next 9344 False
-Hi 642
-Next 9376 False
-Hi 643
-Next 9408 False
-Hi 644
-Next 9440 False
-Hi 645
-Next 9472 False
-Hi 646
-Next 9504 False
-Hi 647
-Next 9536 False
-Hi 648
-Next 9568 False
-Hi 649
-Next 9600 False
-Hi 650
-Next 9632 False
-Hi 651
-Next 9664 False
-Hi 652
-Next 9696 False
-Hi 653
-Next 9728 False
-Hi 654
-Next 9760 False
-Hi 655
-Next 9792 False
-Hi 656
-Next 9824 False
-Hi 657
-Next 9856 False
-Hi 658
-Next 9888 False
-Hi 659
-Next 9920 False
-Hi 660
-Next 9952 False
-Hi 661
-Next 9984 False
-Hi 662
-Next 10016 False
-Hi 663
-Next 10048 False
-Hi 664
-Next 10080 False
-Hi 665
-Next 10112 False
-Hi 666
-Next 10144 False
-Hi 667
-Next 10176 False
-Hi 668
-Next 10208 False
-Hi 669
-Next 10240 False
-Hi 670
-Next 10272 False
-Hi 671
-Next 10304 False
-Hi 672
-Next 10336 False
-Hi 673
-Next 10368 False
-Hi 674
-Next 10400 False
-Hi 675
-Next 10432 False
-Hi 676
-Next 10464 False
-Hi 677
-Next 10496 False
-Hi 678
-Next 10528 False
-Hi 679
-Next 10560 False
-Hi 680
-Next 10592 False
-Hi 681
-Next 10624 False
-Hi 682
-Next 10656 False
-Hi 683
-Next 10688 False
-Hi 684
-Next 10720 False
-Hi 685
-Next 10752 False
-Hi 686
-Next 10784 False
-Hi 687
-Next 10816 False
-Hi 688
-Next 10848 False
-Hi 689
-Next 10880 False
-Hi 690
-Next 10912 False
-Hi 691
-Next 10944 False
-Hi 692
-Next 10976 False
-Hi 693
-Next 11008 False
-Hi 694
-Next 11040 False
-Hi 695
-Next 11072 False
-Hi 696
-Next 11104 False
-Hi 697
-Next 11136 False
-Hi 698
-Next 11168 False
-Hi 699
+175 3.2028875
+176 2.8695934
+177 3.6096892
+178 2.978972
+179 3.1219578
+180 3.1550078
+181 2.8154097
+182 2.418407
+183 2.4723048
+184 2.4857755
+185 2.613644
+186 3.7342458
+187 3.0797324
+188 2.4006546
+189 2.7693431
+190 3.062973
+191 2.1957455
+192 3.153924
+193 2.460791
+194 3.217465
+195 3.388929
+196 2.5055838
+197 2.390134
+198 2.6214852
+199 3.0967944
+200 2.8602476
+201 3.0156264
+202 3.3696113
+203 2.7158127
+204 2.4152408
+205 2.0197604
+206 2.4196126
+207 2.6124535
+208 2.5210662
+209 2.9978282
+210 2.6071062
+211 2.9584177
+212 2.4954424
+213 2.416934
+214 2.2577736
+215 2.6894615
+216 2.3810463
+217 2.2092528
+218 1.8186424
+219 2.242806
+220 2.1285596
+221 2.0973496
+222 2.0666518
+223 2.5152912
+224 2.3347602
+225 2.180448
+226 2.3042464
+227 2.7244096
+228 3.076773
+229 2.0840302
+230 2.7681394
+231 3.1101344
+232 2.429223
+233 1.8012416
+234 2.178775
+235 1.9218817
+236 2.2572763
+237 2.2140226
+238 2.3595834
+239 2.1562986
+240 2.067374
+241 2.3260708
+242 2.097359
+243 2.0510712
+244 2.372182
+245 1.8440543
+246 2.3308866
+247 1.7909682
+248 1.9699299
+249 2.7095814
+250 1.8793578
+251 1.7822855
+252 2.478219
+253 1.545033
+254 1.9307505
+255 2.567154
+256 1.5899172
+257 2.3403676
+258 2.4414485
+259 1.9522836
+260 2.1724558
+261 2.0937371
+262 2.1268148
+263 1.603455
+264 1.4611336
+265 2.0008433
+266 2.125036
+267 2.278503
+268 2.1140842
+269 1.8584822
+270 1.6213851
+271 1.379626
+272 1.4436326
+273 1.5654547
+274 1.8802283
+275 1.5446755
+276 1.6995062
+277 2.0156765
+278 2.8093462
+279 2.1291962
+280 1.7334361
+281 2.1491213
+282 1.961107
+283 1.8242178
+284 1.8153274
+285 2.0733664
+286 2.00493
+287 1.5591975
+288 1.5761491
+289 2.3639169
+290 1.8163289
+291 1.2811189
+292 2.2637396
+293 1.8479812
+294 2.543869
+295 1.8121548
+296 2.086325
+297 1.6314136
+298 1.741616
+299 1.8474094
+300 1.8277181
+301 1.8001895
+302 1.8630692
+303 1.6014264
+304 1.440811
+305 1.7202723
+306 1.9457865
+307 1.3759923
+308 1.5819874
+309 1.5951463
+310 1.6357186
+311 1.8947501
+312 1.801311
+313 1.8045009
+314 2.0135536
+315 1.6587412
+316 2.0405135
+317 2.1328578
+318 1.6883947
+319 1.5350151
+320 1.6859851
+321 1.8610369
+322 2.496521
+323 1.7115035
+324 2.1422582
+325 1.5198903
+326 2.117228
+327 1.8084848
+328 1.4783499
+329 1.7414117
+330 1.5393533
+331 1.5664563
+332 1.5393305
+333 1.8119464
+334 1.5113739
+335 1.8715988
+336 1.5471092
+337 1.4974407
+338 1.363929
+339 1.812802
+340 1.8882706
+341 1.7904029
+342 2.0032372
+343 1.4270763
+344 2.1581857
+345 1.5509505
+346 1.8958659
+347 1.3510686
+348 1.3818712
+349 1.5218755
 Starting epoch 2
-Next 0 False
-Hi 700
-Next 32 False
-Hi 701
-Next 64 False
-Hi 702
-Next 96 False
-Hi 703
-Next 128 False
-Hi 704
-Next 160 False
-Hi 705
-Next 192 False
-Hi 706
-Next 224 False
-Hi 707
-Next 256 False
-Hi 708
-Next 288 False
-Hi 709
-Next 320 False
-Hi 710
-Next 352 False
-Hi 711
-Next 384 False
-Hi 712
-Next 416 False
-Hi 713
-Next 448 False
-Hi 714
-Next 480 False
-Hi 715
-Next 512 False
-Hi 716
-Next 544 False
-Hi 717
-Next 576 False
-Hi 718
-Next 608 False
-Hi 719
-Next 640 False
-Hi 720
-Next 672 False
-Hi 721
-Next 704 False
-Hi 722
-Next 736 False
-Hi 723
-Next 768 False
-Hi 724
-Next 800 False
-Hi 725
-Next 832 False
-Hi 726
-Next 864 False
-Hi 727
-Next 896 False
-Hi 728
-Next 928 False
-Hi 729
-Next 960 False
-Hi 730
-Next 992 False
-Hi 731
-Next 1024 False
-Hi 732
-Next 1056 False
-Hi 733
-Next 1088 False
-Hi 734
-Next 1120 False
-Hi 735
-Next 1152 False
-Hi 736
-Next 1184 False
-Hi 737
-Next 1216 False
-Hi 738
-Next 1248 False
-Hi 739
-Next 1280 False
-Hi 740
-Next 1312 False
-Hi 741
-Next 1344 False
-Hi 742
-Next 1376 False
-Hi 743
-Next 1408 False
-Hi 744
-Next 1440 False
-Hi 745
-Next 1472 False
-Hi 746
-Next 1504 False
-Hi 747
-Next 1536 False
-Hi 748
-Next 1568 False
-Hi 749
-Next 1600 False
-Hi 750
-Next 1632 False
-Hi 751
-Next 1664 False
-Hi 752
-Next 1696 False
-Hi 753
-Next 1728 False
-Hi 754
-Next 1760 False
-Hi 755
-Next 1792 False
-Hi 756
-Next 1824 False
-Hi 757
-Next 1856 False
-Hi 758
-Next 1888 False
-Hi 759
-Next 1920 False
-Hi 760
-Next 1952 False
-Hi 761
-Next 1984 False
-Hi 762
-Next 2016 False
-Hi 763
-Next 2048 False
-Hi 764
-Next 2080 False
-Hi 765
-Next 2112 False
-Hi 766
-Next 2144 False
-Hi 767
-Next 2176 False
-Hi 768
-Next 2208 False
-Hi 769
-Next 2240 False
-Hi 770
-Next 2272 False
-Hi 771
-Next 2304 False
-Hi 772
-Next 2336 False
-Hi 773
-Next 2368 False
-Hi 774
-Next 2400 False
-Hi 775
-Next 2432 False
-Hi 776
-Next 2464 False
-Hi 777
-Next 2496 False
-Hi 778
-Next 2528 False
-Hi 779
-Next 2560 False
-Hi 780
-Next 2592 False
-Hi 781
-Next 2624 False
-Hi 782
-Next 2656 False
-Hi 783
-Next 2688 False
-Hi 784
-Next 2720 False
-Hi 785
-Next 2752 False
-Hi 786
-Next 2784 False
-Hi 787
-Next 2816 False
-Hi 788
-Next 2848 False
-Hi 789
-Next 2880 False
-Hi 790
-Next 2912 False
-Hi 791
-Next 2944 False
-Hi 792
-Next 2976 False
-Hi 793
-Next 3008 False
-Hi 794
-Next 3040 False
-Hi 795
-Next 3072 False
-Hi 796
-Next 3104 False
-Hi 797
-Next 3136 False
-Hi 798
-Next 3168 False
-Hi 799
-Next 3200 False
-Hi 800
-Next 3232 False
-Hi 801
-Next 3264 False
-Hi 802
-Next 3296 False
-Hi 803
-Next 3328 False
-Hi 804
-Next 3360 False
-Hi 805
-Next 3392 False
-Hi 806
-Next 3424 False
-Hi 807
-Next 3456 False
-Hi 808
-Next 3488 False
-Hi 809
-Next 3520 False
-Hi 810
-Next 3552 False
-Hi 811
-Next 3584 False
-Hi 812
-Next 3616 False
-Hi 813
-Next 3648 False
-Hi 814
-Next 3680 False
-Hi 815
-Next 3712 False
-Hi 816
-Next 3744 False
-Hi 817
-Next 3776 False
-Hi 818
-Next 3808 False
-Hi 819
-Next 3840 False
-Hi 820
-Next 3872 False
-Hi 821
-Next 3904 False
-Hi 822
-Next 3936 False
-Hi 823
-Next 3968 False
-Hi 824
-Next 4000 False
-Hi 825
-Next 4032 False
-Hi 826
-Next 4064 False
-Hi 827
-Next 4096 False
-Hi 828
-Next 4128 False
-Hi 829
-Next 4160 False
-Hi 830
-Next 4192 False
-Hi 831
-Next 4224 False
-Hi 832
-Next 4256 False
-Hi 833
-Next 4288 False
-Hi 834
-Next 4320 False
-Hi 835
-Next 4352 False
-Hi 836
-Next 4384 False
-Hi 837
-Next 4416 False
-Hi 838
-Next 4448 False
-Hi 839
-Next 4480 False
-Hi 840
-Next 4512 False
-Hi 841
-Next 4544 False
-Hi 842
-Next 4576 False
-Hi 843
-Next 4608 False
-Hi 844
-Next 4640 False
-Hi 845
-Next 4672 False
-Hi 846
-Next 4704 False
-Hi 847
-Next 4736 False
-Hi 848
-Next 4768 False
-Hi 849
-Next 4800 False
-Hi 850
-Next 4832 False
-Hi 851
-Next 4864 False
-Hi 852
-Next 4896 False
-Hi 853
-Next 4928 False
-Hi 854
-Next 4960 False
-Hi 855
-Next 4992 False
-Hi 856
-Next 5024 False
-Hi 857
-Next 5056 False
-Hi 858
-Next 5088 False
-Hi 859
-Next 5120 False
-Hi 860
-Next 5152 False
-Hi 861
-Next 5184 False
-Hi 862
-Next 5216 False
-Hi 863
-Next 5248 False
-Hi 864
-Next 5280 False
-Hi 865
-Next 5312 False
-Hi 866
-Next 5344 False
-Hi 867
-Next 5376 False
-Hi 868
-Next 5408 False
-Hi 869
-Next 5440 False
-Hi 870
-Next 5472 False
-Hi 871
-Next 5504 False
-Hi 872
-Next 5536 False
-Hi 873
-Next 5568 False
-Hi 874
-Next 5600 False
-Hi 875
-Next 5632 False
-Hi 876
-Next 5664 False
-Hi 877
-Next 5696 False
-Hi 878
-Next 5728 False
-Hi 879
-Next 5760 False
-Hi 880
-Next 5792 False
-Hi 881
-Next 5824 False
-Hi 882
-Next 5856 False
-Hi 883
-Next 5888 False
-Hi 884
-Next 5920 False
-Hi 885
-Next 5952 False
-Hi 886
-Next 5984 False
-Hi 887
-Next 6016 False
-Hi 888
-Next 6048 False
-Hi 889
-Next 6080 False
-Hi 890
-Next 6112 False
-Hi 891
-Next 6144 False
-Hi 892
-Next 6176 False
-Hi 893
-Next 6208 False
-Hi 894
-Next 6240 False
-Hi 895
-Next 6272 False
-Hi 896
-Next 6304 False
-Hi 897
-Next 6336 False
-Hi 898
-Next 6368 False
-Hi 899
-Next 6400 False
-Hi 900
-Next 6432 False
-Hi 901
-Next 6464 False
-Hi 902
-Next 6496 False
-Hi 903
-Next 6528 False
-Hi 904
-Next 6560 False
-Hi 905
-Next 6592 False
-Hi 906
-Next 6624 False
-Hi 907
-Next 6656 False
-Hi 908
-Next 6688 False
-Hi 909
-Next 6720 False
-Hi 910
-Next 6752 False
-Hi 911
-Next 6784 False
-Hi 912
-Next 6816 False
-Hi 913
-Next 6848 False
-Hi 914
-Next 6880 False
-Hi 915
-Next 6912 False
-Hi 916
-Next 6944 False
-Hi 917
-Next 6976 False
-Hi 918
-Next 7008 False
-Hi 919
-Next 7040 False
-Hi 920
-Next 7072 False
-Hi 921
-Next 7104 False
-Hi 922
-Next 7136 False
-Hi 923
-Next 7168 False
-Hi 924
-Next 7200 False
-Hi 925
-Next 7232 False
-Hi 926
-Next 7264 False
-Hi 927
-Next 7296 False
-Hi 928
-Next 7328 False
-Hi 929
-Next 7360 False
-Hi 930
-Next 7392 False
-Hi 931
-Next 7424 False
-Hi 932
-Next 7456 False
-Hi 933
-Next 7488 False
-Hi 934
-Next 7520 False
-Hi 935
-Next 7552 False
-Hi 936
-Next 7584 False
-Hi 937
-Next 7616 False
-Hi 938
-Next 7648 False
-Hi 939
-Next 7680 False
-Hi 940
-Next 7712 False
-Hi 941
-Next 7744 False
-Hi 942
-Next 7776 False
-Hi 943
-Next 7808 False
-Hi 944
-Next 7840 False
-Hi 945
-Next 7872 False
-Hi 946
-Next 7904 False
-Hi 947
-Next 7936 False
-Hi 948
-Next 7968 False
-Hi 949
-Next 8000 False
-Hi 950
-Next 8032 False
-Hi 951
-Next 8064 False
-Hi 952
-Next 8096 False
-Hi 953
-Next 8128 False
-Hi 954
-Next 8160 False
-Hi 955
-Next 8192 False
-Hi 956
-Next 8224 False
-Hi 957
-Next 8256 False
-Hi 958
-Next 8288 False
-Hi 959
-Next 8320 False
-Hi 960
-Next 8352 False
-Hi 961
-Next 8384 False
-Hi 962
-Next 8416 False
-Hi 963
-Next 8448 False
-Hi 964
-Next 8480 False
-Hi 965
-Next 8512 False
-Hi 966
-Next 8544 False
-Hi 967
-Next 8576 False
-Hi 968
-Next 8608 False
-Hi 969
-Next 8640 False
-Hi 970
-Next 8672 False
-Hi 971
-Next 8704 False
-Hi 972
-Next 8736 False
-Hi 973
-Next 8768 False
-Hi 974
-Next 8800 False
-Hi 975
-Next 8832 False
-Hi 976
-Next 8864 False
-Hi 977
-Next 8896 False
-Hi 978
-Next 8928 False
-Hi 979
-Next 8960 False
-Hi 980
-Next 8992 False
-Hi 981
-Next 9024 False
-Hi 982
-Next 9056 False
-Hi 983
-Next 9088 False
-Hi 984
-Next 9120 False
-Hi 985
-Next 9152 False
-Hi 986
-Next 9184 False
-Hi 987
-Next 9216 False
-Hi 988
-Next 9248 False
-Hi 989
-Next 9280 False
-Hi 990
-Next 9312 False
-Hi 991
-Next 9344 False
-Hi 992
-Next 9376 False
-Hi 993
-Next 9408 False
-Hi 994
-Next 9440 False
-Hi 995
-Next 9472 False
-Hi 996
-Next 9504 False
-Hi 997
-Next 9536 False
-Hi 998
-Next 9568 False
-Hi 999
-Next 9600 False
-Hi 1000
-Iteration 1000, loss = 0.8202
-Next 0 True
-Next 32 True
-Next 64 True
-Next 96 True
-Next 128 True
-Next 160 True
-Next 192 True
-Next 224 True
-Next 256 True
-Next 288 True
-Next 320 True
-Next 352 True
-Next 384 True
-Next 416 True
-Next 448 True
-Next 480 True
-Next 512 True
-Next 544 True
-Next 576 True
-Next 608 True
-Next 640 True
-Next 672 True
-Next 704 True
-Next 736 True
-Next 768 True
-Next 800 True
-Next 832 True
-Next 864 True
-Next 896 True
-Next 928 True
-Next 960 True
-Next 992 True
-Next 1024 True
-Next 1056 True
-Next 1088 True
-Next 1120 True
-Next 1152 True
-Next 1184 True
-Next 1216 True
-Next 1248 True
-Next 1280 True
-Next 1312 True
-Next 1344 True
-Next 1376 True
-Next 1408 True
-Next 1440 True
-Next 1472 True
-Next 1504 True
-Next 1536 True
-Next 1568 True
-Next 1600 True
-Next 1632 True
-Next 1664 True
-Next 1696 True
-Next 1728 True
-Next 1760 True
-Next 1792 True
-Next 1824 True
-Next 1856 True
-Next 1888 True
-Next 1920 True
-Next 1952 True
-Next 1984 True
-Next 2016 True
-Next 2048 True
-Next 2080 True
-Next 2112 True
-Next 2144 True
-Next 2176 True
-Next 2208 True
-Next 2240 True
-Next 2272 True
-Next 2304 True
-Next 2336 True
-Next 2368 True
-Next 2400 True
-Next 2432 True
-Next 2464 True
-Next 2496 True
-Next 2528 True
-Next 2560 True
-Next 2592 True
-Next 2624 True
-Next 2656 True
-Next 2688 True
-Next 2720 True
-Next 2752 True
-Next 2784 True
-Next 2816 True
-Next 2848 True
-Next 2880 True
-Next 2912 True
-Next 2944 True
-Next 2976 True
-Next 3008 True
-Next 3040 True
-Next 3072 True
-Next 3104 True
-Next 3136 True
-Next 3168 True
-Next 3200 True
-Next 3232 True
-Next 3264 True
-Next 3296 True
-Next 3328 True
-Next 3360 True
-Next 3392 True
-Next 3424 True
-Next 3456 True
-Next 3488 True
-Next 3520 True
-Next 3552 True
-Next 3584 True
-Next 3616 True
-Next 3648 True
-Next 3680 True
-Next 3712 True
-Next 3744 True
-Next 3776 True
-Next 3808 True
-Next 3840 True
-Next 3872 True
-Next 3904 True
-Next 3936 True
-Next 3968 True
-Next 4000 True
-Next 4032 True
-Next 4064 True
-Next 4096 True
-Next 4128 True
-Next 4160 True
-Next 4192 True
-Next 4224 True
-Next 4256 True
-Next 4288 True
-Next 4320 True
-Next 4352 True
-Next 4384 True
-Next 4416 True
-Next 4448 True
-Next 4480 True
-Next 4512 True
-Next 4544 True
-Next 4576 True
-Next 4608 True
-Next 4640 True
-Next 4672 True
-Next 4704 True
-Next 4736 True
-Next 4768 True
-Om: 12.66%, s8: 4.20% accuracy
+350 1.8335168
+351 1.4281157
+352 1.4542855
+353 1.4539874
+354 1.6401162
+355 1.5791224
+356 1.6501753
+357 1.5137912
+358 1.557965
+359 1.5067799
+360 1.8328925
+361 1.5023057
+362 1.8996716
+363 1.8080094
+364 1.2760412
+365 1.7427337
+366 1.3312063
+367 1.4725463
+368 1.6153402
+369 1.6322483
+370 1.8669049
+371 1.5634065
+372 1.6524675
+373 1.4654146
+374 1.7930317
+375 1.7597075
+376 1.4154332
+377 1.3873863
+378 1.4207048
+379 1.8017414
+380 1.6581011
+381 1.4871218
+382 1.9592737
+383 1.9058926
+384 2.252193
+385 1.494742
+386 1.9382157
+387 1.4986434
+388 1.7705075
+389 1.4314216
+390 1.3024805
+391 1.312147
+392 2.0377853
+393 1.5415
+394 1.3399668
+395 1.3970504
+396 1.6325754
+397 1.5661242
+398 1.480254
+399 1.7763672
+400 1.1821432
+401 1.6585175
+402 1.7851746
+403 1.3463988
+404 1.6963848
+405 1.9053882
+406 1.3443
+407 1.4712776
+408 1.5556327
+409 1.5527929
+410 1.5480385
+411 1.6447122
+412 1.8054471
+413 1.9603631
+414 1.5310912
+415 1.3539674
+416 1.3653734
+417 1.8616755
+418 1.4739652
+419 1.3337178
+420 1.3336122
+421 1.4736032
+422 1.0449498
+423 1.408177
+424 1.3360205
+425 1.8255126
+426 2.524205
+427 1.3643644
+428 1.7716538
+429 1.4013329
+430 1.6126788
+431 1.3465538
+432 1.4415474
+433 1.4279258
+434 1.0561492
+435 1.610484
+436 1.7414559
+437 1.5675409
+438 1.4164865
+439 1.2619109
+440 1.8057054
+441 1.0585644
+442 1.2229233
+443 2.089778
+444 1.56362
+445 1.4593769
+446 1.0630311
+447 1.2863461
+448 1.2885354
+449 1.399215
+450 1.4657089
+451 1.3947418
+452 1.4194117
+453 1.7245818
+454 1.2669144
+455 1.3960538
+456 1.3524383
+457 1.1601644
+458 1.406231
+459 1.6422801
+460 1.3134642
+461 0.9293169
+462 1.576916
+463 0.8286711
+464 1.5008186
+465 1.2822852
+466 1.4123784
+467 1.3688952
+468 1.0946494
+469 1.3894804
+470 1.3044012
+471 1.3049272
+472 1.4161441
+473 1.5667065
+474 1.3268342
+475 1.2145529
+476 1.2070733
+477 1.4483178
+478 1.6430684
+479 1.3615644
+480 1.3517036
+481 1.6603739
+482 1.1995174
+483 1.2601273
+484 1.5448182
+485 1.3524802
+486 1.2726763
+487 1.229026
+488 1.2378845
+489 1.2350543
+490 1.3976022
+491 1.6512548
+492 1.7632389
+493 1.5053792
+494 1.2560602
+495 1.3398949
+496 1.1120319
+497 1.5154531
+498 1.3201809
+499 1.3317573
+500 1.582871
+Iteration 500, loss = 1.5829
+Om: 6.74%, s8: 9.51% accuracy
 
-Next 9632 False
-Hi 1001
-Next 9664 False
-Hi 1002
-Next 9696 False
-Hi 1003
-Next 9728 False
-Hi 1004
-Next 9760 False
-Hi 1005
-Next 9792 False
-Hi 1006
-Next 9824 False
-Hi 1007
-Next 9856 False
-Hi 1008
-Next 9888 False
-Hi 1009
-Next 9920 False
-Hi 1010
-Next 9952 False
-Hi 1011
-Next 9984 False
-Hi 1012
-Next 10016 False
-Hi 1013
-Next 10048 False
-Hi 1014
-Next 10080 False
-Hi 1015
-Next 10112 False
-Hi 1016
-Next 10144 False
-Hi 1017
-Next 10176 False
-Hi 1018
-Next 10208 False
-Hi 1019
-Next 10240 False
-Hi 1020
-Next 10272 False
-Hi 1021
-Next 10304 False
-Hi 1022
-Next 10336 False
-Hi 1023
-Next 10368 False
-Hi 1024
-Next 10400 False
-Hi 1025
-Next 10432 False
-Hi 1026
-Next 10464 False
-Hi 1027
-Next 10496 False
-Hi 1028
-Next 10528 False
-Hi 1029
-Next 10560 False
-Hi 1030
-Next 10592 False
-Hi 1031
-Next 10624 False
-Hi 1032
-Next 10656 False
-Hi 1033
-Next 10688 False
-Hi 1034
-Next 10720 False
-Hi 1035
-Next 10752 False
-Hi 1036
-Next 10784 False
-Hi 1037
-Next 10816 False
-Hi 1038
-Next 10848 False
-Hi 1039
-Next 10880 False
-Hi 1040
-Next 10912 False
-Hi 1041
-Next 10944 False
-Hi 1042
-Next 10976 False
-Hi 1043
-Next 11008 False
-Hi 1044
-Next 11040 False
-Hi 1045
-Next 11072 False
-Hi 1046
-Next 11104 False
-Hi 1047
-Next 11136 False
-Hi 1048
-Next 11168 False
-Hi 1049
+501 1.097819
+502 1.1674099
+503 1.308219
+504 1.441709
+505 1.325986
+506 1.4806818
+507 1.1664414
+508 1.1536611
+509 1.511518
+510 1.4451677
+511 1.4188144
+512 1.5647604
+513 1.088886
+514 1.6385646
+515 1.1472905
+516 1.1231794
+517 1.1738987
+518 1.493952
+519 1.7063392
+520 1.3238945
+521 1.1289797
+522 1.6779667
+523 1.5635862
+524 1.4326035
 Starting epoch 3
-Next 0 False
-Hi 1050
-Next 32 False
-Hi 1051
-Next 64 False
-Hi 1052
-Next 96 False
-Hi 1053
-Next 128 False
-Hi 1054
-Next 160 False
-Hi 1055
-Next 192 False
-Hi 1056
-Next 224 False
-Hi 1057
-Next 256 False
-Hi 1058
-Next 288 False
-Hi 1059
-Next 320 False
-Hi 1060
-Next 352 False
-Hi 1061
-Next 384 False
-Hi 1062
-Next 416 False
-Hi 1063
-Next 448 False
-Hi 1064
-Next 480 False
-Hi 1065
-Next 512 False
-Hi 1066
-Next 544 False
-Hi 1067
-Next 576 False
-Hi 1068
-Next 608 False
-Hi 1069
-Next 640 False
-Hi 1070
-Next 672 False
-Hi 1071
-Next 704 False
-Hi 1072
-Next 736 False
-Hi 1073
-Next 768 False
-Hi 1074
-Next 800 False
-Hi 1075
-Next 832 False
-Hi 1076
-Next 864 False
-Hi 1077
-Next 896 False
-Hi 1078
-Next 928 False
-Hi 1079
-Next 960 False
-Hi 1080
-Next 992 False
-Hi 1081
-Next 1024 False
-Hi 1082
-Next 1056 False
-Hi 1083
-Next 1088 False
-Hi 1084
-Next 1120 False
-Hi 1085
-Next 1152 False
-Hi 1086
-Next 1184 False
-Hi 1087
-Next 1216 False
-Hi 1088
-Next 1248 False
-Hi 1089
-Next 1280 False
-Hi 1090
-Next 1312 False
-Hi 1091
-Next 1344 False
-Hi 1092
-Next 1376 False
-Hi 1093
-Next 1408 False
-Hi 1094
-Next 1440 False
-Hi 1095
-Next 1472 False
-Hi 1096
-Next 1504 False
-Hi 1097
-Next 1536 False
-Hi 1098
-Next 1568 False
-Hi 1099
-Next 1600 False
-Hi 1100
-Next 1632 False
-Hi 1101
-Next 1664 False
-Hi 1102
-Next 1696 False
-Hi 1103
-Next 1728 False
-Hi 1104
-Next 1760 False
-Hi 1105
-Next 1792 False
-Hi 1106
-Next 1824 False
-Hi 1107
-Next 1856 False
-Hi 1108
-Next 1888 False
-Hi 1109
-Next 1920 False
-Hi 1110
-Next 1952 False
-Hi 1111
-Next 1984 False
-Hi 1112
-Next 2016 False
-Hi 1113
-Next 2048 False
-Hi 1114
-Next 2080 False
-Hi 1115
-Next 2112 False
-Hi 1116
-Next 2144 False
-Hi 1117
-Next 2176 False
-Hi 1118
-Next 2208 False
-Hi 1119
-Next 2240 False
-Hi 1120
-Next 2272 False
-Hi 1121
-Next 2304 False
-Hi 1122
-Next 2336 False
-Hi 1123
-Next 2368 False
-Hi 1124
-Next 2400 False
-Hi 1125
-Next 2432 False
-Hi 1126
-Next 2464 False
-Hi 1127
-Next 2496 False
-Hi 1128
-Next 2528 False
-Hi 1129
-Next 2560 False
-Hi 1130
-Next 2592 False
-Hi 1131
-Next 2624 False
-Hi 1132
-Next 2656 False
-Hi 1133
-Next 2688 False
-Hi 1134
-Next 2720 False
-Hi 1135
-Next 2752 False
-Hi 1136
-Next 2784 False
-Hi 1137
-Next 2816 False
-Hi 1138
-Next 2848 False
-Hi 1139
-Next 2880 False
-Hi 1140
-Next 2912 False
-Hi 1141
-Next 2944 False
-Hi 1142
-Next 2976 False
-Hi 1143
-Next 3008 False
-Hi 1144
-Next 3040 False
-Hi 1145
-Next 3072 False
-Hi 1146
-Next 3104 False
-Hi 1147
-Next 3136 False
-Hi 1148
-Next 3168 False
-Hi 1149
-Next 3200 False
-Hi 1150
-Next 3232 False
-Hi 1151
-Next 3264 False
-Hi 1152
-Next 3296 False
-Hi 1153
-Next 3328 False
-Hi 1154
-Next 3360 False
-Hi 1155
-Next 3392 False
-Hi 1156
-Next 3424 False
-Hi 1157
-Next 3456 False
-Hi 1158
-Next 3488 False
-Hi 1159
-Next 3520 False
-Hi 1160
-Next 3552 False
-Hi 1161
-Next 3584 False
-Hi 1162
-Next 3616 False
-Hi 1163
-Next 3648 False
-Hi 1164
-Next 3680 False
-Hi 1165
-Next 3712 False
-Hi 1166
-Next 3744 False
-Hi 1167
-Next 3776 False
-Hi 1168
-Next 3808 False
-Hi 1169
-Next 3840 False
-Hi 1170
-Next 3872 False
-Hi 1171
-Next 3904 False
-Hi 1172
-Next 3936 False
-Hi 1173
-Next 3968 False
-Hi 1174
-Next 4000 False
-Hi 1175
-Next 4032 False
-Hi 1176
-Next 4064 False
-Hi 1177
-Next 4096 False
-Hi 1178
-Next 4128 False
-Hi 1179
-Next 4160 False
-Hi 1180
-Next 4192 False
-Hi 1181
-Next 4224 False
-Hi 1182
-Next 4256 False
-Hi 1183
-Next 4288 False
-Hi 1184
-Next 4320 False
-Hi 1185
-Next 4352 False
-Hi 1186
-Next 4384 False
-Hi 1187
-Next 4416 False
-Hi 1188
-Next 4448 False
-Hi 1189
-Next 4480 False
-Hi 1190
-Next 4512 False
-Hi 1191
-Next 4544 False
-Hi 1192
-Next 4576 False
-Hi 1193
-Next 4608 False
-Hi 1194
-Next 4640 False
-Hi 1195
-Next 4672 False
-Hi 1196
-Next 4704 False
-Hi 1197
-Next 4736 False
-Hi 1198
-Next 4768 False
-Hi 1199
-Next 4800 False
-Hi 1200
-Next 4832 False
-Hi 1201
-Next 4864 False
-Hi 1202
-Next 4896 False
-Hi 1203
-Next 4928 False
-Hi 1204
-Next 4960 False
-Hi 1205
-Next 4992 False
-Hi 1206
-Next 5024 False
-Hi 1207
-Next 5056 False
-Hi 1208
-Next 5088 False
-Hi 1209
-Next 5120 False
-Hi 1210
-Next 5152 False
-Hi 1211
-Next 5184 False
-Hi 1212
-Next 5216 False
-Hi 1213
-Next 5248 False
-Hi 1214
-Next 5280 False
-Hi 1215
-Next 5312 False
-Hi 1216
-Next 5344 False
-Hi 1217
-Next 5376 False
-Hi 1218
-Next 5408 False
-Hi 1219
-Next 5440 False
-Hi 1220
-Next 5472 False
-Hi 1221
-Next 5504 False
-Hi 1222
-Next 5536 False
-Hi 1223
-Next 5568 False
-Hi 1224
-Next 5600 False
-Hi 1225
-Next 5632 False
-Hi 1226
-Next 5664 False
-Hi 1227
-Next 5696 False
-Hi 1228
-Next 5728 False
-Hi 1229
-Next 5760 False
-Hi 1230
-Next 5792 False
-Hi 1231
-Next 5824 False
-Hi 1232
-Next 5856 False
-Hi 1233
-Next 5888 False
-Hi 1234
-Next 5920 False
-Hi 1235
-Next 5952 False
-Hi 1236
-Next 5984 False
-Hi 1237
-Next 6016 False
-Hi 1238
-Next 6048 False
-Hi 1239
-Next 6080 False
-Hi 1240
-Next 6112 False
-Hi 1241
-Next 6144 False
-Hi 1242
-Next 6176 False
-Hi 1243
-Next 6208 False
-Hi 1244
-Next 6240 False
-Hi 1245
-Next 6272 False
-Hi 1246
-Next 6304 False
-Hi 1247
-Next 6336 False
-Hi 1248
-Next 6368 False
-Hi 1249
-Next 6400 False
-Hi 1250
-Next 6432 False
-Hi 1251
-Next 6464 False
-Hi 1252
-Next 6496 False
-Hi 1253
-Next 6528 False
-Hi 1254
-Next 6560 False
-Hi 1255
-Next 6592 False
-Hi 1256
-Next 6624 False
-Hi 1257
-Next 6656 False
-Hi 1258
-Next 6688 False
-Hi 1259
-Next 6720 False
-Hi 1260
-Next 6752 False
-Hi 1261
-Next 6784 False
-Hi 1262
-Next 6816 False
-Hi 1263
-Next 6848 False
-Hi 1264
-Next 6880 False
-Hi 1265
-Next 6912 False
-Hi 1266
-Next 6944 False
-Hi 1267
-Next 6976 False
-Hi 1268
-Next 7008 False
-Hi 1269
-Next 7040 False
-Hi 1270
-Next 7072 False
-Hi 1271
-Next 7104 False
-Hi 1272
-Next 7136 False
-Hi 1273
-Next 7168 False
-Hi 1274
-Next 7200 False
-Hi 1275
-Next 7232 False
-Hi 1276
-Next 7264 False
-Hi 1277
-Next 7296 False
-Hi 1278
-Next 7328 False
-Hi 1279
-Next 7360 False
-Hi 1280
-Next 7392 False
-Hi 1281
-Next 7424 False
-Hi 1282
-Next 7456 False
-Hi 1283
-Next 7488 False
-Hi 1284
-Next 7520 False
-Hi 1285
-Next 7552 False
-Hi 1286
-Next 7584 False
-Hi 1287
-Next 7616 False
-Hi 1288
-Next 7648 False
-Hi 1289
-Next 7680 False
-Hi 1290
-Next 7712 False
-Hi 1291
-Next 7744 False
-Hi 1292
-Next 7776 False
-Hi 1293
-Next 7808 False
-Hi 1294
-Next 7840 False
-Hi 1295
-Next 7872 False
-Hi 1296
-Next 7904 False
-Hi 1297
-Next 7936 False
-Hi 1298
-Next 7968 False
-Hi 1299
-Next 8000 False
-Hi 1300
-Next 8032 False
-Hi 1301
-Next 8064 False
-Hi 1302
-Next 8096 False
-Hi 1303
-Next 8128 False
-Hi 1304
-Next 8160 False
-Hi 1305
-Next 8192 False
-Hi 1306
-Next 8224 False
-Hi 1307
-Next 8256 False
-Hi 1308
-Next 8288 False
-Hi 1309
-Next 8320 False
-Hi 1310
-Next 8352 False
-Hi 1311
-Next 8384 False
-Hi 1312
-Next 8416 False
-Hi 1313
-Next 8448 False
-Hi 1314
-Next 8480 False
-Hi 1315
-Next 8512 False
-Hi 1316
-Next 8544 False
-Hi 1317
-Next 8576 False
-Hi 1318
-Next 8608 False
-Hi 1319
-Next 8640 False
-Hi 1320
-Next 8672 False
-Hi 1321
-Next 8704 False
-Hi 1322
-Next 8736 False
-Hi 1323
-Next 8768 False
-Hi 1324
-Next 8800 False
-Hi 1325
-Next 8832 False
-Hi 1326
-Next 8864 False
-Hi 1327
-Next 8896 False
-Hi 1328
-Next 8928 False
-Hi 1329
-Next 8960 False
-Hi 1330
-Next 8992 False
-Hi 1331
-Next 9024 False
-Hi 1332
-Next 9056 False
-Hi 1333
-Next 9088 False
-Hi 1334
-Next 9120 False
-Hi 1335
-Next 9152 False
-Hi 1336
-Next 9184 False
-Hi 1337
-Next 9216 False
-Hi 1338
-Next 9248 False
-Hi 1339
-Next 9280 False
-Hi 1340
-Next 9312 False
-Hi 1341
-Next 9344 False
-Hi 1342
-Next 9376 False
-Hi 1343
-Next 9408 False
-Hi 1344
-Next 9440 False
-Hi 1345
-Next 9472 False
-Hi 1346
-Next 9504 False
-Hi 1347
-Next 9536 False
-Hi 1348
-Next 9568 False
-Hi 1349
-Next 9600 False
-Hi 1350
-Next 9632 False
-Hi 1351
-Next 9664 False
-Hi 1352
-Next 9696 False
-Hi 1353
-Next 9728 False
-Hi 1354
-Next 9760 False
-Hi 1355
-Next 9792 False
-Hi 1356
-Next 9824 False
-Hi 1357
-Next 9856 False
-Hi 1358
-Next 9888 False
-Hi 1359
-Next 9920 False
-Hi 1360
-Next 9952 False
-Hi 1361
-Next 9984 False
-Hi 1362
-Next 10016 False
-Hi 1363
-Next 10048 False
-Hi 1364
-Next 10080 False
-Hi 1365
-Next 10112 False
-Hi 1366
-Next 10144 False
-Hi 1367
-Next 10176 False
-Hi 1368
-Next 10208 False
-Hi 1369
-Next 10240 False
-Hi 1370
-Next 10272 False
-Hi 1371
-Next 10304 False
-Hi 1372
-Next 10336 False
-Hi 1373
-Next 10368 False
-Hi 1374
-Next 10400 False
-Hi 1375
-Next 10432 False
-Hi 1376
-Next 10464 False
-Hi 1377
-Next 10496 False
-Hi 1378
-Next 10528 False
-Hi 1379
-Next 10560 False
-Hi 1380
-Next 10592 False
-Hi 1381
-Next 10624 False
-Hi 1382
-Next 10656 False
-Hi 1383
-Next 10688 False
-Hi 1384
-Next 10720 False
-Hi 1385
-Next 10752 False
-Hi 1386
-Next 10784 False
-Hi 1387
-Next 10816 False
-Hi 1388
-Next 10848 False
-Hi 1389
-Next 10880 False
-Hi 1390
-Next 10912 False
-Hi 1391
-Next 10944 False
-Hi 1392
-Next 10976 False
-Hi 1393
-Next 11008 False
-Hi 1394
-Next 11040 False
-Hi 1395
-Next 11072 False
-Hi 1396
-Next 11104 False
-Hi 1397
-Next 11136 False
-Hi 1398
-Next 11168 False
-Hi 1399
-Starting epoch 4
-Next 0 False
-Hi 1400
-Next 32 False
-Hi 1401
-Next 64 False
-Hi 1402
-Next 96 False
-Hi 1403
-Next 128 False
-Hi 1404
-Next 160 False
-Hi 1405
-Next 192 False
-Hi 1406
-Next 224 False
-Hi 1407
-Next 256 False
-Hi 1408
-Next 288 False
-Hi 1409
-Next 320 False
-Hi 1410
-Next 352 False
-Hi 1411
-Next 384 False
-Hi 1412
-Next 416 False
-Hi 1413
-Next 448 False
-Hi 1414
-Next 480 False
-Hi 1415
-Next 512 False
-Hi 1416
-Next 544 False
-Hi 1417
-Next 576 False
-Hi 1418
-Next 608 False
-Hi 1419
-Next 640 False
-Hi 1420
-Next 672 False
-Hi 1421
-Next 704 False
-Hi 1422
-Next 736 False
-Hi 1423
-Next 768 False
-Hi 1424
-Next 800 False
-Hi 1425
-Next 832 False
-Hi 1426
-Next 864 False
-Hi 1427
-Next 896 False
-Hi 1428
-Next 928 False
-Hi 1429
-Next 960 False
-Hi 1430
-Next 992 False
-Hi 1431
-Next 1024 False
-Hi 1432
-Next 1056 False
-Hi 1433
-Next 1088 False
-Hi 1434
-Next 1120 False
-Hi 1435
-Next 1152 False
-Hi 1436
-Next 1184 False
-Hi 1437
-Next 1216 False
-Hi 1438
-Next 1248 False
-Hi 1439
-Next 1280 False
-Hi 1440
-Next 1312 False
-Hi 1441
-Next 1344 False
-Hi 1442
-Next 1376 False
-Hi 1443
-Next 1408 False
-Hi 1444
-Next 1440 False
-Hi 1445
-Next 1472 False
-Hi 1446
-Next 1504 False
-Hi 1447
-Next 1536 False
-Hi 1448
-Next 1568 False
-Hi 1449
-Next 1600 False
-Hi 1450
-Next 1632 False
-Hi 1451
-Next 1664 False
-Hi 1452
-Next 1696 False
-Hi 1453
-Next 1728 False
-Hi 1454
-Next 1760 False
-Hi 1455
-Next 1792 False
-Hi 1456
-Next 1824 False
-Hi 1457
-Next 1856 False
-Hi 1458
-Next 1888 False
-Hi 1459
-Next 1920 False
-Hi 1460
-Next 1952 False
-Hi 1461
-Next 1984 False
-Hi 1462
-Next 2016 False
-Hi 1463
-Next 2048 False
-Hi 1464
-Next 2080 False
-Hi 1465
-Next 2112 False
-Hi 1466
-Next 2144 False
-Hi 1467
-Next 2176 False
-Hi 1468
-Next 2208 False
-Hi 1469
-Next 2240 False
-Hi 1470
-Next 2272 False
-Hi 1471
-Next 2304 False
-Hi 1472
-Next 2336 False
-Hi 1473
-Next 2368 False
-Hi 1474
-Next 2400 False
-Hi 1475
-Next 2432 False
-Hi 1476
-Next 2464 False
-Hi 1477
-Next 2496 False
-Hi 1478
-Next 2528 False
-Hi 1479
-Next 2560 False
-Hi 1480
-Next 2592 False
-Hi 1481
-Next 2624 False
-Hi 1482
-Next 2656 False
-Hi 1483
-Next 2688 False
-Hi 1484
-Next 2720 False
-Hi 1485
-Next 2752 False
-Hi 1486
-Next 2784 False
-Hi 1487
-Next 2816 False
-Hi 1488
-Next 2848 False
-Hi 1489
-Next 2880 False
-Hi 1490
-Next 2912 False
-Hi 1491
-Next 2944 False
-Hi 1492
-Next 2976 False
-Hi 1493
-Next 3008 False
-Hi 1494
-Next 3040 False
-Hi 1495
-Next 3072 False
-Hi 1496
-Next 3104 False
-Hi 1497
-Next 3136 False
-Hi 1498
-Next 3168 False
-Hi 1499
-Next 3200 False
-Hi 1500
-Iteration 1500, loss = 0.5762
-Next 0 True
-Next 32 True
-Next 64 True
-Next 96 True
-Next 128 True
-Next 160 True
-Next 192 True
-Next 224 True
-Next 256 True
-Next 288 True
-Next 320 True
-Next 352 True
-Next 384 True
-Next 416 True
-Next 448 True
-Next 480 True
-Next 512 True
-Next 544 True
-Next 576 True
-Next 608 True
-Next 640 True
-Next 672 True
-Next 704 True
-Next 736 True
-Next 768 True
-Next 800 True
-Next 832 True
-Next 864 True
-Next 896 True
-Next 928 True
-Next 960 True
-Next 992 True
-Next 1024 True
-Next 1056 True
-Next 1088 True
-Next 1120 True
-Next 1152 True
-Next 1184 True
-Next 1216 True
-Next 1248 True
-Next 1280 True
-Next 1312 True
-Next 1344 True
-Next 1376 True
-Next 1408 True
-Next 1440 True
-Next 1472 True
-Next 1504 True
-Next 1536 True
-Next 1568 True
-Next 1600 True
-Next 1632 True
-Next 1664 True
-Next 1696 True
-Next 1728 True
-Next 1760 True
-Next 1792 True
-Next 1824 True
-Next 1856 True
-Next 1888 True
-Next 1920 True
-Next 1952 True
-Next 1984 True
-Next 2016 True
-Next 2048 True
-Next 2080 True
-Next 2112 True
-Next 2144 True
-Next 2176 True
-Next 2208 True
-Next 2240 True
-Next 2272 True
-Next 2304 True
-Next 2336 True
-Next 2368 True
-Next 2400 True
-Next 2432 True
-Next 2464 True
-Next 2496 True
-Next 2528 True
-Next 2560 True
-Next 2592 True
-Next 2624 True
-Next 2656 True
-Next 2688 True
-Next 2720 True
-Next 2752 True
-Next 2784 True
-Next 2816 True
-Next 2848 True
-Next 2880 True
-Next 2912 True
-Next 2944 True
-Next 2976 True
-Next 3008 True
-Next 3040 True
-Next 3072 True
-Next 3104 True
-Next 3136 True
-Next 3168 True
-Next 3200 True
-Next 3232 True
-Next 3264 True
-Next 3296 True
-Next 3328 True
-Next 3360 True
-Next 3392 True
-Next 3424 True
-Next 3456 True
-Next 3488 True
-Next 3520 True
-Next 3552 True
-Next 3584 True
-Next 3616 True
-Next 3648 True
-Next 3680 True
-Next 3712 True
-Next 3744 True
-Next 3776 True
-Next 3808 True
-Next 3840 True
-Next 3872 True
-Next 3904 True
-Next 3936 True
-Next 3968 True
-Next 4000 True
-Next 4032 True
-Next 4064 True
-Next 4096 True
-Next 4128 True
-Next 4160 True
-Next 4192 True
-Next 4224 True
-Next 4256 True
-Next 4288 True
-Next 4320 True
-Next 4352 True
-Next 4384 True
-Next 4416 True
-Next 4448 True
-Next 4480 True
-Next 4512 True
-Next 4544 True
-Next 4576 True
-Next 4608 True
-Next 4640 True
-Next 4672 True
-Next 4704 True
-Next 4736 True
-Next 4768 True
-Om: 2.25%, s8: -4.39% accuracy
-
-Next 3232 False
-Hi 1501
-Next 3264 False
-Hi 1502
-Next 3296 False
-Hi 1503
-Next 3328 False
-Hi 1504
-Next 3360 False
-Hi 1505
-Next 3392 False
-Hi 1506
-Next 3424 False
-Hi 1507
-Next 3456 False
-Hi 1508
-Next 3488 False
-Hi 1509
-Next 3520 False
-Hi 1510
-Next 3552 False
-Hi 1511
-Next 3584 False
-Hi 1512
-Next 3616 False
-Hi 1513
-Next 3648 False
-Hi 1514
-Next 3680 False
-Hi 1515
-Next 3712 False
-Hi 1516
-Next 3744 False
-Hi 1517
-Next 3776 False
-Hi 1518
-Next 3808 False
-Hi 1519
-Next 3840 False
-Hi 1520
-Next 3872 False
-Hi 1521
-Next 3904 False
-Hi 1522
-Next 3936 False
-Hi 1523
-Next 3968 False
-Hi 1524
-Next 4000 False
-Hi 1525
-Next 4032 False
-Hi 1526
-Next 4064 False
-Hi 1527
-Next 4096 False
-Hi 1528
-Next 4128 False
-Hi 1529
-Next 4160 False
-Hi 1530
-Next 4192 False
-Hi 1531
-Next 4224 False
-Hi 1532
-Next 4256 False
-Hi 1533
-Next 4288 False
-Hi 1534
-Next 4320 False
-Hi 1535
-Next 4352 False
-Hi 1536
-Next 4384 False
-Hi 1537
-Next 4416 False
-Hi 1538
-Next 4448 False
-Hi 1539
-Next 4480 False
-Hi 1540
-Next 4512 False
-Hi 1541
-Next 4544 False
-Hi 1542
-Next 4576 False
-Hi 1543
-Next 4608 False
-Hi 1544
-Next 4640 False
-Hi 1545
-Next 4672 False
-Hi 1546
-Next 4704 False
-Hi 1547
-Next 4736 False
-Hi 1548
-Next 4768 False
-Hi 1549
-Next 4800 False
-Hi 1550
-Next 4832 False
-Hi 1551
-Next 4864 False
-Hi 1552
-Next 4896 False
-Hi 1553
-Next 4928 False
-Hi 1554
-Next 4960 False
-Hi 1555
-Next 4992 False
-Hi 1556
-Next 5024 False
-Hi 1557
-Next 5056 False
-Hi 1558
-Next 5088 False
-Hi 1559
-Next 5120 False
-Hi 1560
-Next 5152 False
-Hi 1561
-Next 5184 False
-Hi 1562
-Next 5216 False
-Hi 1563
-Next 5248 False
-Hi 1564
-Next 5280 False
-Hi 1565
-Next 5312 False
-Hi 1566
-Next 5344 False
-Hi 1567
-Next 5376 False
-Hi 1568
-Next 5408 False
-Hi 1569
-Next 5440 False
-Hi 1570
-Next 5472 False
-Hi 1571
-Next 5504 False
-Hi 1572
-Next 5536 False
-Hi 1573
-Next 5568 False
-Hi 1574
-Next 5600 False
-Hi 1575
-Next 5632 False
-Hi 1576
-Next 5664 False
-Hi 1577
-Next 5696 False
-Hi 1578
-Next 5728 False
-Hi 1579
-Next 5760 False
-Hi 1580
-Next 5792 False
-Hi 1581
-Next 5824 False
-Hi 1582
-Next 5856 False
-Hi 1583
-Next 5888 False
-Hi 1584
-Next 5920 False
-Hi 1585
-Next 5952 False
-Hi 1586
-Next 5984 False
-Hi 1587
-Next 6016 False
-Hi 1588
-Next 6048 False
-Hi 1589
-Next 6080 False
-Hi 1590
-Next 6112 False
-Hi 1591
-Next 6144 False
-Hi 1592
-Next 6176 False
-Hi 1593
-Next 6208 False
-Hi 1594
-Next 6240 False
-Hi 1595
-Next 6272 False
-Hi 1596
-Next 6304 False
-Hi 1597
-Next 6336 False
-Hi 1598
-Next 6368 False
-Hi 1599
-Next 6400 False
-Hi 1600
-Next 6432 False
-Hi 1601
-Next 6464 False
-Hi 1602
-Next 6496 False
-Hi 1603
-Next 6528 False
-Hi 1604
-Next 6560 False
-Hi 1605
-Next 6592 False
-Hi 1606
-Next 6624 False
-Hi 1607
-Next 6656 False
-Hi 1608
-Next 6688 False
-Hi 1609
-Next 6720 False
-Hi 1610
-Next 6752 False
-Hi 1611
-Next 6784 False
-Hi 1612
-Next 6816 False
-Hi 1613
-Next 6848 False
-Hi 1614
-Next 6880 False
-Hi 1615
-Next 6912 False
-Hi 1616
-Next 6944 False
-Hi 1617
-Next 6976 False
-Hi 1618
-Next 7008 False
-Hi 1619
-Next 7040 False
-Hi 1620
-Next 7072 False
-Hi 1621
-Next 7104 False
-Hi 1622
-Next 7136 False
-Hi 1623
-Next 7168 False
-Hi 1624
-Next 7200 False
-Hi 1625
-Next 7232 False
-Hi 1626
-Next 7264 False
-Hi 1627
-Next 7296 False
-Hi 1628
-Next 7328 False
-Hi 1629
-Next 7360 False
-Hi 1630
-Next 7392 False
-Hi 1631
-Next 7424 False
-Hi 1632
-Next 7456 False
-Hi 1633
-Next 7488 False
-Hi 1634
-Next 7520 False
-Hi 1635
-Next 7552 False
-Hi 1636
-Next 7584 False
-Hi 1637
-Next 7616 False
-Hi 1638
-Next 7648 False
-Hi 1639
-Next 7680 False
-Hi 1640
-Next 7712 False
-Hi 1641
-Next 7744 False
-Hi 1642
-Next 7776 False
-Hi 1643
-Next 7808 False
-Hi 1644
-Next 7840 False
-Hi 1645
-Next 7872 False
-Hi 1646
-Next 7904 False
-Hi 1647
-Next 7936 False
-Hi 1648
-Next 7968 False
-Hi 1649
-Next 8000 False
-Hi 1650
-Next 8032 False
-Hi 1651
-Next 8064 False
-Hi 1652
-Next 8096 False
-Hi 1653
-Next 8128 False
-Hi 1654
-Next 8160 False
-Hi 1655
-Next 8192 False
-Hi 1656
-Next 8224 False
-Hi 1657
-Next 8256 False
-Hi 1658
-Next 8288 False
-Hi 1659
-Next 8320 False
-Hi 1660
-Next 8352 False
-Hi 1661
-Next 8384 False
-Hi 1662
-Next 8416 False
-Hi 1663
-Next 8448 False
-Hi 1664
-Next 8480 False
-Hi 1665
-Next 8512 False
-Hi 1666
-Next 8544 False
-Hi 1667
-Next 8576 False
-Hi 1668
-Next 8608 False
-Hi 1669
+525 1.3868594
+526 1.4559574
+527 1.8616219
+528 1.3323346
+529 1.6042888
+530 1.6081854
+531 1.4979199
+532 1.380553
+533 1.0297225
+534 1.1967556
+535 1.2758071
+536 1.4546341
+537 1.7303698
+538 1.4660592
+539 1.3003314
+540 1.33022
+541 1.249274
+542 1.3099569
+543 1.4527485
+544 1.194182
+545 1.353688
+546 1.5851579
+547 1.4082596
+548 1.5623437
+549 1.0072935
+550 1.257564
+551 0.9661051
+552 1.3466058
+553 1.3804678
+554 1.399516
+555 1.2368301
+556 1.5585562
+557 1.5325098
+558 1.4666748
+559 1.2249402
+560 0.95626736
+561 1.5420365
+562 1.0140933
+563 1.413889
+564 1.3002417
+565 1.2343323
+566 1.6384014
+567 1.539068
+568 1.2479644
+569 1.6292102
+570 1.2689565
+571 1.3591104
+572 1.5323584
+573 1.4712223
+574 1.3819517
+575 1.2102392
+576 1.5203197
+577 1.4576689
+578 1.6485417
+579 1.0854107
+580 1.2461383
+581 1.2037368
+582 1.2708752
+583 1.2819506
+584 1.5845733
+585 1.3703979
+586 1.072352
+587 1.9834368
+588 1.4264542
+589 1.2448015
+590 1.4545802
+591 1.50022
+592 1.4923941
+593 1.294996
+594 1.147284
+595 1.2371695
+596 1.3257399
+597 1.1993772
+598 1.1791337
+599 1.6275872
+600 1.3259069
+601 1.2856685
+602 1.4585528
+603 1.4444119
+604 1.2216572
+605 1.1926172
+606 1.1681335
+607 1.4347259
+608 1.2690774
+609 0.9428763
+610 1.2878014
+611 1.382921
+612 1.8228068
+613 1.3499248
+614 1.2623156
+615 1.158546
+616 1.3782014
+617 1.58618
+618 1.1349409
+619 1.1059046
+620 1.2132629
+621 1.308317
+622 1.4421018
+623 1.2829585
+624 1.3400037
+625 1.3439685
+626 1.3523566
+627 1.3244622
+628 1.3504453
+629 1.319545
+630 1.4140011
+631 1.480353
+632 1.4727471
+633 1.2319905
+634 1.2961963
+635 1.2206471
+636 1.2032967
+637 1.4514967
+638 1.4672356
+639 1.1077489
+640 1.4361087
+641 1.5964552
+642 1.554693
+643 1.3921846
+644 1.1285403
+645 1.1906807
+646 1.5702174
+647 1.4866259
+648 1.5398344
+649 1.5838883
+650 1.333017
+651 1.740031
+652 1.3016292
+653 1.4013834
+654 1.566248
+655 1.4205953
+656 1.3269018
+657 1.4302049
+658 1.4771177
+659 1.580074
+660 0.9680929
+661 1.4066516
+662 1.0805687
+663 1.0975626
+664 1.5136331
+665 0.8984927
+666 1.5565443
+667 1.4474503
+668 1.1146892
+669 1.2750766
+670 1.5375271
+671 1.7894692
+672 1.4932436
+673 1.2697693
+674 1.7389803
+675 1.3259598
+676 1.4495447
+677 1.2529696
+678 1.3327647
+679 1.462631
+680 1.4130127
+681 1.2780267
+682 1.3918717
+683 1.2486346
+684 1.4572493
+685 1.5631622
+686 1.2649649
+687 1.3731238
+688 1.3442316
+689 1.2704322
+690 1.2976278
+691

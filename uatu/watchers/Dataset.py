@@ -32,7 +32,7 @@ class Dataset(object):
             return iter((np.swapaxes(self.X[i:i + B], a,b), self.Y[i:i + B]) for i in xrange(0, N, B))
 
 class DatasetFromFile(object):
-    def __init__(self, fname, batch_size, shuffle=False, augment = True, test_idxs = None):
+    def __init__(self, fname, batch_size, shuffle=False, augment = True, test_idxs = None, train_test_split=0.7):
 
         assert path.isfile(fname)
 
@@ -68,12 +68,12 @@ class DatasetFromFile(object):
                 np.random.shuffle(shuffled_idxs)
                 all_idxs = all_idxs[shuffled_idxs]
             
-            train_test_split = 0.7
 
             self.idxs = all_idxs[:int(all_idxs.shape[0]*train_test_split)]
             self.counter = 0
 
-            self.test_idxs = all_idxs[int(all_idxs.shape[0]*train_test_split):]
+            if train_test_split != 1.0:
+                self.test_idxs = all_idxs[int(all_idxs.shape[0]*train_test_split):]
 
         else: # test dset
 

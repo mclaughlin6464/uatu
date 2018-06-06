@@ -54,7 +54,7 @@ def original_bayes_cost_fn(y, preds):
 
 
 def train(model_init_fn, optimizer_init_fn, cost_fn, data, device, fname,\
-          restore = False,num_epochs = 1, print_every = 10, lr = 0.0005):
+          restore = False,num_epochs = 1, print_every = 10, lr_np = 0.0005):
     tf.reset_default_graph()
     train_dset, val_dset, _ = data
     with tf.device(device):
@@ -71,6 +71,7 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, device, fname,\
 
         #loss = tf.reduce_mean(loss)
 
+        lr = tf.placeholder(tf.float32, name = 'learning_rate')
         optimizer = optimizer_init_fn(lr)
         update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
         with tf.control_dependencies(update_ops):
@@ -95,7 +96,12 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, device, fname,\
             for x_np, y_np in train_dset:
                 print t,
                 sys.stdout.flush()
-                feed_dict = {x: x_np, y: y_np, training: True}
+
+                if epoch < 3:
+                    lr_np = 5e-5 
+                else:
+                    lr_np = 5e-7
+                feed_dict = {x: x_np, y: y_np, training: True, lr: lr_np}
                 #loss_np, update_ops_np = sess.run([loss,update_ops], feed_dict=feed_dict)
                 #loss_np,mu1_np,mu2_np, log_s1_np, log_s2_np, z_np, _  = sess.run([loss,mu1,mu2,log_s1, log_s2, z, train_op], feed_dict=feed_dict)
                 loss_np, _  = sess.run([loss, train_op], feed_dict=feed_dict)
@@ -124,23 +130,29 @@ def test(model_init_fn, data,n_samples, device, fname, samples_fname_base):
 
         preds = model_init_fn(x, training)
 
+    with tf.device('/cpu:0'):
+
         saver = tf.train.Saver()
 
 
     with tf.Session() as sess:
         saver.restore(sess, fname)
         print 'Starting sampling'
-        for x_np in data:
+        for i, (x_np,  y_np) in enumerate(data):
             samples = []
             feed_dict = {x: x_np, training: False}
             #loss_np, update_ops_np = sess.run([loss,update_ops], feed_dict=feed_dict)
-
-            for i in xrange(n_samples):
+            y1, y2 = y_np[0]
+            for j in xrange(n_samples):
                 preds_np  = sess.run(preds, feed_dict=feed_dict)
                 samples.append(preds_np)
 
             samples = np.vstack(samples)
-            np.savetxt(samples_fname_base + '_%02d.npy'%i, samples)
+
+            print samples.mean(axis = 0)
+            print samples.std(axis = 0)
+            print  y1, y2
+            np.savetxt(samples_fname_base + '_%02d.npy'%i, samples, header = '%.6f\t%.6f'%(y1, y2))
 
 def check_accuracy(sess, dset, x, scores, training=None):
     """
@@ -173,16 +185,16 @@ def check_accuracy(sess, dset, x, scores, training=None):
 
             rho = 0.9*np.tanh(rho)
 
-            z = (mu1 - y_batch[:,0])**2 /(np.exp(log_s1)+1e-3) + \
+            chi2 = (mu1 - y_batch[:,0])**2 /(np.exp(log_s1)+1e-3) + \
                 (mu2 - y_batch[:,1])**2 /(np.exp(log_s2)+1e-3) - \
                 2 * rho * (mu1 - y_batch[:,0]) * (mu2 - y_batch[:,1]) / np.sqrt(np.exp(log_s1) * np.exp(log_s2)+1e-6)
 
-            chi2= (z / (2 * (1 - rho**2.)) + 
-                log_s1 + log_s2 + np.log(1 - rho**2.))
+            #chi2= (z / (2 * (1 - rho**2.)) + 
+            #    log_s1 + log_s2 + np.log(1 - rho**2.))
             perc_error.append(np.mean(chi2))
 
     if not do_chi2:
-        acc = np.array(perc_error[0]).mean(axis = 0)
+        acc = np.abs(np.array(perc_error[0]).mean(axis = 0))
         print 'Om: %.2f%%, s8: %.2f%% accuracy' % (100 * acc[0], 100*acc[1])
     else:
-        print 'chi2: %.3f'%(np.mean(perc_error)/5)
+        print 'chi2: %.3f'%(np.mean(perc_error)/2)
