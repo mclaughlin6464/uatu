@@ -4,22 +4,17 @@ from os import path
 from time import time
 t0 = time()
 #dir = '/scratch/users/swmclau2/UatuTraining2/'
-#dir = '/home/users/swmclau2/scratch/UatuTraining3/'
-dir = '../data/'
+dir = '/home/users/swmclau2/scratch/UatuTraining4/'
+#dir = '../data/'
+fname = path.join(dir, 'data.hdf5')
 
-X, y = get_all_xy(dir, max = 5)
-#X, y = get_xy_from_dir( path.join(dir, 'Box000'), 0)
-X_train, X_test, y_train, y_test = train_test_split(X, y, train_size = 0.7)
-
-#X_val,X_test, y_val, t_test = train_test_split(X_test, y_test, train_size = 0.6)
-
-train_dset = Dataset(X_train,y_train, 32, shuffle=True, augment=True)
+train_dset = DatasetFromFile(fname, 64, shuffle=True, augment=True)
 #val_dset = Dataset(X_val,y_val, 30, shuffle=True, augment=True)
-test_dset = Dataset(X_test, y_test, 32, shuffle=True, augment=True)
+test_dset = DatasetFromFile(fname, 64, shuffle=True, augment=True, test_idxs = train_dset.test_idxs)
 
 data = (train_dset, test_dset, None)
 
 device = "/device:GPU:0"
 #device = '/cpu:0'
 print time() - t0
-train(shallow_convnet_init_fn, standard_optimizer_init_fn, standard_cost_fn, data, device, num_epochs = 20, fname = './standard_net', print_every = 1, lr = 0.0001) 
+train(shallow_convnet_init_fn, standard_optimizer_init_fn, standard_cost_fn, data, device, num_epochs = 100, fname = '/home/users/swmclau2/scratch/standard_net2', print_every = 500)#, lr = 0.0001) 

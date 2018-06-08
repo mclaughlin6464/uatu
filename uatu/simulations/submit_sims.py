@@ -5,6 +5,7 @@ This file computes initial power spectra and submits Picola simulations for trai
 
 from os import path, mkdir
 from subprocess import call
+from time import time
 
 import numpy as np
 from classy import Class
@@ -134,7 +135,9 @@ def write_picola_params(o_cdm, sigma_8, outputdir, jobname):
     Ob = 0.022/(0.7**2)
     Om = Ocdm+Ob
 
-    formatted_config = picola_config.format(outputdir=outputdir,\
+
+    formatted_config = picola_config.format(seed= 5001,#seed = time()%10000,
+                                            outputdir=outputdir,\
                                             file_base = jobname,
                                             ocdm = Ocdm,
                                             ob = Ob,
