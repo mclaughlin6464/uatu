@@ -53,15 +53,17 @@ def lnprior(theta):
 def lnliklihood(theta, bins, obs_xi, invcov):
 
     Om, s8 = theta
-    Ob = 0.022/(0.7**2)
+    Om*=0.7**2
+    Ob = 0.022
     Ocdm = Om - Ob
-    cosmo = Cosmology(h=0.7, T0_cmb=2.726,
-                      Omega_b = 0.022,
+    cosmo = Cosmology(h=1.0, T0_cmb=2.726,
+                      Omega_b = Ob,
                       Omega0_cdm=Ocdm,
                       P_k_max = 100.0,
                       n_s=0.96).match(s8)
     bc = (bins[1:] + bins[:-1])/2.0
     predicted_xi = CorrelationFunction(HalofitPower(cosmo, 0.0))(bc)
+
     delta =  predicted_xi - obs_xi
     return -0.5*np.sum(np.dot(delta, np.dot(invcov, delta)))
 
@@ -87,3 +89,18 @@ def simulate_analysis(obsboxdir, bins, invcov, nwalkers, nsteps, ncores):
     sampler.run_mcmc(pos0, nsteps)
 
     return sampler.flatchain
+
+def simulate_analysis_iterator(obsboxdir, bins, invcov, nwalkers, nsteps, ncores):
+
+    assert bins.shape[0]-1 == invcov.shape[0]
+    obs_xi = compute_xi_from_box(bins, obsboxdir)
+
+    sampler = mc.EnsembleSampler(nwalkers, 2, lnprob,
+                                 threads=ncores, args=(bins, obs_xi, invcov))
+
+    pos0 = np.random.randn(nwalkers, 2)
+    pos0*=0.05
+    pos0+= np.array([0.3, 0.9])
+
+    for result in sampler.sample(pos0, iterations=nsteps, storechain=False):
+        yield result[0]
