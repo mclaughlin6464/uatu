@@ -102,8 +102,8 @@ class DatasetFromFile(object):
                 a,b = np.random.randint(0, 3, size = 2) #randomly swap two axes, to rotate the input array
                 X = np.swapaxes(X, a,b)
             if self.take_log:
-                X = np.array(X) # for some reason have to do this
-                X[X==0] = 1e-6
+                X = np.array(X).astype(float) # for some reason have to do this
+                X[X<1e-3] = 1e-3
                 X = np.log10(X)
 
             outputX.append(X)
