@@ -9,6 +9,7 @@ t0 = time()
 dir = '/home/users/swmclau2/scratch/UatuTraining4/'
 fname = path.join(dir, 'data.hdf5')
 
+
 train_dset = DatasetFromFile(fname, 64, shuffle=True, augment=True)
 #val_dset = Dataset(X_val,y_val, 30, shuffle=True, augment=True)
 test_dset = DatasetFromFile(fname, 64, shuffle=True, augment=True, test_idxs = train_dset.test_idxs)
