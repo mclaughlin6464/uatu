@@ -8,19 +8,11 @@ from itertools import izip
 import numpy as np
 import pandas as pd
 from glob import glob
-
-"""
-create a mock redshift survey given a mock with galaxy positions and velocities.
-"""
-
-from __future__ import absolute_import, division, print_function, unicode_literals
-
-import numpy as np
+#from __future__ import absolute_import, division, print_function, unicode_literals
 from scipy.interpolate import interp1d
 from astropy import cosmology
 from astropy.constants import c  # the speed of light
-
-
+from numba import jit
 
 def ra_dec_z(x, v=None, cosmo=None):
     """
@@ -116,8 +108,83 @@ def ra_dec_z(x, v=None, cosmo=None):
 
     return ra, dec, redshift
 
-def convert_particles_to_density(directory,boxno, Lbox = 512, Lvoxel = 2, N_voxels_per_side = 4 ):
+def get_astropy_cosmo(directory, boxno):
+    """
+    Get the astropy cosmology according to the parameters of this box
+    """
+    with open(path.join(directory, 'input_params%03d.dat'%boxno), 'r') as f:
+        for line in f:
+            if line[0] == 'O':
+                splitline = line.split(':')
+                omega_m = float(splitline[-1])
 
+            elif line[0] == 's':
+                splitline = line.split(':')
+                sigma_8 = float(splitline[-1])
+
+    # don't use sigma_8, not sure it matters
+    return cosmology.FlatLambdaCDM(H0 = 70, Om0 = omega_m, Ob0 = 0.022/(0.7**2) )
+
+#@jit
+def convert_particles_to_proj_density(directory, boxno, Lbox = 512.0, ang_size_image = 2, pixels_per_side = 32, n_z_bins = 4):
+    # ang size image: size of each sub image in degrees
+    # pixels_per_side: number of pixels per side in the sub images
+    reader = pd.read_csv(path.join(directory, 'uatu_lightcone.0'), delim_whitespace = True, chunksize = 5000)
+
+    cosmo = get_astropy_cosmo(directory, boxno) 
+    #establish min/max bounds
+
+    test_coords = np.c_[np.array([0.0, 0.0, 0.0, 0.0, 512.0, 512.0, 512.0, 512.0]),\
+                        np.array([0.0, 0.0, 512.0, 512.0, 0.0, 0.0, 512.0, 512.0]),\
+                        np.array([0.0, 512.0, 0.0, 512.0, 0.0, 512.0, 0.0, 512.0])] 
+    ra,dec,z = ra_dec_z(test_coords, cosmo=cosmo)
+    ra, dec = np.degrees(ra), np.degrees(dec)
+    min_ra, max_ra = np.nanmin(ra), np.nanmax(ra)
+    min_dec, max_dec = np.nanmin(dec), np.nanmax(dec)
+    min_z, max_z = 0.0, np.nanmax(z)
+
+    z_bin_size = max_z/n_z_bins
+
+    # assuming ra and dec spacing the same
+    n_pixels = int( (max_ra - min_ra)*pixels_per_side/ang_size_image )
+    #unsolved: how to determine max resfhit? 
+    particle_counts = np.zeros((n_pixels, n_pixels, n_z_bins))
+
+    for i, chunk in enumerate(reader):
+        # could use velocities, not worrying about it now
+        arr = chunk.values[:, :3]
+        x = arr.astype(float)
+        # uh? values outside box bounds, dunno.
+        x[x<0] = 0.0
+        x[x>Lbox] = Lbox
+
+        ra, dec, z = ra_dec_z(x, cosmo = cosmo)
+        ra, dec = np.degrees(ra), np.degrees(dec)
+
+        ra_idx, dec_idx = np.floor_divide(ra-min_ra, ang_size_image*1.0/pixels_per_side).astype(int), np.floor_divide(dec-min_dec, ang_size_image*1.0/pixels_per_side).astype(int)
+        z_idx = np.floor_divide(z, z_bin_size).astype(int)
+
+        ra_idx[ra_idx<0] = 0
+        ra_idx[ra_idx >=n_pixels] = n_pixels-1 #edge cases
+
+        dec_idx[dec_idx<0] = 0
+        dec_idx[dec_idx >= n_pixels] = n_pixels-1 #edge cases
+
+        for idx, (i,j,k) in enumerate(izip(ra_idx, dec_idx, z_idx)):
+            particle_counts[i,j,k] +=1 #would like to avoid this for loop, hopefully numba helps
+
+    # God has left this place
+    # convert the histogram in a list of sub-voxels which will be hte input to the training set.
+    x = np.array(np.split(particle_counts, (max_ra - min_ra)/ang_size_image))
+    pixel_list = np.vstack(np.split(x, (max_dec-min_dec)/ang_size_image, axis = 2))
+    
+    np.save(path.join(directory, 'particle_hist_%03d.npy'%boxno), pixel_list)
+
+# TODO clarify syntax between this and above? work a little differency
+@jit
+def convert_particles_to_density(directory,boxno, Lbox = 512, Lvoxel = 2, N_voxels_per_side = 4 ):
+    # Lvoxel, size on an individual density voxel
+    # number of voxels in a subvolume
     reader = pd.read_csv(path.join(directory, 'uatu_z0p000.0'), delim_whitespace = True, chunksize = 5000)
 
     n_voxels = Lbox/Lvoxel
@@ -147,7 +214,10 @@ def convert_all_particles(directory, **kwargs):
     all_subdirs = glob(path.join(directory, 'Box*/'))
     for boxno, subdir in enumerate(sorted(all_subdirs)):
         print subdir
-        convert_particles_to_density(subdir,boxno, **kwargs)
+        if path.isfile(path.join(subdir, 'uatu_lightcone.info' )): # is a lightcone
+            convert_particles_to_proj_density(subdir, boxno, **kwargs)
+        else:
+            convert_particles_to_density(subdir,boxno, **kwargs)
 
     # TODO delte the particles?
 
