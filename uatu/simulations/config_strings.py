@@ -103,7 +103,7 @@ k_pivot = 0.05
 
 2) scalar adiabatic perturbations: curvature power spectrum value at pivot scale, tilt at the same scale, and tilt running (default: set 'A_s' to 2.42e-9, 'n_s' to 0.967, 'alpha_s' to 0)
 
-A_s = {as:f}
+A_s = {A_s:f}
 n_s = 0.96
 alpha_s = 0.
 
@@ -251,13 +251,13 @@ InputSpectrum_UnitLength_in_cm  3.085678e24       % defines length unit of tabul
 
 % Lightcone simulations
 % =====================
-%Origin_x     0.0                % The position of the lightcone origin in the x-axis
-%Origin_y     0.0                % The position of the lightcone origin in the y-axis
-%Origin_z     0.0                % The position of the lightcone origin in the z-axis
-%Nrep_neg_x   0                  % The maximum number of box replicates in the negative x-direction
-%Nrep_pos_x   0                  % The maximum number of box replicates in the positive x-direction
-%Nrep_neg_y   0                  % The maximum number of box replicates in the negative y-direction
-%Nrep_pos_y   0                  % The maximum number of box replicates in the positive y-direction
-%Nrep_neg_z   0                  % The maximum number of box replicates in the negative z-direction
-%Nrep_pos_z   0                  % The maximum number of box replicates in the positive z-direction
+Origin_x     0.0                % The position of the lightcone origin in the x-axis
+Origin_y     0.0                % The position of the lightcone origin in the y-axis
+Origin_z     0.0                % The position of the lightcone origin in the z-axis
+Nrep_neg_x   0                  % The maximum number of box replicates in the negative x-direction
+Nrep_pos_x   0                  % The maximum number of box replicates in the positive x-direction
+Nrep_neg_y   0                  % The maximum number of box replicates in the negative y-direction
+Nrep_pos_y   0                  % The maximum number of box replicates in the positive y-direction
+Nrep_neg_z   0                  % The maximum number of box replicates in the negative z-direction
+Nrep_pos_z   0                  % The maximum number of box replicates in the positive z-direction
 """

@@ -136,7 +136,7 @@ def write_picola_params(o_cdm, sigma_8, outputdir, jobname):
     Om = Ocdm+Ob
 
 
-    formatted_config = picola_config.format(seed= 5001,#seed = time()%10000,
+    formatted_config = picola_config.format(seed = time()%10000, #5001
                                             outputdir=outputdir,\
                                             file_base = jobname,
                                             ocdm = Ocdm,
