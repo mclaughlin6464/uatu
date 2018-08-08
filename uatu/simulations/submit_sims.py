@@ -164,7 +164,7 @@ if __name__ == "__main__":
             mkdir(sub_outputdir)
 
         with open(path.join(sub_outputdir, 'output_redshifts.dat'), 'w') as f:
-            f.write("0.0, 10") #all we need
+            f.write("2.0, 5\n0.0, 10") #all we need
 
         sigma_8 = compute_pk(o, a, sub_outputdir)
         with open(path.join(sub_outputdir, 'input_params%03d.dat'%idx), 'w') as f:

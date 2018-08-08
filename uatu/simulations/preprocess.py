@@ -180,12 +180,21 @@ def convert_particles_to_proj_density(directory, boxno, Lbox = 512.0, ang_size_i
     
     np.save(path.join(directory, 'particle_hist_%03d.npy'%boxno), pixel_list)
 
+#@jit
+#def count_in_bins(array, x_idx, y_idx, z_idx):
+#    for i,j,k in izip(x_idx, y_idx, z_idx):
+#        array[i,j,k]+=1
+
+
 # TODO clarify syntax between this and above? work a little differency
 @jit
 def convert_particles_to_density(directory,boxno, Lbox = 512, Lvoxel = 2, N_voxels_per_side = 4 ):
     # Lvoxel, size on an individual density voxel
     # number of voxels in a subvolume
-    reader = pd.read_csv(path.join(directory, 'uatu_z0p000.0'), delim_whitespace = True, chunksize = 5000)
+    if path.isfile(path.join(directory, 'uatu_lightcone.0' )): # is a lightcone
+        reader = pd.read_csv(path.join(directory, 'uatu_lightcone.0'), delim_whitespace = True, chunksize = 5000)
+    else:
+        reader = pd.read_csv(path.join(directory, 'uatu_z0p000.0'), delim_whitespace = True, chunksize = 5000)
 
     n_voxels = Lbox/Lvoxel
     particle_counts = np.zeros((n_voxels, n_voxels, n_voxels), dtype= int) # Lvoxel Mpc/h voxels
@@ -196,8 +205,16 @@ def convert_particles_to_density(directory,boxno, Lbox = 512, Lvoxel = 2, N_voxe
 
         x_idx, y_idx, z_idx = np.floor_divide(x, Lvoxel).astype(int), np.floor_divide(y, Lvoxel).astype(int), np.floor_divide(z, Lvoxel).astype(int)
 
+        x_idx[x_idx <0] = 0
+        x_idx[x_idx >= particle_counts.shape[0]] = particle_counts.shape[0]-1
+        y_idx[y_idx <0] = 0
+        y_idx[y_idx >= particle_counts.shape[0]] = particle_counts.shape[0]-1
+        z_idx[z_idx <0] = 0
+        z_idx[z_idx >= particle_counts.shape[0]] = particle_counts.shape[0]-1
+
         for i,j,k in izip(x_idx, y_idx, z_idx):
             particle_counts[i,j,k]+=1
+        #count_in_bins(particle_counts, x_idx, y_idx, z_idx)
         #np.add.at(particle_counts, np.c_[x_idx, y_idx, z_idx], 1)
 
     # God has left this place
@@ -214,10 +231,10 @@ def convert_all_particles(directory, **kwargs):
     all_subdirs = glob(path.join(directory, 'Box*/'))
     for boxno, subdir in enumerate(sorted(all_subdirs)):
         print subdir
-        if path.isfile(path.join(subdir, 'uatu_lightcone.info' )): # is a lightcone
-            convert_particles_to_proj_density(subdir, boxno, **kwargs)
-        else:
-            convert_particles_to_density(subdir,boxno, **kwargs)
+        #if path.isfile(path.join(subdir, 'uatu_lightcone.info' )): # is a lightcone
+        #    convert_particles_to_proj_density(subdir, boxno, **kwargs)
+        #else:
+        convert_particles_to_density(subdir,boxno, **kwargs)
 
     # TODO delte the particles?
 
