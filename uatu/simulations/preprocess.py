@@ -152,7 +152,7 @@ def apply_bias_model(box, n_points = 100, ordered_params = None, bias_model = de
 
     return lhc, bias_models
 
-@jit
+#@jit
 def convert_box_to_proj_density(directory, boxno,box, Lbox = 512.0, ang_size_image = 2, pixels_per_side = 32, n_z_bins = 4):
     # ang size image: size of each sub image in degrees
     # pixels_per_side: number of pixels per side in the sub images
@@ -174,12 +174,11 @@ def convert_box_to_proj_density(directory, boxno,box, Lbox = 512.0, ang_size_ima
 
     # assuming ra and dec spacing the same
     n_pixels = int( (max_ra - min_ra)*pixels_per_side/ang_size_image )
+    Lvoxel = Lbox/box.shape[0]
     #unsolved: how to determine max resfhit? 
     proj_density = np.zeros((n_pixels, n_pixels, n_z_bins))
-
-    idxs = np.array(list(product(range(box.shape[0]), repeat=3)))
-    Lvoxel = Lbox/box.shape[0]
-    coords = Lvoxel*(idxs.astype(float)+0.5)
+    idxs = np.asarray([p for p in product(xrange(box.shape[0]), repeat=3)])#).astype(float)
+    coords = Lvoxel*(idxs+0.5)
 
     ra, dec, z = ra_dec_z(coords, cosmo=cosmo)
     ra, dec = np.degrees(ra), np.degrees(dec)
