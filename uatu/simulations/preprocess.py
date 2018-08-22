@@ -3,7 +3,8 @@
 Convert the raw simulation data into a format the CNN can accept
 """
 from os import path
-from itertools import izip
+from itertools import izip, product
+from collections import OrderedDict
 
 import numpy as np
 import pandas as pd
@@ -14,7 +15,7 @@ from astropy import cosmology
 from astropy.constants import c  # the speed of light
 from numba import jit
 
-def ra_dec_z(x, v=None, cosmo=None):
+def ra_dec_z(x, cosmo=None):
     """
     Lifted from halotools, originally written by Duncan Campbell
 
@@ -70,13 +71,12 @@ def ra_dec_z(x, v=None, cosmo=None):
     >>> from astropy.cosmology import WMAP9 as cosmo
     >>> ra, dec, redshift = ra_dec_z(coords, vels, cosmo = cosmo)
     """
+    if len(x.shape) == 1:
+        x = np.array([x])
     
-    if v is None:
-        v = np.zeros_like(x)
     # calculate the observed redshift
     if cosmo is None:
         cosmo = cosmology.FlatLambdaCDM(H0=0.7, Om0=0.3)
-    c_km_s = c.to('km/s').value
 
     # remove h scaling from position so we can use the cosmo object
     x = x/cosmo.h
@@ -84,25 +84,15 @@ def ra_dec_z(x, v=None, cosmo=None):
     # compute comoving distance from observer
     r = np.sqrt(x[:, 0]**2+x[:, 1]**2+x[:, 2]**2)
 
-    # compute radial velocity
-    ct = x[:, 2]/r
-    st = np.sqrt(1.0 - ct**2)
-    cp = x[:, 0]/np.sqrt(x[:, 0]**2 + x[:, 1]**2)
-    sp = x[:, 1]/np.sqrt(x[:, 0]**2 + x[:, 1]**2)
-    vr = v[:, 0]*st*cp + v[:, 1]*st*sp + v[:, 2]*ct
-
     # compute cosmological redshift and add contribution from perculiar velocity
     yy = np.arange(0, 1.0, 0.001)
     xx = cosmo.comoving_distance(yy).value
     f = interp1d(xx, yy, kind='cubic')
-    z_cos = f(r)
-    redshift = z_cos+(vr/c_km_s)*(1.0+z_cos)
+    redshift = f(r)
 
     # calculate spherical coordinates
     theta = np.arccos(x[:, 2]/r)
     phi = np.arctan2(x[:, 1], x[:, 0])
-
-    # convert spherical coordinates into ra,dec
     ra = phi
     dec = theta - np.pi/2.0
 
@@ -122,14 +112,50 @@ def get_astropy_cosmo(directory, boxno):
                 splitline = line.split(':')
                 sigma_8 = float(splitline[-1])
 
-    # don't use sigma_8, not sure it matters
+                # don't use sigma_8, not sure it matters
     return cosmology.FlatLambdaCDM(H0 = 70, Om0 = omega_m, Ob0 = 0.022/(0.7**2) )
 
-#@jit
-def convert_particles_to_proj_density(directory, boxno, Lbox = 512.0, ang_size_image = 2, pixels_per_side = 32, n_z_bins = 4):
+def default_bias_model(delta, params):
+    return delta*params['b1']+params['b2']*delta**2 
+
+def make_LHC(ordered_params, N):
+    
+    np.random.seed(int(time()))
+
+    points = []
+                                                                                                                                        # by linspacing each parameter and shuffling, I ensure there is only one point in each row, in each dimension.
+    for plow, phigh in ordered_params.itervalues():
+        point = np.linspace(plow, phigh, num=N)
+        np.random.shuffle(point)  # makes the cube random.
+        points.append(point)
+    
+    return np.stack(points).T
+
+def apply_bias_model(box, n_points = 100, ordered_params = None, bias_model = default_bias_model):
+
+    if ordered_params is None:
+        if bias_model == default_bias_model:
+            ordered_params = OrderedDict({'b1':(0, 2), 'b2':(-1, 1)})
+        else:
+            raise ValueError("Please specified ordered params")
+
+    lhc = make_LHC(ordered_params, n_points)
+
+    bias_models = np.zeros((n_points. box.shape[0], box.shape[0], box.shape[0])) 
+
+    rho_bar = box.mean()
+    delta = (box-rho_bar)/(rho_bar) 
+
+    for idx, point in enumerate(lhc): 
+        params = dict(zip(ordered_params.keys(), point))
+        bias_models[idx] = bias_model(delta, params)
+
+    return lhc, bias_models
+
+@jit
+def convert_box_to_proj_density(directory, boxno,box, Lbox = 512.0, ang_size_image = 2, pixels_per_side = 32, n_z_bins = 4):
     # ang size image: size of each sub image in degrees
     # pixels_per_side: number of pixels per side in the sub images
-    reader = pd.read_csv(path.join(directory, 'uatu_lightcone.0'), delim_whitespace = True, chunksize = 5000)
 
     cosmo = get_astropy_cosmo(directory, boxno) 
     #establish min/max bounds
@@ -137,6 +163,7 @@ def convert_particles_to_proj_density(directory, boxno, Lbox = 512.0, ang_size_i
     test_coords = np.c_[np.array([0.0, 0.0, 0.0, 0.0, 512.0, 512.0, 512.0, 512.0]),\
                         np.array([0.0, 0.0, 512.0, 512.0, 0.0, 0.0, 512.0, 512.0]),\
                         np.array([0.0, 512.0, 0.0, 512.0, 0.0, 512.0, 0.0, 512.0])] 
+
     ra,dec,z = ra_dec_z(test_coords, cosmo=cosmo)
     ra, dec = np.degrees(ra), np.degrees(dec)
     min_ra, max_ra = np.nanmin(ra), np.nanmax(ra)
@@ -148,47 +175,38 @@ def convert_particles_to_proj_density(directory, boxno, Lbox = 512.0, ang_size_i
     # assuming ra and dec spacing the same
     n_pixels = int( (max_ra - min_ra)*pixels_per_side/ang_size_image )
     #unsolved: how to determine max resfhit? 
-    particle_counts = np.zeros((n_pixels, n_pixels, n_z_bins))
+    proj_density = np.zeros((n_pixels, n_pixels, n_z_bins))
 
-    for i, chunk in enumerate(reader):
-        # could use velocities, not worrying about it now
-        arr = chunk.values[:, :3]
-        x = arr.astype(float)
-        # uh? values outside box bounds, dunno.
-        x[x<0] = 0.0
-        x[x>Lbox] = Lbox
+    idxs = np.array(list(product(range(box.shape[0]), repeat=3)))
+    Lvoxel = Lbox/box.shape[0]
+    coords = Lvoxel*(idxs.astype(float)+0.5)
 
-        ra, dec, z = ra_dec_z(x, cosmo = cosmo)
-        ra, dec = np.degrees(ra), np.degrees(dec)
+    ra, dec, z = ra_dec_z(coords, cosmo=cosmo)
+    ra, dec = np.degrees(ra), np.degrees(dec)
 
-        ra_idx, dec_idx = np.floor_divide(ra-min_ra, ang_size_image*1.0/pixels_per_side).astype(int), np.floor_divide(dec-min_dec, ang_size_image*1.0/pixels_per_side).astype(int)
-        z_idx = np.floor_divide(z, z_bin_size).astype(int)
+    ra_idx, dec_idx = np.floor_divide(ra-min_ra, ang_size_image*1.0/pixels_per_side).astype(int), np.floor_divide(dec-min_dec, ang_size_image*1.0/pixels_per_side).astype(int)
+    z_idx = np.floor_divide(z, z_bin_size).astype(int)
 
-        ra_idx[ra_idx<0] = 0
-        ra_idx[ra_idx >=n_pixels] = n_pixels-1 #edge cases
+    ra_idx[ra_idx<0] = 0
+    ra_idx[ra_idx >=n_pixels] = n_pixels-1 #edge cases
 
-        dec_idx[dec_idx<0] = 0
-        dec_idx[dec_idx >= n_pixels] = n_pixels-1 #edge cases
+    dec_idx[dec_idx<0] = 0
+    dec_idx[dec_idx >= n_pixels] = n_pixels-1 #edge cases
 
-        for idx, (i,j,k) in enumerate(izip(ra_idx, dec_idx, z_idx)):
-            particle_counts[i,j,k] +=1 #would like to avoid this for loop, hopefully numba helps
+    for ri, di, zi, density  in izip(ra_idx, dec_idx, z_idx, np.nditer(box)):
+        proj_density[ri, di, zi] += density #would like to avoid this for loop, hopefully numba helps
 
     # God has left this place
     # convert the histogram in a list of sub-voxels which will be hte input to the training set.
-    x = np.array(np.split(particle_counts, (max_ra - min_ra)/ang_size_image))
+    x = np.array(np.split(proj_density, (max_ra - min_ra)/ang_size_image))
     pixel_list = np.vstack(np.split(x, (max_dec-min_dec)/ang_size_image, axis = 2))
-    
-    np.save(path.join(directory, 'particle_hist_%03d.npy'%boxno), pixel_list)
 
-#@jit
-#def count_in_bins(array, x_idx, y_idx, z_idx):
-#    for i,j,k in izip(x_idx, y_idx, z_idx):
-#        array[i,j,k]+=1
-
+    return pixel_list
+    #np.save(path.join(directory, 'particle_hist_%03d.npy'%boxno), pixel_list)
 
 # TODO clarify syntax between this and above? work a little differency
 @jit
-def convert_particles_to_density(directory,boxno, Lbox = 512, Lvoxel = 2, N_voxels_per_side = 4 ):
+def convert_particles_to_density(directory,boxno, Lbox = 512, Lvoxel = 2, N_voxels_per_side = 4, full = True):
     # Lvoxel, size on an individual density voxel
     # number of voxels in a subvolume
     if path.isfile(path.join(directory, 'uatu_lightcone.0' )): # is a lightcone
@@ -198,32 +216,26 @@ def convert_particles_to_density(directory,boxno, Lbox = 512, Lvoxel = 2, N_voxe
 
     n_voxels = Lbox/Lvoxel
     particle_counts = np.zeros((n_voxels, n_voxels, n_voxels), dtype= int) # Lvoxel Mpc/h voxels
-
     for i, chunk in enumerate(reader):
         arr = chunk.values[:, :3]
         x,y,z = arr[:,0].astype(float), arr[:,1].astype(float), arr[:,2].astype(float)
-
         x_idx, y_idx, z_idx = np.floor_divide(x, Lvoxel).astype(int), np.floor_divide(y, Lvoxel).astype(int), np.floor_divide(z, Lvoxel).astype(int)
-
         x_idx[x_idx <0] = 0
         x_idx[x_idx >= particle_counts.shape[0]] = particle_counts.shape[0]-1
         y_idx[y_idx <0] = 0
         y_idx[y_idx >= particle_counts.shape[0]] = particle_counts.shape[0]-1
         z_idx[z_idx <0] = 0
         z_idx[z_idx >= particle_counts.shape[0]] = particle_counts.shape[0]-1
-
         for i,j,k in izip(x_idx, y_idx, z_idx):
             particle_counts[i,j,k]+=1
-        #count_in_bins(particle_counts, x_idx, y_idx, z_idx)
-        #np.add.at(particle_counts, np.c_[x_idx, y_idx, z_idx], 1)
-
-    # God has left this place
-    # convert the histogram in a list of sub-voxels which will be hte input to the training set.
+            #count_in_bins(particle_counts, x_idx, y_idx, z_idx)
+            #np.add.at(particle_counts, np.c_[x_idx, y_idx, z_idx], 1)
+            # God has left this place
+            # convert the histogram in a list of sub-voxels which will be hte input to the training set.
     x = np.array(np.split(particle_counts, N_voxels_per_side))
     y = np.vstack(np.split(x, N_voxels_per_side, axis = 2))
     voxel_list = np.vstack(np.split(y, N_voxels_per_side, axis = 3))
 
-    print np.cbrt(np.sum(voxel_list))
     np.save(path.join(directory, 'particle_hist_%03d.npy'%boxno), voxel_list)
 
 def convert_all_particles(directory, **kwargs):
