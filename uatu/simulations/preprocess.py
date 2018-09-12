@@ -3,6 +3,7 @@
 Convert the raw simulation data into a format the CNN can accept
 """
 from os import path
+from time import time
 from itertools import izip, product
 from collections import OrderedDict
 
@@ -141,7 +142,7 @@ def apply_bias_model(box, n_points = 100, ordered_params = None, bias_model = de
 
     lhc = make_LHC(ordered_params, n_points)
 
-    bias_models = np.zeros((n_points. box.shape[0], box.shape[0], box.shape[0])) 
+    bias_models = np.zeros((n_points, box.shape[0], box.shape[0], box.shape[0])) 
 
     rho_bar = box.mean()
     delta = (box-rho_bar)/(rho_bar) 
@@ -200,7 +201,7 @@ def convert_box_to_proj_density(directory, boxno,box, Lbox = 512.0, ang_size_ima
     x = np.array(np.split(proj_density, (max_ra - min_ra)/ang_size_image))
     pixel_list = np.vstack(np.split(x, (max_dec-min_dec)/ang_size_image, axis = 2))
 
-    return pixel_list
+    return pixel_list, proj_density
     #np.save(path.join(directory, 'particle_hist_%03d.npy'%boxno), pixel_list)
 
 # TODO clarify syntax between this and above? work a little differency
