@@ -8,6 +8,7 @@ from itertools import izip, product
 from collections import OrderedDict
 
 import numpy as np
+import healpy as hp
 import pandas as pd
 from glob import glob
 #from __future__ import absolute_import, division, print_function, unicode_literals
@@ -153,56 +154,101 @@ def apply_bias_model(box, n_points = 100, ordered_params = None, bias_model = de
 
     return lhc, bias_models
 
-#@jit
-def convert_box_to_proj_density(directory, boxno,box, Lbox = 512.0, ang_size_image = 2, pixels_per_side = 32, n_z_bins = 4):
-    # ang size image: size of each sub image in degrees
-    # pixels_per_side: number of pixels per side in the sub images
+def kappa_weighting(x, cosmo, redshift_s = 0.5):
+    """
+    Apply an unormalized lensing kernel
+    :param x: The position at which to apply the kernel. Of shape [N, 3]
+    :param cosmo: Cosmology of the sample
+    :param redshift_s: Source redshift. Default is 0.5
+    :return: Kernel, a vector of shape [N,] with the weight of the kernel for each position in x.
+    """
+    _, _, redshift = ra_dec_z(x, cosmo)
+    comoving_dist = np.sqrt(np.sum(x ** 2), axis = 1)
+    comoving_dist_s = cosmo.comoving_distance(redshift_s).value
+    return comoving_dist * (1 + redshift) * (1 - comoving_dist / comoving_dist_s)
 
-    cosmo = get_astropy_cosmo(directory, boxno) 
-    #establish min/max bounds
+def naive_weighting(x, cosmo, **kwargs):
+    """
+    Dummy function to apply
+    :param x: positions of particles
+    :param cosmo: cosmology of the particles. Not used, but here to have similar api to kappa weighting
+    :return: Kernel, a vector of shape [N,] of ones
+    """
+    return np.ones((x.shape[0],))
 
-    test_coords = np.c_[np.array([0.0, 0.0, 0.0, 0.0, 512.0, 512.0, 512.0, 512.0]),\
-                        np.array([0.0, 0.0, 512.0, 512.0, 0.0, 0.0, 512.0, 512.0]),\
-                        np.array([0.0, 512.0, 0.0, 512.0, 0.0, 512.0, 0.0, 512.0])] 
+@jit
+def convert_box_to_proj_density(directory, boxno, Lbox = 512.0, N = 2048, ang_size_image = 10,\
+                                pixels_per_side = 256, weighting_func = kappa_weighting, n_z_bins = 4):
+    """
+    Project a particle distribution to a 2-D map. Optionally apply a kernel, to simulate lensing.
+    Saves the maps to the directory of the lightcone.
+    :param directory:
+        Directory where the box/lightcone is located
+    :param boxno:
+        Box number label of the directory
+    :param Lbox:
+        Size of the box. Default is 512 Mpc/h
+    :param N:
+        N for the healpix map, default is 2048
+    :param ang_size_image:
+        Angular size of the final images. Default is 10 degrees
+    :param pixels_per_side:
+        Pixels per sie of the final images, default is 256
+    :param weighting_func:
+        Weighting function to apply to the particles; default is a kappa weighting with z_s 0.5
+    :param n_z_bins:
+        TODO not used right now
+    :return:
+        None
+    """
+    if path.isfile(path.join(directory, 'uatu_lightcone.0' )): # is a lightcone
+        reader = pd.read_csv(path.join(directory, 'uatu_lightcone.0'), delim_whitespace = True, chunksize = 500000)
+    else:
+        reader = pd.read_csv(path.join(directory, 'uatu_z0p000.0'), delim_whitespace = True, chunksize = 500000)
 
-    ra,dec,z = ra_dec_z(test_coords, cosmo=cosmo)
-    ra, dec = np.degrees(ra), np.degrees(dec)
-    min_ra, max_ra = np.nanmin(ra), np.nanmax(ra)
-    min_dec, max_dec = np.nanmin(dec), np.nanmax(dec)
-    min_z, max_z = 0.0, np.nanmax(z)
+    n_bins = 12 * N ** 2
+    healpix_hist = np.zeros((n_bins,))
+    # TODO i should be pulling the boxno from the directory
+    cosmo = get_astropy_cosmo(directory, boxno)
+    for i, chunk in enumerate(reader):
+        arr = chunk.values[:, :3]
+        x, y, z = arr[:, 0].astype(float), arr[:, 1].astype(float), arr[:, 2].astype(float)
+        rad2 = x ** 2 + y ** 2 + z ** 2
 
-    z_bin_size = max_z/n_z_bins
+        in_shell = rad2 <= Lbox ** 2
 
-    # assuming ra and dec spacing the same
-    n_pixels = int( (max_ra - min_ra)*pixels_per_side/ang_size_image )
-    Lvoxel = Lbox/box.shape[0]
-    #unsolved: how to determine max resfhit? 
-    proj_density = np.zeros((n_pixels, n_pixels, n_z_bins))
-    idxs = np.asarray([p for p in product(xrange(box.shape[0]), repeat=3)])#).astype(float)
-    coords = Lvoxel*(idxs+0.5)
+        # Only keep particles in a spherical shell around the observer
+        # keeps out weird boxy effects
+        # TODO here is where i should be adding redshift limits
+        if np.all(~in_shell):
+            continue
 
-    ra, dec, z = ra_dec_z(coords, cosmo=cosmo)
-    ra, dec = np.degrees(ra), np.degrees(dec)
+        x, y, z = x[in_shell], y[in_shell], z[in_shell]
 
-    ra_idx, dec_idx = np.floor_divide(ra-min_ra, ang_size_image*1.0/pixels_per_side).astype(int), np.floor_divide(dec-min_dec, ang_size_image*1.0/pixels_per_side).astype(int)
-    z_idx = np.floor_divide(z, z_bin_size).astype(int)
+        pix = hp.vec2pix(N, x, y, z)
+        weights = weighting_func(np.c_[x,y,z], cosmo)
+        hmap, _ = np.histogram(pix, np.arange(n_bins + 1), weights=weights)  # use weights here
+        healpix_hist += hmap
 
-    ra_idx[ra_idx<0] = 0
-    ra_idx[ra_idx >=n_pixels] = n_pixels-1 #edge cases
+    size_required = 2*pixels_per_side*90/ang_size_image
+    projector = hp.projector.GnomonicProj(xsize=size_required, reso=1.0)
+    vec2pix_func = lambda x,y,z: hp.pixelfunc.vec2pix(N, x,y,z)
+    proj_map = projector.projmap(healpix_hist, vec2pix_func)[size_required / 2:, :size_required / 2]
+    # apply crude smoothing
+    zero_vals = proj_map == 0
+    proj_map[zero_vals] = np.min(proj_map[~zero_vals])
 
-    dec_idx[dec_idx<0] = 0
-    dec_idx[dec_idx >= n_pixels] = n_pixels-1 #edge cases
+    n_per_map = proj_map.shape[0] / pixels_per_side
+    # TODO apply dithering to get more maps from one projection
+    maps = np.zeros((n_per_map ** 2, pixels_per_side, pixels_per_side))
 
-    for ri, di, zi, density  in izip(ra_idx, dec_idx, z_idx, np.nditer(box)):
-        proj_density[ri, di, zi] += density #would like to avoid this for loop, hopefully numba helps
+    for i in xrange(n_per_map):
+        for j in xrange(n_per_map):
+            maps[i * n_per_map + j] = np.log10(proj_map[i * pixels_per_side:(i + 1) * pixels_per_side, \
+                                            j * pixels_per_side:(j + 1) * pixels_per_side])
 
-    # God has left this place
-    # convert the histogram in a list of sub-voxels which will be hte input to the training set.
-    x = np.array(np.split(proj_density, (max_ra - min_ra)/ang_size_image))
-    pixel_list = np.vstack(np.split(x, (max_dec-min_dec)/ang_size_image, axis = 2))
+    np.save(path.join(directory, 'proj_map_%03d.npy'%boxno), maps)
 
-    return pixel_list, proj_density
-    #np.save(path.join(directory, 'particle_hist_%03d.npy'%boxno), pixel_list)
 
 # TODO clarify syntax between this and above? work a little differency
 @jit
