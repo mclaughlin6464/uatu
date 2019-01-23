@@ -177,7 +177,7 @@ def naive_weighting(x, cosmo, **kwargs):
     return np.ones((x.shape[0],))
 
 @jit
-def convert_box_to_proj_density(directory, boxno, Lbox = 512.0, N = 2048, ang_size_image = 10,\
+def convert_particles_to_proj_density(directory, boxno, Lbox = 512.0, N = 2048, ang_size_image = 10,\
                                 pixels_per_side = 256, weighting_func = kappa_weighting, n_z_bins = 4):
     """
     Project a particle distribution to a 2-D map. Optionally apply a kernel, to simulate lensing.
@@ -289,10 +289,10 @@ def convert_all_particles(directory, **kwargs):
     all_subdirs = glob(path.join(directory, 'Box*/'))
     for boxno, subdir in enumerate(sorted(all_subdirs)):
         print subdir
-        #if path.isfile(path.join(subdir, 'uatu_lightcone.info' )): # is a lightcone
-        #    convert_particles_to_proj_density(subdir, boxno, **kwargs)
-        #else:
-        convert_particles_to_density(subdir,boxno, **kwargs)
+        if path.isfile(path.join(subdir, 'uatu_lightcone.info' )): # is a lightcone
+            convert_particles_to_proj_density(subdir, boxno, **kwargs)
+        else:
+            convert_particles_to_density(subdir,boxno, **kwargs)
 
     # TODO delte the particles?
 
