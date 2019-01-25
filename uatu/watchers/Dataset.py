@@ -27,7 +27,8 @@ class Dataset(object):
         if not self.augment:
             return iter((self.X[i:i + B], self.Y[i:i + B]) for i in xrange(0, N, B))
         else: #augment randomly on the fly
-            a,b = np.random.randint(1, 4, size = 2) #randomly swap two axes, to rotate the input array
+            # TODO use the shape of the data
+            a,b = np.random.randint(1, 3, size = 2) #randomly swap two axes, to rotate the input array
             # NOTE could flip, rotate axes as well
             return iter((np.swapaxes(self.X[i:i + B], a,b), self.Y[i:i + B]) for i in xrange(0, N, B))
 
@@ -60,7 +61,7 @@ class DatasetFromFile(object):
             all_idxs = np.zeros((64*box_idxs.shape[0], 2))
             
             i = 0
-            for bi in box_idxs:
+            for bi in box_idxs: 
                 for sbi in xrange(64):
                     all_idxs[i,0] = bi
                     all_idxs[i,1] = sbi
@@ -99,7 +100,7 @@ class DatasetFromFile(object):
             X = f['Box%03d'%bn]['X'][sbn]
             Y = f['Box%03d'%bn]['Y'][sbn]
             if self.augment:
-                a,b = np.random.randint(0, 3, size = 2) #randomly swap two axes, to rotate the input array
+                a,b = np.random.randint(0, 2, size = 2) #randomly swap two axes, to rotate the input array
                 X = np.swapaxes(X, a,b)
             if self.take_log:
                 X = np.array(X).astype(float) # for some reason have to do this
@@ -120,8 +121,11 @@ def get_xy_from_dir(dir, boxno):
 
     assert path.isdir(dir)
 
-    X = np.load(path.join(dir, 'particle_hist_%03d.npy'%boxno))
-    X = X.reshape((X.shape[0], X.shape[1], X.shape[2], X.shape[3], 1))
+    #X = np.load(path.join(dir, 'particle_hist_%03d.npy'%boxno))
+    X = np.load(path.join(dir, 'proj_map_%03d.npy'%boxno))
+    #X = X.reshape((X.shape[0], X.shape[1], X.shape[2], X.shape[3], 1))
+    X = X.reshape((X.shape[0], X.shape[1], X.shape[2], 1))
+
     with open(path.join(dir, 'input_params%03d.dat'%boxno)) as f:
         for line in f:
             if line[0] == 'O':
@@ -150,7 +154,7 @@ def get_all_xy(dir, max = None):
         print subdir
         try:
             X,Y = get_xy_from_dir(subdir, boxno)
-            assert X.shape[1] == 64
+            #assert X.shape[1] == 64
             Xs.append(X)
             Ys.append(Y)
         except IOError: #TODO only for testing!

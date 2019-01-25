@@ -59,7 +59,7 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, device, fname,\
     train_dset, val_dset, _ = data
     with tf.device(device):
 
-        x = tf.placeholder(tf.float32, [None, 64,64,64,1])
+        x = tf.placeholder(tf.float32, [None, 256,256,1])
         y = tf.placeholder(tf.float32, [None,2])
 
         training = tf.placeholder(tf.bool, name='training')
@@ -75,10 +75,10 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, device, fname,\
         optimizer = optimizer_init_fn(lr)
         update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
         with tf.control_dependencies(update_ops):
-            #train_op = optimizer.minimize(loss)
-            gvs = optimizer.compute_gradients(loss)
-            capped_gvs = [(tf.clip_by_value(grad, -1., 1.), var) for grad, var in gvs]
-            train_op = optimizer.apply_gradients(capped_gvs)
+            train_op = optimizer.minimize(loss)
+            #gvs = optimizer.compute_gradients(loss)
+            #capped_gvs = [(tf.clip_by_value(grad, -1., 1.), var) for grad, var in gvs]
+            #train_op = optimizer.apply_gradients(capped_gvs)
 
     with tf.device('/cpu:0'):
 
@@ -124,7 +124,7 @@ def test(model_init_fn, data,n_samples, device, fname, samples_fname_base):
     tf.reset_default_graph()
     with tf.device(device):
 
-        x = tf.placeholder(tf.float32, [None, 64,64,64,1])
+        x = tf.placeholder(tf.float32, [None, 256,256,1])
 
         training = tf.placeholder(tf.bool, name='training')
 

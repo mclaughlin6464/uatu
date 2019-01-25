@@ -163,7 +163,7 @@ def kappa_weighting(x, cosmo, redshift_s = 0.5):
     :return: Kernel, a vector of shape [N,] with the weight of the kernel for each position in x.
     """
     _, _, redshift = ra_dec_z(x, cosmo)
-    comoving_dist = np.sqrt(np.sum(x ** 2), axis = 1)
+    comoving_dist = np.sqrt(np.sum(x ** 2, axis = 1))
     comoving_dist_s = cosmo.comoving_distance(redshift_s).value
     return comoving_dist * (1 + redshift) * (1 - comoving_dist / comoving_dist_s)
 
@@ -176,7 +176,6 @@ def naive_weighting(x, cosmo, **kwargs):
     """
     return np.ones((x.shape[0],))
 
-@jit
 def convert_particles_to_proj_density(directory, boxno, Lbox = 512.0, N = 2048, ang_size_image = 10,\
                                 pixels_per_side = 256, weighting_func = kappa_weighting, n_z_bins = 4):
     """
