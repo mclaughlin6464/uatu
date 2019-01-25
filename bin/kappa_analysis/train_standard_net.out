@@ -1,0 +1,11 @@
+-------------------------------------------------------------------------------
+There are messages associated with the following module(s):
+-------------------------------------------------------------------------------
+
+py-tensorflow/1.6.0_py27:
+   Warning: this module requires a GPU, it won't work on CPU nodes.
+-------------------------------------------------------------------------------
+
+/home/users/swmclau2/.local/lib/python2.7/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+slurmstepd: error: Detected 1 oom-kill event(s) in step 36281439.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.
