@@ -1,8 +1,9 @@
 #!/bin/bash
 #SBATCH --job-name=train_standard_net
-#SBATCH --time=04:00:00
+#SBATCH --time=01:00:00
 #SBATCH --gres gpu:1
 #SBATCH -p gpu 
+#SBATCH --ntasks=16
 #SBATCH -o train_standard_net.out 
 
 module unload py-jupyter

@@ -7,7 +7,7 @@ dir = '/scratch/users/swmclau2/UatuLightconeTraining/'
 #fname = path.join(dir, 'data.hdf5')
 
 X,Y = get_all_xy(dir)#, 64, shuffle=True, augment=True)
-X_train, X_test, Y_train, Y_test = train_test_split(X,Y, train_size = 0.8, shuffle = True)
+X_train, X_test, y_train, y_test = train_test_split(X,Y, train_size = 0.8, shuffle = True)
 train_dset = Dataset(X_train, y_train, 30, shuffle = True, augment = True)
 test_dset = Dataset(X_test, y_test, 30, shuffle = True, augment = True)
 

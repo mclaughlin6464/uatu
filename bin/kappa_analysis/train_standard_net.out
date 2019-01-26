@@ -8,4 +8,443 @@ py-tensorflow/1.6.0_py27:
 
 /home/users/swmclau2/.local/lib/python2.7/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
   from ._conv import register_converters as _register_converters
-slurmstepd: error: Detected 1 oom-kill event(s) in step 36281439.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.
+/scratch/users/swmclau2/UatuLightconeTraining/Box000/
+/scratch/users/swmclau2/UatuLightconeTraining/Box001/
+/scratch/users/swmclau2/UatuLightconeTraining/Box002/
+/scratch/users/swmclau2/UatuLightconeTraining/Box003/
+/scratch/users/swmclau2/UatuLightconeTraining/Box004/
+/scratch/users/swmclau2/UatuLightconeTraining/Box005/
+/scratch/users/swmclau2/UatuLightconeTraining/Box006/
+/scratch/users/swmclau2/UatuLightconeTraining/Box007/
+/scratch/users/swmclau2/UatuLightconeTraining/Box008/
+/scratch/users/swmclau2/UatuLightconeTraining/Box009/
+/scratch/users/swmclau2/UatuLightconeTraining/Box010/
+/scratch/users/swmclau2/UatuLightconeTraining/Box011/
+/scratch/users/swmclau2/UatuLightconeTraining/Box012/
+/scratch/users/swmclau2/UatuLightconeTraining/Box013/
+/scratch/users/swmclau2/UatuLightconeTraining/Box014/
+/scratch/users/swmclau2/UatuLightconeTraining/Box015/
+/scratch/users/swmclau2/UatuLightconeTraining/Box016/
+/scratch/users/swmclau2/UatuLightconeTraining/Box017/
+/scratch/users/swmclau2/UatuLightconeTraining/Box018/
+/scratch/users/swmclau2/UatuLightconeTraining/Box019/
+/scratch/users/swmclau2/UatuLightconeTraining/Box020/
+/scratch/users/swmclau2/UatuLightconeTraining/Box021/
+/scratch/users/swmclau2/UatuLightconeTraining/Box022/
+/scratch/users/swmclau2/UatuLightconeTraining/Box023/
+/scratch/users/swmclau2/UatuLightconeTraining/Box024/
+/scratch/users/swmclau2/UatuLightconeTraining/Box025/
+/scratch/users/swmclau2/UatuLightconeTraining/Box026/
+/scratch/users/swmclau2/UatuLightconeTraining/Box027/
+/scratch/users/swmclau2/UatuLightconeTraining/Box028/
+/scratch/users/swmclau2/UatuLightconeTraining/Box029/
+/scratch/users/swmclau2/UatuLightconeTraining/Box030/
+/scratch/users/swmclau2/UatuLightconeTraining/Box031/
+/scratch/users/swmclau2/UatuLightconeTraining/Box032/
+/scratch/users/swmclau2/UatuLightconeTraining/Box033/
+/scratch/users/swmclau2/UatuLightconeTraining/Box034/
+/scratch/users/swmclau2/UatuLightconeTraining/Box035/
+/scratch/users/swmclau2/UatuLightconeTraining/Box036/
+/scratch/users/swmclau2/UatuLightconeTraining/Box037/
+/scratch/users/swmclau2/UatuLightconeTraining/Box038/
+/scratch/users/swmclau2/UatuLightconeTraining/Box039/
+/scratch/users/swmclau2/UatuLightconeTraining/Box040/
+/scratch/users/swmclau2/UatuLightconeTraining/Box041/
+/scratch/users/swmclau2/UatuLightconeTraining/Box042/
+/scratch/users/swmclau2/UatuLightconeTraining/Box043/
+/scratch/users/swmclau2/UatuLightconeTraining/Box044/
+/scratch/users/swmclau2/UatuLightconeTraining/Box045/
+/scratch/users/swmclau2/UatuLightconeTraining/Box046/
+/scratch/users/swmclau2/UatuLightconeTraining/Box047/
+/scratch/users/swmclau2/UatuLightconeTraining/Box048/
+/scratch/users/swmclau2/UatuLightconeTraining/Box049/
+/scratch/users/swmclau2/UatuLightconeTraining/Box050/
+/scratch/users/swmclau2/UatuLightconeTraining/Box051/
+/scratch/users/swmclau2/UatuLightconeTraining/Box052/
+/scratch/users/swmclau2/UatuLightconeTraining/Box053/
+/scratch/users/swmclau2/UatuLightconeTraining/Box054/
+/scratch/users/swmclau2/UatuLightconeTraining/Box055/
+/scratch/users/swmclau2/UatuLightconeTraining/Box056/
+/scratch/users/swmclau2/UatuLightconeTraining/Box057/
+/scratch/users/swmclau2/UatuLightconeTraining/Box058/
+/scratch/users/swmclau2/UatuLightconeTraining/Box059/
+/scratch/users/swmclau2/UatuLightconeTraining/Box060/
+/scratch/users/swmclau2/UatuLightconeTraining/Box061/
+/scratch/users/swmclau2/UatuLightconeTraining/Box062/
+/scratch/users/swmclau2/UatuLightconeTraining/Box063/
+/scratch/users/swmclau2/UatuLightconeTraining/Box064/
+/scratch/users/swmclau2/UatuLightconeTraining/Box065/
+/scratch/users/swmclau2/UatuLightconeTraining/Box066/
+/scratch/users/swmclau2/UatuLightconeTraining/Box067/
+/scratch/users/swmclau2/UatuLightconeTraining/Box068/
+/scratch/users/swmclau2/UatuLightconeTraining/Box069/
+/scratch/users/swmclau2/UatuLightconeTraining/Box070/
+/scratch/users/swmclau2/UatuLightconeTraining/Box071/
+/scratch/users/swmclau2/UatuLightconeTraining/Box072/
+/scratch/users/swmclau2/UatuLightconeTraining/Box073/
+/scratch/users/swmclau2/UatuLightconeTraining/Box074/
+/scratch/users/swmclau2/UatuLightconeTraining/Box075/
+/scratch/users/swmclau2/UatuLightconeTraining/Box076/
+/scratch/users/swmclau2/UatuLightconeTraining/Box077/
+/scratch/users/swmclau2/UatuLightconeTraining/Box078/
+/scratch/users/swmclau2/UatuLightconeTraining/Box079/
+/scratch/users/swmclau2/UatuLightconeTraining/Box080/
+/scratch/users/swmclau2/UatuLightconeTraining/Box081/
+/scratch/users/swmclau2/UatuLightconeTraining/Box082/
+/scratch/users/swmclau2/UatuLightconeTraining/Box083/
+/scratch/users/swmclau2/UatuLightconeTraining/Box084/
+/scratch/users/swmclau2/UatuLightconeTraining/Box085/
+/scratch/users/swmclau2/UatuLightconeTraining/Box086/
+/scratch/users/swmclau2/UatuLightconeTraining/Box087/
+/scratch/users/swmclau2/UatuLightconeTraining/Box088/
+/scratch/users/swmclau2/UatuLightconeTraining/Box089/
+/scratch/users/swmclau2/UatuLightconeTraining/Box090/
+/scratch/users/swmclau2/UatuLightconeTraining/Box091/
+/scratch/users/swmclau2/UatuLightconeTraining/Box092/
+/scratch/users/swmclau2/UatuLightconeTraining/Box093/
+/scratch/users/swmclau2/UatuLightconeTraining/Box094/
+/scratch/users/swmclau2/UatuLightconeTraining/Box095/
+/scratch/users/swmclau2/UatuLightconeTraining/Box096/
+/scratch/users/swmclau2/UatuLightconeTraining/Box097/
+/scratch/users/swmclau2/UatuLightconeTraining/Box098/
+/scratch/users/swmclau2/UatuLightconeTraining/Box099/
+/scratch/users/swmclau2/UatuLightconeTraining/Box100/
+/scratch/users/swmclau2/UatuLightconeTraining/Box101/
+/scratch/users/swmclau2/UatuLightconeTraining/Box102/
+/scratch/users/swmclau2/UatuLightconeTraining/Box103/
+/scratch/users/swmclau2/UatuLightconeTraining/Box104/
+/scratch/users/swmclau2/UatuLightconeTraining/Box105/
+/scratch/users/swmclau2/UatuLightconeTraining/Box106/
+/scratch/users/swmclau2/UatuLightconeTraining/Box107/
+/scratch/users/swmclau2/UatuLightconeTraining/Box108/
+/scratch/users/swmclau2/UatuLightconeTraining/Box109/
+/scratch/users/swmclau2/UatuLightconeTraining/Box110/
+/scratch/users/swmclau2/UatuLightconeTraining/Box111/
+/scratch/users/swmclau2/UatuLightconeTraining/Box112/
+/scratch/users/swmclau2/UatuLightconeTraining/Box113/
+/scratch/users/swmclau2/UatuLightconeTraining/Box114/
+/scratch/users/swmclau2/UatuLightconeTraining/Box115/
+/scratch/users/swmclau2/UatuLightconeTraining/Box116/
+/scratch/users/swmclau2/UatuLightconeTraining/Box117/
+/scratch/users/swmclau2/UatuLightconeTraining/Box118/
+/scratch/users/swmclau2/UatuLightconeTraining/Box119/
+/scratch/users/swmclau2/UatuLightconeTraining/Box120/
+/scratch/users/swmclau2/UatuLightconeTraining/Box121/
+/scratch/users/swmclau2/UatuLightconeTraining/Box122/
+/scratch/users/swmclau2/UatuLightconeTraining/Box123/
+/scratch/users/swmclau2/UatuLightconeTraining/Box124/
+/scratch/users/swmclau2/UatuLightconeTraining/Box125/
+/scratch/users/swmclau2/UatuLightconeTraining/Box126/
+/scratch/users/swmclau2/UatuLightconeTraining/Box127/
+/scratch/users/swmclau2/UatuLightconeTraining/Box128/
+/scratch/users/swmclau2/UatuLightconeTraining/Box129/
+/scratch/users/swmclau2/UatuLightconeTraining/Box130/
+/scratch/users/swmclau2/UatuLightconeTraining/Box131/
+/scratch/users/swmclau2/UatuLightconeTraining/Box132/
+/scratch/users/swmclau2/UatuLightconeTraining/Box133/
+/scratch/users/swmclau2/UatuLightconeTraining/Box134/
+/scratch/users/swmclau2/UatuLightconeTraining/Box135/
+/scratch/users/swmclau2/UatuLightconeTraining/Box136/
+/scratch/users/swmclau2/UatuLightconeTraining/Box137/
+/scratch/users/swmclau2/UatuLightconeTraining/Box138/
+/scratch/users/swmclau2/UatuLightconeTraining/Box139/
+/scratch/users/swmclau2/UatuLightconeTraining/Box140/
+/scratch/users/swmclau2/UatuLightconeTraining/Box141/
+/scratch/users/swmclau2/UatuLightconeTraining/Box142/
+/scratch/users/swmclau2/UatuLightconeTraining/Box143/
+/scratch/users/swmclau2/UatuLightconeTraining/Box144/
+/scratch/users/swmclau2/UatuLightconeTraining/Box145/
+/scratch/users/swmclau2/UatuLightconeTraining/Box146/
+/scratch/users/swmclau2/UatuLightconeTraining/Box147/
+/scratch/users/swmclau2/UatuLightconeTraining/Box148/
+/scratch/users/swmclau2/UatuLightconeTraining/Box149/
+/scratch/users/swmclau2/UatuLightconeTraining/Box150/
+/scratch/users/swmclau2/UatuLightconeT/home/users/swmclau2/.local/lib/python2.7/site-packages/sklearn/model_selection/_split.py:2026: FutureWarning: From version 0.21, test_size will always complement train_size unless both are specified.
+  FutureWarning)
+2019-01-25 15:39:43.840521: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 0 with properties: 
+name: Tesla K20Xm major: 3 minor: 5 memoryClockRate(GHz): 0.784
+pciBusID: 0000:04:00.0
+totalMemory: 5.57GiB freeMemory: 5.49GiB
+2019-01-25 15:39:44.059857: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 1 with properties: 
+name: Tesla K20Xm major: 3 minor: 5 memoryClockRate(GHz): 0.784
+pciBusID: 0000:05:00.0
+totalMemory: 5.57GiB freeMemory: 5.49GiB
+2019-01-25 15:39:44.287627: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 2 with properties: 
+name: Tesla K20Xm major: 3 minor: 5 memoryClockRate(GHz): 0.784
+pciBusID: 0000:08:00.0
+totalMemory: 5.57GiB freeMemory: 5.49GiB
+2019-01-25 15:39:44.528215: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 3 with properties: 
+name: Tesla K20Xm major: 3 minor: 5 memoryClockRate(GHz): 0.784
+pciBusID: 0000:85:00.0
+totalMemory: 5.57GiB freeMemory: 5.49GiB
+2019-01-25 15:39:44.529973: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1227] Device peer to peer matrix
+2019-01-25 15:39:44.530160: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1233] DMA: 0 1 2 3 
+2019-01-25 15:39:44.530182: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1243] 0:   Y Y Y N 
+2019-01-25 15:39:44.530196: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1243] 1:   Y Y Y N 
+2019-01-25 15:39:44.530209: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1243] 2:   Y Y Y N 
+2019-01-25 15:39:44.530222: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1243] 3:   N N N Y 
+2019-01-25 15:39:44.530251: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1312] Adding visible gpu devices: 0, 1, 2, 3
+2019-01-25 15:39:50.109253: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 5288 MB memory) -> physical GPU (device: 0, name: Tesla K20Xm, pci bus id: 0000:04:00.0, compute capability: 3.5)
+2019-01-25 15:39:50.246946: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 5288 MB memory) -> physical GPU (device: 1, name: Tesla K20Xm, pci bus id: 0000:05:00.0, compute capability: 3.5)
+2019-01-25 15:39:50.386468: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:2 with 5286 MB memory) -> physical GPU (device: 2, name: Tesla K20Xm, pci bus id: 0000:08:00.0, compute capability: 3.5)
+2019-01-25 15:39:50.525525: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:3 with 5288 MB memory) -> physical GPU (device: 3, name: Tesla K20Xm, pci bus id: 0000:85:00.0, compute capability: 3.5)
+2019-01-25 15:45:00.813047: W tensorflow/core/common_runtime/bfc_allocator.cc:275] Allocator (cuda_host_bfc) ran out of memory trying to allocate 64.00GiB.  Current allocation summary follows.
+2019-01-25 15:45:00.814636: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (256): 	Total Chunks: 8, Chunks in use: 8. 2.0KiB allocated for chunks. 2.0KiB in use in bin. 104B client-requested in use in bin.
+2019-01-25 15:45:00.814710: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (512): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2019-01-25 15:45:00.814743: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (1024): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2019-01-25 15:45:00.814771: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (2048): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2019-01-25 15:45:00.814800: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (4096): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2019-01-25 15:45:00.814827: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (8192): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2019-01-25 15:45:00.814854: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (16384): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2019-01-25 15:45:00.814882: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (32768): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2019-01-25 15:45:00.814911: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (65536): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2019-01-25 15:45:00.814948: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (131072): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2019-01-25 15:45:00.814977: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (262144): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2019-01-25 15:45:00.815014: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (524288): 	Total Chunks: 1, Chunks in use: 0. 1022.0KiB allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2019-01-25 15:45:00.815044: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (1048576): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2019-01-25 15:45:00.815074: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (2097152): 	Total Chunks: 1, Chunks in use: 0. 2.00MiB allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2019-01-25 15:45:00.815102: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (4194304): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2019-01-25 15:45:00.815130: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (8388608): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2019-01-25 15:45:00.815171: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (16777216): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2019-01-25 15:45:00.815196: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (33554432): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2019-01-25 15:45:00.815234: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (67108864): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2019-01-25 15:45:00.815256: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (134217728): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2019-01-25 15:45:00.815278: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (268435456): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2019-01-25 15:45:00.815308: I tensorflow/core/common_runtime/bfc_allocator.cc:646] Bin for 64.00GiB was 256.00MiB, Chunk State: 
+2019-01-25 15:45:00.815339: I tensorflow/core/common_runtime/bfc_allocator.cc:665] Chunk at 0x212280000 of size 256
+2019-01-25 15:45:00.815357: I tensorflow/core/common_runtime/bfc_allocator.cc:665] Chunk at 0x212280100 of size 256
+2019-01-25 15:45:00.815374: I tensorflow/core/common_runtime/bfc_allocator.cc:665] Chunk at 0x212280200 of size 256
+2019-01-25 15:45:00.815390: I tensorflow/core/common_runtime/bfc_allocator.cc:665] Chunk at 0x212280300 of size 256
+2019-01-25 15:45:00.815407: I tensorflow/core/common_runtime/bfc_allocator.cc:665] Chunk at 0x212280400 of size 256
+2019-01-25 15:45:00.815423: I tensorflow/core/common_runtime/bfc_allocator.cc:665] Chunk at 0x212280500 of size 256
+2019-01-25 15:45:00.815439: I tensorflow/core/common_runtime/bfc_allocator.cc:665] Chunk at 0x212280600 of size 256
+2019-01-25 15:45:00.815455: I tensorflow/core/common_runtime/bfc_allocator.cc:665] Chunk at 0x212280700 of size 256
+2019-01-25 15:45:00.815472: I tensorflow/core/common_runtime/bfc_allocator.cc:665] Free  at 0x212280800 of size 1046528
+2019-01-25 15:45:00.815501: I tensorflow/core/common_runtime/bfc_allocator.cc:665] Free  at 0x212380000 of size 2097152
+2019-01-25 15:45:00.815521: I tensorflow/core/common_runtime/bfc_allocator.cc:671]      Summary of in-use Chunks by size: 
+2019-01-25 15:45:00.815552: I tensorflow/core/common_runtime/bfc_allocator.cc:674] 8 Chunks of size 256 totalling 2.0KiB
+2019-01-25 15:45:00.815578: I tensorflow/core/common_runtime/bfc_allocator.cc:678] Sum Total of in-use chunks: 2.0KiB
+2019-01-25 15:45:00.815634: I tensorflow/core/common_runtime/bfc_allocator.cc:680] Stats: 
+Limit:                 68719476736
+InUse:                        2048
+MaxInUse:                  2097408
+NumAllocs:                      42
+MaxAllocSize:              2097152
+
+2019-01-25 15:45:00.815668: W tensorflow/core/common_runtime/bfc_allocator.cc:279] *___________________________________________________________________________________________________
+2019-01-25 15:45:00.865081: W tensorflow/core/framework/op_kernel.cc:1179] OP_REQUIRES failed at constant_op.cc:49 : Invalid argument: Cannot parse tensor from proto: dtype: DT_FLOAT
+tensor_shape {
+  dim {
+    size: 16777216
+  }
+  dim {
+    size: 1024
+  }
+}
+float_val: 0
+
+2019-01-25 15:46:00.402370: E tensorflow/core/common_runtime/executor.cc:645] Executor failed to create kernel. Invalid argument: Cannot parse tensor from proto: dtype: DT_FLOAT
+tensor_shape {
+  dim {
+    size: 16777216
+  }
+  dim {
+    size: 1024
+  }
+}
+float_val: 0
+
+	 [[Node: dense/kernel/Adam/Initializer/zeros = Const[dtype=DT_FLOAT, value=Tensor<type: float shape: [16777216,1024] values: [0 0 0]...>, _device="/job:localhost/replica:0/task:0/device:GPU:0"]()]]
+raining/Box151/
+/scratch/users/swmclau2/UatuLightconeTraining/Box152/
+/scratch/users/swmclau2/UatuLightconeTraining/Box153/
+/scratch/users/swmclau2/UatuLightconeTraining/Box154/
+/scratch/users/swmclau2/UatuLightconeTraining/Box155/
+/scratch/users/swmclau2/UatuLightconeTraining/Box156/
+/scratch/users/swmclau2/UatuLightconeTraining/Box157/
+/scratch/users/swmclau2/UatuLightconeTraining/Box158/
+/scratch/users/swmclau2/UatuLightconeTraining/Box159/
+/scratch/users/swmclau2/UatuLightconeTraining/Box160/
+/scratch/users/swmclau2/UatuLightconeTraining/Box161/
+/scratch/users/swmclau2/UatuLightconeTraining/Box162/
+/scratch/users/swmclau2/UatuLightconeTraining/Box163/
+/scratch/users/swmclau2/UatuLightconeTraining/Box164/
+/scratch/users/swmclau2/UatuLightconeTraining/Box165/
+/scratch/users/swmclau2/UatuLightconeTraining/Box166/
+/scratch/users/swmclau2/UatuLightconeTraining/Box167/
+/scratch/users/swmclau2/UatuLightconeTraining/Box168/
+/scratch/users/swmclau2/UatuLightconeTraining/Box169/
+/scratch/users/swmclau2/UatuLightconeTraining/Box170/
+/scratch/users/swmclau2/UatuLightconeTraining/Box171/
+/scratch/users/swmclau2/UatuLightconeTraining/Box172/
+/scratch/users/swmclau2/UatuLightconeTraining/Box173/
+/scratch/users/swmclau2/UatuLightconeTraining/Box174/
+/scratch/users/swmclau2/UatuLightconeTraining/Box175/
+/scratch/users/swmclau2/UatuLightconeTraining/Box176/
+/scratch/users/swmclau2/UatuLightconeTraining/Box177/
+/scratch/users/swmclau2/UatuLightconeTraining/Box178/
+/scratch/users/swmclau2/UatuLightconeTraining/Box179/
+/scratch/users/swmclau2/UatuLightconeTraining/Box180/
+/scratch/users/swmclau2/UatuLightconeTraining/Box181/
+/scratch/users/swmclau2/UatuLightconeTraining/Box182/
+/scratch/users/swmclau2/UatuLightconeTraining/Box183/
+/scratch/users/swmclau2/UatuLightconeTraining/Box184/
+/scratch/users/swmclau2/UatuLightconeTraining/Box185/
+/scratch/users/swmclau2/UatuLightconeTraining/Box186/
+/scratch/users/swmclau2/UatuLightconeTraining/Box187/
+/scratch/users/swmclau2/UatuLightconeTraining/Box188/
+/scratch/users/swmclau2/UatuLightconeTraining/Box189/
+/scratch/users/swmclau2/UatuLightconeTraining/Box190/
+/scratch/users/swmclau2/UatuLightconeTraining/Box191/
+/scratch/users/swmclau2/UatuLightconeTraining/Box192/
+/scratch/users/swmclau2/UatuLightconeTraining/Box193/
+/scratch/users/swmclau2/UatuLightconeTraining/Box194/
+/scratch/users/swmclau2/UatuLightconeTraining/Box195/
+/scratch/users/swmclau2/UatuLightconeTraining/Box196/
+/scratch/users/swmclau2/UatuLightconeTraining/Box197/
+/scratch/users/swmclau2/UatuLightconeTraining/Box198/
+/scratch/users/swmclau2/UatuLightconeTraining/Box199/
+/scratch/users/swmclau2/UatuLightconeTraining/Box200/
+/scratch/users/swmclau2/UatuLightconeTraining/Box201/
+/scratch/users/swmclau2/UatuLightconeTraining/Box202/
+/scratch/users/swmclau2/UatuLightconeTraining/Box203/
+/scratch/users/swmclau2/UatuLightconeTraining/Box204/
+/scratch/users/swmclau2/UatuLightconeTraining/Box205/
+/scratch/users/swmclau2/UatuLightconeTraining/Box206/
+/scratch/users/swmclau2/UatuLightconeTraining/Box207/
+/scratch/users/swmclau2/UatuLightconeTraining/Box208/
+/scratch/users/swmclau2/UatuLightconeTraining/Box209/
+/scratch/users/swmclau2/UatuLightconeTraining/Box210/
+/scratch/users/swmclau2/UatuLightconeTraining/Box211/
+/scratch/users/swmclau2/UatuLightconeTraining/Box212/
+/scratch/users/swmclau2/UatuLightconeTraining/Box213/
+/scratch/users/swmclau2/UatuLightconeTraining/Box214/
+/scratch/users/swmclau2/UatuLightconeTraining/Box215/
+/scratch/users/swmclau2/UatuLightconeTraining/Box216/
+/scratch/users/swmclau2/UatuLightconeTraining/Box217/
+/scratch/users/swmclau2/UatuLightconeTraining/Box218/
+/scratch/users/swmclau2/UatuLightconeTraining/Box219/
+/scratch/users/swmclau2/UatuLightconeTraining/Box220/
+/scratch/users/swmclau2/UatuLightconeTraining/Box221/
+/scratch/users/swmclau2/UatuLightconeTraining/Box222/
+/scratch/users/swmclau2/UatuLightconeTraining/Box223/
+/scratch/users/swmclau2/UatuLightconeTraining/Box224/
+/scratch/users/swmclau2/UatuLightconeTraining/Box225/
+/scratch/users/swmclau2/UatuLightconeTraining/Box226/
+/scratch/users/swmclau2/UatuLightconeTraining/Box227/
+/scratch/users/swmclau2/UatuLightconeTraining/Box228/
+/scratch/users/swmclau2/UatuLightconeTraining/Box229/
+/scratch/users/swmclau2/UatuLightconeTraining/Box230/
+/scratch/users/swmclau2/UatuLightconeTraining/Box231/
+/scratch/users/swmclau2/UatuLightconeTraining/Box232/
+/scratch/users/swmclau2/UatuLightconeTraining/Box233/
+/scratch/users/swmclau2/UatuLightconeTraining/Box234/
+/scratch/users/swmclau2/UatuLightconeTraining/Box235/
+/scratch/users/swmclau2/UatuLightconeTraining/Box236/
+/scratch/users/swmclau2/UatuLightconeTraining/Box237/
+/scratch/users/swmclau2/UatuLightconeTraining/Box238/
+/scratch/users/swmclau2/UatuLightconeTraining/Box239/
+/scratch/users/swmclau2/UatuLightconeTraining/Box240/
+/scratch/users/swmclau2/UatuLightconeTraining/Box241/
+/scratch/users/swmclau2/UatuLightconeTraining/Box242/
+/scratch/users/swmclau2/UatuLightconeTraining/Box243/
+/scratch/users/swmclau2/UatuLightconeTraining/Box244/
+/scratch/users/swmclau2/UatuLightconeTraining/Box245/
+/scratch/users/swmclau2/UatuLightconeTraining/Box246/
+/scratch/users/swmclau2/UatuLightconeTraining/Box247/
+/scratch/users/swmclau2/UatuLightconeTraining/Box248/
+/scratch/users/swmclau2/UatuLightconeTraining/Box249/
+29.3375399113
+Traceback (most recent call last):
+  File "train_standard_net.py", line 22, in <module>
+    train(standard_convnet_init_fn, standard_optimizer_init_fn, standard_cost_fn, data, device, num_epochs = 100, fname = '/home/users/swmclau2/scratch/standard_net_kappa', print_every = 500)#, lr = 0.0001) 
+  File "/home/users/swmclau2/.local/lib/python2.7/site-packages/uatu/watchers/train.py", line 91, in train
+    sess.run(tf.global_variables_initializer())
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/client/session.py", line 905, in run
+    run_metadata_ptr)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/client/session.py", line 1137, in _run
+    feed_dict_tensor, options, run_metadata)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/client/session.py", line 1355, in _do_run
+    options, run_metadata)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/client/session.py", line 1374, in _do_call
+    raise type(e)(node_def, op, message)
+tensorflow.python.framework.errors_impl.InvalidArgumentError: Cannot parse tensor from proto: dtype: DT_FLOAT
+tensor_shape {
+  dim {
+    size: 16777216
+  }
+  dim {
+    size: 1024
+  }
+}
+float_val: 0
+
+	 [[Node: dense/kernel/Adam/Initializer/zeros = Const[dtype=DT_FLOAT, value=Tensor<type: float shape: [16777216,1024] values: [0 0 0]...>, _device="/job:localhost/replica:0/task:0/device:GPU:0"]()]]
+
+Caused by op u'dense/kernel/Adam/Initializer/zeros', defined at:
+  File "train_standard_net.py", line 22, in <module>
+    train(standard_convnet_init_fn, standard_optimizer_init_fn, standard_cost_fn, data, device, num_epochs = 100, fname = '/home/users/swmclau2/scratch/standard_net_kappa', print_every = 500)#, lr = 0.0001)
+  File "/home/users/swmclau2/.local/lib/python2.7/site-packages/uatu/watchers/train.py", line 78, in train
+    train_op = optimizer.minimize(loss)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/training/optimizer.py", line 369, in minimize
+    name=name)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/training/optimizer.py", line 520, in apply_gradients
+    self._create_slots([_get_variable_for(v) for v in var_list])
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/training/adam.py", line 131, in _create_slots
+    self._zeros_slot(v, "m", self._name)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/training/optimizer.py", line 910, in _zeros_slot
+    named_slots[_var_key(var)] = slot_creator.create_zeros_slot(var, op_name)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/training/slot_creator.py", line 174, in create_zeros_slot
+    colocate_with_primary=colocate_with_primary)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/training/slot_creator.py", line 148, in create_slot_with_initializer
+    dtype)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/training/slot_creator.py", line 67, in _create_slot_var
+    validate_shape=validate_shape)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 1297, in get_variable
+    constraint=constraint)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 1093, in get_variable
+    constraint=constraint)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 439, in get_variable
+    constraint=constraint)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 408, in _true_getter
+    use_resource=use_resource, constraint=constraint)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 800, in _get_single_variable
+    use_resource=use_resource)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 2157, in variable
+    use_resource=use_resource)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 2147, in <lambda>
+    previous_getter = lambda **kwargs: default_variable_creator(None, **kwargs)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 2130, in default_variable_creator
+    constraint=constraint)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/variables.py", line 233, in __init__
+    constraint=constraint)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/variables.py", line 327, in _init_from_args
+    initial_value(), name="initial_value", dtype=dtype)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 784, in <lambda>
+    shape.as_list(), dtype=dtype, partition_info=partition_info)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/init_ops.py", line 99, in __call__
+    return array_ops.zeros(shape, dtype)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/array_ops.py", line 1570, in zeros
+    output = fill(shape, constant(zero, dtype=dtype), name=name)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/gen_array_ops.py", line 1713, in fill
+    "Fill", dims=dims, value=value, name=name)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/framework/op_def_library.py", line 787, in _apply_op_helper
+    op_def=op_def)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/framework/ops.py", line 3271, in create_op
+    op_def=op_def)
+  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/framework/ops.py", line 1650, in __init__
+    self._traceback = self._graph._extract_stack()  # pylint: disable=protected-access
+
+InvalidArgumentError (see above for traceback): Cannot parse tensor from proto: dtype: DT_FLOAT
+tensor_shape {
+  dim {
+    size: 16777216
+  }
+  dim {
+    size: 1024
+  }
+}
+float_val: 0
+
+	 [[Node: dense/kernel/Adam/Initializer/zeros = Const[dtype=DT_FLOAT, value=Tensor<type: float shape: [16777216,1024] values: [0 0 0]...>, _device="/job:localhost/replica:0/task:0/device:GPU:0"]()]]
+

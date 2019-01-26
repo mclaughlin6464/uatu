@@ -57,38 +57,41 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, device, fname,\
           restore = False,num_epochs = 1, print_every = 10):
     tf.reset_default_graph()
     train_dset, val_dset, _ = data
-    with tf.device(device):
+#    with tf.device(device):
 
-        x = tf.placeholder(tf.float32, [None, 256,256,1])
-        y = tf.placeholder(tf.float32, [None,2])
+    x = tf.placeholder(tf.float32, [None, 256,256,1])
+    y = tf.placeholder(tf.float32, [None,2])
 
-        training = tf.placeholder(tf.bool, name='training')
+    training = tf.placeholder(tf.bool, name='training')
 
-        preds = model_init_fn(x, training=training)
-        #loss = tf.losses.absolute_difference(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
-        #loss, mu1, mu2, log_s1, log_s2, z = cost_fn(y, preds)
-        loss = cost_fn(y, preds)
+    preds = model_init_fn(x, training=training)
+    #loss = tf.losses.absolute_difference(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
+    #loss, mu1, mu2, log_s1, log_s2, z = cost_fn(y, preds)
+    loss = cost_fn(y, preds)
 
-        #loss = tf.reduce_mean(loss)
+    #loss = tf.reduce_mean(loss)
 
-        lr = tf.placeholder(tf.float32, name = 'learning_rate')
-        optimizer = optimizer_init_fn(lr)
-        update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
-        with tf.control_dependencies(update_ops):
-            train_op = optimizer.minimize(loss)
-            #gvs = optimizer.compute_gradients(loss)
-            #capped_gvs = [(tf.clip_by_value(grad, -1., 1.), var) for grad, var in gvs]
-            #train_op = optimizer.apply_gradients(capped_gvs)
+    lr = tf.placeholder(tf.float32, name = 'learning_rate')
+    optimizer = optimizer_init_fn(lr)
+    update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
+    with tf.control_dependencies(update_ops):
+        train_op = optimizer.minimize(loss)
+        #gvs = optimizer.compute_gradients(loss)
+        #capped_gvs = [(tf.clip_by_value(grad, -1., 1.), var) for grad, var in gvs]
+        #train_op = optimizer.apply_gradients(capped_gvs)
 
-    with tf.device('/cpu:0'):
+    #with tf.device('/cpu:0'):
 
-        saver = tf.train.Saver()
+    saver = tf.train.Saver()
 
     with tf.Session() as sess:
         if restore:
             saver.restore(sess, fname)
         else:
             sess.run(tf.global_variables_initializer())
+        # TODO
+        writer = tf.summary.FileWriter("/scratch/users/swmclau2/test_tensorboard/test")
+        writer.add_graph(sess.graph)
         t = 0
         for epoch in xrange(num_epochs):
             print 'Starting epoch %d' % epoch

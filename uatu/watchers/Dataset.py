@@ -58,11 +58,12 @@ class DatasetFromFile(object):
             else:
                 box_idxs = np.arange(n_boxes) 
 
-            all_idxs = np.zeros((64*box_idxs.shape[0], 2))
+            # TODO magic numbers beware
+            all_idxs = np.zeros((81*box_idxs.shape[0], 2))
             
             i = 0
             for bi in box_idxs: 
-                for sbi in xrange(64):
+                for sbi in xrange(81):
                     all_idxs[i,0] = bi
                     all_idxs[i,1] = sbi
                     i+=1
