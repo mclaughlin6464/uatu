@@ -173,8 +173,10 @@ def gupta_bayesian_network_init_fn(inputs, bayes_prob = 0.1, training=False, lam
 
     lr8_out = tf.nn.leaky_relu(drop2_out, alpha=0.01)
 
-    dense3_out = tf.layers.dense(lr8_out, 2, kernel_initializer=initializer)
-
+    if bayes_prob == 1.0:
+        dense3_out = tf.layers.dense(lr8_out, 2, kernel_initializer=initializer)
+    else:
+        dense3_out = tf.layers.dense(lr8_out, 5, kernel_initializer=initializer)
     return dense3_out
 
 def standard_optimizer_init_fn(lr = 0.0005):

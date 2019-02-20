@@ -57,19 +57,26 @@ def original_bayes_cost_fn(y, preds):
 
 
 def train(model_init_fn, optimizer_init_fn, cost_fn, data, fname,\
-          restore = False,num_epochs = 1, print_every = 10, lr_np = 1e-6, lam_np = 1e-6, rate_np = 5e-1):
+          restore = False,num_epochs = 1, print_every = 10, lr_np = 1e-6, lam_np = 1e-6, rate_np = 5e-1, bayes_prob = 0.9):
     tf.reset_default_graph()
     train_dset, val_dset, _ = data
 #    with tf.device(device):
 
     x = tf.placeholder(tf.float32, [None, 256,256,1])
-    y = tf.placeholder(tf.float32, [None,2])
+    if bayes_prob == 1.0:
+        y = tf.placeholder(tf.float32, [None,2])
+    else:
+        y = tf.placeholder(tf.float32, [None, 5])
 
     training = tf.placeholder(tf.bool, name='training')
     lam = tf.placeholder(tf.float32, name = 'regularization_rate') 
     #dropout_rate = tf.placeholder(tf.float32, name = 'dropout_rate') 
-
-    preds = model_init_fn(x, training=training, lam = lam, rate=rate_np)
+    # may need to adjust how i've generalized this...
+    # TODO
+    if bayes_prob == 1.0:
+        preds = model_init_fn(x,  training=training, lam = lam, rate=rate_np)
+    else:
+        preds = model_init_fn(x, bayes_prob = bayes_prob, training=training, lam = lam, rate=rate_np)
     #loss = tf.losses.absolute_difference(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
     #loss, mu1, mu2, log_s1, log_s2, z = cost_fn(y, preds)
     loss = cost_fn(y, preds)
