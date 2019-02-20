@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=train_standard_net
-#SBATCH --time=02:00:00
+#SBATCH --time=04:00:00
 #SBATCH --gres gpu:4
 #SBATCH -p gpu 
 #SBATCH --ntasks=12
