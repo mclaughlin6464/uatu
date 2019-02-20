@@ -103,12 +103,20 @@ def shallow_convnet_init_fn(inputs, training=False):
     return dense3_out
 
 
-def gupta_network_init_fn(inputs, training=False, lam=1e-6, rate = 0.5):
+def gupta_network_init_fn(inputs, **kwargs):
     '''
     Emulate the architecture in https://journals.aps.org/prd/pdf/10.1103/PhysRevD.97.103515 and 
     https://arxiv.org/pdf/1806.05995.pdf. 
     '''
-    print rate
+    return gupta_bayesian_network_init_fn(input, bayes_prob=1.0, **kwargs)
+
+
+def gupta_bayesian_network_init_fn(inputs, bayes_prob = 0.1, training=False, lam=1e-6, rate = 0.5):
+    '''
+    Emulate the architecture in https://journals.aps.org/prd/pdf/10.1103/PhysRevD.97.103515 and 
+    https://arxiv.org/pdf/1806.05995.pdf.
+    Implementation of Gal and Garmani approximation
+    '''
     # TODO add more customization
     initializer = tf.variance_scaling_initializer(scale=2.0)
     regularizer = tf.contrib.layers.l2_regularizer(scale = lam)
@@ -117,94 +125,52 @@ def gupta_network_init_fn(inputs, training=False, lam=1e-6, rate = 0.5):
     # NOTE ask waren if i need separate relus
     conv1_out = tf.layers.conv2d(inputs, 32, kernel_size=3, padding='same',
                                  kernel_initializer=initializer, kernel_regularizer = regularizer)
-    lr1_out = tf.nn.leaky_relu(conv1_out, alpha=0.01)
+    bd1_out = tf.layers.dropout(conv1_out, rate = bayes_prob)
+    lr1_out = tf.nn.leaky_relu(bd1_out, alpha=0.01)
     #ap1_out = tf.layers.average_pooling2d(lr1_out, pool_size=3, strides=3)
     conv2_out = tf.layers.conv2d(lr1_out, 64, kernel_size=3, padding='same',
                                  kernel_initializer=initializer, kernel_regularizer = regularizer)
-    lr2_out = tf.nn.leaky_relu(conv2_out, alpha=0.01)
+    bd2_out = tf.layers.dropout(conv2_out, rate = bayes_prob)
+    lr2_out = tf.nn.leaky_relu(bd2_out, alpha=0.01)
     ap2_out = tf.layers.average_pooling2d(lr2_out, pool_size=2, strides=2)
 
     conv3_out = tf.layers.conv2d(ap2_out, 128, kernel_size=3, padding='same',
                                  kernel_initializer=initializer, kernel_regularizer = regularizer)
-
-    lr3_out = tf.nn.leaky_relu(conv3_out, alpha=0.01)
+    bd3_out = tf.layers.dropout(conv3_out, rate = bayes_prob)
+    lr3_out = tf.nn.leaky_relu(bd3_out, alpha=0.01)
     conv4_out = tf.layers.conv2d(lr3_out, 128, kernel_size=3, padding='same',
                       kernel_initializer=initializer, kernel_regularizer = regularizer)
-
-    lr4_out = tf.nn.leaky_relu(conv4_out, alpha=0.01)
+    bd4_out = tf.layers.dropout(conv4_out, rate = bayes_prob)
+    lr4_out = tf.nn.leaky_relu(bd4_out, alpha=0.01)
     ap4_out = tf.layers.average_pooling2d(lr4_out, pool_size=2, strides=2)
 
-    conv5_out =  tf.layers.conv2d(ap2_out, 128, kernel_size=3, padding='same',
+    conv5_out =  tf.layers.conv2d(ap4_out, 128, kernel_size=3, padding='same',
                      kernel_initializer=initializer, kernel_regularizer = regularizer)
-
-    lr5_out = tf.nn.leaky_relu(conv5_out, alpha=0.01)
-    conv6_out = tf.layers.conv2d(ap2_out, 128, kernel_size=3, padding='same',
+    bd5_out = tf.layers.dropout(conv5_out, rate = bayes_prob)
+    lr5_out = tf.nn.leaky_relu(bd5_out, alpha=0.01)
+    conv6_out = tf.layers.conv2d(lr5_out, 128, kernel_size=3, padding='same',
                       kernel_initializer=initializer, kernel_regularizer = regularizer)
-
-    lr6_out = tf.nn.leaky_relu(conv6_out, alpha=0.01)
+    bd6_out = tf.layers.dropout(conv6_out, rate = bayes_prob)
+    lr6_out = tf.nn.leaky_relu(bd6_out, alpha=0.01)
     ap6_out = tf.layers.average_pooling2d(lr6_out, pool_size=2, strides=2)
 
     flat_out = tf.layers.flatten(ap6_out)
     dense1_out = tf.layers.dense(flat_out, 256, kernel_initializer=initializer)
-    drop1_out = tf.layers.dropout(dense1_out, training=training, rate = rate)
+    # TODO what to do for FC layers?
+    if bayes_prob == 1:
+        drop1_out = tf.layers.dropout(dense1_out, training=training, rate = rate)
+    else:
+        drop1_out = tf.layers.dropout(dense1_out, rate = bayes_prob)
+
     lr7_out = tf.nn.leaky_relu(drop1_out, alpha=0.01)
 
     dense2_out = tf.layers.dense(lr7_out, 256, kernel_initializer=initializer)
-    drop2_out = tf.layers.dropout(dense2_out, training=training, rate = rate)
-    lr8_out = tf.nn.leaky_relu(drop2_out, alpha=0.01)
 
-    dense3_out = tf.layers.dense(lr8_out, 2, kernel_initializer=initializer)
+    if bayes_prob == 1:
+        drop2_out = tf.layers.dropout(dense2_out, training=training, rate = rate)
+    else:
+        drop2_out = tf.layers.dropout(dense2_out, rate = bayes_prob)
 
-    return dense3_out
-
-def gupta_bayesian_network_init_fn(inputs, training=False, lam=1e-6, rate = 0.5):
-    '''
-    Emulate the architecture in https://journals.aps.org/prd/pdf/10.1103/PhysRevD.97.103515 and 
-    https://arxiv.org/pdf/1806.05995.pdf. 
-    '''
-    print rate
-    # TODO add more customization
-    initializer = tf.variance_scaling_initializer(scale=2.0)
-    regularizer = tf.contrib.layers.l2_regularizer(scale = lam)
-    axis = -1
-
-    # NOTE ask waren if i need separate relus
-    conv1_out = tf.layers.conv2d(inputs, 32, kernel_size=3, padding='same',
-                                 kernel_initializer=initializer, kernel_regularizer = regularizer)
-    lr1_out = tf.nn.leaky_relu(conv1_out, alpha=0.01)
-    #ap1_out = tf.layers.average_pooling2d(lr1_out, pool_size=3, strides=3)
-    conv2_out = tf.layers.conv2d(lr1_out, 64, kernel_size=3, padding='same',
-                                 kernel_initializer=initializer, kernel_regularizer = regularizer)
-    lr2_out = tf.nn.leaky_relu(conv2_out, alpha=0.01)
-    ap2_out = tf.layers.average_pooling2d(lr2_out, pool_size=2, strides=2)
-
-    conv3_out = tf.layers.conv2d(ap2_out, 128, kernel_size=3, padding='same',
-                                 kernel_initializer=initializer, kernel_regularizer = regularizer)
-
-    lr3_out = tf.nn.leaky_relu(conv3_out, alpha=0.01)
-    conv4_out = tf.layers.conv2d(lr3_out, 128, kernel_size=3, padding='same',
-                      kernel_initializer=initializer, kernel_regularizer = regularizer)
-
-    lr4_out = tf.nn.leaky_relu(conv4_out, alpha=0.01)
-    ap4_out = tf.layers.average_pooling2d(lr4_out, pool_size=2, strides=2)
-
-    conv5_out =  tf.layers.conv2d(ap2_out, 128, kernel_size=3, padding='same',
-                     kernel_initializer=initializer, kernel_regularizer = regularizer)
-
-    lr5_out = tf.nn.leaky_relu(conv5_out, alpha=0.01)
-    conv6_out = tf.layers.conv2d(ap2_out, 128, kernel_size=3, padding='same',
-                      kernel_initializer=initializer, kernel_regularizer = regularizer)
-
-    lr6_out = tf.nn.leaky_relu(conv6_out, alpha=0.01)
-    ap6_out = tf.layers.average_pooling2d(lr6_out, pool_size=2, strides=2)
-
-    flat_out = tf.layers.flatten(ap6_out)
-    dense1_out = tf.layers.dense(flat_out, 256, kernel_initializer=initializer)
-    drop1_out = tf.layers.dropout(dense1_out, training=training, rate = rate)
-    lr7_out = tf.nn.leaky_relu(drop1_out, alpha=0.01)
-
-    dense2_out = tf.layers.dense(lr7_out, 256, kernel_initializer=initializer)
-    drop2_out = tf.layers.dropout(dense2_out, training=training, rate = rate)
     lr8_out = tf.nn.leaky_relu(drop2_out, alpha=0.01)
 
     dense3_out = tf.layers.dense(lr8_out, 2, kernel_initializer=initializer)
