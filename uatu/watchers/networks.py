@@ -108,7 +108,7 @@ def gupta_network_init_fn(inputs, **kwargs):
     Emulate the architecture in https://journals.aps.org/prd/pdf/10.1103/PhysRevD.97.103515 and 
     https://arxiv.org/pdf/1806.05995.pdf. 
     '''
-    return gupta_bayesian_network_init_fn(input, bayes_prob=1.0, **kwargs)
+    return gupta_bayesian_network_init_fn(inputs, bayes_prob=1.0, **kwargs)
 
 
 def gupta_bayesian_network_init_fn(inputs, bayes_prob = 0.1, training=False, lam=1e-6, rate = 0.5):
@@ -173,8 +173,10 @@ def gupta_bayesian_network_init_fn(inputs, bayes_prob = 0.1, training=False, lam
 
     lr8_out = tf.nn.leaky_relu(drop2_out, alpha=0.01)
 
-    dense3_out = tf.layers.dense(lr8_out, 2, kernel_initializer=initializer)
-
+    if bayes_prob == 1.0:
+        dense3_out = tf.layers.dense(lr8_out, 2, kernel_initializer=initializer)
+    else:
+        dense3_out = tf.layers.dense(lr8_out, 5, kernel_initializer=initializer)
     return dense3_out
 
 def standard_optimizer_init_fn(lr = 0.0005):
