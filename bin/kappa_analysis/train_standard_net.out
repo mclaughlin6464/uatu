@@ -161,100 +161,33 @@ py-tensorflow/1.6.0_py27:
 /scratch/users/swmclau2/UatuLightconeTraining/Box150/
 /scratch/users/swmclau2/UatuLightconeT/home/users/swmclau2/.local/lib/python2.7/site-packages/sklearn/model_selection/_split.py:2026: FutureWarning: From version 0.21, test_size will always complement train_size unless both are specified.
   FutureWarning)
-2019-01-25 15:39:43.840521: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 0 with properties: 
+2019-02-19 13:38:21.278485: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 0 with properties: 
 name: Tesla K20Xm major: 3 minor: 5 memoryClockRate(GHz): 0.784
 pciBusID: 0000:04:00.0
 totalMemory: 5.57GiB freeMemory: 5.49GiB
-2019-01-25 15:39:44.059857: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 1 with properties: 
+2019-02-19 13:38:21.506819: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 1 with properties: 
 name: Tesla K20Xm major: 3 minor: 5 memoryClockRate(GHz): 0.784
 pciBusID: 0000:05:00.0
 totalMemory: 5.57GiB freeMemory: 5.49GiB
-2019-01-25 15:39:44.287627: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 2 with properties: 
+2019-02-19 13:38:21.747910: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 2 with properties: 
 name: Tesla K20Xm major: 3 minor: 5 memoryClockRate(GHz): 0.784
 pciBusID: 0000:08:00.0
 totalMemory: 5.57GiB freeMemory: 5.49GiB
-2019-01-25 15:39:44.528215: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 3 with properties: 
+2019-02-19 13:38:21.998193: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 3 with properties: 
 name: Tesla K20Xm major: 3 minor: 5 memoryClockRate(GHz): 0.784
-pciBusID: 0000:85:00.0
+pciBusID: 0000:09:00.0
 totalMemory: 5.57GiB freeMemory: 5.49GiB
-2019-01-25 15:39:44.529973: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1227] Device peer to peer matrix
-2019-01-25 15:39:44.530160: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1233] DMA: 0 1 2 3 
-2019-01-25 15:39:44.530182: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1243] 0:   Y Y Y N 
-2019-01-25 15:39:44.530196: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1243] 1:   Y Y Y N 
-2019-01-25 15:39:44.530209: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1243] 2:   Y Y Y N 
-2019-01-25 15:39:44.530222: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1243] 3:   N N N Y 
-2019-01-25 15:39:44.530251: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1312] Adding visible gpu devices: 0, 1, 2, 3
-2019-01-25 15:39:50.109253: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 5288 MB memory) -> physical GPU (device: 0, name: Tesla K20Xm, pci bus id: 0000:04:00.0, compute capability: 3.5)
-2019-01-25 15:39:50.246946: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 5288 MB memory) -> physical GPU (device: 1, name: Tesla K20Xm, pci bus id: 0000:05:00.0, compute capability: 3.5)
-2019-01-25 15:39:50.386468: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:2 with 5286 MB memory) -> physical GPU (device: 2, name: Tesla K20Xm, pci bus id: 0000:08:00.0, compute capability: 3.5)
-2019-01-25 15:39:50.525525: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:3 with 5288 MB memory) -> physical GPU (device: 3, name: Tesla K20Xm, pci bus id: 0000:85:00.0, compute capability: 3.5)
-2019-01-25 15:45:00.813047: W tensorflow/core/common_runtime/bfc_allocator.cc:275] Allocator (cuda_host_bfc) ran out of memory trying to allocate 64.00GiB.  Current allocation summary follows.
-2019-01-25 15:45:00.814636: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (256): 	Total Chunks: 8, Chunks in use: 8. 2.0KiB allocated for chunks. 2.0KiB in use in bin. 104B client-requested in use in bin.
-2019-01-25 15:45:00.814710: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (512): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
-2019-01-25 15:45:00.814743: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (1024): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
-2019-01-25 15:45:00.814771: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (2048): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
-2019-01-25 15:45:00.814800: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (4096): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
-2019-01-25 15:45:00.814827: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (8192): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
-2019-01-25 15:45:00.814854: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (16384): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
-2019-01-25 15:45:00.814882: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (32768): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
-2019-01-25 15:45:00.814911: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (65536): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
-2019-01-25 15:45:00.814948: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (131072): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
-2019-01-25 15:45:00.814977: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (262144): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
-2019-01-25 15:45:00.815014: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (524288): 	Total Chunks: 1, Chunks in use: 0. 1022.0KiB allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
-2019-01-25 15:45:00.815044: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (1048576): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
-2019-01-25 15:45:00.815074: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (2097152): 	Total Chunks: 1, Chunks in use: 0. 2.00MiB allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
-2019-01-25 15:45:00.815102: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (4194304): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
-2019-01-25 15:45:00.815130: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (8388608): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
-2019-01-25 15:45:00.815171: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (16777216): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
-2019-01-25 15:45:00.815196: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (33554432): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
-2019-01-25 15:45:00.815234: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (67108864): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
-2019-01-25 15:45:00.815256: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (134217728): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
-2019-01-25 15:45:00.815278: I tensorflow/core/common_runtime/bfc_allocator.cc:630] Bin (268435456): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
-2019-01-25 15:45:00.815308: I tensorflow/core/common_runtime/bfc_allocator.cc:646] Bin for 64.00GiB was 256.00MiB, Chunk State: 
-2019-01-25 15:45:00.815339: I tensorflow/core/common_runtime/bfc_allocator.cc:665] Chunk at 0x212280000 of size 256
-2019-01-25 15:45:00.815357: I tensorflow/core/common_runtime/bfc_allocator.cc:665] Chunk at 0x212280100 of size 256
-2019-01-25 15:45:00.815374: I tensorflow/core/common_runtime/bfc_allocator.cc:665] Chunk at 0x212280200 of size 256
-2019-01-25 15:45:00.815390: I tensorflow/core/common_runtime/bfc_allocator.cc:665] Chunk at 0x212280300 of size 256
-2019-01-25 15:45:00.815407: I tensorflow/core/common_runtime/bfc_allocator.cc:665] Chunk at 0x212280400 of size 256
-2019-01-25 15:45:00.815423: I tensorflow/core/common_runtime/bfc_allocator.cc:665] Chunk at 0x212280500 of size 256
-2019-01-25 15:45:00.815439: I tensorflow/core/common_runtime/bfc_allocator.cc:665] Chunk at 0x212280600 of size 256
-2019-01-25 15:45:00.815455: I tensorflow/core/common_runtime/bfc_allocator.cc:665] Chunk at 0x212280700 of size 256
-2019-01-25 15:45:00.815472: I tensorflow/core/common_runtime/bfc_allocator.cc:665] Free  at 0x212280800 of size 1046528
-2019-01-25 15:45:00.815501: I tensorflow/core/common_runtime/bfc_allocator.cc:665] Free  at 0x212380000 of size 2097152
-2019-01-25 15:45:00.815521: I tensorflow/core/common_runtime/bfc_allocator.cc:671]      Summary of in-use Chunks by size: 
-2019-01-25 15:45:00.815552: I tensorflow/core/common_runtime/bfc_allocator.cc:674] 8 Chunks of size 256 totalling 2.0KiB
-2019-01-25 15:45:00.815578: I tensorflow/core/common_runtime/bfc_allocator.cc:678] Sum Total of in-use chunks: 2.0KiB
-2019-01-25 15:45:00.815634: I tensorflow/core/common_runtime/bfc_allocator.cc:680] Stats: 
-Limit:                 68719476736
-InUse:                        2048
-MaxInUse:                  2097408
-NumAllocs:                      42
-MaxAllocSize:              2097152
-
-2019-01-25 15:45:00.815668: W tensorflow/core/common_runtime/bfc_allocator.cc:279] *___________________________________________________________________________________________________
-2019-01-25 15:45:00.865081: W tensorflow/core/framework/op_kernel.cc:1179] OP_REQUIRES failed at constant_op.cc:49 : Invalid argument: Cannot parse tensor from proto: dtype: DT_FLOAT
-tensor_shape {
-  dim {
-    size: 16777216
-  }
-  dim {
-    size: 1024
-  }
-}
-float_val: 0
-
-2019-01-25 15:46:00.402370: E tensorflow/core/common_runtime/executor.cc:645] Executor failed to create kernel. Invalid argument: Cannot parse tensor from proto: dtype: DT_FLOAT
-tensor_shape {
-  dim {
-    size: 16777216
-  }
-  dim {
-    size: 1024
-  }
-}
-float_val: 0
-
-	 [[Node: dense/kernel/Adam/Initializer/zeros = Const[dtype=DT_FLOAT, value=Tensor<type: float shape: [16777216,1024] values: [0 0 0]...>, _device="/job:localhost/replica:0/task:0/device:GPU:0"]()]]
+2019-02-19 13:38:22.001411: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1227] Device peer to peer matrix
+2019-02-19 13:38:22.001618: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1233] DMA: 0 1 2 3 
+2019-02-19 13:38:22.001642: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1243] 0:   Y Y Y Y 
+2019-02-19 13:38:22.001657: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1243] 1:   Y Y Y Y 
+2019-02-19 13:38:22.001670: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1243] 2:   Y Y Y Y 
+2019-02-19 13:38:22.001683: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1243] 3:   Y Y Y Y 
+2019-02-19 13:38:22.001712: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1312] Adding visible gpu devices: 0, 1, 2, 3
+2019-02-19 13:38:23.766115: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 5288 MB memory) -> physical GPU (device: 0, name: Tesla K20Xm, pci bus id: 0000:04:00.0, compute capability: 3.5)
+2019-02-19 13:38:23.910421: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 5288 MB memory) -> physical GPU (device: 1, name: Tesla K20Xm, pci bus id: 0000:05:00.0, compute capability: 3.5)
+2019-02-19 13:38:24.055559: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:2 with 5286 MB memory) -> physical GPU (device: 2, name: Tesla K20Xm, pci bus id: 0000:08:00.0, compute capability: 3.5)
+2019-02-19 13:38:24.201549: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:3 with 5286 MB memory) -> physical GPU (device: 3, name: Tesla K20Xm, pci bus id: 0000:09:00.0, compute capability: 3.5)
 raining/Box151/
 /scratch/users/swmclau2/UatuLightconeTraining/Box152/
 /scratch/users/swmclau2/UatuLightconeTraining/Box153/
@@ -354,97 +287,103 @@ raining/Box151/
 /scratch/users/swmclau2/UatuLightconeTraining/Box247/
 /scratch/users/swmclau2/UatuLightconeTraining/Box248/
 /scratch/users/swmclau2/UatuLightconeTraining/Box249/
-29.3375399113
-Traceback (most recent call last):
-  File "train_standard_net.py", line 22, in <module>
-    train(standard_convnet_init_fn, standard_optimizer_init_fn, standard_cost_fn, data, device, num_epochs = 100, fname = '/home/users/swmclau2/scratch/standard_net_kappa', print_every = 500)#, lr = 0.0001) 
-  File "/home/users/swmclau2/.local/lib/python2.7/site-packages/uatu/watchers/train.py", line 91, in train
-    sess.run(tf.global_variables_initializer())
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/client/session.py", line 905, in run
-    run_metadata_ptr)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/client/session.py", line 1137, in _run
-    feed_dict_tensor, options, run_metadata)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/client/session.py", line 1355, in _do_run
-    options, run_metadata)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/client/session.py", line 1374, in _do_call
-    raise type(e)(node_def, op, message)
-tensorflow.python.framework.errors_impl.InvalidArgumentError: Cannot parse tensor from proto: dtype: DT_FLOAT
-tensor_shape {
-  dim {
-    size: 16777216
-  }
-  dim {
-    size: 1024
-  }
-}
-float_val: 0
+0.5
+Starting epoch 0
+2019-02-19 13:38:28.481722: W tensorflow/core/common_runtime/bfc_allocator.cc:219] Allocator (GPU_0_bfc) ran out of memory trying to allocate 2.25GiB. The caller indicates that this is not a failure, but may mean that there could be performance gains if more memory were available.
+2019-02-19 13:38:28.547445: W tensorflow/core/common_runtime/bfc_allocator.cc:219] Allocator (GPU_0_bfc) ran out of memory trying to allocate 1.69GiB. The caller indicates that this is not a failure, but may mean that there could be performance gains if more memory were available.
+2019-02-19 13:38:29.903406: W tensorflow/core/common_runtime/bfc_allocator.cc:219] Allocator (GPU_0_bfc) ran out of memory trying to allocate 1.69GiB. The caller indicates that this is not a failure, but may mean that there could be performance gains if more memory were available.
+2019-02-19 13:38:30.207200: W tensorflow/core/common_runtime/bfc_allocator.cc:219] Allocator (GPU_0_bfc) ran out of memory trying to allocate 1.69GiB. The caller indicates that this is not a failure, but may mean that there could be performance gains if more memory were available.
+Iteration 0, loss = 55.8036
+Om: 5593.97%, s8: 5683.61% accuracy
+RMSE: 14.6525, 43.3652
 
-	 [[Node: dense/kernel/Adam/Initializer/zeros = Const[dtype=DT_FLOAT, value=Tensor<type: float shape: [16777216,1024] values: [0 0 0]...>, _device="/job:localhost/replica:0/task:0/device:GPU:0"]()]]
+Iteration 500, loss = 9.0981
+Om: 11.61%, s8: 10.35% accuracy
+RMSE: 0.0417, 0.1031
 
-Caused by op u'dense/kernel/Adam/Initializer/zeros', defined at:
-  File "train_standard_net.py", line 22, in <module>
-    train(standard_convnet_init_fn, standard_optimizer_init_fn, standard_cost_fn, data, device, num_epochs = 100, fname = '/home/users/swmclau2/scratch/standard_net_kappa', print_every = 500)#, lr = 0.0001)
-  File "/home/users/swmclau2/.local/lib/python2.7/site-packages/uatu/watchers/train.py", line 78, in train
-    train_op = optimizer.minimize(loss)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/training/optimizer.py", line 369, in minimize
-    name=name)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/training/optimizer.py", line 520, in apply_gradients
-    self._create_slots([_get_variable_for(v) for v in var_list])
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/training/adam.py", line 131, in _create_slots
-    self._zeros_slot(v, "m", self._name)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/training/optimizer.py", line 910, in _zeros_slot
-    named_slots[_var_key(var)] = slot_creator.create_zeros_slot(var, op_name)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/training/slot_creator.py", line 174, in create_zeros_slot
-    colocate_with_primary=colocate_with_primary)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/training/slot_creator.py", line 148, in create_slot_with_initializer
-    dtype)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/training/slot_creator.py", line 67, in _create_slot_var
-    validate_shape=validate_shape)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 1297, in get_variable
-    constraint=constraint)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 1093, in get_variable
-    constraint=constraint)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 439, in get_variable
-    constraint=constraint)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 408, in _true_getter
-    use_resource=use_resource, constraint=constraint)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 800, in _get_single_variable
-    use_resource=use_resource)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 2157, in variable
-    use_resource=use_resource)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 2147, in <lambda>
-    previous_getter = lambda **kwargs: default_variable_creator(None, **kwargs)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 2130, in default_variable_creator
-    constraint=constraint)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/variables.py", line 233, in __init__
-    constraint=constraint)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/variables.py", line 327, in _init_from_args
-    initial_value(), name="initial_value", dtype=dtype)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/variable_scope.py", line 784, in <lambda>
-    shape.as_list(), dtype=dtype, partition_info=partition_info)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/init_ops.py", line 99, in __call__
-    return array_ops.zeros(shape, dtype)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/array_ops.py", line 1570, in zeros
-    output = fill(shape, constant(zero, dtype=dtype), name=name)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/ops/gen_array_ops.py", line 1713, in fill
-    "Fill", dims=dims, value=value, name=name)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/framework/op_def_library.py", line 787, in _apply_op_helper
-    op_def=op_def)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/framework/ops.py", line 3271, in create_op
-    op_def=op_def)
-  File "/share/software/user/open/py-tensorflow/1.6.0_py27/lib/python2.7/site-packages/tensorflow/python/framework/ops.py", line 1650, in __init__
-    self._traceback = self._graph._extract_stack()  # pylint: disable=protected-access
+Starting epoch 1
+Iteration 1000, loss = 3.4090
+Om: 22.31%, s8: 17.06% accuracy
+RMSE: 0.0655, 0.1397
 
-InvalidArgumentError (see above for traceback): Cannot parse tensor from proto: dtype: DT_FLOAT
-tensor_shape {
-  dim {
-    size: 16777216
-  }
-  dim {
-    size: 1024
-  }
-}
-float_val: 0
+Starting epoch 2
+Iteration 1500, loss = 3.5650
+Om: 21.55%, s8: 19.23% accuracy
+RMSE: 0.0601, 0.1548
 
-	 [[Node: dense/kernel/Adam/Initializer/zeros = Const[dtype=DT_FLOAT, value=Tensor<type: float shape: [16777216,1024] values: [0 0 0]...>, _device="/job:localhost/replica:0/task:0/device:GPU:0"]()]]
+Starting epoch 3
+Iteration 2000, loss = 2.5170
+Om: 22.53%, s8: 28.03% accuracy
+RMSE: 0.0616, 0.2186
 
+Starting epoch 4
+Iteration 2500, loss = 1.2276
+Om: 14.52%, s8: 23.20% accuracy
+RMSE: 0.0424, 0.1826
+
+Starting epoch 5
+Iteration 3000, loss = 2.1767
+Om: 18.61%, s8: 27.40% accuracy
+RMSE: 0.0512, 0.2142
+
+Starting epoch 6
+Iteration 3500, loss = 1.3675
+Om: 19.76%, s8: 23.85% accuracy
+RMSE: 0.0540, 0.1864
+
+Starting epoch 7
+Iteration 4000, loss = 1.1391
+Om: 13.19%, s8: 16.81% accuracy
+RMSE: 0.0365, 0.1310
+
+Starting epoch 8
+Iteration 4500, loss = 1.2738
+Om: 9.92%, s8: 10.76% accuracy
+RMSE: 0.0275, 0.0846
+
+Starting epoch 9
+Iteration 5000, loss = 1.2097
+Om: 11.95%, s8: 12.66% accuracy
+RMSE: 0.0321, 0.0982
+
+Starting epoch 10
+Iteration 5500, loss = 0.6042
+Om: 3.21%, s8: 7.75% accuracy
+RMSE: 0.0100, 0.0620
+
+Starting epoch 11
+Iteration 6000, loss = 0.8626
+Om: 2.38%, s8: 3.21% accuracy
+RMSE: 0.0073, 0.0289
+
+Starting epoch 12
+Iteration 6500, loss = 0.4027
+Om: 2.74%, s8: 2.10% accuracy
+RMSE: 0.0090, 0.0192
+
+Starting epoch 13
+Iteration 7000, loss = 0.5296
+Om: 1.76%, s8: 2.53% accuracy
+RMSE: 0.0058, 0.0238
+
+Starting epoch 14
+Iteration 7500, loss = 0.5146
+Om: 5.23%, s8: 5.13% accuracy
+RMSE: 0.0150, 0.0428
+
+Starting epoch 15
+Iteration 8000, loss = 0.4565
+Om: 5.37%, s8: 6.95% accuracy
+RMSE: 0.0150, 0.0562
+
+Starting epoch 16
+Iteration 8500, loss = 0.2808
+Om: 5.71%, s8: 4.89% accuracy
+RMSE: 0.0157, 0.0406
+
+Starting epoch 17
+Iteration 9000, loss = 0.3530
+Om: 7.90%, s8: 6.52% accuracy
+RMSE: 0.0216, 0.0531
+
+slurmstepd: error: *** JOB 37939695 ON sh-09-01 CANCELLED AT 2019-02-19T15:35:09 DUE TO TIME LIMIT ***

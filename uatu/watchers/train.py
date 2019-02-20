@@ -13,6 +13,9 @@ import sys
 def standard_cost_fn(y, preds):
     return tf.losses.mean_squared_error(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
 
+def standard_abs_cost_fn(y, preds):
+    return tf.losses.absolute_difference(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
+
 def bayes_cost_fn(y, preds):
     '''
     log_s1 = tf.slice(preds, [0, 2], [-1, 1])
@@ -53,8 +56,8 @@ def original_bayes_cost_fn(y, preds):
         (log_s1 + log_s2 + tf.log(1 - tf.pow(rho, 2.)))/2.0 )
 
 
-def train(model_init_fn, optimizer_init_fn, cost_fn, data, device, fname,\
-          restore = False,num_epochs = 1, print_every = 10):
+def train(model_init_fn, optimizer_init_fn, cost_fn, data, fname,\
+          restore = False,num_epochs = 1, print_every = 10, lr_np = 1e-6, lam_np = 1e-6, rate_np = 5e-1):
     tf.reset_default_graph()
     train_dset, val_dset, _ = data
 #    with tf.device(device):
@@ -63,8 +66,10 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, device, fname,\
     y = tf.placeholder(tf.float32, [None,2])
 
     training = tf.placeholder(tf.bool, name='training')
+    lam = tf.placeholder(tf.float32, name = 'regularization_rate') 
+    #dropout_rate = tf.placeholder(tf.float32, name = 'dropout_rate') 
 
-    preds = model_init_fn(x, training=training)
+    preds = model_init_fn(x, training=training, lam = lam, rate=rate_np)
     #loss = tf.losses.absolute_difference(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
     #loss, mu1, mu2, log_s1, log_s2, z = cost_fn(y, preds)
     loss = cost_fn(y, preds)
@@ -80,9 +85,8 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, device, fname,\
         #capped_gvs = [(tf.clip_by_value(grad, -1., 1.), var) for grad, var in gvs]
         #train_op = optimizer.apply_gradients(capped_gvs)
 
-    #with tf.device('/cpu:0'):
-
-    saver = tf.train.Saver()
+    with tf.device('/cpu:0'):
+        saver = tf.train.Saver()
 
     with tf.Session() as sess:
         if restore:
@@ -97,19 +101,18 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, device, fname,\
             print 'Starting epoch %d' % epoch
             sys.stdout.flush()
             for x_np, y_np in train_dset:
-                print t,
+                #print t,
                 sys.stdout.flush()
 
-                if epoch < 3:
-                    lr_np = 5e-5 
-                else:
-                    lr_np = 5e-7
-                feed_dict = {x: x_np, y: y_np, training: True, lr: lr_np}
+                feed_dict = {x: x_np, y: y_np, training: True, lr: lr_np, lam:lam_np}#, dropout_rate:rate_np}
+                #print feed_dict
+                #print feed_dict[dropout_rate]
+                #print rate_np
                 #loss_np, update_ops_np = sess.run([loss,update_ops], feed_dict=feed_dict)
                 #loss_np,mu1_np,mu2_np, log_s1_np, log_s2_np, z_np, _  = sess.run([loss,mu1,mu2,log_s1, log_s2, z, train_op], feed_dict=feed_dict)
                 loss_np, _  = sess.run([loss, train_op], feed_dict=feed_dict)
 
-                print loss_np#,mu1_np, mu2_np, np.exp(log_s1_np), np.exp(log_s2_np), z_np
+                #print loss_np#,mu1_np, mu2_np, np.exp(log_s1_np), np.exp(log_s2_np), z_np
 
                 if t % print_every == 0:
                     print 'Iteration %d, loss = %.4f' % (t, loss_np)
@@ -171,12 +174,14 @@ def check_accuracy(sess, dset, x, scores, training=None):
     Returns: Nothing, but prints the accuracy of the model
     """
     perc_error = []
+    rmse = []
     do_chi2 = False
     for x_batch, y_batch in dset:
         feed_dict = {x: x_batch, training: 0}
         y_pred = sess.run(scores, feed_dict=feed_dict)
         if y_pred.shape[1] == 2:
-            perc_error.append((y_pred[:,:2]-y_batch)/(y_batch))
+            perc_error.append(np.abs(y_pred[:,:2]-y_batch)/(y_batch))
+            rmse.append(y_pred[:,:2]-y_batch)
 
         else: # chi2
             do_chi2 = True
@@ -199,5 +204,7 @@ def check_accuracy(sess, dset, x, scores, training=None):
     if not do_chi2:
         acc = np.abs(np.array(perc_error[0]).mean(axis = 0))
         print 'Om: %.2f%%, s8: %.2f%% accuracy' % (100 * acc[0], 100*acc[1])
+        rmse = np.sqrt(np.mean(np.array(rmse[0])**2, axis = 0))
+        print 'RMSE: %.4f, %.4f'%(rmse[0], rmse[1])
     else:
         print 'chi2: %.3f'%(np.mean(perc_error)/2)
