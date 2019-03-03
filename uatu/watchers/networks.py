@@ -108,7 +108,9 @@ def gupta_network_init_fn(inputs, **kwargs):
     Emulate the architecture in https://journals.aps.org/prd/pdf/10.1103/PhysRevD.97.103515 and 
     https://arxiv.org/pdf/1806.05995.pdf. 
     '''
-    return gupta_bayesian_network_init_fn(inputs, bayes_prob=1.0, **kwargs)
+    if 'bayes_prob' in kwargs:
+        del kwargs['bayes_prob']
+    return gupta_bayesian_network_init_fn(inputs, bayes_prob=0.0, **kwargs)
 
 
 def gupta_bayesian_network_init_fn(inputs, bayes_prob = 0.1, training=False, lam=1e-6, rate = 0.5):
@@ -157,7 +159,7 @@ def gupta_bayesian_network_init_fn(inputs, bayes_prob = 0.1, training=False, lam
     flat_out = tf.layers.flatten(ap6_out)
     dense1_out = tf.layers.dense(flat_out, 256, kernel_initializer=initializer)
     # TODO what to do for FC layers?
-    if bayes_prob == 1:
+    if bayes_prob == 0:
         drop1_out = tf.layers.dropout(dense1_out, training=training, rate = rate)
     else:
         drop1_out = tf.layers.dropout(dense1_out, rate = bayes_prob)
@@ -166,14 +168,14 @@ def gupta_bayesian_network_init_fn(inputs, bayes_prob = 0.1, training=False, lam
 
     dense2_out = tf.layers.dense(lr7_out, 256, kernel_initializer=initializer)
 
-    if bayes_prob == 1:
+    if bayes_prob == 0:
         drop2_out = tf.layers.dropout(dense2_out, training=training, rate = rate)
     else:
         drop2_out = tf.layers.dropout(dense2_out, rate = bayes_prob)
 
     lr8_out = tf.nn.leaky_relu(drop2_out, alpha=0.01)
 
-    if bayes_prob == 1.0:
+    if bayes_prob == 0.0:
         dense3_out = tf.layers.dense(lr8_out, 2, kernel_initializer=initializer)
     else:
         dense3_out = tf.layers.dense(lr8_out, 5, kernel_initializer=initializer)

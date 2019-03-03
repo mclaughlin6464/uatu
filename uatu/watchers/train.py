@@ -57,23 +57,20 @@ def original_bayes_cost_fn(y, preds):
 
 
 def train(model_init_fn, optimizer_init_fn, cost_fn, data, fname,\
-          restore = False,num_epochs = 1, print_every = 10, lr_np = 1e-6, lam_np = 1e-6, rate_np = 5e-1, bayes_prob = 0.9):
+          restore = False,num_epochs = 1, print_every = 10, lr_np = 1e-6, lam_np = 1e-6, rate_np = 5e-1, bayes_prob = 0.1):
     tf.reset_default_graph()
     train_dset, val_dset, _ = data
 #    with tf.device(device):
 
     x = tf.placeholder(tf.float32, [None, 256,256,1])
-    if bayes_prob == 1.0:
-        y = tf.placeholder(tf.float32, [None,2])
-    else:
-        y = tf.placeholder(tf.float32, [None, 5])
+    y = tf.placeholder(tf.float32, [None,2])
 
     training = tf.placeholder(tf.bool, name='training')
     lam = tf.placeholder(tf.float32, name = 'regularization_rate') 
     #dropout_rate = tf.placeholder(tf.float32, name = 'dropout_rate') 
     # may need to adjust how i've generalized this...
     # TODO
-    if bayes_prob == 1.0:
+    if bayes_prob == 0.0:
         preds = model_init_fn(x,  training=training, lam = lam, rate=rate_np)
     else:
         preds = model_init_fn(x, bayes_prob = bayes_prob, training=training, lam = lam, rate=rate_np)
@@ -206,12 +203,18 @@ def check_accuracy(sess, dset, x, scores, training=None):
 
             #chi2= (z / (2 * (1 - rho**2.)) + 
             #    log_s1 + log_s2 + np.log(1 - rho**2.))
+# TODO rename these lists, cmon
             perc_error.append(np.mean(chi2))
+            rmse.append(np.abs(y_pred[:,:2]-y_batch)/(y_batch))
 
     if not do_chi2:
-        acc = np.abs(np.array(perc_error[0]).mean(axis = 0))
+        acc = np.abs(np.array(perc_error).flatten().mean(axis = 0))
         print 'Om: %.2f%%, s8: %.2f%% accuracy' % (100 * acc[0], 100*acc[1])
         rmse = np.sqrt(np.mean(np.array(rmse[0])**2, axis = 0))
         print 'RMSE: %.4f, %.4f'%(rmse[0], rmse[1])
     else:
+        print np.array(rmse).shape
+        acc = np.abs(np.array(rmse).flatten().mean(axis = 0))
+        print 'Om: %.2f%%, s8: %.2f%% accuracy' % (100 * acc[0], 100*acc[1])
         print 'chi2: %.3f'%(np.mean(perc_error)/2)
+
