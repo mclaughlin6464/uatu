@@ -130,39 +130,6 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, fname,\
 
         saver.save(sess, fname, global_step = t) #save one last time
 
-def test(model_init_fn, data,n_samples, device, fname, samples_fname_base):
-    tf.reset_default_graph()
-    with tf.device(device):
-
-        x = tf.placeholder(tf.float32, [None, 256,256,1])
-
-        training = tf.placeholder(tf.bool, name='training')
-
-        preds = model_init_fn(x, training)
-
-    with tf.device('/cpu:0'):
-
-        saver = tf.train.Saver()
-
-
-    with tf.Session() as sess:
-        saver.restore(sess, fname)
-        print 'Starting sampling'
-        for i, (x_np,  y_np) in enumerate(data):
-            samples = []
-            feed_dict = {x: x_np, training: False}
-            #loss_np, update_ops_np = sess.run([loss,update_ops], feed_dict=feed_dict)
-            y1, y2 = y_np[0]
-            for j in xrange(n_samples):
-                preds_np  = sess.run(preds, feed_dict=feed_dict)
-                samples.append(preds_np)
-
-            samples = np.vstack(samples)
-
-            print samples.mean(axis = 0)
-            print samples.std(axis = 0)
-            print  y1, y2
-            np.savetxt(samples_fname_base + '_%02d.npy'%i, samples, header = '%.6f\t%.6f'%(y1, y2))
 
 def check_accuracy(sess, dset, x, scores, training=None):
     """
