@@ -81,13 +81,14 @@ class DatasetFromFile(object):
                     all_idxs[i,1] = sbi
                     i+=1
 
-            if shuffle:
-                shuffled_idxs = np.arange(all_idxs.shape[0])
-                np.random.shuffle(shuffled_idxs)
-                all_idxs = all_idxs[shuffled_idxs]
-            
-
+            # important to do this before so that you dont mix the cosmologies
             self.idxs = all_idxs[:int(all_idxs.shape[0]*train_test_split)]
+
+            if shuffle:
+                shuffled_idxs = np.arange(self.idxs.shape[0])
+                np.random.shuffle(shuffled_idxs)
+                self.ixs = self.idxs[shuffled_idxs]
+            
             self.counter = 0
 
             if train_test_split != 1.0:
