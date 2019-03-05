@@ -10,6 +10,7 @@ dir = '/scratch/users/swmclau2/UatuLightconeTraining/'
 def whiten(X):
     mu = X.mean()
     s = X.std()
+    print mu, s
     return (X-mu)/s
 
 X,Y = get_all_xy(dir)#, 64, shuffle=True, augment=True)

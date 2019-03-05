@@ -178,14 +178,32 @@ def make_hdf5_file(dir,fname, start=None, stop = None):
     f.attrs['start'] = start if start is not None else 0
     f.attrs['stop']  = stop if stop is not None else len(all_subdirs)
 
+    x_mean = 0.0
+    counter = 0
+    basenames = []
+
     for boxno, subdir in enumerate(all_subdirs):
         bn = boxno+start if start is not None else boxno 
         print subdir
         X,Y = get_xy_from_dir(subdir, boxno)
+
+        x_mean+=X.mean()
+        counter+=1
+
         basename = subdir.split('/')[-2]
-        print basename
+        basenames.append(basename)
+
         group = f.create_group(basename)
         group.create_dataset("X", data = X)
         group.create_dataset("Y", data = Y)
+
+    f.attrs['shape'] = X.shape
+    f.attrs['mean'] = x_mean/(counter*np.prod(X.shape))
+    
+    x_std = 0.0
+    for boxno, basename in enumerate(basenames):
+       x_std+=np.sum((f[basename]["X"].value()-f.attrs['mean'])**2) 
+    
+    f.attrs['std'] = x_std/(counter*np.prod(X.shape)) 
 
     f.close()
