@@ -35,7 +35,7 @@ class Dataset(object):
 
 class DatasetFromFile(object):
     def __init__(self, fname, batch_size, shuffle=False, augment = True, test_idxs = None,\
-                 train_test_split=0.7, take_log = False, whiten = True):
+                 train_test_split=0.7, take_log = False, whiten = True, whiten_vals = None):
 
         assert path.isfile(fname)
 
@@ -50,13 +50,18 @@ class DatasetFromFile(object):
         n_boxes = len(f.keys()) 
 
         start, stop = f.attrs['start'], f.attrs['stop']
+        shape = f.attrs['shape']
         self.mean, self.std = 0, 1
         if whiten: 
             if 'mean' not in f.attrs:
                 warnings.warn("Whiten specified but no mean and std in the file attributes. Ignoring.")
-            else:
+            elif whiten_vals is None:
                 self.mean = f.attrs['mean']
                 self.std = f.attrs['std']
+            else:
+                self.mean, self.std = whiten_vals
+        elif whiten_vals is not None:
+            warnings.warn("When not specified but whiten vals passed in!")
         f.close()
 
         if test_idxs is None:
@@ -67,11 +72,11 @@ class DatasetFromFile(object):
                 box_idxs = np.arange(n_boxes) 
 
             # TODO magic numbers beware
-            all_idxs = np.zeros((81*box_idxs.shape[0], 2))
+            all_idxs = np.zeros((shape[0]*box_idxs.shape[0], 2))
             
             i = 0
             for bi in box_idxs: 
-                for sbi in xrange(81):
+                for sbi in xrange(shape[0]):
                     all_idxs[i,0] = bi
                     all_idxs[i,1] = sbi
                     i+=1
@@ -111,7 +116,7 @@ class DatasetFromFile(object):
 
             X = (X-self.mean)/(self.std)
             if self.augment:
-                a,b = np.random.randint(0, 2, size = 2) #randomly swap two axes, to rotate the input array
+                a,b = np.random.randint(0, 1, size = 1) #randomly swap two axes, to rotate the input array
                 X = np.swapaxes(X, a,b)
             if self.take_log:
                 X = np.array(X).astype(float) # for some reason have to do this
@@ -212,7 +217,7 @@ def make_hdf5_file(dir,fname, start=None, stop = None):
     
     x_std = 0.0
     for boxno, basename in enumerate(basenames):
-       x_std+=np.sum((f[basename]["X"].value()-f.attrs['mean'])**2) 
+       x_std+=np.sum((f[basename]["X"].value-f.attrs['mean'])**2) 
     
     f.attrs['std'] = x_std/(counter*np.prod(X.shape)) 
 
