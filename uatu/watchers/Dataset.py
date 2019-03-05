@@ -2,6 +2,7 @@ from os import path
 import numpy as np
 from glob import glob
 import h5py
+import warnings
 
 class Dataset(object):
     def __init__(self, X, Y, batch_size, shuffle=False, augment = True):
@@ -34,7 +35,7 @@ class Dataset(object):
 
 class DatasetFromFile(object):
     def __init__(self, fname, batch_size, shuffle=False, augment = True, test_idxs = None,\
-                 train_test_split=0.7, take_log = False):
+                 train_test_split=0.7, take_log = False, whiten = True):
 
         assert path.isfile(fname)
 
@@ -49,6 +50,13 @@ class DatasetFromFile(object):
         n_boxes = len(f.keys()) 
 
         start, stop = f.attrs['start'], f.attrs['stop']
+        self.mean, self.std = 0, 1
+        if whiten: 
+            if 'mean' not in f.attrs:
+                warnings.warn("Whiten specified but no mean and std in the file attributes. Ignoring.")
+            else:
+                self.mean = f.attrs['mean']
+                self.std = f.attrs['std']
         f.close()
 
         if test_idxs is None:
@@ -100,6 +108,8 @@ class DatasetFromFile(object):
             bn, sbn = i 
             X = f['Box%03d'%bn]['X'][sbn]
             Y = f['Box%03d'%bn]['Y'][sbn]
+
+            X = (X-self.mean)/(self.std)
             if self.augment:
                 a,b = np.random.randint(0, 2, size = 2) #randomly swap two axes, to rotate the input array
                 X = np.swapaxes(X, a,b)
