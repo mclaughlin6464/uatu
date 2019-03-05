@@ -133,6 +133,11 @@ class DatasetFromFile(object):
         Y = np.stack(outputY)
         return X,Y 
 
+    def get_test_dset(self):
+        return DatasetFromFile(self.fname, self.batch_size, self.shuffle, self.augment, self.test_idxs,\
+                 self.train_test_split, self.take_loge, self.whiten, whiten_vals = (self.mean, self.std)):
+
+
 
 def get_xy_from_dir(dir, boxno):
 
