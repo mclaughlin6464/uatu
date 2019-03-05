@@ -135,7 +135,7 @@ class DatasetFromFile(object):
 
     def get_test_dset(self):
         return DatasetFromFile(self.fname, self.batch_size, self.shuffle, self.augment, self.test_idxs,\
-                 self.train_test_split, self.take_loge, self.whiten, whiten_vals = (self.mean, self.std)):
+                 self.train_test_split, self.take_loge, self.whiten, whiten_vals = (self.mean, self.std))
 
 
 
