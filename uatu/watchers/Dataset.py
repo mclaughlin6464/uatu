@@ -41,6 +41,7 @@ class DatasetFromFile(object):
 
         self.batch_size, self.shuffle = batch_size, shuffle
         self.augment = augment
+        self.whiten = whiten
         
         self.fname = fname
 
