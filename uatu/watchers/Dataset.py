@@ -118,7 +118,7 @@ class DatasetFromFile(object):
 
             X = (X-self.mean)/(self.std)
             if self.augment:
-                a,b = np.random.randint(0, 1, size = 1) #randomly swap two axes, to rotate the input array
+                a,b = np.random.randint(0, 2, size = 2) #randomly swap two axes, to rotate the input array
                 X = np.swapaxes(X, a,b)
             if self.take_log:
                 X = np.array(X).astype(float) # for some reason have to do this

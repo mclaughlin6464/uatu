@@ -98,7 +98,9 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, fname,\
         else:
             sess.run(tf.global_variables_initializer())
         # TODO
-        writer = tf.summary.FileWriter("/scratch/users/swmclau2/test_tensorboard/test")
+        #writer = tf.summary.FileWriter("/scratch/users/swmclau2/test_tensorboard/test")
+        writer = tf.summary.FileWriter("/home/sean/Git/uatu/tensorboard/")
+
         writer.add_graph(sess.graph)
         t = 0
         for epoch in xrange(num_epochs):
@@ -151,8 +153,8 @@ def check_accuracy(sess, dset, x, scores, training=None):
         feed_dict = {x: x_batch, training: 0}
         y_pred = sess.run(scores, feed_dict=feed_dict)
         if y_pred.shape[1] == 2:
-            perc_error.append(np.abs(y_pred[:,:2]-y_batch)/(y_batch))
-            rmse.append(y_pred[:,:2]-y_batch)
+            perc_error.append(np.array(np.abs(y_pred[:,:2]-y_batch)/(y_batch)))
+            rmse.append(np.array(y_pred[:,:2]-y_batch))
 
         else: # chi2
             do_chi2 = True
@@ -172,16 +174,15 @@ def check_accuracy(sess, dset, x, scores, training=None):
             #    log_s1 + log_s2 + np.log(1 - rho**2.))
 # TODO rename these lists, cmon
             perc_error.append(np.mean(chi2))
-            rmse.append(np.abs(y_pred[:,:2]-y_batch)/(y_batch))
+            rmse.append(np.array(np.abs(y_pred[:,:2]-y_batch))/(y_batch))
 
     if not do_chi2:
-        acc = np.abs(np.array(perc_error).flatten().mean(axis = 0))
+        acc = np.abs(np.vstack(perc_error).mean(axis = 0))
         print 'Om: %.2f%%, s8: %.2f%% accuracy' % (100 * acc[0], 100*acc[1])
-        rmse = np.sqrt(np.mean(np.array(rmse[0])**2, axis = 0))
+        rmse = np.sqrt(np.mean(np.vstack(rmse)**2, axis = 0))
         print 'RMSE: %.4f, %.4f'%(rmse[0], rmse[1])
     else:
-        print np.array(rmse).shape
-        acc = np.abs(np.array(rmse).flatten().mean(axis = 0))
+        acc = np.abs(np.vstack(rmse).mean(axis = 0))
         print 'Om: %.2f%%, s8: %.2f%% accuracy' % (100 * acc[0], 100*acc[1])
         print 'chi2: %.3f'%(np.mean(perc_error)/2)
 
