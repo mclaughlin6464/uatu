@@ -15,7 +15,7 @@ def test(model_init_fn, data,n_samples, fname, samples_fname):
 
     training = tf.placeholder(tf.bool, name='training')
 
-    preds = model_init_fn(x, training)
+    preds = model_init_fn(x, training=training)
 
     with tf.device('/cpu:0'):
 
@@ -23,13 +23,14 @@ def test(model_init_fn, data,n_samples, fname, samples_fname):
 
 
     with tf.Session() as sess:
-        saver.restore(sess, fname)
+        with tf.device('/cpu:0'):
+            saver.restore(sess, fname)
         print 'Starting sampling'
         f = h5py.File(samples_fname, 'w')
         f.close()
 
         for i, (x_np,  y_np) in enumerate(data):
-            assert y_np.shape[1] == 1 , 'batchsize greater than 1'
+            assert y_np.shape[0] == 1 , 'batchsize greater than 1'
 
             samples = []
             feed_dict = {x: x_np, training: False}
@@ -59,4 +60,4 @@ def key_func(y):
     :return:  key, the key corresponding to this y
     """
 
-    return "Om_{om:.3f}_s8_{s8:.3f}".format(om=y[0], s8=y[1])
+    return "Om_{om:.3f}_s8_{s8:.3f}".format(om=y[0,0], s8=y[0,1])
