@@ -35,11 +35,13 @@ class Dataset(object):
 
 class DatasetFromFile(object):
     def __init__(self, fname, batch_size, shuffle=False, augment = True, test_idxs = None,\
-                 train_test_split=0.7, take_log = False, whiten = True, whiten_vals = None):
+                 train_test_split=0.7, take_log = False, whiten = True, whiten_vals = None,\
+                 cache_size = 100):
 
         assert path.isfile(fname)
 
         self.batch_size, self.shuffle = batch_size, shuffle
+        self.cache_size = cache_size*batch_size #makes accounting easier
         self.augment = augment
         self.whiten = whiten
         
@@ -52,6 +54,7 @@ class DatasetFromFile(object):
 
         start, stop = f.attrs['start'], f.attrs['stop']
         shape = f.attrs['shape']
+        self.shape = shape
         self.mean, self.std = 0, 1
         if whiten: 
             if 'mean' not in f.attrs:
@@ -104,35 +107,46 @@ class DatasetFromFile(object):
     def __iter__(self):
 
         N, B = len(self.idxs), self.batch_size
-        return iter(self.__next__() for i in xrange(0, N, B)) 
+        return iter(self.__next__() for i in xrange(0, N, B))
 
     def __next__(self):
-        
-        f = h5py.File(self.fname, 'r')
-        outputX, outputY = [] ,[]
-        #print 'Next', self.counter, self.test_idxs is None
-        for i in self.idxs[self.counter:self.counter+self.batch_size]:
-            bn, sbn = i 
-            X = f['Box%03d'%bn]['X'][sbn]
-            Y = f['Box%03d'%bn]['Y'][sbn]
 
-            X = (X-self.mean)/(self.std)
-            if self.augment:
-                a,b = np.random.randint(0, 2, size = 2) #randomly swap two axes, to rotate the input array
-                X = np.swapaxes(X, a,b)
-            if self.take_log:
-                X = np.array(X).astype(float) # for some reason have to do this
-                X[X<1e-3] = 1e-3
-                X = np.log10(X)
+        if self.counter%self.cache_size == 0: #load up the cache
+            self.cacheX = np.zeros((self.cache_size, self.batch_size, self.shape[0], self.shape[1]))
+            self.cacheY = np.zeros((self.cache_size, self.batch_size, 2))
 
-            outputX.append(X)
-            outputY.append(Y)
-        f.close()
+            f = h5py.File(self.fname, 'r')
+            for j in xrange(self.cache_size):
+                outputX, outputY = [] ,[]
+                #print 'Next', self.counter, self.test_idxs is None
+                for i in self.idxs[self.counter:self.counter+self.batch_size]:
+                    bn, sbn = i
+                    X = f['Box%03d'%bn]['X'][sbn]
+                    Y = f['Box%03d'%bn]['Y'][sbn]
+
+                    X = (X-self.mean)/(self.std)
+                    if self.augment:
+                        a,b = np.random.randint(0, 2, size = 2) #randomly swap two axes, to rotate the input array
+                        X = np.swapaxes(X, a,b)
+                    if self.take_log:
+                        X = np.array(X).astype(float) # for some reason have to do this
+                        X[X<1e-3] = 1e-3
+                        X = np.log10(X)
+
+                    outputX.append(X)
+                    outputY.append(Y)
+                self.cacheX[j] = np.stack(outputX)
+                self.cacheY[j] = np.stack(outputY)
+
+            f.close()
+
+            X = self.cacheX[0]
+            Y = self.cacheY[0]
+        else:
+            X,Y = self.cacheX[self.counter%self.cache_size], self.cacheY[self.counter%self.cache_size]
 
         self.counter=(self.counter + self.batch_size)%len(self.idxs)
-        X = np.stack(outputX)
-        Y = np.stack(outputY)
-        return X,Y 
+        return X,Y
 
     def get_test_dset(self):
         return DatasetFromFile(self.fname, self.batch_size, self.shuffle, self.augment, self.test_idxs,\
