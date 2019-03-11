@@ -121,6 +121,7 @@ class DatasetFromFile(object):
                 outputX, outputY = [] ,[]
                 for i in self.idxs[self.counter+j*self.batch_size:self.counter+(j+1)*self.batch_size]:
                     bn, sbn = i
+                    print bn, sbn
                     X = f['Box%03d'%bn]['X'][sbn]
                     Y = f['Box%03d'%bn]['Y'][sbn]
 
@@ -141,6 +142,8 @@ class DatasetFromFile(object):
                     raise StopIteration
                 self.cacheX[j] = np.stack(outputX)
                 self.cacheY[j] = np.stack(outputY)
+
+
 
             f.close()
 
