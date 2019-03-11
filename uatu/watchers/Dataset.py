@@ -107,19 +107,19 @@ class DatasetFromFile(object):
     def __iter__(self):
 
         N, B = len(self.idxs), self.batch_size
+        self.unique_x  = set()
         return iter(self.__next__() for i in xrange(0, N, B))
 
     def __next__(self):
 
         if self.counter%self.cache_size == 0: #load up the cache
-            self.cacheX = np.zeros((self.cache_size, self.batch_size, self.shape[0], self.shape[1]))
-            self.cacheY = np.zeros((self.cache_size, self.batch_size, 2))
+            self.cacheX = np.zeros((self.cache_size/self.batch_size, self.batch_size, self.shape[1], self.shape[2], self.shape[3]))
+            self.cacheY = np.zeros((self.cache_size/self.batch_size, self.batch_size, 2))
 
             f = h5py.File(self.fname, 'r')
-            for j in xrange(self.cache_size):
+            for j in xrange(self.cache_size/self.batch_size):
                 outputX, outputY = [] ,[]
-                #print 'Next', self.counter, self.test_idxs is None
-                for i in self.idxs[self.counter:self.counter+self.batch_size]:
+                for i in self.idxs[self.counter+j*self.batch_size:self.counter+(j+1)*self.batch_size]:
                     bn, sbn = i
                     X = f['Box%03d'%bn]['X'][sbn]
                     Y = f['Box%03d'%bn]['Y'][sbn]
@@ -135,6 +135,10 @@ class DatasetFromFile(object):
 
                     outputX.append(X)
                     outputY.append(Y)
+                    self.unique_x.add(np.sum(X))
+                if len(outputX) == 0:
+                    f.close()
+                    raise StopIteration
                 self.cacheX[j] = np.stack(outputX)
                 self.cacheY[j] = np.stack(outputY)
 
@@ -143,7 +147,8 @@ class DatasetFromFile(object):
             X = self.cacheX[0]
             Y = self.cacheY[0]
         else:
-            X,Y = self.cacheX[self.counter%self.cache_size], self.cacheY[self.counter%self.cache_size]
+            X = self.cacheX[self.counter%(self.cache_size/self.batch_size)]
+            Y = self.cacheY[self.counter%(self.cache_size/self.batch_size)]
 
         self.counter=(self.counter + self.batch_size)%len(self.idxs)
         return X,Y

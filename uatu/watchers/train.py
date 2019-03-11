@@ -117,11 +117,11 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, fname,\
                 #loss_np, update_ops_np = sess.run([loss,update_ops], feed_dict=feed_dict)
                 #loss_np,mu1_np,mu2_np, log_s1_np, log_s2_np, z_np, _  = sess.run([loss,mu1,mu2,log_s1, log_s2, z, train_op], feed_dict=feed_dict)
                 loss_np, _  = sess.run([loss, train_op], feed_dict=feed_dict)
-
-                #print loss_np#,mu1_np, mu2_np, np.exp(log_s1_np), np.exp(log_s2_np), z_np
+                
+                if t%10==0:
+                    print 'Iteration %d, loss = %.4f' % (t, loss_np)
 
                 if t % print_every == 0:
-                    print 'Iteration %d, loss = %.4f' % (t, loss_np)
                     sys.stdout.flush() 
                     check_accuracy(sess, val_dset, x, preds, training=training)
                     print

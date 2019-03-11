@@ -30,6 +30,7 @@ def test(model_init_fn, data,n_samples, fname, samples_fname):
         f.close()
 
         for i, (x_np,  y_np) in enumerate(data):
+            print i,
             assert y_np.shape[0] == 1 , 'batchsize greater than 1'
 
             samples = []
@@ -41,6 +42,7 @@ def test(model_init_fn, data,n_samples, fname, samples_fname):
 
             samples = np.vstack(samples)
             key = key_func(y_np)
+            print key
             f = h5py.File(samples_fname)
             if key in f.keys():
                 grp = f[key]
@@ -60,4 +62,4 @@ def key_func(y):
     :return:  key, the key corresponding to this y
     """
 
-    return "Om_{om:.3f}_s8_{s8:.3f}".format(om=y[0,0], s8=y[0,1])
+    return "Om_{om:.6f}_s8_{s8:.6f}".format(om=y[0,0], s8=y[0,1])
