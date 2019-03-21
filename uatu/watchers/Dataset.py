@@ -41,7 +41,7 @@ class DatasetFromFile(object):
         assert path.isfile(fname)
 
         self.batch_size, self.shuffle = batch_size, shuffle
-        self.cache_size = cache_size*batch_size #makes accounting easier
+        self.cache_size = cache_size
         self.augment = augment
         self.whiten = whiten
         
@@ -86,40 +86,41 @@ class DatasetFromFile(object):
                     i+=1
 
             # important to do this before so that you dont mix the cosmologies
-            self.idxs = all_idxs[:int(all_idxs.shape[0]*train_test_split)]
+            self.N = int(all_idxs.shape[0]*train_test_split)
+            self.idxs = all_idxs[:self.N]
 
             if shuffle:
                 shuffled_idxs = np.arange(self.idxs.shape[0])
                 np.random.shuffle(shuffled_idxs)
-                self.ixs = self.idxs[shuffled_idxs]
+                self.idxs = self.idxs[shuffled_idxs]
             
-            self.counter = 0
 
             if train_test_split != 1.0:
                 self.test_idxs = all_idxs[int(all_idxs.shape[0]*train_test_split):]
 
         else: # test dset
 
+            self.N = test_idxs.shape[0]
             self.idxs = test_idxs
             self.counter = 0
             self.test_idxs = None
 
     def __iter__(self):
 
-        N, B = len(self.idxs), self.batch_size
-        self.unique_x  = set()
+        N, B = self.N, self.batch_size
+        self.counter = 0
         return iter(self.__next__() for i in xrange(0, N, B))
 
     def __next__(self):
 
         if self.counter%self.cache_size == 0: #load up the cache
-            self.cacheX = np.zeros((self.cache_size/self.batch_size, self.batch_size, self.shape[1], self.shape[2], self.shape[3]))
-            self.cacheY = np.zeros((self.cache_size/self.batch_size, self.batch_size, 2))
-
+            #self.cacheX = np.zeros((self.cache_size, self.batch_size, self.shape[1], self.shape[2], self.shape[3]))
+            #self.cacheY = np.zeros((self.cache_size, self.batch_size, 2))
+            self.cacheX, self.cacheY = [],[]
             f = h5py.File(self.fname, 'r')
-            for j in xrange(self.cache_size/self.batch_size):
+            for j in xrange(self.cache_size):
                 outputX, outputY = [] ,[]
-                for i in self.idxs[self.counter+j*self.batch_size:self.counter+(j+1)*self.batch_size]:
+                for i in self.idxs[(self.counter+j)*self.batch_size:(self.counter+(j+1))*self.batch_size]:
                     bn, sbn = i
                     #print bn, sbn
                     X = f['Box%03d'%bn]['X'][sbn]
@@ -136,24 +137,22 @@ class DatasetFromFile(object):
 
                     outputX.append(X)
                     outputY.append(Y)
-                    self.unique_x.add(np.sum(X))
+
                 if len(outputX) == 0:
-                    f.close()
-                    raise StopIteration
-                self.cacheX[j] = np.stack(outputX)
-                self.cacheY[j] = np.stack(outputY)
+                    break
 
-
-
+                self.cacheX.append(np.stack(outputX))
+                self.cacheY.append(np.stack(outputY))
+    
             f.close()
 
             X = self.cacheX[0]
             Y = self.cacheY[0]
         else:
-            X = self.cacheX[self.counter%(self.cache_size/self.batch_size)]
-            Y = self.cacheY[self.counter%(self.cache_size/self.batch_size)]
+            X = self.cacheX[self.counter%(self.cache_size)]
+            Y = self.cacheY[self.counter%(self.cache_size)]
 
-        self.counter=(self.counter + self.batch_size)%len(self.idxs)
+        self.counter+=1
         return X,Y
 
     def get_test_dset(self):
