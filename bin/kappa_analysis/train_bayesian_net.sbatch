@@ -3,7 +3,7 @@
 #SBATCH --time=04:00:00
 #SBATCH --gres gpu:2
 #SBATCH -p gpu, iric
-#SBATCH --ntasks=8
+#SBATCH --ntasks=16
 #SBATCH -o train_bayesian_net.out 
 
 module unload py-jupyter

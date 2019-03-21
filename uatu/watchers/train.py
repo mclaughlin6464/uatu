@@ -99,9 +99,9 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, fname,\
             sess.run(tf.global_variables_initializer())
         # TODO
         #writer = tf.summary.FileWriter("/scratch/users/swmclau2/test_tensorboard/test")
-        writer = tf.summary.FileWriter("/home/sean/Git/uatu/tensorboard/")
+        #writer = tf.summary.FileWriter("/home/sean/Git/uatu/tensorboard/")
 
-        writer.add_graph(sess.graph)
+        #writer.add_graph(sess.graph)
         t = 0
         for epoch in xrange(num_epochs):
             print 'Starting epoch %d' % epoch

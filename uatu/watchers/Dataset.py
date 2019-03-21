@@ -107,6 +107,8 @@ class DatasetFromFile(object):
         return iter(self.__next__() for i in xrange(0, N, B)) 
 
     def __next__(self):
+
+        # TODO implement caching, where I read in several batches at once to minimize disk reads
         
         f = h5py.File(self.fname, 'r')
         outputX, outputY = [] ,[]

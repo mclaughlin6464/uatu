@@ -165,7 +165,8 @@ def kappa_weighting(x, cosmo, redshift_s = 0.5):
     _, _, redshift = ra_dec_z(x, cosmo)
     comoving_dist = np.sqrt(np.sum(x ** 2, axis = 1))
     comoving_dist_s = cosmo.comoving_distance(redshift_s).value
-    return comoving_dist * (1 + redshift) * (1 - comoving_dist / comoving_dist_s)
+    leading_term = (3.0/2*cosmo.H0**2*cosmo.Om0 ).value
+    return leading_term*comoving_dist * (1 + redshift) * (1 - comoving_dist / comoving_dist_s)
 
 def naive_weighting(x, cosmo, **kwargs):
     """
@@ -237,14 +238,20 @@ def convert_particles_to_proj_density(directory, boxno, Lbox = 512.0, N = 2048, 
     zero_vals = proj_map == 0
     proj_map[zero_vals] = np.min(proj_map[~zero_vals])
 
-    n_per_map = proj_map.shape[0] / pixels_per_side
+    #n_per_map = proj_map.shape[0] / pixels_per_side
+    n_per_map = 2*proj_map.shape[0] / pixels_per_side -1#more aggressive tiling
     # TODO apply dithering to get more maps from one projection
     maps = np.zeros((n_per_map ** 2, pixels_per_side, pixels_per_side))
 
     for i in xrange(n_per_map):
         for j in xrange(n_per_map):
-            maps[i * n_per_map + j] = np.log10(proj_map[i * pixels_per_side:(i + 1) * pixels_per_side, \
-                                            j * pixels_per_side:(j + 1) * pixels_per_side])
+            #print i,j
+            #slice = proj_map[int(i/2.0 * pixels_per_side): int((i/2.0+1) * pixels_per_side), \
+                                                        #int(j/2.0 * pixels_per_side): int((j/2.0+1) * pixels_per_side)]
+            #print slice.shape
+
+            maps[i * n_per_map + j] = np.log10(proj_map[int(i/2.0 * pixels_per_side): int((i/2.0+1) * pixels_per_side), \
+                                                        int(j/2.0 * pixels_per_side): int((j/2.0+1) * pixels_per_side)])
 
     np.save(path.join(directory, 'proj_map_%03d.npy'%boxno), maps)
 

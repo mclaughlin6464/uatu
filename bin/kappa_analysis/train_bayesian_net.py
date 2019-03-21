@@ -5,7 +5,7 @@ from os import path
 from time import time
 t0 = time()
 dir = '/scratch/users/swmclau2/UatuLightconeTraining/'
-#fname = path.join(dir, 'data.hdf5')
+fname = path.join(dir, 'UatuLightconeTraining.hdf5')
 
 def whiten(X):
     mu = X.mean()
@@ -21,8 +21,8 @@ batch_size = 32
 train_dset = Dataset(X_train, y_train, batch_size, shuffle = True, augment = True)
 test_dset = Dataset(X_test, y_test, batch_size, shuffle = True, augment = True)
 
-#val_dset = Dataset(X_val,y_val, 30, shuffle=True, augment=True)
-#test_dset = DatasetFromFile(fname, 64, shuffle=True, augment=True, test_idxs = train_dset.test_idxs)
+#train_dset = DatasetFromFile(fname, batch_size, shuffle=True, augment=True, train_test_split = 0.8, whiten = True)
+#test_dset = train_dset.get_test_dset() 
 
 data = (train_dset, test_dset, None)
 
