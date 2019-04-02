@@ -10,7 +10,7 @@ import h5py
 
 from .test import key_func
 
-def compute_attacked_maps(model_init_fn, cost_fn, fname, data, target_y_np, target_fname, attrs):
+def compute_attacked_maps(model_init_fn, cost_fn, network_fname, data, target_y_np, target_fname, attrs):
 
     try:
         f = h5py.File('target_fname', 'w')
