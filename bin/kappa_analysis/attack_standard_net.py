@@ -11,7 +11,7 @@ test_dset = DatasetFromFile(fname, batch_size=32, shuffle = False, augment = Fal
 target_y = np.array([0.26, 0.76]).reshape((1, 2))
 print target_y
 
-target_fname = path.join(dir, 'UatuLightconeAttacked.hdf5')
+target_fname = path.join(dir, 'UatuLightconeAttackedFixed.hdf5')
 
 f = h5py.File(fname, 'r')
 attrs = dict()
