@@ -24,7 +24,7 @@ batch_size = 32
 #train_dset = Dataset(X_train, y_train, batch_size, shuffle = True, augment = True)
 #test_dset = Dataset(X_test, y_test, batch_size, shuffle = True, augment = True)
 
-train_dset = DatasetFromFile(fname,batch_size, shuffle=True, augment=True, train_test_split = 0.8, whiten = True, cache_size = 10)
+train_dset = DatasetFromFile(fname,batch_size, shuffle=True, augment=True, train_test_split = 0.8, whiten = True, cache_size = 20)
 test_dset = train_dset.get_test_dset() 
 
 data = (train_dset, test_dset, None)
@@ -35,4 +35,4 @@ data = (train_dset, test_dset, None)
 #lam 1e-6
 #dropout 0.2
 # standard cost
-train(gupta_network_init_fn, standard_optimizer_init_fn, standard_abs_cost_fn, data, num_epochs = 20, fname = '/home/users/swmclau2/scratch/gupta_net_kappa', print_every = 500, lr_np = 1e-4, lam_np = 1e-8, rate_np = 0.0, bayes_prob = 0.0) 
+train(gupta_network_init_fn, standard_optimizer_init_fn, standard_abs_cost_fn, data, num_epochs = 50, fname = '/home/users/swmclau2/scratch/gupta_net_kappa_abs', print_every = 1000, lr_np = 1e-4, lam_np = 0.0, rate_np = 0.0, bayes_prob = 0.0) 

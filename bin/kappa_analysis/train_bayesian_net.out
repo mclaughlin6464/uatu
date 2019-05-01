@@ -3,370 +3,2310 @@ There are messages associated with the following module(s):
 -------------------------------------------------------------------------------
 
 py-tensorflow/1.6.0_py27:
-   Warning: this module requires a GPU, it won't work on CPU nodes.
+    Warning: this module requires a GPU, it won't work on CPU nodes.
+
 -------------------------------------------------------------------------------
+
+
+The following have been reloaded with a version change:
+  1) openmpi/2.1.1 => openmpi/2.0.2
 
 /home/users/swmclau2/.local/lib/python2.7/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
   from ._conv import register_converters as _register_converters
-/scratch/users/swmclau2/UatuLightconeTraining/Box000/
-/scratch/users/swmclau2/UatuLightconeTraining/Box001/
-/scratch/users/swmclau2/UatuLightconeTraining/Box002/
-/scratch/users/swmclau2/UatuLightconeTraining/Box003/
-/scratch/users/swmclau2/UatuLightconeTraining/Box004/
-/scratch/users/swmclau2/UatuLightconeTraining/Box005/
-/scratch/users/swmclau2/UatuLightconeTraining/Box006/
-/scratch/users/swmclau2/UatuLightconeTraining/Box007/
-/scratch/users/swmclau2/UatuLightconeTraining/Box008/
-/scratch/users/swmclau2/UatuLightconeTraining/Box009/
-/scratch/users/swmclau2/UatuLightconeTraining/Box010/
-/scratch/users/swmclau2/UatuLightconeTraining/Box011/
-/scratch/users/swmclau2/UatuLightconeTraining/Box012/
-/scratch/users/swmclau2/UatuLightconeTraining/Box013/
-/scratch/users/swmclau2/UatuLightconeTraining/Box014/
-/scratch/users/swmclau2/UatuLightconeTraining/Box015/
-/scratch/users/swmclau2/UatuLightconeTraining/Box016/
-/scratch/users/swmclau2/UatuLightconeTraining/Box017/
-/scratch/users/swmclau2/UatuLightconeTraining/Box018/
-/scratch/users/swmclau2/UatuLightconeTraining/Box019/
-/scratch/users/swmclau2/UatuLightconeTraining/Box020/
-/scratch/users/swmclau2/UatuLightconeTraining/Box021/
-/scratch/users/swmclau2/UatuLightconeTraining/Box022/
-/scratch/users/swmclau2/UatuLightconeTraining/Box023/
-/scratch/users/swmclau2/UatuLightconeTraining/Box024/
-/scratch/users/swmclau2/UatuLightconeTraining/Box025/
-/scratch/users/swmclau2/UatuLightconeTraining/Box026/
-/scratch/users/swmclau2/UatuLightconeTraining/Box027/
-/scratch/users/swmclau2/UatuLightconeTraining/Box028/
-/scratch/users/swmclau2/UatuLightconeTraining/Box029/
-/scratch/users/swmclau2/UatuLightconeTraining/Box030/
-/scratch/users/swmclau2/UatuLightconeTraining/Box031/
-/scratch/users/swmclau2/UatuLightconeTraining/Box032/
-/scratch/users/swmclau2/UatuLightconeTraining/Box033/
-/scratch/users/swmclau2/UatuLightconeTraining/Box034/
-/scratch/users/swmclau2/UatuLightconeTraining/Box035/
-/scratch/users/swmclau2/UatuLightconeTraining/Box036/
-/scratch/users/swmclau2/UatuLightconeTraining/Box037/
-/scratch/users/swmclau2/UatuLightconeTraining/Box038/
-/scratch/users/swmclau2/UatuLightconeTraining/Box039/
-/scratch/users/swmclau2/UatuLightconeTraining/Box040/
-/scratch/users/swmclau2/UatuLightconeTraining/Box041/
-/scratch/users/swmclau2/UatuLightconeTraining/Box042/
-/scratch/users/swmclau2/UatuLightconeTraining/Box043/
-/scratch/users/swmclau2/UatuLightconeTraining/Box044/
-/scratch/users/swmclau2/UatuLightconeTraining/Box045/
-/scratch/users/swmclau2/UatuLightconeTraining/Box046/
-/scratch/users/swmclau2/UatuLightconeTraining/Box047/
-/scratch/users/swmclau2/UatuLightconeTraining/Box048/
-/scratch/users/swmclau2/UatuLightconeTraining/Box049/
-/scratch/users/swmclau2/UatuLightconeTraining/Box050/
-/scratch/users/swmclau2/UatuLightconeTraining/Box051/
-/scratch/users/swmclau2/UatuLightconeTraining/Box052/
-/scratch/users/swmclau2/UatuLightconeTraining/Box053/
-/scratch/users/swmclau2/UatuLightconeTraining/Box054/
-/scratch/users/swmclau2/UatuLightconeTraining/Box055/
-/scratch/users/swmclau2/UatuLightconeTraining/Box056/
-/scratch/users/swmclau2/UatuLightconeTraining/Box057/
-/scratch/users/swmclau2/UatuLightconeTraining/Box058/
-/scratch/users/swmclau2/UatuLightconeTraining/Box059/
-/scratch/users/swmclau2/UatuLightconeTraining/Box060/
-/scratch/users/swmclau2/UatuLightconeTraining/Box061/
-/scratch/users/swmclau2/UatuLightconeTraining/Box062/
-/scratch/users/swmclau2/UatuLightconeTraining/Box063/
-/scratch/users/swmclau2/UatuLightconeTraining/Box064/
-/scratch/users/swmclau2/UatuLightconeTraining/Box065/
-/scratch/users/swmclau2/UatuLightconeTraining/Box066/
-/scratch/users/swmclau2/UatuLightconeTraining/Box067/
-/scratch/users/swmclau2/UatuLightconeTraining/Box068/
-/scratch/users/swmclau2/UatuLightconeTraining/Box069/
-/scratch/users/swmclau2/UatuLightconeTraining/Box070/
-/scratch/users/swmclau2/UatuLightconeTraining/Box071/
-/scratch/users/swmclau2/UatuLightconeTraining/Box072/
-/scratch/users/swmclau2/UatuLightconeTraining/Box073/
-/scratch/users/swmclau2/UatuLightconeTraining/Box074/
-/scratch/users/swmclau2/UatuLightconeTraining/Box075/
-/scratch/users/swmclau2/UatuLightconeTraining/Box076/
-/scratch/users/swmclau2/UatuLightconeTraining/Box077/
-/scratch/users/swmclau2/UatuLightconeTraining/Box078/
-/scratch/users/swmclau2/UatuLightconeTraining/Box079/
-/scratch/users/swmclau2/UatuLightconeTraining/Box080/
-/scratch/users/swmclau2/UatuLightconeTraining/Box081/
-/scratch/users/swmclau2/UatuLightconeTraining/Box082/
-/scratch/users/swmclau2/UatuLightconeTraining/Box083/
-/scratch/users/swmclau2/UatuLightconeTraining/Box084/
-/scratch/users/swmclau2/UatuLightconeTraining/Box085/
-/scratch/users/swmclau2/UatuLightconeTraining/Box086/
-/scratch/users/swmclau2/UatuLightconeTraining/Box087/
-/scratch/users/swmclau2/UatuLightconeTraining/Box088/
-/scratch/users/swmclau2/UatuLightconeTraining/Box089/
-/scratch/users/swmclau2/UatuLightconeTraining/Box090/
-/scratch/users/swmclau2/UatuLightconeTraining/Box091/
-/scratch/users/swmclau2/UatuLightconeTraining/Box092/
-/scratch/users/swmclau2/UatuLightconeTraining/Box093/
-/scratch/users/swmclau2/UatuLightconeTraining/Box094/
-/scratch/users/swmclau2/UatuLightconeTraining/Box095/
-/scratch/users/swmclau2/UatuLightconeTraining/Box096/
-/scratch/users/swmclau2/UatuLightconeTraining/Box097/
-/scratch/users/swmclau2/UatuLightconeTraining/Box098/
-/scratch/users/swmclau2/UatuLightconeTraining/Box099/
-/scratch/users/swmclau2/UatuLightconeTraining/Box100/
-/scratch/users/swmclau2/UatuLightconeTraining/Box101/
-/scratch/users/swmclau2/UatuLightconeTraining/Box102/
-/scratch/users/swmclau2/UatuLightconeTraining/Box103/
-/scratch/users/swmclau2/UatuLightconeTraining/Box104/
-/scratch/users/swmclau2/UatuLightconeTraining/Box105/
-/scratch/users/swmclau2/UatuLightconeTraining/Box106/
-/scratch/users/swmclau2/UatuLightconeTraining/Box107/
-/scratch/users/swmclau2/UatuLightconeTraining/Box108/
-/scratch/users/swmclau2/UatuLightconeTraining/Box109/
-/scratch/users/swmclau2/UatuLightconeTraining/Box110/
-/scratch/users/swmclau2/UatuLightconeTraining/Box111/
-/scratch/users/swmclau2/UatuLightconeTraining/Box112/
-/scratch/users/swmclau2/UatuLightconeTraining/Box113/
-/scratch/users/swmclau2/UatuLightconeTraining/Box114/
-/scratch/users/swmclau2/UatuLightconeTraining/Box115/
-/scratch/users/swmclau2/UatuLightconeTraining/Box116/
-/scratch/users/swmclau2/UatuLightconeTraining/Box117/
-/scratch/users/swmclau2/UatuLightconeTraining/Box118/
-/scratch/users/swmclau2/UatuLightconeTraining/Box119/
-/scratch/users/swmclau2/UatuLightconeTraining/Box120/
-/scratch/users/swmclau2/UatuLightconeTraining/Box121/
-/scratch/users/swmclau2/UatuLightconeTraining/Box122/
-/scratch/users/swmclau2/UatuLightconeTraining/Box123/
-/scratch/users/swmclau2/UatuLightconeTraining/Box124/
-/scratch/users/swmclau2/UatuLightconeTraining/Box125/
-/scratch/users/swmclau2/UatuLightconeTraining/Box126/
-/scratch/users/swmclau2/UatuLightconeTraining/Box127/
-/scratch/users/swmclau2/UatuLightconeTraining/Box128/
-/scratch/users/swmclau2/UatuLightconeTraining/Box129/
-/scratch/users/swmclau2/UatuLightconeTraining/Box130/
-/scratch/users/swmclau2/UatuLightconeTraining/Box131/
-/scratch/users/swmclau2/UatuLightconeTraining/Box132/
-/scratch/users/swmclau2/UatuLightconeTraining/Box133/
-/scratch/users/swmclau2/UatuLightconeTraining/Box134/
-/scratch/users/swmclau2/UatuLightconeTraining/Box135/
-/scratch/users/swmclau2/UatuLightconeTraining/Box136/
-/scratch/users/swmclau2/UatuLightconeTraining/Box137/
-/scratch/users/swmclau2/UatuLightconeTraining/Box138/
-/scratch/users/swmclau2/UatuLightconeTraining/Box139/
-/scratch/users/swmclau2/UatuLightconeTraining/Box140/
-/scratch/users/swmclau2/UatuLightconeTraining/Box141/
-/scratch/users/swmclau2/UatuLightconeTraining/Box142/
-/scratch/users/swmclau2/UatuLightconeTraining/Box143/
-/scratch/users/swmclau2/UatuLightconeTraining/Box144/
-/scratch/users/swmclau2/UatuLightconeTraining/Box145/
-/scratch/users/swmclau2/UatuLightconeTraining/Box146/
-/scratch/users/swmclau2/UatuLightconeTraining/Box147/
-/scratch/users/swmclau2/UatuLightconeTraining/Box148/
-/scratch/users/swmclau2/UatuLightconeTraining/Box149/
-/scratch/users/swmclau2/UatuLightconeTraining/Box150/
-/scratch/users/swmclau2/UatuLightconeT/home/users/swmclau2/.local/lib/python2.7/site-packages/sklearn/model_selection/_split.py:2026: FutureWarning: From version 0.21, test_size will always complement train_size unless both are specified.
-  FutureWarning)
-2019-02-25 09:57:01.793344: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 0 with properties: 
-name: Tesla K20Xm major: 3 minor: 5 memoryClockRate(GHz): 0.784
+2019-05-01 02:51:11.581760: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 0 with properties: 
+name: GeForce GTX TITAN Black major: 3 minor: 5 memoryClockRate(GHz): 0.98
 pciBusID: 0000:04:00.0
-totalMemory: 5.57GiB freeMemory: 5.49GiB
-2019-02-25 09:57:02.016915: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 1 with properties: 
-name: Tesla K20Xm major: 3 minor: 5 memoryClockRate(GHz): 0.784
+totalMemory: 5.94GiB freeMemory: 5.87GiB
+2019-05-01 02:51:11.698767: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 1 with properties: 
+name: GeForce GTX TITAN Black major: 3 minor: 5 memoryClockRate(GHz): 0.98
 pciBusID: 0000:05:00.0
-totalMemory: 5.57GiB freeMemory: 5.49GiB
-2019-02-25 09:57:02.257564: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 2 with properties: 
-name: Tesla K20Xm major: 3 minor: 5 memoryClockRate(GHz): 0.784
-pciBusID: 0000:08:00.0
-totalMemory: 5.57GiB freeMemory: 5.49GiB
-2019-02-25 09:57:02.496587: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 3 with properties: 
-name: Tesla K20Xm major: 3 minor: 5 memoryClockRate(GHz): 0.784
-pciBusID: 0000:09:00.0
-totalMemory: 5.57GiB freeMemory: 5.49GiB
-2019-02-25 09:57:02.499803: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1227] Device peer to peer matrix
-2019-02-25 09:57:02.500014: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1233] DMA: 0 1 2 3 
-2019-02-25 09:57:02.500037: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1243] 0:   Y Y Y Y 
-2019-02-25 09:57:02.500051: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1243] 1:   Y Y Y Y 
-2019-02-25 09:57:02.500064: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1243] 2:   Y Y Y Y 
-2019-02-25 09:57:02.500077: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1243] 3:   Y Y Y Y 
-2019-02-25 09:57:02.500105: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1312] Adding visible gpu devices: 0, 1, 2, 3
-2019-02-25 09:57:04.351508: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 5288 MB memory) -> physical GPU (device: 0, name: Tesla K20Xm, pci bus id: 0000:04:00.0, compute capability: 3.5)
-2019-02-25 09:57:04.504662: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 5288 MB memory) -> physical GPU (device: 1, name: Tesla K20Xm, pci bus id: 0000:05:00.0, compute capability: 3.5)
-2019-02-25 09:57:04.652750: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:2 with 5286 MB memory) -> physical GPU (device: 2, name: Tesla K20Xm, pci bus id: 0000:08:00.0, compute capability: 3.5)
-2019-02-25 09:57:04.800215: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:3 with 5286 MB memory) -> physical GPU (device: 3, name: Tesla K20Xm, pci bus id: 0000:09:00.0, compute capability: 3.5)
-raining/Box151/
-/scratch/users/swmclau2/UatuLightconeTraining/Box152/
-/scratch/users/swmclau2/UatuLightconeTraining/Box153/
-/scratch/users/swmclau2/UatuLightconeTraining/Box154/
-/scratch/users/swmclau2/UatuLightconeTraining/Box155/
-/scratch/users/swmclau2/UatuLightconeTraining/Box156/
-/scratch/users/swmclau2/UatuLightconeTraining/Box157/
-/scratch/users/swmclau2/UatuLightconeTraining/Box158/
-/scratch/users/swmclau2/UatuLightconeTraining/Box159/
-/scratch/users/swmclau2/UatuLightconeTraining/Box160/
-/scratch/users/swmclau2/UatuLightconeTraining/Box161/
-/scratch/users/swmclau2/UatuLightconeTraining/Box162/
-/scratch/users/swmclau2/UatuLightconeTraining/Box163/
-/scratch/users/swmclau2/UatuLightconeTraining/Box164/
-/scratch/users/swmclau2/UatuLightconeTraining/Box165/
-/scratch/users/swmclau2/UatuLightconeTraining/Box166/
-/scratch/users/swmclau2/UatuLightconeTraining/Box167/
-/scratch/users/swmclau2/UatuLightconeTraining/Box168/
-/scratch/users/swmclau2/UatuLightconeTraining/Box169/
-/scratch/users/swmclau2/UatuLightconeTraining/Box170/
-/scratch/users/swmclau2/UatuLightconeTraining/Box171/
-/scratch/users/swmclau2/UatuLightconeTraining/Box172/
-/scratch/users/swmclau2/UatuLightconeTraining/Box173/
-/scratch/users/swmclau2/UatuLightconeTraining/Box174/
-/scratch/users/swmclau2/UatuLightconeTraining/Box175/
-/scratch/users/swmclau2/UatuLightconeTraining/Box176/
-/scratch/users/swmclau2/UatuLightconeTraining/Box177/
-/scratch/users/swmclau2/UatuLightconeTraining/Box178/
-/scratch/users/swmclau2/UatuLightconeTraining/Box179/
-/scratch/users/swmclau2/UatuLightconeTraining/Box180/
-/scratch/users/swmclau2/UatuLightconeTraining/Box181/
-/scratch/users/swmclau2/UatuLightconeTraining/Box182/
-/scratch/users/swmclau2/UatuLightconeTraining/Box183/
-/scratch/users/swmclau2/UatuLightconeTraining/Box184/
-/scratch/users/swmclau2/UatuLightconeTraining/Box185/
-/scratch/users/swmclau2/UatuLightconeTraining/Box186/
-/scratch/users/swmclau2/UatuLightconeTraining/Box187/
-/scratch/users/swmclau2/UatuLightconeTraining/Box188/
-/scratch/users/swmclau2/UatuLightconeTraining/Box189/
-/scratch/users/swmclau2/UatuLightconeTraining/Box190/
-/scratch/users/swmclau2/UatuLightconeTraining/Box191/
-/scratch/users/swmclau2/UatuLightconeTraining/Box192/
-/scratch/users/swmclau2/UatuLightconeTraining/Box193/
-/scratch/users/swmclau2/UatuLightconeTraining/Box194/
-/scratch/users/swmclau2/UatuLightconeTraining/Box195/
-/scratch/users/swmclau2/UatuLightconeTraining/Box196/
-/scratch/users/swmclau2/UatuLightconeTraining/Box197/
-/scratch/users/swmclau2/UatuLightconeTraining/Box198/
-/scratch/users/swmclau2/UatuLightconeTraining/Box199/
-/scratch/users/swmclau2/UatuLightconeTraining/Box200/
-/scratch/users/swmclau2/UatuLightconeTraining/Box201/
-/scratch/users/swmclau2/UatuLightconeTraining/Box202/
-/scratch/users/swmclau2/UatuLightconeTraining/Box203/
-/scratch/users/swmclau2/UatuLightconeTraining/Box204/
-/scratch/users/swmclau2/UatuLightconeTraining/Box205/
-/scratch/users/swmclau2/UatuLightconeTraining/Box206/
-/scratch/users/swmclau2/UatuLightconeTraining/Box207/
-/scratch/users/swmclau2/UatuLightconeTraining/Box208/
-/scratch/users/swmclau2/UatuLightconeTraining/Box209/
-/scratch/users/swmclau2/UatuLightconeTraining/Box210/
-/scratch/users/swmclau2/UatuLightconeTraining/Box211/
-/scratch/users/swmclau2/UatuLightconeTraining/Box212/
-/scratch/users/swmclau2/UatuLightconeTraining/Box213/
-/scratch/users/swmclau2/UatuLightconeTraining/Box214/
-/scratch/users/swmclau2/UatuLightconeTraining/Box215/
-/scratch/users/swmclau2/UatuLightconeTraining/Box216/
-/scratch/users/swmclau2/UatuLightconeTraining/Box217/
-/scratch/users/swmclau2/UatuLightconeTraining/Box218/
-/scratch/users/swmclau2/UatuLightconeTraining/Box219/
-/scratch/users/swmclau2/UatuLightconeTraining/Box220/
-/scratch/users/swmclau2/UatuLightconeTraining/Box221/
-/scratch/users/swmclau2/UatuLightconeTraining/Box222/
-/scratch/users/swmclau2/UatuLightconeTraining/Box223/
-/scratch/users/swmclau2/UatuLightconeTraining/Box224/
-/scratch/users/swmclau2/UatuLightconeTraining/Box225/
-/scratch/users/swmclau2/UatuLightconeTraining/Box226/
-/scratch/users/swmclau2/UatuLightconeTraining/Box227/
-/scratch/users/swmclau2/UatuLightconeTraining/Box228/
-/scratch/users/swmclau2/UatuLightconeTraining/Box229/
-/scratch/users/swmclau2/UatuLightconeTraining/Box230/
-/scratch/users/swmclau2/UatuLightconeTraining/Box231/
-/scratch/users/swmclau2/UatuLightconeTraining/Box232/
-/scratch/users/swmclau2/UatuLightconeTraining/Box233/
-/scratch/users/swmclau2/UatuLightconeTraining/Box234/
-/scratch/users/swmclau2/UatuLightconeTraining/Box235/
-/scratch/users/swmclau2/UatuLightconeTraining/Box236/
-/scratch/users/swmclau2/UatuLightconeTraining/Box237/
-/scratch/users/swmclau2/UatuLightconeTraining/Box238/
-/scratch/users/swmclau2/UatuLightconeTraining/Box239/
-/scratch/users/swmclau2/UatuLightconeTraining/Box240/
-/scratch/users/swmclau2/UatuLightconeTraining/Box241/
-/scratch/users/swmclau2/UatuLightconeTraining/Box242/
-/scratch/users/swmclau2/UatuLightconeTraining/Box243/
-/scratch/users/swmclau2/UatuLightconeTraining/Box244/
-/scratch/users/swmclau2/UatuLightconeTraining/Box245/
-/scratch/users/swmclau2/UatuLightconeTraining/Box246/
-/scratch/users/swmclau2/UatuLightconeTraining/Box247/
-/scratch/users/swmclau2/UatuLightconeTraining/Box248/
-/scratch/users/swmclau2/UatuLightconeTraining/Box249/
+totalMemory: 5.94GiB freeMemory: 5.87GiB
+2019-05-01 02:51:11.699389: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1227] Device peer to peer matrix
+2019-05-01 02:51:11.699455: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1233] DMA: 0 1 
+2019-05-01 02:51:11.699475: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1243] 0:   Y Y 
+2019-05-01 02:51:11.699488: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1243] 1:   Y Y 
+2019-05-01 02:51:11.699513: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1312] Adding visible gpu devices: 0, 1
+2019-05-01 02:51:16.569684: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 5669 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN Black, pci bus id: 0000:04:00.0, compute capability: 3.5)
+2019-05-01 02:51:16.712115: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 5669 MB memory) -> physical GPU (device: 1, name: GeForce GTX TITAN Black, pci bus id: 0000:05:00.0, compute capability: 3.5)
+False
 Starting epoch 0
-Iteration 0, loss = 0.1513
-chi2: 4642.389
+Iteration 0, loss = 0.4148
+Om: 88.08%, s8: 107.31% accuracy
+chi2: 0.421
 
-Iteration 500, loss = -0.5668
-chi2: 430.296
+Iteration 10, loss = -0.0337
+Iteration 20, loss = -0.3103
+Iteration 30, loss = -0.5799
+Iteration 40, loss = -0.8638
+Iteration 50, loss = -1.1488
+Iteration 60, loss = -1.3544
+Iteration 70, loss = -1.4666
+Iteration 80, loss = -1.4548
+Iteration 90, loss = -1.4417
+Iteration 100, loss = -1.4537
+Iteration 110, loss = -1.4426
+Iteration 120, loss = -1.5201
+Iteration 130, loss = -1.5306
+Iteration 140, loss = -1.4914
+Iteration 150, loss = -1.5160
+Iteration 160, loss = -1.4751
+Iteration 170, loss = -1.4716
+Iteration 180, loss = -1.5157
+Iteration 190, loss = -1.4585
+Iteration 200, loss = -1.4979
+Iteration 210, loss = -1.5165
+Iteration 220, loss = -1.5020
+Iteration 230, loss = -1.5075
+Iteration 240, loss = -1.5166
+Iteration 250, loss = -1.4834
+Iteration 260, loss = -1.4785
+Iteration 270, loss = -1.4751
+Iteration 280, loss = -1.4798
+Iteration 290, loss = -1.4766
+Iteration 300, loss = -1.4391
+Iteration 310, loss = -1.5095
+Iteration 320, loss = -1.4872
+Iteration 330, loss = -1.4619
+Iteration 340, loss = -1.4711
+Iteration 350, loss = -1.5050
+Iteration 360, loss = -1.4668
+Iteration 370, loss = -1.5080
+Iteration 380, loss = -1.4533
+Iteration 390, loss = -1.4918
+Iteration 400, loss = -1.4980
+Iteration 410, loss = -1.4931
+Iteration 420, loss = -1.4927
+Iteration 430, loss = -1.5035
+Iteration 440, loss = -1.4688
+Iteration 450, loss = -1.5028
+Iteration 460, loss = -1.4702
+Iteration 470, loss = -1.4525
+Iteration 480, loss = -1.4692
+Iteration 490, loss = -1.4767
+Iteration 500, loss = -1.4760
+Iteration 510, loss = -1.5279
+Iteration 520, loss = -1.4584
+Iteration 530, loss = -1.4624
+Iteration 540, loss = -1.4486
+Iteration 550, loss = -1.4900
+Iteration 560, loss = -1.4902
+Iteration 570, loss = -1.4554
+Iteration 580, loss = -1.4870
+Iteration 590, loss = -1.4751
+Iteration 600, loss = -1.4850
+Iteration 610, loss = -1.4924
+Iteration 620, loss = -1.4835
+Iteration 630, loss = -1.4815
+Iteration 640, loss = -1.4857
+Iteration 650, loss = -1.4859
+Iteration 660, loss = -1.4581
+Iteration 670, loss = -1.4748
+Iteration 680, loss = -1.4505
+Iteration 690, loss = -1.4634
+Iteration 700, loss = -1.4721
+Iteration 710, loss = -1.4837
+Iteration 720, loss = -1.4904
+Iteration 730, loss = -1.4851
+Iteration 740, loss = -1.5016
+Iteration 750, loss = -1.4537
+Iteration 760, loss = -1.4924
+Iteration 770, loss = -1.4583
+Iteration 780, loss = -1.4986
+Iteration 790, loss = -1.4652
+Iteration 800, loss = -1.4694
+Iteration 810, loss = -1.4685
+Iteration 820, loss = -1.4737
+Iteration 830, loss = -1.4671
+Iteration 840, loss = -1.4836
+Iteration 850, loss = -1.4995
+Iteration 860, loss = -1.5060
+Iteration 870, loss = -1.4582
+Iteration 880, loss = -1.4747
+Iteration 890, loss = -1.4747
+Iteration 900, loss = -1.4767
+Iteration 910, loss = -1.4838
+Iteration 920, loss = -1.5034
+Iteration 930, loss = -1.4614
+Iteration 940, loss = -1.5076
+Iteration 950, loss = -1.5032
+Iteration 960, loss = -1.4649
+Iteration 970, loss = -1.4986
+Iteration 980, loss = -1.4715
+Iteration 990, loss = -1.4954
+Iteration 1000, loss = -1.4717
+Om: 97.02%, s8: 387.67% accuracy
+chi2: 2.006
 
+Iteration 1010, loss = -1.4460
+Iteration 1020, loss = -1.4618
+Iteration 1030, loss = -1.5152
+Iteration 1040, loss = -1.4668
+Iteration 1050, loss = -1.4916
+Iteration 1060, loss = -1.4812
+Iteration 1070, loss = -1.4777
+Iteration 1080, loss = -1.4857
+Iteration 1090, loss = -1.4597
+Iteration 1100, loss = -1.5150
+Iteration 1110, loss = -1.5306
+Iteration 1120, loss = -1.4835
+Iteration 1130, loss = -1.4727
+Iteration 1140, loss = -1.4827
+Iteration 1150, loss = -1.4933
+Iteration 1160, loss = -1.4640
+Iteration 1170, loss = -1.4679
+Iteration 1180, loss = -1.4780
+Iteration 1190, loss = -1.4633
+Iteration 1200, loss = -1.5035
+Iteration 1210, loss = -1.4678
+Iteration 1220, loss = -1.4497
+Iteration 1230, loss = -1.5085
+Iteration 1240, loss = -1.4508
+Iteration 1250, loss = -1.4635
+Iteration 1260, loss = -1.4950
+Iteration 1270, loss = -1.4830
+Iteration 1280, loss = -1.5239
+Iteration 1290, loss = -1.5112
+Iteration 1300, loss = -1.4978
+Iteration 1310, loss = -1.4922
+Iteration 1320, loss = -1.4910
+Iteration 1330, loss = -1.4965
+Iteration 1340, loss = -1.5147
+Iteration 1350, loss = -1.5002
+Iteration 1360, loss = -1.4655
+Iteration 1370, loss = -1.5227
+Iteration 1380, loss = -1.4559
+Iteration 1390, loss = -1.4688
+Iteration 1400, loss = -1.4865
+Iteration 1410, loss = -1.4649
+Iteration 1420, loss = -1.4892
+Iteration 1430, loss = -1.5031
+Iteration 1440, loss = -1.4765
 Starting epoch 1
-Iteration 1000, loss = -1.3267
-chi2: 562.817
+Iteration 1450, loss = -1.4739
+Iteration 1460, loss = -1.4577
+Iteration 1470, loss = -1.4974
+Iteration 1480, loss = -1.5015
+Iteration 1490, loss = -1.5183
+Iteration 1500, loss = -1.5134
+Iteration 1510, loss = -1.4834
+Iteration 1520, loss = -1.4882
+Iteration 1530, loss = -1.4613
+Iteration 1540, loss = -1.4714
+Iteration 1550, loss = -1.4521
+Iteration 1560, loss = -1.4836
+Iteration 1570, loss = -1.4763
+Iteration 1580, loss = -1.4722
+Iteration 1590, loss = -1.5254
+Iteration 1600, loss = -1.4751
+Iteration 1610, loss = -1.4582
+Iteration 1620, loss = -1.4708
+Iteration 1630, loss = -1.4987
+Iteration 1640, loss = -1.4584
+Iteration 1650, loss = -1.5083
+Iteration 1660, loss = -1.4749
+Iteration 1670, loss = -1.5005
+Iteration 1680, loss = -1.4779
+Iteration 1690, loss = -1.4853
+Iteration 1700, loss = -1.4767
+Iteration 1710, loss = -1.4839
+Iteration 1720, loss = -1.4815
+Iteration 1730, loss = -1.4748
+Iteration 1740, loss = -1.4574
+Iteration 1750, loss = -1.4903
+Iteration 1760, loss = -1.4934
+Iteration 1770, loss = -1.4765
+Iteration 1780, loss = -1.4699
+Iteration 1790, loss = -1.4705
+Iteration 1800, loss = -1.4860
+Iteration 1810, loss = -1.4711
+Iteration 1820, loss = -1.5140
+Iteration 1830, loss = -1.4501
+Iteration 1840, loss = -1.4624
+Iteration 1850, loss = -1.4861
+Iteration 1860, loss = -1.4948
+Iteration 1870, loss = -1.4839
+Iteration 1880, loss = -1.5086
+Iteration 1890, loss = -1.4704
+Iteration 1900, loss = -1.5030
+Iteration 1910, loss = -1.4527
+Iteration 1920, loss = -1.5252
+Iteration 1930, loss = -1.4769
+Iteration 1940, loss = -1.4810
+Iteration 1950, loss = -1.4669
+Iteration 1960, loss = -1.4707
+Iteration 1970, loss = -1.4869
+Iteration 1980, loss = -1.4639
+Iteration 1990, loss = -1.4591
+Iteration 2000, loss = -1.5013
+Om: 97.35%, s8: 388.33% accuracy
+chi2: 2.051
 
+Iteration 2010, loss = -1.5034
+Iteration 2020, loss = -1.5028
+Iteration 2030, loss = -1.4642
+Iteration 2040, loss = -1.4667
+Iteration 2050, loss = -1.4536
+Iteration 2060, loss = -1.4571
+Iteration 2070, loss = -1.5017
+Iteration 2080, loss = -1.5094
+Iteration 2090, loss = -1.4882
+Iteration 2100, loss = -1.4800
+Iteration 2110, loss = -1.4514
+Iteration 2120, loss = -1.5076
+Iteration 2130, loss = -1.4621
+Iteration 2140, loss = -1.4824
+Iteration 2150, loss = -1.4806
+Iteration 2160, loss = -1.4764
+Iteration 2170, loss = -1.4779
+Iteration 2180, loss = -1.4683
+Iteration 2190, loss = -1.5260
+Iteration 2200, loss = -1.5055
+Iteration 2210, loss = -1.5303
+Iteration 2220, loss = -1.5086
+Iteration 2230, loss = -1.4614
+Iteration 2240, loss = -1.5138
+Iteration 2250, loss = -1.4782
+Iteration 2260, loss = -1.4452
+Iteration 2270, loss = -1.4722
+Iteration 2280, loss = -1.5055
+Iteration 2290, loss = -1.5057
+Iteration 2300, loss = -1.4672
+Iteration 2310, loss = -1.5086
+Iteration 2320, loss = -1.4668
+Iteration 2330, loss = -1.4926
+Iteration 2340, loss = -1.4652
+Iteration 2350, loss = -1.4648
+Iteration 2360, loss = -1.4700
+Iteration 2370, loss = -1.4547
+Iteration 2380, loss = -1.4965
+Iteration 2390, loss = -1.5323
+Iteration 2400, loss = -1.4744
+Iteration 2410, loss = -1.4742
+Iteration 2420, loss = -1.4653
+Iteration 2430, loss = -1.4753
+Iteration 2440, loss = -1.4376
+Iteration 2450, loss = -1.4854
+Iteration 2460, loss = -1.4218
+Iteration 2470, loss = -1.4996
+Iteration 2480, loss = -1.4932
+Iteration 2490, loss = -1.4987
+Iteration 2500, loss = -1.5415
+Iteration 2510, loss = -1.4728
+Iteration 2520, loss = -1.5195
+Iteration 2530, loss = -1.4848
+Iteration 2540, loss = -1.4772
+Iteration 2550, loss = -1.4963
+Iteration 2560, loss = -1.4808
+Iteration 2570, loss = -1.4930
+Iteration 2580, loss = -1.4519
+Iteration 2590, loss = -1.5045
+Iteration 2600, loss = -1.4922
+Iteration 2610, loss = -1.4791
+Iteration 2620, loss = -1.5078
+Iteration 2630, loss = -1.4792
+Iteration 2640, loss = -1.4884
+Iteration 2650, loss = -1.4701
+Iteration 2660, loss = -1.4957
+Iteration 2670, loss = -1.4984
+Iteration 2680, loss = -1.4534
+Iteration 2690, loss = -1.4717
+Iteration 2700, loss = -1.4999
+Iteration 2710, loss = -1.4913
+Iteration 2720, loss = -1.4774
+Iteration 2730, loss = -1.5147
+Iteration 2740, loss = -1.4800
+Iteration 2750, loss = -1.4743
+Iteration 2760, loss = -1.4922
+Iteration 2770, loss = -1.4729
+Iteration 2780, loss = -1.4941
+Iteration 2790, loss = -1.4729
+Iteration 2800, loss = -1.4763
+Iteration 2810, loss = -1.5230
+Iteration 2820, loss = -1.4753
+Iteration 2830, loss = -1.4600
+Iteration 2840, loss = -1.4629
+Iteration 2850, loss = -1.4729
+Iteration 2860, loss = -1.5069
+Iteration 2870, loss = -1.4519
+Iteration 2880, loss = -1.4920
 Starting epoch 2
-Iteration 1500, loss = -1.1677
-chi2: 688.857
+Iteration 2890, loss = -1.4742
+Iteration 2900, loss = -1.4632
+Iteration 2910, loss = -1.5033
+Iteration 2920, loss = -1.4635
+Iteration 2930, loss = -1.4893
+Iteration 2940, loss = -1.5189
+Iteration 2950, loss = -1.4848
+Iteration 2960, loss = -1.4784
+Iteration 2970, loss = -1.4578
+Iteration 2980, loss = -1.4494
+Iteration 2990, loss = -1.4556
+Iteration 3000, loss = -1.4472
+Om: 101.69%, s8: 389.58% accuracy
+chi2: 2.104
 
+Iteration 3010, loss = -1.5178
+Iteration 3020, loss = -1.5293
+Iteration 3030, loss = -1.4920
+Iteration 3040, loss = -1.5175
+Iteration 3050, loss = -1.4740
+Iteration 3060, loss = -1.4712
+Iteration 3070, loss = -1.5170
+Iteration 3080, loss = -1.4563
+Iteration 3090, loss = -1.4980
+Iteration 3100, loss = -1.5181
+Iteration 3110, loss = -1.5028
+Iteration 3120, loss = -1.5087
+Iteration 3130, loss = -1.5181
+Iteration 3140, loss = -1.4833
+Iteration 3150, loss = -1.4785
+Iteration 3160, loss = -1.4757
+Iteration 3170, loss = -1.4826
+Iteration 3180, loss = -1.4790
+Iteration 3190, loss = -1.4406
+Iteration 3200, loss = -1.5109
+Iteration 3210, loss = -1.4874
+Iteration 3220, loss = -1.4634
+Iteration 3230, loss = -1.4726
+Iteration 3240, loss = -1.5052
+Iteration 3250, loss = -1.4676
+Iteration 3260, loss = -1.5081
+Iteration 3270, loss = -1.4538
+Iteration 3280, loss = -1.4927
+Iteration 3290, loss = -1.4989
+Iteration 3300, loss = -1.4940
+Iteration 3310, loss = -1.4945
+Iteration 3320, loss = -1.5044
+Iteration 3330, loss = -1.4697
+Iteration 3340, loss = -1.5038
+Iteration 3350, loss = -1.4713
+Iteration 3360, loss = -1.4520
+Iteration 3370, loss = -1.4693
+Iteration 3380, loss = -1.4775
+Iteration 3390, loss = -1.4779
+Iteration 3400, loss = -1.5291
+Iteration 3410, loss = -1.4584
+Iteration 3420, loss = -1.4633
+Iteration 3430, loss = -1.4486
+Iteration 3440, loss = -1.4911
+Iteration 3450, loss = -1.4918
+Iteration 3460, loss = -1.4554
+Iteration 3470, loss = -1.4883
+Iteration 3480, loss = -1.4772
+Iteration 3490, loss = -1.4859
+Iteration 3500, loss = -1.4940
+Iteration 3510, loss = -1.4848
+Iteration 3520, loss = -1.4830
+Iteration 3530, loss = -1.4869
+Iteration 3540, loss = -1.4866
+Iteration 3550, loss = -1.4584
+Iteration 3560, loss = -1.4758
+Iteration 3570, loss = -1.4518
+Iteration 3580, loss = -1.4641
+Iteration 3590, loss = -1.4720
+Iteration 3600, loss = -1.4841
+Iteration 3610, loss = -1.4915
+Iteration 3620, loss = -1.4859
+Iteration 3630, loss = -1.5024
+Iteration 3640, loss = -1.4541
+Iteration 3650, loss = -1.4932
+Iteration 3660, loss = -1.4588
+Iteration 3670, loss = -1.4990
+Iteration 3680, loss = -1.4657
+Iteration 3690, loss = -1.4710
+Iteration 3700, loss = -1.4689
+Iteration 3710, loss = -1.4732
+Iteration 3720, loss = -1.4676
+Iteration 3730, loss = -1.4846
+Iteration 3740, loss = -1.4998
+Iteration 3750, loss = -1.5063
+Iteration 3760, loss = -1.4594
+Iteration 3770, loss = -1.4752
+Iteration 3780, loss = -1.4755
+Iteration 3790, loss = -1.4781
+Iteration 3800, loss = -1.4846
+Iteration 3810, loss = -1.5038
+Iteration 3820, loss = -1.4618
+Iteration 3830, loss = -1.5083
+Iteration 3840, loss = -1.5047
+Iteration 3850, loss = -1.4653
+Iteration 3860, loss = -1.4995
+Iteration 3870, loss = -1.4718
+Iteration 3880, loss = -1.4964
+Iteration 3890, loss = -1.4718
+Iteration 3900, loss = -1.4472
+Iteration 3910, loss = -1.4629
+Iteration 3920, loss = -1.5161
+Iteration 3930, loss = -1.4680
+Iteration 3940, loss = -1.4923
+Iteration 3950, loss = -1.4812
+Iteration 3960, loss = -1.4783
+Iteration 3970, loss = -1.4859
+Iteration 3980, loss = -1.4603
+Iteration 3990, loss = -1.5159
+Iteration 4000, loss = -1.5312
+Om: 94.50%, s8: 393.18% accuracy
+chi2: 2.152
+
+Iteration 4010, loss = -1.4840
+Iteration 4020, loss = -1.4722
+Iteration 4030, loss = -1.4832
+Iteration 4040, loss = -1.4944
+Iteration 4050, loss = -1.4648
+Iteration 4060, loss = -1.4691
+Iteration 4070, loss = -1.4786
+Iteration 4080, loss = -1.4637
+Iteration 4090, loss = -1.5039
+Iteration 4100, loss = -1.4681
+Iteration 4110, loss = -1.4498
+Iteration 4120, loss = -1.5102
+Iteration 4130, loss = -1.4520
+Iteration 4140, loss = -1.4642
+Iteration 4150, loss = -1.4963
+Iteration 4160, loss = -1.4840
+Iteration 4170, loss = -1.5249
+Iteration 4180, loss = -1.5114
+Iteration 4190, loss = -1.4982
+Iteration 4200, loss = -1.4920
+Iteration 4210, loss = -1.4914
+Iteration 4220, loss = -1.4972
+Iteration 4230, loss = -1.5155
+Iteration 4240, loss = -1.5006
+Iteration 4250, loss = -1.4658
+Iteration 4260, loss = -1.5249
+Iteration 4270, loss = -1.4565
+Iteration 4280, loss = -1.4696
+Iteration 4290, loss = -1.4874
+Iteration 4300, loss = -1.4659
+Iteration 4310, loss = -1.4897
+Iteration 4320, loss = -1.5043
+Iteration 4330, loss = -1.4768
 Starting epoch 3
-Iteration 2000, loss = -1.1639
-chi2: 746.194
+Iteration 4340, loss = -1.4754
+Iteration 4350, loss = -1.4580
+Iteration 4360, loss = -1.4983
+Iteration 4370, loss = -1.5030
+Iteration 4380, loss = -1.5194
+Iteration 4390, loss = -1.5143
+Iteration 4400, loss = -1.4838
+Iteration 4410, loss = -1.4890
+Iteration 4420, loss = -1.4616
+Iteration 4430, loss = -1.4726
+Iteration 4440, loss = -1.4532
+Iteration 4450, loss = -1.4844
+Iteration 4460, loss = -1.4771
+Iteration 4470, loss = -1.4735
+Iteration 4480, loss = -1.5252
+Iteration 4490, loss = -1.4759
+Iteration 4500, loss = -1.4601
+Iteration 4510, loss = -1.4717
+Iteration 4520, loss = -1.4993
+Iteration 4530, loss = -1.4588
+Iteration 4540, loss = -1.5097
+Iteration 4550, loss = -1.4760
+Iteration 4560, loss = -1.5010
+Iteration 4570, loss = -1.4784
+Iteration 4580, loss = -1.4861
+Iteration 4590, loss = -1.4780
+Iteration 4600, loss = -1.4841
+Iteration 4610, loss = -1.4823
+Iteration 4620, loss = -1.4764
+Iteration 4630, loss = -1.4583
+Iteration 4640, loss = -1.4909
+Iteration 4650, loss = -1.4935
+Iteration 4660, loss = -1.4770
+Iteration 4670, loss = -1.4708
+Iteration 4680, loss = -1.4714
+Iteration 4690, loss = -1.4862
+Iteration 4700, loss = -1.4717
+Iteration 4710, loss = -1.5139
+Iteration 4720, loss = -1.4496
+Iteration 4730, loss = -1.4631
+Iteration 4740, loss = -1.4866
+Iteration 4750, loss = -1.4957
+Iteration 4760, loss = -1.4847
+Iteration 4770, loss = -1.5092
+Iteration 4780, loss = -1.4702
+Iteration 4790, loss = -1.5037
+Iteration 4800, loss = -1.4531
+Iteration 4810, loss = -1.5268
+Iteration 4820, loss = -1.4774
+Iteration 4830, loss = -1.4818
+Iteration 4840, loss = -1.4684
+Iteration 4850, loss = -1.4718
+Iteration 4860, loss = -1.4887
+Iteration 4870, loss = -1.4648
+Iteration 4880, loss = -1.4596
+Iteration 4890, loss = -1.5021
+Iteration 4900, loss = -1.5046
+Iteration 4910, loss = -1.5038
+Iteration 4920, loss = -1.4650
+Iteration 4930, loss = -1.4681
+Iteration 4940, loss = -1.4539
+Iteration 4950, loss = -1.4582
+Iteration 4960, loss = -1.5024
+Iteration 4970, loss = -1.5104
+Iteration 4980, loss = -1.4887
+Iteration 4990, loss = -1.4806
+Iteration 5000, loss = -1.4495
+Om: 92.77%, s8: 386.91% accuracy
+chi2: 2.134
 
+Iteration 5010, loss = -1.5085
+Iteration 5020, loss = -1.4630
+Iteration 5030, loss = -1.4834
+Iteration 5040, loss = -1.4822
+Iteration 5050, loss = -1.4771
+Iteration 5060, loss = -1.4790
+Iteration 5070, loss = -1.4694
+Iteration 5080, loss = -1.5256
+Iteration 5090, loss = -1.5053
+Iteration 5100, loss = -1.5297
+Iteration 5110, loss = -1.5089
+Iteration 5120, loss = -1.4621
+Iteration 5130, loss = -1.5142
+Iteration 5140, loss = -1.4787
+Iteration 5150, loss = -1.4457
+Iteration 5160, loss = -1.4729
+Iteration 5170, loss = -1.5059
+Iteration 5180, loss = -1.5061
+Iteration 5190, loss = -1.4684
+Iteration 5200, loss = -1.5089
+Iteration 5210, loss = -1.4681
+Iteration 5220, loss = -1.4930
+Iteration 5230, loss = -1.4661
+Iteration 5240, loss = -1.4656
+Iteration 5250, loss = -1.4708
+Iteration 5260, loss = -1.4581
+Iteration 5270, loss = -1.4977
+Iteration 5280, loss = -1.5314
+Iteration 5290, loss = -1.4753
+Iteration 5300, loss = -1.4746
+Iteration 5310, loss = -1.4658
+Iteration 5320, loss = -1.4765
+Iteration 5330, loss = -1.4390
+Iteration 5340, loss = -1.4876
+Iteration 5350, loss = -1.4245
+Iteration 5360, loss = -1.5003
+Iteration 5370, loss = -1.4953
+Iteration 5380, loss = -1.4992
+Iteration 5390, loss = -1.5431
+Iteration 5400, loss = -1.4712
+Iteration 5410, loss = -1.5208
+Iteration 5420, loss = -1.4857
+Iteration 5430, loss = -1.4782
+Iteration 5440, loss = -1.4974
+Iteration 5450, loss = -1.4820
+Iteration 5460, loss = -1.4947
+Iteration 5470, loss = -1.4528
+Iteration 5480, loss = -1.5052
+Iteration 5490, loss = -1.4930
+Iteration 5500, loss = -1.4794
+Iteration 5510, loss = -1.5087
+Iteration 5520, loss = -1.4804
+Iteration 5530, loss = -1.4891
+Iteration 5540, loss = -1.4704
+Iteration 5550, loss = -1.4962
+Iteration 5560, loss = -1.4989
+Iteration 5570, loss = -1.4539
+Iteration 5580, loss = -1.4719
+Iteration 5590, loss = -1.5012
+Iteration 5600, loss = -1.4924
+Iteration 5610, loss = -1.4783
+Iteration 5620, loss = -1.5148
+Iteration 5630, loss = -1.4811
+Iteration 5640, loss = -1.4748
+Iteration 5650, loss = -1.4931
+Iteration 5660, loss = -1.4737
+Iteration 5670, loss = -1.4949
+Iteration 5680, loss = -1.4739
+Iteration 5690, loss = -1.4766
+Iteration 5700, loss = -1.5231
+Iteration 5710, loss = -1.4772
+Iteration 5720, loss = -1.4607
+Iteration 5730, loss = -1.4631
+Iteration 5740, loss = -1.4742
+Iteration 5750, loss = -1.5070
+Iteration 5760, loss = -1.4529
+Iteration 5770, loss = -1.4927
 Starting epoch 4
-Iteration 2500, loss = -1.5672
-chi2: 743.264
+Iteration 5780, loss = -1.4758
+Iteration 5790, loss = -1.4640
+Iteration 5800, loss = -1.5041
+Iteration 5810, loss = -1.4653
+Iteration 5820, loss = -1.4904
+Iteration 5830, loss = -1.5193
+Iteration 5840, loss = -1.4850
+Iteration 5850, loss = -1.4778
+Iteration 5860, loss = -1.4585
+Iteration 5870, loss = -1.4503
+Iteration 5880, loss = -1.4561
+Iteration 5890, loss = -1.4482
+Iteration 5900, loss = -1.5188
+Iteration 5910, loss = -1.5307
+Iteration 5920, loss = -1.4924
+Iteration 5930, loss = -1.5185
+Iteration 5940, loss = -1.4748
+Iteration 5950, loss = -1.4721
+Iteration 5960, loss = -1.5176
+Iteration 5970, loss = -1.4567
+Iteration 5980, loss = -1.4985
+Iteration 5990, loss = -1.5189
+Iteration 6000, loss = -1.5030
+Om: 93.10%, s8: 389.13% accuracy
+chi2: 2.137
 
+Iteration 6010, loss = -1.5108
+Iteration 6020, loss = -1.5186
+Iteration 6030, loss = -1.4844
+Iteration 6040, loss = -1.4793
+Iteration 6050, loss = -1.4764
+Iteration 6060, loss = -1.4831
+Iteration 6070, loss = -1.4803
+Iteration 6080, loss = -1.4419
+Iteration 6090, loss = -1.5120
+Iteration 6100, loss = -1.4888
+Iteration 6110, loss = -1.4635
+Iteration 6120, loss = -1.4733
+Iteration 6130, loss = -1.5062
+Iteration 6140, loss = -1.4681
+Iteration 6150, loss = -1.5100
+Iteration 6160, loss = -1.4545
+Iteration 6170, loss = -1.4946
+Iteration 6180, loss = -1.4996
+Iteration 6190, loss = -1.4951
+Iteration 6200, loss = -1.4956
+Iteration 6210, loss = -1.5056
+Iteration 6220, loss = -1.4702
+Iteration 6230, loss = -1.5042
+Iteration 6240, loss = -1.4716
+Iteration 6250, loss = -1.4529
+Iteration 6260, loss = -1.4699
+Iteration 6270, loss = -1.4779
+Iteration 6280, loss = -1.4791
+Iteration 6290, loss = -1.5300
+Iteration 6300, loss = -1.4593
+Iteration 6310, loss = -1.4647
+Iteration 6320, loss = -1.4494
+Iteration 6330, loss = -1.4920
+Iteration 6340, loss = -1.4934
+Iteration 6350, loss = -1.4560
+Iteration 6360, loss = -1.4894
+Iteration 6370, loss = -1.4782
+Iteration 6380, loss = -1.4882
+Iteration 6390, loss = -1.4961
+Iteration 6400, loss = -1.4859
+Iteration 6410, loss = -1.4840
+Iteration 6420, loss = -1.4874
+Iteration 6430, loss = -1.4866
+Iteration 6440, loss = -1.4592
+Iteration 6450, loss = -1.4762
+Iteration 6460, loss = -1.4526
+Iteration 6470, loss = -1.4643
+Iteration 6480, loss = -1.4727
+Iteration 6490, loss = -1.4850
+Iteration 6500, loss = -1.4920
+Iteration 6510, loss = -1.4866
+Iteration 6520, loss = -1.5030
+Iteration 6530, loss = -1.4553
+Iteration 6540, loss = -1.4940
+Iteration 6550, loss = -1.4600
+Iteration 6560, loss = -1.5000
+Iteration 6570, loss = -1.4661
+Iteration 6580, loss = -1.4710
+Iteration 6590, loss = -1.4695
+Iteration 6600, loss = -1.4739
+Iteration 6610, loss = -1.4684
+Iteration 6620, loss = -1.4859
+Iteration 6630, loss = -1.5007
+Iteration 6640, loss = -1.5076
+Iteration 6650, loss = -1.4599
+Iteration 6660, loss = -1.4755
+Iteration 6670, loss = -1.4769
+Iteration 6680, loss = -1.4786
+Iteration 6690, loss = -1.4849
+Iteration 6700, loss = -1.5056
+Iteration 6710, loss = -1.4625
+Iteration 6720, loss = -1.5099
+Iteration 6730, loss = -1.5066
+Iteration 6740, loss = -1.4660
+Iteration 6750, loss = -1.5008
+Iteration 6760, loss = -1.4721
+Iteration 6770, loss = -1.4972
+Iteration 6780, loss = -1.4737
+Iteration 6790, loss = -1.4468
+Iteration 6800, loss = -1.4632
+Iteration 6810, loss = -1.5177
+Iteration 6820, loss = -1.4693
+Iteration 6830, loss = -1.4929
+Iteration 6840, loss = -1.4823
+Iteration 6850, loss = -1.4787
+Iteration 6860, loss = -1.4864
+Iteration 6870, loss = -1.4609
+Iteration 6880, loss = -1.5168
+Iteration 6890, loss = -1.5315
+Iteration 6900, loss = -1.4847
+Iteration 6910, loss = -1.4737
+Iteration 6920, loss = -1.4842
+Iteration 6930, loss = -1.4960
+Iteration 6940, loss = -1.4657
+Iteration 6950, loss = -1.4700
+Iteration 6960, loss = -1.4798
+Iteration 6970, loss = -1.4656
+Iteration 6980, loss = -1.5042
+Iteration 6990, loss = -1.4693
+Iteration 7000, loss = -1.4502
+Om: 97.87%, s8: 389.41% accuracy
+chi2: 2.140
+
+Iteration 7010, loss = -1.5110
+Iteration 7020, loss = -1.4540
+Iteration 7030, loss = -1.4653
+Iteration 7040, loss = -1.4974
+Iteration 7050, loss = -1.4859
+Iteration 7060, loss = -1.5257
+Iteration 7070, loss = -1.5120
+Iteration 7080, loss = -1.4987
+Iteration 7090, loss = -1.4930
+Iteration 7100, loss = -1.4925
+Iteration 7110, loss = -1.4979
+Iteration 7120, loss = -1.5162
+Iteration 7130, loss = -1.5015
+Iteration 7140, loss = -1.4655
+Iteration 7150, loss = -1.5253
+Iteration 7160, loss = -1.4571
+Iteration 7170, loss = -1.4701
+Iteration 7180, loss = -1.4890
+Iteration 7190, loss = -1.4667
+Iteration 7200, loss = -1.4902
+Iteration 7210, loss = -1.5053
+Iteration 7220, loss = -1.4776
 Starting epoch 5
-Iteration 3000, loss = -1.4450
-chi2: 659.375
+Iteration 7230, loss = -1.4767
+Iteration 7240, loss = -1.4586
+Iteration 7250, loss = -1.4994
+Iteration 7260, loss = -1.5037
+Iteration 7270, loss = -1.5223
+Iteration 7280, loss = -1.5159
+Iteration 7290, loss = -1.4842
+Iteration 7300, loss = -1.4891
+Iteration 7310, loss = -1.4620
+Iteration 7320, loss = -1.4726
+Iteration 7330, loss = -1.4541
+Iteration 7340, loss = -1.4860
+Iteration 7350, loss = -1.4776
+Iteration 7360, loss = -1.4745
+Iteration 7370, loss = -1.5261
+Iteration 7380, loss = -1.4772
+Iteration 7390, loss = -1.4615
+Iteration 7400, loss = -1.4730
+Iteration 7410, loss = -1.4992
+Iteration 7420, loss = -1.4590
+Iteration 7430, loss = -1.5099
+Iteration 7440, loss = -1.4780
+Iteration 7450, loss = -1.5011
+Iteration 7460, loss = -1.4785
+Iteration 7470, loss = -1.4861
+Iteration 7480, loss = -1.4789
+Iteration 7490, loss = -1.4850
+Iteration 7500, loss = -1.4845
+Iteration 7510, loss = -1.4790
+Iteration 7520, loss = -1.4585
+Iteration 7530, loss = -1.4916
+Iteration 7540, loss = -1.4940
+Iteration 7550, loss = -1.4773
+Iteration 7560, loss = -1.4716
+Iteration 7570, loss = -1.4716
+Iteration 7580, loss = -1.4866
+Iteration 7590, loss = -1.4725
+Iteration 7600, loss = -1.5147
+Iteration 7610, loss = -1.4511
+Iteration 7620, loss = -1.4641
+Iteration 7630, loss = -1.4872
+Iteration 7640, loss = -1.4971
+Iteration 7650, loss = -1.4859
+Iteration 7660, loss = -1.5101
+Iteration 7670, loss = -1.4717
+Iteration 7680, loss = -1.5043
+Iteration 7690, loss = -1.4539
+Iteration 7700, loss = -1.5285
+Iteration 7710, loss = -1.4780
+Iteration 7720, loss = -1.4823
+Iteration 7730, loss = -1.4696
+Iteration 7740, loss = -1.4736
+Iteration 7750, loss = -1.4903
+Iteration 7760, loss = -1.4655
+Iteration 7770, loss = -1.4607
+Iteration 7780, loss = -1.5030
+Iteration 7790, loss = -1.5050
+Iteration 7800, loss = -1.5046
+Iteration 7810, loss = -1.4664
+Iteration 7820, loss = -1.4686
+Iteration 7830, loss = -1.4557
+Iteration 7840, loss = -1.4586
+Iteration 7850, loss = -1.5039
+Iteration 7860, loss = -1.5112
+Iteration 7870, loss = -1.4901
+Iteration 7880, loss = -1.4812
+Iteration 7890, loss = -1.4507
+Iteration 7900, loss = -1.5097
+Iteration 7910, loss = -1.4642
+Iteration 7920, loss = -1.4848
+Iteration 7930, loss = -1.4832
+Iteration 7940, loss = -1.4780
+Iteration 7950, loss = -1.4805
+Iteration 7960, loss = -1.4700
+Iteration 7970, loss = -1.5262
+Iteration 7980, loss = -1.5066
+Iteration 7990, loss = -1.5313
+Iteration 8000, loss = -1.5100
+Om: 96.81%, s8: 388.54% accuracy
+chi2: 2.134
 
+Iteration 8010, loss = -1.4636
+Iteration 8020, loss = -1.5152
+Iteration 8030, loss = -1.4807
+Iteration 8040, loss = -1.4462
+Iteration 8050, loss = -1.4741
+Iteration 8060, loss = -1.5074
+Iteration 8070, loss = -1.5072
+Iteration 8080, loss = -1.4684
+Iteration 8090, loss = -1.5108
+Iteration 8100, loss = -1.4688
+Iteration 8110, loss = -1.4941
+Iteration 8120, loss = -1.4675
+Iteration 8130, loss = -1.4673
+Iteration 8140, loss = -1.4719
+Iteration 8150, loss = -1.4592
+Iteration 8160, loss = -1.4987
+Iteration 8170, loss = -1.5326
+Iteration 8180, loss = -1.4754
+Iteration 8190, loss = -1.4760
+Iteration 8200, loss = -1.4666
+Iteration 8210, loss = -1.4775
+Iteration 8220, loss = -1.4401
+Iteration 8230, loss = -1.4885
+Iteration 8240, loss = -1.4266
+Iteration 8250, loss = -1.5008
+Iteration 8260, loss = -1.4960
+Iteration 8270, loss = -1.4997
+Iteration 8280, loss = -1.5443
+Iteration 8290, loss = -1.4716
+Iteration 8300, loss = -1.5215
+Iteration 8310, loss = -1.4869
+Iteration 8320, loss = -1.4792
+Iteration 8330, loss = -1.4993
+Iteration 8340, loss = -1.4839
+Iteration 8350, loss = -1.4965
+Iteration 8360, loss = -1.4541
+Iteration 8370, loss = -1.5066
+Iteration 8380, loss = -1.4935
+Iteration 8390, loss = -1.4801
+Iteration 8400, loss = -1.5094
+Iteration 8410, loss = -1.4820
+Iteration 8420, loss = -1.4905
+Iteration 8430, loss = -1.4716
+Iteration 8440, loss = -1.4972
+Iteration 8450, loss = -1.5005
+Iteration 8460, loss = -1.4554
+Iteration 8470, loss = -1.4721
+Iteration 8480, loss = -1.5031
+Iteration 8490, loss = -1.4949
+Iteration 8500, loss = -1.4810
+Iteration 8510, loss = -1.5158
+Iteration 8520, loss = -1.4815
+Iteration 8530, loss = -1.4767
+Iteration 8540, loss = -1.4932
+Iteration 8550, loss = -1.4741
+Iteration 8560, loss = -1.4961
+Iteration 8570, loss = -1.4745
+Iteration 8580, loss = -1.4767
+Iteration 8590, loss = -1.5239
+Iteration 8600, loss = -1.4781
+Iteration 8610, loss = -1.4620
+Iteration 8620, loss = -1.4632
+Iteration 8630, loss = -1.4753
+Iteration 8640, loss = -1.5076
+Iteration 8650, loss = -1.4533
+Iteration 8660, loss = -1.4933
 Starting epoch 6
-Iteration 3500, loss = -1.3930
-chi2: 613.921
+Iteration 8670, loss = -1.4775
+Iteration 8680, loss = -1.4661
+Iteration 8690, loss = -1.5047
+Iteration 8700, loss = -1.4675
+Iteration 8710, loss = -1.4917
+Iteration 8720, loss = -1.5178
+Iteration 8730, loss = -1.4841
+Iteration 8740, loss = -1.4754
+Iteration 8750, loss = -1.4587
+Iteration 8760, loss = -1.4497
+Iteration 8770, loss = -1.4568
+Iteration 8780, loss = -1.4496
+Iteration 8790, loss = -1.5196
+Iteration 8800, loss = -1.5317
+Iteration 8810, loss = -1.4942
+Iteration 8820, loss = -1.5198
+Iteration 8830, loss = -1.4760
+Iteration 8840, loss = -1.4721
+Iteration 8850, loss = -1.5188
+Iteration 8860, loss = -1.4564
+Iteration 8870, loss = -1.4992
+Iteration 8880, loss = -1.5197
+Iteration 8890, loss = -1.5038
+Iteration 8900, loss = -1.5119
+Iteration 8910, loss = -1.5194
+Iteration 8920, loss = -1.4861
+Iteration 8930, loss = -1.4805
+Iteration 8940, loss = -1.4767
+Iteration 8950, loss = -1.4850
+Iteration 8960, loss = -1.4821
+Iteration 8970, loss = -1.4439
+Iteration 8980, loss = -1.5130
+Iteration 8990, loss = -1.4898
+Iteration 9000, loss = -1.4646
+Om: 99.02%, s8: 389.83% accuracy
+chi2: 2.134
 
+Iteration 9010, loss = -1.4731
+Iteration 9020, loss = -1.5079
+Iteration 9030, loss = -1.4687
+Iteration 9040, loss = -1.5111
+Iteration 9050, loss = -1.4562
+Iteration 9060, loss = -1.4950
+Iteration 9070, loss = -1.5001
+Iteration 9080, loss = -1.4968
+Iteration 9090, loss = -1.4975
+Iteration 9100, loss = -1.5064
+Iteration 9110, loss = -1.4719
+Iteration 9120, loss = -1.5058
+Iteration 9130, loss = -1.4726
+Iteration 9140, loss = -1.4533
+Iteration 9150, loss = -1.4712
+Iteration 9160, loss = -1.4789
+Iteration 9170, loss = -1.4806
+Iteration 9180, loss = -1.5320
+Iteration 9190, loss = -1.4613
+Iteration 9200, loss = -1.4666
+Iteration 9210, loss = -1.4505
+Iteration 9220, loss = -1.4939
+Iteration 9230, loss = -1.4948
+Iteration 9240, loss = -1.4574
+Iteration 9250, loss = -1.4898
+Iteration 9260, loss = -1.4796
+Iteration 9270, loss = -1.4896
+Iteration 9280, loss = -1.4972
+Iteration 9290, loss = -1.4869
+Iteration 9300, loss = -1.4848
+Iteration 9310, loss = -1.4872
+Iteration 9320, loss = -1.4842
+Iteration 9330, loss = -1.4582
+Iteration 9340, loss = -1.4769
+Iteration 9350, loss = -1.4535
+Iteration 9360, loss = -1.4648
+Iteration 9370, loss = -1.4741
+Iteration 9380, loss = -1.4866
+Iteration 9390, loss = -1.4948
+Iteration 9400, loss = -1.4860
+Iteration 9410, loss = -1.5048
+Iteration 9420, loss = -1.4525
+Iteration 9430, loss = -1.4939
+Iteration 9440, loss = -1.4607
+Iteration 9450, loss = -1.5003
+Iteration 9460, loss = -1.4666
+Iteration 9470, loss = -1.4734
+Iteration 9480, loss = -1.4713
+Iteration 9490, loss = -1.4760
+Iteration 9500, loss = -1.4697
+Iteration 9510, loss = -1.4859
+Iteration 9520, loss = -1.5001
+Iteration 9530, loss = -1.5066
+Iteration 9540, loss = -1.4616
+Iteration 9550, loss = -1.4772
+Iteration 9560, loss = -1.4784
+Iteration 9570, loss = -1.4801
+Iteration 9580, loss = -1.4857
+Iteration 9590, loss = -1.5070
+Iteration 9600, loss = -1.4622
+Iteration 9610, loss = -1.5140
+Iteration 9620, loss = -1.5086
+Iteration 9630, loss = -1.4672
+Iteration 9640, loss = -1.5018
+Iteration 9650, loss = -1.4716
+Iteration 9660, loss = -1.4984
+Iteration 9670, loss = -1.4751
+Iteration 9680, loss = -1.4473
+Iteration 9690, loss = -1.4634
+Iteration 9700, loss = -1.5185
+Iteration 9710, loss = -1.4703
+Iteration 9720, loss = -1.4928
+Iteration 9730, loss = -1.4818
+Iteration 9740, loss = -1.4796
+Iteration 9750, loss = -1.4867
+Iteration 9760, loss = -1.4611
+Iteration 9770, loss = -1.5172
+Iteration 9780, loss = -1.5323
+Iteration 9790, loss = -1.4862
+Iteration 9800, loss = -1.4766
+Iteration 9810, loss = -1.4850
+Iteration 9820, loss = -1.4962
+Iteration 9830, loss = -1.4661
+Iteration 9840, loss = -1.4708
+Iteration 9850, loss = -1.4801
+Iteration 9860, loss = -1.4665
+Iteration 9870, loss = -1.5051
+Iteration 9880, loss = -1.4698
+Iteration 9890, loss = -1.4508
+Iteration 9900, loss = -1.5126
+Iteration 9910, loss = -1.4575
+Iteration 9920, loss = -1.4672
+Iteration 9930, loss = -1.4984
+Iteration 9940, loss = -1.4879
+Iteration 9950, loss = -1.5266
+Iteration 9960, loss = -1.5123
+Iteration 9970, loss = -1.4995
+Iteration 9980, loss = -1.4932
+Iteration 9990, loss = -1.4941
+Iteration 10000, loss = -1.4988
+Om: 92.77%, s8: 389.97% accuracy
+chi2: 2.133
+
+Iteration 10010, loss = -1.5179
+Iteration 10020, loss = -1.5031
+Iteration 10030, loss = -1.4660
+Iteration 10040, loss = -1.5255
+Iteration 10050, loss = -1.4583
+Iteration 10060, loss = -1.4716
+Iteration 10070, loss = -1.4894
+Iteration 10080, loss = -1.4679
+Iteration 10090, loss = -1.4912
+Iteration 10100, loss = -1.5068
+Iteration 10110, loss = -1.4784
 Starting epoch 7
-Iteration 4000, loss = -1.2931
-chi2: 631.823
+Iteration 10120, loss = -1.4790
+Iteration 10130, loss = -1.4584
+Iteration 10140, loss = -1.5028
+Iteration 10150, loss = -1.5060
+Iteration 10160, loss = -1.5273
+Iteration 10170, loss = -1.5171
+Iteration 10180, loss = -1.4823
+Iteration 10190, loss = -1.4878
+Iteration 10200, loss = -1.4599
+Iteration 10210, loss = -1.4699
+Iteration 10220, loss = -1.4528
+Iteration 10230, loss = -1.4865
+Iteration 10240, loss = -1.4780
+Iteration 10250, loss = -1.4747
+Iteration 10260, loss = -1.5287
+Iteration 10270, loss = -1.4789
+Iteration 10280, loss = -1.4621
+Iteration 10290, loss = -1.4736
+Iteration 10300, loss = -1.4999
+Iteration 10310, loss = -1.4601
+Iteration 10320, loss = -1.5116
+Iteration 10330, loss = -1.4788
+Iteration 10340, loss = -1.5017
+Iteration 10350, loss = -1.4796
+Iteration 10360, loss = -1.4866
+Iteration 10370, loss = -1.4798
+Iteration 10380, loss = -1.4855
+Iteration 10390, loss = -1.4873
+Iteration 10400, loss = -1.4816
+Iteration 10410, loss = -1.4582
+Iteration 10420, loss = -1.4925
+Iteration 10430, loss = -1.4951
+Iteration 10440, loss = -1.4776
+Iteration 10450, loss = -1.4726
+Iteration 10460, loss = -1.4726
+Iteration 10470, loss = -1.4866
+Iteration 10480, loss = -1.4731
+Iteration 10490, loss = -1.5156
+Iteration 10500, loss = -1.4501
+Iteration 10510, loss = -1.4648
+Iteration 10520, loss = -1.4881
+Iteration 10530, loss = -1.4988
+Iteration 10540, loss = -1.4876
+Iteration 10550, loss = -1.5122
+Iteration 10560, loss = -1.4729
+Iteration 10570, loss = -1.5044
+Iteration 10580, loss = -1.4544
+Iteration 10590, loss = -1.5302
+Iteration 10600, loss = -1.4792
+Iteration 10610, loss = -1.4832
+Iteration 10620, loss = -1.4713
+Iteration 10630, loss = -1.4759
+Iteration 10640, loss = -1.4928
+Iteration 10650, loss = -1.4668
+Iteration 10660, loss = -1.4611
+Iteration 10670, loss = -1.5046
+Iteration 10680, loss = -1.5069
+Iteration 10690, loss = -1.5063
+Iteration 10700, loss = -1.4674
+Iteration 10710, loss = -1.4690
+Iteration 10720, loss = -1.4570
+Iteration 10730, loss = -1.4603
+Iteration 10740, loss = -1.5052
+Iteration 10750, loss = -1.5129
+Iteration 10760, loss = -1.4906
+Iteration 10770, loss = -1.4811
+Iteration 10780, loss = -1.4513
+Iteration 10790, loss = -1.5105
+Iteration 10800, loss = -1.4659
+Iteration 10810, loss = -1.4863
+Iteration 10820, loss = -1.4857
+Iteration 10830, loss = -1.4803
+Iteration 10840, loss = -1.4819
+Iteration 10850, loss = -1.4713
+Iteration 10860, loss = -1.5251
+Iteration 10870, loss = -1.5063
+Iteration 10880, loss = -1.5326
+Iteration 10890, loss = -1.5112
+Iteration 10900, loss = -1.4648
+Iteration 10910, loss = -1.5164
+Iteration 10920, loss = -1.4824
+Iteration 10930, loss = -1.4489
+Iteration 10940, loss = -1.4757
+Iteration 10950, loss = -1.5083
+Iteration 10960, loss = -1.5078
+Iteration 10970, loss = -1.4683
+Iteration 10980, loss = -1.5120
+Iteration 10990, loss = -1.4703
+Iteration 11000, loss = -1.4949
+Om: 95.76%, s8: 389.90% accuracy
+chi2: 2.139
 
+Iteration 11010, loss = -1.4676
+Iteration 11020, loss = -1.4685
+Iteration 11030, loss = -1.4729
+Iteration 11040, loss = -1.4616
+Iteration 11050, loss = -1.4992
+Iteration 11060, loss = -1.5328
+Iteration 11070, loss = -1.4767
+Iteration 11080, loss = -1.4767
+Iteration 11090, loss = -1.4676
+Iteration 11100, loss = -1.4778
+Iteration 11110, loss = -1.4416
+Iteration 11120, loss = -1.4898
+Iteration 11130, loss = -1.4291
+Iteration 11140, loss = -1.5013
+Iteration 11150, loss = -1.4971
+Iteration 11160, loss = -1.5004
+Iteration 11170, loss = -1.5458
+Iteration 11180, loss = -1.4721
+Iteration 11190, loss = -1.5220
+Iteration 11200, loss = -1.4876
+Iteration 11210, loss = -1.4807
+Iteration 11220, loss = -1.5009
+Iteration 11230, loss = -1.4847
+Iteration 11240, loss = -1.4994
+Iteration 11250, loss = -1.4539
+Iteration 11260, loss = -1.5078
+Iteration 11270, loss = -1.4931
+Iteration 11280, loss = -1.4811
+Iteration 11290, loss = -1.5109
+Iteration 11300, loss = -1.4828
+Iteration 11310, loss = -1.4912
+Iteration 11320, loss = -1.4727
+Iteration 11330, loss = -1.4978
+Iteration 11340, loss = -1.5016
+Iteration 11350, loss = -1.4564
+Iteration 11360, loss = -1.4715
+Iteration 11370, loss = -1.5040
+Iteration 11380, loss = -1.4977
+Iteration 11390, loss = -1.4841
+Iteration 11400, loss = -1.5168
+Iteration 11410, loss = -1.4824
+Iteration 11420, loss = -1.4782
+Iteration 11430, loss = -1.4939
+Iteration 11440, loss = -1.4753
+Iteration 11450, loss = -1.4979
+Iteration 11460, loss = -1.4755
+Iteration 11470, loss = -1.4773
+Iteration 11480, loss = -1.5260
+Iteration 11490, loss = -1.4787
+Iteration 11500, loss = -1.4631
+Iteration 11510, loss = -1.4621
+Iteration 11520, loss = -1.4767
+Iteration 11530, loss = -1.5081
+Iteration 11540, loss = -1.4538
+Iteration 11550, loss = -1.4942
 Starting epoch 8
-Iteration 4500, loss = -1.5222
-chi2: 461.343
+Iteration 11560, loss = -1.4799
+Iteration 11570, loss = -1.4685
+Iteration 11580, loss = -1.5045
+Iteration 11590, loss = -1.4692
+Iteration 11600, loss = -1.4931
+Iteration 11610, loss = -1.5151
+Iteration 11620, loss = -1.4814
+Iteration 11630, loss = -1.4721
+Iteration 11640, loss = -1.4578
+Iteration 11650, loss = -1.4485
+Iteration 11660, loss = -1.4568
+Iteration 11670, loss = -1.4513
+Iteration 11680, loss = -1.5179
+Iteration 11690, loss = -1.5301
+Iteration 11700, loss = -1.4944
+Iteration 11710, loss = -1.5209
+Iteration 11720, loss = -1.4768
+Iteration 11730, loss = -1.4736
+Iteration 11740, loss = -1.5192
+Iteration 11750, loss = -1.4574
+Iteration 11760, loss = -1.5007
+Iteration 11770, loss = -1.5161
+Iteration 11780, loss = -1.5041
+Iteration 11790, loss = -1.5140
+Iteration 11800, loss = -1.5202
+Iteration 11810, loss = -1.4872
+Iteration 11820, loss = -1.4813
+Iteration 11830, loss = -1.4787
+Iteration 11840, loss = -1.4882
+Iteration 11850, loss = -1.4829
+Iteration 11860, loss = -1.4453
+Iteration 11870, loss = -1.5139
+Iteration 11880, loss = -1.4907
+Iteration 11890, loss = -1.4653
+Iteration 11900, loss = -1.4751
+Iteration 11910, loss = -1.5084
+Iteration 11920, loss = -1.4682
+Iteration 11930, loss = -1.5134
+Iteration 11940, loss = -1.4577
+Iteration 11950, loss = -1.4958
+Iteration 11960, loss = -1.5009
+Iteration 11970, loss = -1.4988
+Iteration 11980, loss = -1.4998
+Iteration 11990, loss = -1.5080
+Iteration 12000, loss = -1.4734
+Om: 99.03%, s8: 389.73% accuracy
+chi2: 2.128
+
+Iteration 12010, loss = -1.5078
+Iteration 12020, loss = -1.4730
+Iteration 12030, loss = -1.4535
+Iteration 12040, loss = -1.4721
+Iteration 12050, loss = -1.4798
+Iteration 12060, loss = -1.4821
+Iteration 12070, loss = -1.5327
+Iteration 12080, loss = -1.4631
+Iteration 12090, loss = -1.4690
+Iteration 12100, loss = -1.4520
+Iteration 12110, loss = -1.4948
+Iteration 12120, loss = -1.4964
+Iteration 12130, loss = -1.4585
+Iteration 12140, loss = -1.4902
+Iteration 12150, loss = -1.4800
+Iteration 12160, loss = -1.4916
+Iteration 12170, loss = -1.4983
+Iteration 12180, loss = -1.4883
+Iteration 12190, loss = -1.4864
+Iteration 12200, loss = -1.4879
+Iteration 12210, loss = -1.4857
+Iteration 12220, loss = -1.4587
+Iteration 12230, loss = -1.4781
+Iteration 12240, loss = -1.4546
+Iteration 12250, loss = -1.4651
+Iteration 12260, loss = -1.4750
+Iteration 12270, loss = -1.4874
+Iteration 12280, loss = -1.4959
+Iteration 12290, loss = -1.4856
+Iteration 12300, loss = -1.5054
+Iteration 12310, loss = -1.4528
+Iteration 12320, loss = -1.4951
+Iteration 12330, loss = -1.4618
+Iteration 12340, loss = -1.5005
+Iteration 12350, loss = -1.4682
+Iteration 12360, loss = -1.4748
+Iteration 12370, loss = -1.4733
+Iteration 12380, loss = -1.4782
+Iteration 12390, loss = -1.4705
+Iteration 12400, loss = -1.4880
+Iteration 12410, loss = -1.5016
+Iteration 12420, loss = -1.5083
+Iteration 12430, loss = -1.4614
+Iteration 12440, loss = -1.4782
+Iteration 12450, loss = -1.4800
+Iteration 12460, loss = -1.4816
+Iteration 12470, loss = -1.4868
+Iteration 12480, loss = -1.5081
+Iteration 12490, loss = -1.4619
+Iteration 12500, loss = -1.5163
+Iteration 12510, loss = -1.5093
+Iteration 12520, loss = -1.4686
+Iteration 12530, loss = -1.5037
+Iteration 12540, loss = -1.4723
+Iteration 12550, loss = -1.4991
+Iteration 12560, loss = -1.4762
+Iteration 12570, loss = -1.4479
+Iteration 12580, loss = -1.4642
+Iteration 12590, loss = -1.5193
+Iteration 12600, loss = -1.4721
+Iteration 12610, loss = -1.4937
+Iteration 12620, loss = -1.4833
+Iteration 12630, loss = -1.4805
+Iteration 12640, loss = -1.4872
+Iteration 12650, loss = -1.4613
+Iteration 12660, loss = -1.5177
+Iteration 12670, loss = -1.5326
+Iteration 12680, loss = -1.4885
+Iteration 12690, loss = -1.4789
+Iteration 12700, loss = -1.4839
+Iteration 12710, loss = -1.4965
+Iteration 12720, loss = -1.4671
+Iteration 12730, loss = -1.4735
+Iteration 12740, loss = -1.4795
+Iteration 12750, loss = -1.4669
+Iteration 12760, loss = -1.5059
+Iteration 12770, loss = -1.4701
+Iteration 12780, loss = -1.4514
+Iteration 12790, loss = -1.5147
+Iteration 12800, loss = -1.4602
+Iteration 12810, loss = -1.4683
+Iteration 12820, loss = -1.4993
+Iteration 12830, loss = -1.4894
+Iteration 12840, loss = -1.5281
+Iteration 12850, loss = -1.5132
+Iteration 12860, loss = -1.5002
+Iteration 12870, loss = -1.4943
+Iteration 12880, loss = -1.4948
+Iteration 12890, loss = -1.4996
+Iteration 12900, loss = -1.5194
+Iteration 12910, loss = -1.5044
+Iteration 12920, loss = -1.4682
+Iteration 12930, loss = -1.5247
+Iteration 12940, loss = -1.4604
+Iteration 12950, loss = -1.4733
+Iteration 12960, loss = -1.4910
+Iteration 12970, loss = -1.4688
+Iteration 12980, loss = -1.4917
+Iteration 12990, loss = -1.5095
+Iteration 13000, loss = -1.4786
+Om: 96.32%, s8: 388.74% accuracy
+chi2: 2.129
 
 Starting epoch 9
-Iteration 5000, loss = -1.2382
-chi2: 443.943
+Iteration 13010, loss = -1.4805
+Iteration 13020, loss = -1.4580
+Iteration 13030, loss = -1.5043
+Iteration 13040, loss = -1.5074
+Iteration 13050, loss = -1.5300
+Iteration 13060, loss = -1.5174
+Iteration 13070, loss = -1.4822
+Iteration 13080, loss = -1.4877
+Iteration 13090, loss = -1.4589
+Iteration 13100, loss = -1.4695
+Iteration 13110, loss = -1.4506
+Iteration 13120, loss = -1.4866
+Iteration 13130, loss = -1.4780
+Iteration 13140, loss = -1.4750
+Iteration 13150, loss = -1.5313
+Iteration 13160, loss = -1.4807
+Iteration 13170, loss = -1.4624
+Iteration 13180, loss = -1.4746
+Iteration 13190, loss = -1.5013
+Iteration 13200, loss = -1.4606
+Iteration 13210, loss = -1.5129
+Iteration 13220, loss = -1.4800
+Iteration 13230, loss = -1.5029
+Iteration 13240, loss = -1.4795
+Iteration 13250, loss = -1.4881
+Iteration 13260, loss = -1.4812
+Iteration 13270, loss = -1.4857
+Iteration 13280, loss = -1.4904
+Iteration 13290, loss = -1.4831
+Iteration 13300, loss = -1.4567
+Iteration 13310, loss = -1.4928
+Iteration 13320, loss = -1.4960
+Iteration 13330, loss = -1.4776
+Iteration 13340, loss = -1.4743
+Iteration 13350, loss = -1.4745
+Iteration 13360, loss = -1.4867
+Iteration 13370, loss = -1.4728
+Iteration 13380, loss = -1.5158
+Iteration 13390, loss = -1.4515
+Iteration 13400, loss = -1.4659
+Iteration 13410, loss = -1.4891
+Iteration 13420, loss = -1.5007
+Iteration 13430, loss = -1.4884
+Iteration 13440, loss = -1.5138
+Iteration 13450, loss = -1.4747
+Iteration 13460, loss = -1.5039
+Iteration 13470, loss = -1.4554
+Iteration 13480, loss = -1.5327
+Iteration 13490, loss = -1.4799
+Iteration 13500, loss = -1.4841
+Iteration 13510, loss = -1.4733
+Iteration 13520, loss = -1.4780
+Iteration 13530, loss = -1.4958
+Iteration 13540, loss = -1.4672
+Iteration 13550, loss = -1.4613
+Iteration 13560, loss = -1.5058
+Iteration 13570, loss = -1.5080
+Iteration 13580, loss = -1.5069
+Iteration 13590, loss = -1.4676
+Iteration 13600, loss = -1.4690
+Iteration 13610, loss = -1.4582
+Iteration 13620, loss = -1.4616
+Iteration 13630, loss = -1.5065
+Iteration 13640, loss = -1.5139
+Iteration 13650, loss = -1.4916
+Iteration 13660, loss = -1.4831
+Iteration 13670, loss = -1.4532
+Iteration 13680, loss = -1.5103
+Iteration 13690, loss = -1.4671
+Iteration 13700, loss = -1.4877
+Iteration 13710, loss = -1.4879
+Iteration 13720, loss = -1.4825
+Iteration 13730, loss = -1.4817
+Iteration 13740, loss = -1.4723
+Iteration 13750, loss = -1.5240
+Iteration 13760, loss = -1.5076
+Iteration 13770, loss = -1.5352
+Iteration 13780, loss = -1.5134
+Iteration 13790, loss = -1.4647
+Iteration 13800, loss = -1.5173
+Iteration 13810, loss = -1.4848
+Iteration 13820, loss = -1.4529
+Iteration 13830, loss = -1.4782
+Iteration 13840, loss = -1.5097
+Iteration 13850, loss = -1.5088
+Iteration 13860, loss = -1.4684
+Iteration 13870, loss = -1.5120
+Iteration 13880, loss = -1.4720
+Iteration 13890, loss = -1.4954
+Iteration 13900, loss = -1.4690
+Iteration 13910, loss = -1.4700
+Iteration 13920, loss = -1.4742
+Iteration 13930, loss = -1.4630
+Iteration 13940, loss = -1.4996
+Iteration 13950, loss = -1.5332
+Iteration 13960, loss = -1.4772
+Iteration 13970, loss = -1.4779
+Iteration 13980, loss = -1.4689
+Iteration 13990, loss = -1.4795
+Iteration 14000, loss = -1.4426
+Om: 100.05%, s8: 390.26% accuracy
+chi2: 2.135
 
+Iteration 14010, loss = -1.4903
+Iteration 14020, loss = -1.4311
+Iteration 14030, loss = -1.5022
+Iteration 14040, loss = -1.4983
+Iteration 14050, loss = -1.5005
+Iteration 14060, loss = -1.5469
+Iteration 14070, loss = -1.4733
+Iteration 14080, loss = -1.5219
+Iteration 14090, loss = -1.4888
+Iteration 14100, loss = -1.4821
+Iteration 14110, loss = -1.5026
+Iteration 14120, loss = -1.4866
+Iteration 14130, loss = -1.5017
+Iteration 14140, loss = -1.4528
+Iteration 14150, loss = -1.5082
+Iteration 14160, loss = -1.4940
+Iteration 14170, loss = -1.4828
+Iteration 14180, loss = -1.5121
+Iteration 14190, loss = -1.4835
+Iteration 14200, loss = -1.4925
+Iteration 14210, loss = -1.4734
+Iteration 14220, loss = -1.4992
+Iteration 14230, loss = -1.5037
+Iteration 14240, loss = -1.4573
+Iteration 14250, loss = -1.4711
+Iteration 14260, loss = -1.5059
+Iteration 14270, loss = -1.4992
+Iteration 14280, loss = -1.4852
+Iteration 14290, loss = -1.5171
+Iteration 14300, loss = -1.4837
+Iteration 14310, loss = -1.4822
+Iteration 14320, loss = -1.4940
+Iteration 14330, loss = -1.4762
+Iteration 14340, loss = -1.4991
+Iteration 14350, loss = -1.4767
+Iteration 14360, loss = -1.4788
+Iteration 14370, loss = -1.5277
+Iteration 14380, loss = -1.4792
+Iteration 14390, loss = -1.4646
+Iteration 14400, loss = -1.4620
+Iteration 14410, loss = -1.4781
+Iteration 14420, loss = -1.5083
+Iteration 14430, loss = -1.4550
+Iteration 14440, loss = -1.4949
 Starting epoch 10
-Iteration 5500, loss = -1.4853
-chi2: 711.035
+Iteration 14450, loss = -1.4827
+Iteration 14460, loss = -1.4698
+Iteration 14470, loss = -1.5053
+Iteration 14480, loss = -1.4700
+Iteration 14490, loss = -1.4939
+Iteration 14500, loss = -1.5112
+Iteration 14510, loss = -1.4799
+Iteration 14520, loss = -1.4701
+Iteration 14530, loss = -1.4589
+Iteration 14540, loss = -1.4492
+Iteration 14550, loss = -1.4568
+Iteration 14560, loss = -1.4524
+Iteration 14570, loss = -1.5184
+Iteration 14580, loss = -1.5314
+Iteration 14590, loss = -1.4966
+Iteration 14600, loss = -1.5224
+Iteration 14610, loss = -1.4783
+Iteration 14620, loss = -1.4747
+Iteration 14630, loss = -1.5199
+Iteration 14640, loss = -1.4576
+Iteration 14650, loss = -1.5009
+Iteration 14660, loss = -1.5189
+Iteration 14670, loss = -1.5046
+Iteration 14680, loss = -1.5163
+Iteration 14690, loss = -1.5206
+Iteration 14700, loss = -1.4897
+Iteration 14710, loss = -1.4820
+Iteration 14720, loss = -1.4799
+Iteration 14730, loss = -1.4909
+Iteration 14740, loss = -1.4821
+Iteration 14750, loss = -1.4462
+Iteration 14760, loss = -1.5147
+Iteration 14770, loss = -1.4916
+Iteration 14780, loss = -1.4671
+Iteration 14790, loss = -1.4775
+Iteration 14800, loss = -1.5106
+Iteration 14810, loss = -1.4690
+Iteration 14820, loss = -1.5148
+Iteration 14830, loss = -1.4598
+Iteration 14840, loss = -1.4964
+Iteration 14850, loss = -1.5023
+Iteration 14860, loss = -1.5011
+Iteration 14870, loss = -1.5016
+Iteration 14880, loss = -1.5089
+Iteration 14890, loss = -1.4745
+Iteration 14900, loss = -1.5093
+Iteration 14910, loss = -1.4743
+Iteration 14920, loss = -1.4541
+Iteration 14930, loss = -1.4731
+Iteration 14940, loss = -1.4805
+Iteration 14950, loss = -1.4832
+Iteration 14960, loss = -1.5338
+Iteration 14970, loss = -1.4655
+Iteration 14980, loss = -1.4713
+Iteration 14990, loss = -1.4527
+Iteration 15000, loss = -1.4973
+Om: 97.64%, s8: 389.27% accuracy
+chi2: 2.138
 
+Iteration 15010, loss = -1.4989
+Iteration 15020, loss = -1.4603
+Iteration 15030, loss = -1.4899
+Iteration 15040, loss = -1.4816
+Iteration 15050, loss = -1.4922
+Iteration 15060, loss = -1.4997
+Iteration 15070, loss = -1.4904
+Iteration 15080, loss = -1.4874
+Iteration 15090, loss = -1.4871
+Iteration 15100, loss = -1.4893
+Iteration 15110, loss = -1.4621
+Iteration 15120, loss = -1.4789
+Iteration 15130, loss = -1.4540
+Iteration 15140, loss = -1.4669
+Iteration 15150, loss = -1.4752
+Iteration 15160, loss = -1.4883
+Iteration 15170, loss = -1.4974
+Iteration 15180, loss = -1.4833
+Iteration 15190, loss = -1.5064
+Iteration 15200, loss = -1.4566
+Iteration 15210, loss = -1.4972
+Iteration 15220, loss = -1.4638
+Iteration 15230, loss = -1.5007
+Iteration 15240, loss = -1.4733
+Iteration 15250, loss = -1.4833
+Iteration 15260, loss = -1.4803
+Iteration 15270, loss = -1.4830
+Iteration 15280, loss = -1.4728
+Iteration 15290, loss = -1.4881
+Iteration 15300, loss = -1.5004
+Iteration 15310, loss = -1.5097
+Iteration 15320, loss = -1.4586
+Iteration 15330, loss = -1.4790
+Iteration 15340, loss = -1.4813
+Iteration 15350, loss = -1.4826
+Iteration 15360, loss = -1.4872
+Iteration 15370, loss = -1.5099
+Iteration 15380, loss = -1.4620
+Iteration 15390, loss = -1.5175
+Iteration 15400, loss = -1.5107
+Iteration 15410, loss = -1.4706
+Iteration 15420, loss = -1.5041
+Iteration 15430, loss = -1.4740
+Iteration 15440, loss = -1.4989
+Iteration 15450, loss = -1.4769
+Iteration 15460, loss = -1.4476
+Iteration 15470, loss = -1.4648
+Iteration 15480, loss = -1.5214
+Iteration 15490, loss = -1.4740
+Iteration 15500, loss = -1.4952
+Iteration 15510, loss = -1.4847
+Iteration 15520, loss = -1.4813
+Iteration 15530, loss = -1.4882
+Iteration 15540, loss = -1.4613
+Iteration 15550, loss = -1.5186
+Iteration 15560, loss = -1.5336
+Iteration 15570, loss = -1.4895
+Iteration 15580, loss = -1.4804
+Iteration 15590, loss = -1.4830
+Iteration 15600, loss = -1.4980
+Iteration 15610, loss = -1.4694
+Iteration 15620, loss = -1.4759
+Iteration 15630, loss = -1.4782
+Iteration 15640, loss = -1.4705
+Iteration 15650, loss = -1.5050
+Iteration 15660, loss = -1.4710
+Iteration 15670, loss = -1.4528
+Iteration 15680, loss = -1.5164
+Iteration 15690, loss = -1.4629
+Iteration 15700, loss = -1.4690
+Iteration 15710, loss = -1.5012
+Iteration 15720, loss = -1.4911
+Iteration 15730, loss = -1.5297
+Iteration 15740, loss = -1.5140
+Iteration 15750, loss = -1.5019
+Iteration 15760, loss = -1.4938
+Iteration 15770, loss = -1.4960
+Iteration 15780, loss = -1.5005
+Iteration 15790, loss = -1.5206
+Iteration 15800, loss = -1.5064
+Iteration 15810, loss = -1.4708
+Iteration 15820, loss = -1.5208
+Iteration 15830, loss = -1.4610
+Iteration 15840, loss = -1.4732
+Iteration 15850, loss = -1.4924
+Iteration 15860, loss = -1.4683
+Iteration 15870, loss = -1.4927
+Iteration 15880, loss = -1.5099
+Iteration 15890, loss = -1.4790
 Starting epoch 11
-Iteration 6000, loss = -1.4390
-chi2: 700.134
+Iteration 15900, loss = -1.4831
+Iteration 15910, loss = -1.4578
+Iteration 15920, loss = -1.5047
+Iteration 15930, loss = -1.5082
+Iteration 15940, loss = -1.5315
+Iteration 15950, loss = -1.5170
+Iteration 15960, loss = -1.4841
+Iteration 15970, loss = -1.4902
+Iteration 15980, loss = -1.4614
+Iteration 15990, loss = -1.4705
+Iteration 16000, loss = -1.4514
+Om: 92.03%, s8: 389.57% accuracy
+chi2: 2.122
 
+Iteration 16010, loss = -1.4884
+Iteration 16020, loss = -1.4800
+Iteration 16030, loss = -1.4771
+Iteration 16040, loss = -1.5307
+Iteration 16050, loss = -1.4828
+Iteration 16060, loss = -1.4628
+Iteration 16070, loss = -1.4766
+Iteration 16080, loss = -1.5025
+Iteration 16090, loss = -1.4613
+Iteration 16100, loss = -1.5152
+Iteration 16110, loss = -1.4809
+Iteration 16120, loss = -1.5026
+Iteration 16130, loss = -1.4805
+Iteration 16140, loss = -1.4895
+Iteration 16150, loss = -1.4832
+Iteration 16160, loss = -1.4858
+Iteration 16170, loss = -1.4923
+Iteration 16180, loss = -1.4841
+Iteration 16190, loss = -1.4552
+Iteration 16200, loss = -1.4933
+Iteration 16210, loss = -1.4965
+Iteration 16220, loss = -1.4787
+Iteration 16230, loss = -1.4756
+Iteration 16240, loss = -1.4754
+Iteration 16250, loss = -1.4868
+Iteration 16260, loss = -1.4729
+Iteration 16270, loss = -1.5175
+Iteration 16280, loss = -1.4498
+Iteration 16290, loss = -1.4671
+Iteration 16300, loss = -1.4897
+Iteration 16310, loss = -1.5023
+Iteration 16320, loss = -1.4898
+Iteration 16330, loss = -1.5148
+Iteration 16340, loss = -1.4754
+Iteration 16350, loss = -1.5044
+Iteration 16360, loss = -1.4551
+Iteration 16370, loss = -1.5347
+Iteration 16380, loss = -1.4807
+Iteration 16390, loss = -1.4849
+Iteration 16400, loss = -1.4742
+Iteration 16410, loss = -1.4797
+Iteration 16420, loss = -1.4988
+Iteration 16430, loss = -1.4692
+Iteration 16440, loss = -1.4618
+Iteration 16450, loss = -1.5068
+Iteration 16460, loss = -1.5090
+Iteration 16470, loss = -1.5084
+Iteration 16480, loss = -1.4693
+Iteration 16490, loss = -1.4714
+Iteration 16500, loss = -1.4595
+Iteration 16510, loss = -1.4628
+Iteration 16520, loss = -1.5084
+Iteration 16530, loss = -1.5149
+Iteration 16540, loss = -1.4923
+Iteration 16550, loss = -1.4850
+Iteration 16560, loss = -1.4566
+Iteration 16570, loss = -1.5098
+Iteration 16580, loss = -1.4682
+Iteration 16590, loss = -1.4885
+Iteration 16600, loss = -1.4894
+Iteration 16610, loss = -1.4840
+Iteration 16620, loss = -1.4808
+Iteration 16630, loss = -1.4723
+Iteration 16640, loss = -1.5263
+Iteration 16650, loss = -1.5098
+Iteration 16660, loss = -1.5381
+Iteration 16670, loss = -1.5151
+Iteration 16680, loss = -1.4666
+Iteration 16690, loss = -1.5207
+Iteration 16700, loss = -1.4875
+Iteration 16710, loss = -1.4572
+Iteration 16720, loss = -1.4806
+Iteration 16730, loss = -1.5107
+Iteration 16740, loss = -1.5096
+Iteration 16750, loss = -1.4700
+Iteration 16760, loss = -1.5126
+Iteration 16770, loss = -1.4735
+Iteration 16780, loss = -1.4966
+Iteration 16790, loss = -1.4699
+Iteration 16800, loss = -1.4711
+Iteration 16810, loss = -1.4752
+Iteration 16820, loss = -1.4647
+Iteration 16830, loss = -1.5010
+Iteration 16840, loss = -1.5354
+Iteration 16850, loss = -1.4783
+Iteration 16860, loss = -1.4801
+Iteration 16870, loss = -1.4706
+Iteration 16880, loss = -1.4794
+Iteration 16890, loss = -1.4431
+Iteration 16900, loss = -1.4919
+Iteration 16910, loss = -1.4347
+Iteration 16920, loss = -1.5032
+Iteration 16930, loss = -1.4998
+Iteration 16940, loss = -1.5011
+Iteration 16950, loss = -1.5484
+Iteration 16960, loss = -1.4744
+Iteration 16970, loss = -1.5224
+Iteration 16980, loss = -1.4897
+Iteration 16990, loss = -1.4838
+Iteration 17000, loss = -1.5041
+Om: 95.04%, s8: 391.54% accuracy
+chi2: 2.135
+
+Iteration 17010, loss = -1.4881
+Iteration 17020, loss = -1.5046
+Iteration 17030, loss = -1.4515
+Iteration 17040, loss = -1.5091
+Iteration 17050, loss = -1.4961
+Iteration 17060, loss = -1.4834
+Iteration 17070, loss = -1.5119
+Iteration 17080, loss = -1.4853
+Iteration 17090, loss = -1.4938
+Iteration 17100, loss = -1.4736
+Iteration 17110, loss = -1.5000
+Iteration 17120, loss = -1.5047
+Iteration 17130, loss = -1.4583
+Iteration 17140, loss = -1.4708
+Iteration 17150, loss = -1.5066
+Iteration 17160, loss = -1.5006
+Iteration 17170, loss = -1.4866
+Iteration 17180, loss = -1.5167
+Iteration 17190, loss = -1.4850
+Iteration 17200, loss = -1.4839
+Iteration 17210, loss = -1.4940
+Iteration 17220, loss = -1.4768
+Iteration 17230, loss = -1.5005
+Iteration 17240, loss = -1.4784
+Iteration 17250, loss = -1.4804
+Iteration 17260, loss = -1.5285
+Iteration 17270, loss = -1.4798
+Iteration 17280, loss = -1.4656
+Iteration 17290, loss = -1.4639
+Iteration 17300, loss = -1.4806
+Iteration 17310, loss = -1.5085
+Iteration 17320, loss = -1.4554
+Iteration 17330, loss = -1.4965
 Starting epoch 12
-Iteration 6500, loss = -1.5634
-chi2: 641.613
+Iteration 17340, loss = -1.4843
+Iteration 17350, loss = -1.4714
+Iteration 17360, loss = -1.5065
+Iteration 17370, loss = -1.4704
+Iteration 17380, loss = -1.4951
+Iteration 17390, loss = -1.5106
+Iteration 17400, loss = -1.4800
+Iteration 17410, loss = -1.4732
+Iteration 17420, loss = -1.4602
+Iteration 17430, loss = -1.4507
+Iteration 17440, loss = -1.4581
+Iteration 17450, loss = -1.4533
+Iteration 17460, loss = -1.5195
+Iteration 17470, loss = -1.5340
+Iteration 17480, loss = -1.4975
+Iteration 17490, loss = -1.5236
+Iteration 17500, loss = -1.4789
+Iteration 17510, loss = -1.4760
+Iteration 17520, loss = -1.5209
+Iteration 17530, loss = -1.4590
+Iteration 17540, loss = -1.5027
+Iteration 17550, loss = -1.5179
+Iteration 17560, loss = -1.5050
+Iteration 17570, loss = -1.5175
+Iteration 17580, loss = -1.5208
+Iteration 17590, loss = -1.4915
+Iteration 17600, loss = -1.4819
+Iteration 17610, loss = -1.4810
+Iteration 17620, loss = -1.4922
+Iteration 17630, loss = -1.4815
+Iteration 17640, loss = -1.4471
+Iteration 17650, loss = -1.5168
+Iteration 17660, loss = -1.4921
+Iteration 17670, loss = -1.4679
+Iteration 17680, loss = -1.4786
+Iteration 17690, loss = -1.5123
+Iteration 17700, loss = -1.4691
+Iteration 17710, loss = -1.5164
+Iteration 17720, loss = -1.4614
+Iteration 17730, loss = -1.4955
+Iteration 17740, loss = -1.5038
+Iteration 17750, loss = -1.5027
+Iteration 17760, loss = -1.5032
+Iteration 17770, loss = -1.5092
+Iteration 17780, loss = -1.4759
+Iteration 17790, loss = -1.5107
+Iteration 17800, loss = -1.4747
+Iteration 17810, loss = -1.4555
+Iteration 17820, loss = -1.4740
+Iteration 17830, loss = -1.4816
+Iteration 17840, loss = -1.4842
+Iteration 17850, loss = -1.5346
+Iteration 17860, loss = -1.4662
+Iteration 17870, loss = -1.4730
+Iteration 17880, loss = -1.4535
+Iteration 17890, loss = -1.4985
+Iteration 17900, loss = -1.5004
+Iteration 17910, loss = -1.4603
+Iteration 17920, loss = -1.4911
+Iteration 17930, loss = -1.4827
+Iteration 17940, loss = -1.4944
+Iteration 17950, loss = -1.5008
+Iteration 17960, loss = -1.4915
+Iteration 17970, loss = -1.4883
+Iteration 17980, loss = -1.4879
+Iteration 17990, loss = -1.4887
+Iteration 18000, loss = -1.4625
+Om: 101.98%, s8: 388.73% accuracy
+chi2: 2.127
 
+Iteration 18010, loss = -1.4799
+Iteration 18020, loss = -1.4552
+Iteration 18030, loss = -1.4669
+Iteration 18040, loss = -1.4760
+Iteration 18050, loss = -1.4891
+Iteration 18060, loss = -1.4980
+Iteration 18070, loss = -1.4838
+Iteration 18080, loss = -1.5066
+Iteration 18090, loss = -1.4570
+Iteration 18100, loss = -1.4982
+Iteration 18110, loss = -1.4647
+Iteration 18120, loss = -1.5016
+Iteration 18130, loss = -1.4743
+Iteration 18140, loss = -1.4841
+Iteration 18150, loss = -1.4816
+Iteration 18160, loss = -1.4839
+Iteration 18170, loss = -1.4728
+Iteration 18180, loss = -1.4886
+Iteration 18190, loss = -1.5016
+Iteration 18200, loss = -1.5104
+Iteration 18210, loss = -1.4604
+Iteration 18220, loss = -1.4805
+Iteration 18230, loss = -1.4828
+Iteration 18240, loss = -1.4837
+Iteration 18250, loss = -1.4881
+Iteration 18260, loss = -1.5103
+Iteration 18270, loss = -1.4630
+Iteration 18280, loss = -1.5198
+Iteration 18290, loss = -1.5124
+Iteration 18300, loss = -1.4723
+Iteration 18310, loss = -1.5065
+Iteration 18320, loss = -1.4761
+Iteration 18330, loss = -1.4995
+Iteration 18340, loss = -1.4777
+Iteration 18350, loss = -1.4488
+Iteration 18360, loss = -1.4653
+Iteration 18370, loss = -1.5234
+Iteration 18380, loss = -1.4751
+Iteration 18390, loss = -1.4961
+Iteration 18400, loss = -1.4856
+Iteration 18410, loss = -1.4819
+Iteration 18420, loss = -1.4890
+Iteration 18430, loss = -1.4616
+Iteration 18440, loss = -1.5200
+Iteration 18450, loss = -1.5339
+Iteration 18460, loss = -1.4904
+Iteration 18470, loss = -1.4814
+Iteration 18480, loss = -1.4827
+Iteration 18490, loss = -1.4995
+Iteration 18500, loss = -1.4701
+Iteration 18510, loss = -1.4773
+Iteration 18520, loss = -1.4791
+Iteration 18530, loss = -1.4731
+Iteration 18540, loss = -1.5057
+Iteration 18550, loss = -1.4714
+Iteration 18560, loss = -1.4536
+Iteration 18570, loss = -1.5177
+Iteration 18580, loss = -1.4640
+Iteration 18590, loss = -1.4693
+Iteration 18600, loss = -1.5023
+Iteration 18610, loss = -1.4921
+Iteration 18620, loss = -1.5309
+Iteration 18630, loss = -1.5152
+Iteration 18640, loss = -1.5026
+Iteration 18650, loss = -1.4938
+Iteration 18660, loss = -1.4973
+Iteration 18670, loss = -1.5012
+Iteration 18680, loss = -1.5220
+Iteration 18690, loss = -1.5078
+Iteration 18700, loss = -1.4723
+Iteration 18710, loss = -1.5210
+Iteration 18720, loss = -1.4619
+Iteration 18730, loss = -1.4733
+Iteration 18740, loss = -1.4939
+Iteration 18750, loss = -1.4690
+Iteration 18760, loss = -1.4937
+Iteration 18770, loss = -1.5122
+Iteration 18780, loss = -1.4798
 Starting epoch 13
-Iteration 7000, loss = -1.5448
-chi2: 666.483
+Iteration 18790, loss = -1.4842
+Iteration 18800, loss = -1.4589
+Iteration 18810, loss = -1.5064
+Iteration 18820, loss = -1.5092
+Iteration 18830, loss = -1.5325
+Iteration 18840, loss = -1.5187
+Iteration 18850, loss = -1.4893
+Iteration 18860, loss = -1.4953
+Iteration 18870, loss = -1.4665
+Iteration 18880, loss = -1.4757
+Iteration 18890, loss = -1.4582
+Iteration 18900, loss = -1.4915
+Iteration 18910, loss = -1.4825
+Iteration 18920, loss = -1.4788
+Iteration 18930, loss = -1.5333
+Iteration 18940, loss = -1.4845
+Iteration 18950, loss = -1.4633
+Iteration 18960, loss = -1.4787
+Iteration 18970, loss = -1.5046
+Iteration 18980, loss = -1.4621
+Iteration 18990, loss = -1.5158
+Iteration 19000, loss = -1.4822
+Om: 103.94%, s8: 390.42% accuracy
+chi2: 2.116
 
+Iteration 19010, loss = -1.4977
+Iteration 19020, loss = -1.4813
+Iteration 19030, loss = -1.4920
+Iteration 19040, loss = -1.4835
+Iteration 19050, loss = -1.4864
+Iteration 19060, loss = -1.4939
+Iteration 19070, loss = -1.4836
+Iteration 19080, loss = -1.4578
+Iteration 19090, loss = -1.4956
+Iteration 19100, loss = -1.4961
+Iteration 19110, loss = -1.4802
+Iteration 19120, loss = -1.4768
+Iteration 19130, loss = -1.4765
+Iteration 19140, loss = -1.4865
+Iteration 19150, loss = -1.4735
+Iteration 19160, loss = -1.5202
+Iteration 19170, loss = -1.4446
+Iteration 19180, loss = -1.4703
+Iteration 19190, loss = -1.4867
+Iteration 19200, loss = -1.5030
+Iteration 19210, loss = -1.4900
+Iteration 19220, loss = -1.5162
+Iteration 19230, loss = -1.4759
+Iteration 19240, loss = -1.5062
+Iteration 19250, loss = -1.4546
+Iteration 19260, loss = -1.5383
+Iteration 19270, loss = -1.4818
+Iteration 19280, loss = -1.4854
+Iteration 19290, loss = -1.4770
+Iteration 19300, loss = -1.4821
+Iteration 19310, loss = -1.5008
+Iteration 19320, loss = -1.4704
+Iteration 19330, loss = -1.4644
+Iteration 19340, loss = -1.5077
+Iteration 19350, loss = -1.5106
+Iteration 19360, loss = -1.5088
+Iteration 19370, loss = -1.4713
+Iteration 19380, loss = -1.4738
+Iteration 19390, loss = -1.4602
+Iteration 19400, loss = -1.4641
+Iteration 19410, loss = -1.5113
+Iteration 19420, loss = -1.5157
+Iteration 19430, loss = -1.4959
+Iteration 19440, loss = -1.4863
+Iteration 19450, loss = -1.4589
+Iteration 19460, loss = -1.5087
+Iteration 19470, loss = -1.4700
+Iteration 19480, loss = -1.4892
+Iteration 19490, loss = -1.4927
+Iteration 19500, loss = -1.4860
+Iteration 19510, loss = -1.4821
+Iteration 19520, loss = -1.4750
+Iteration 19530, loss = -1.5301
+Iteration 19540, loss = -1.5123
+Iteration 19550, loss = -1.5406
+Iteration 19560, loss = -1.5160
+Iteration 19570, loss = -1.4704
+Iteration 19580, loss = -1.5266
+Iteration 19590, loss = -1.4854
+Iteration 19600, loss = -1.4599
+Iteration 19610, loss = -1.4815
+Iteration 19620, loss = -1.5106
+Iteration 19630, loss = -1.5082
+Iteration 19640, loss = -1.4750
+Iteration 19650, loss = -1.5049
+Iteration 19660, loss = -1.4754
+Iteration 19670, loss = -1.4985
+Iteration 19680, loss = -1.4704
+Iteration 19690, loss = -1.4735
+Iteration 19700, loss = -1.4763
+Iteration 19710, loss = -1.4660
+Iteration 19720, loss = -1.5018
+Iteration 19730, loss = -1.5391
+Iteration 19740, loss = -1.4787
+Iteration 19750, loss = -1.4802
+Iteration 19760, loss = -1.4730
+Iteration 19770, loss = -1.4793
+Iteration 19780, loss = -1.4441
+Iteration 19790, loss = -1.4929
+Iteration 19800, loss = -1.4376
+Iteration 19810, loss = -1.5040
+Iteration 19820, loss = -1.5006
+Iteration 19830, loss = -1.5024
+Iteration 19840, loss = -1.5498
+Iteration 19850, loss = -1.4748
+Iteration 19860, loss = -1.5236
+Iteration 19870, loss = -1.4900
+Iteration 19880, loss = -1.4851
+Iteration 19890, loss = -1.5063
+Iteration 19900, loss = -1.4901
+Iteration 19910, loss = -1.5069
+Iteration 19920, loss = -1.4481
+Iteration 19930, loss = -1.5107
+Iteration 19940, loss = -1.4981
+Iteration 19950, loss = -1.4840
+Iteration 19960, loss = -1.5131
+Iteration 19970, loss = -1.4888
+Iteration 19980, loss = -1.4935
+Iteration 19990, loss = -1.4746
+Iteration 20000, loss = -1.4982
+Om: 100.71%, s8: 389.00% accuracy
+chi2: 2.100
+
+Iteration 20010, loss = -1.5059
+Iteration 20020, loss = -1.4566
+Iteration 20030, loss = -1.4708
+Iteration 20040, loss = -1.5083
+Iteration 20050, loss = -1.5004
+Iteration 20060, loss = -1.4880
+Iteration 20070, loss = -1.5196
+Iteration 20080, loss = -1.4863
+Iteration 20090, loss = -1.4855
+Iteration 20100, loss = -1.4949
+Iteration 20110, loss = -1.4769
+Iteration 20120, loss = -1.5019
+Iteration 20130, loss = -1.4803
+Iteration 20140, loss = -1.4820
+Iteration 20150, loss = -1.5274
+Iteration 20160, loss = -1.4821
+Iteration 20170, loss = -1.4648
+Iteration 20180, loss = -1.4641
+Iteration 20190, loss = -1.4815
+Iteration 20200, loss = -1.5096
+Iteration 20210, loss = -1.4557
+Iteration 20220, loss = -1.4964
 Starting epoch 14
-Iteration 7500, loss = -1.4256
-chi2: 515.837
+Iteration 20230, loss = -1.4863
+Iteration 20240, loss = -1.4729
+Iteration 20250, loss = -1.5079
+Iteration 20260, loss = -1.4710
+Iteration 20270, loss = -1.4941
+Iteration 20280, loss = -1.5087
+Iteration 20290, loss = -1.4838
+Iteration 20300, loss = -1.4799
+Iteration 20310, loss = -1.4633
+Iteration 20320, loss = -1.4551
+Iteration 20330, loss = -1.4621
+Iteration 20340, loss = -1.4539
+Iteration 20350, loss = -1.5246
+Iteration 20360, loss = -1.5385
+Iteration 20370, loss = -1.4992
+Iteration 20380, loss = -1.5242
+Iteration 20390, loss = -1.4817
+Iteration 20400, loss = -1.4777
+Iteration 20410, loss = -1.5210
+Iteration 20420, loss = -1.4598
+Iteration 20430, loss = -1.5045
+Iteration 20440, loss = -1.5168
+Iteration 20450, loss = -1.5032
+Iteration 20460, loss = -1.5197
+Iteration 20470, loss = -1.5217
+Iteration 20480, loss = -1.4931
+Iteration 20490, loss = -1.4815
+Iteration 20500, loss = -1.4817
+Iteration 20510, loss = -1.4939
+Iteration 20520, loss = -1.4823
+Iteration 20530, loss = -1.4475
+Iteration 20540, loss = -1.5188
+Iteration 20550, loss = -1.4913
+Iteration 20560, loss = -1.4688
+Iteration 20570, loss = -1.4788
+Iteration 20580, loss = -1.5126
+Iteration 20590, loss = -1.4680
+Iteration 20600, loss = -1.5172
+Iteration 20610, loss = -1.4613
+Iteration 20620, loss = -1.4976
+Iteration 20630, loss = -1.5066
+Iteration 20640, loss = -1.5036
+Iteration 20650, loss = -1.5040
+Iteration 20660, loss = -1.5100
+Iteration 20670, loss = -1.4763
+Iteration 20680, loss = -1.5112
+Iteration 20690, loss = -1.4761
+Iteration 20700, loss = -1.4581
+Iteration 20710, loss = -1.4752
+Iteration 20720, loss = -1.4829
+Iteration 20730, loss = -1.4853
+Iteration 20740, loss = -1.5350
+Iteration 20750, loss = -1.4675
+Iteration 20760, loss = -1.4740
+Iteration 20770, loss = -1.4529
+Iteration 20780, loss = -1.5004
+Iteration 20790, loss = -1.5016
+Iteration 20800, loss = -1.4617
+Iteration 20810, loss = -1.4929
+Iteration 20820, loss = -1.4845
+Iteration 20830, loss = -1.4959
+Iteration 20840, loss = -1.5027
+Iteration 20850, loss = -1.4935
+Iteration 20860, loss = -1.4886
+Iteration 20870, loss = -1.4896
+Iteration 20880, loss = -1.4935
+Iteration 20890, loss = -1.4636
+Iteration 20900, loss = -1.4804
+Iteration 20910, loss = -1.4583
+Iteration 20920, loss = -1.4688
+Iteration 20930, loss = -1.4778
+Iteration 20940, loss = -1.4883
+Iteration 20950, loss = -1.4990
+Iteration 20960, loss = -1.4865
+Iteration 20970, loss = -1.5083
+Iteration 20980, loss = -1.4599
+Iteration 20990, loss = -1.4992
+Iteration 21000, loss = -1.4658
+Om: 99.35%, s8: 391.13% accuracy
+chi2: 2.114
 
+Iteration 21010, loss = -1.5029
+Iteration 21020, loss = -1.4793
+Iteration 21030, loss = -1.4870
+Iteration 21040, loss = -1.4832
+Iteration 21050, loss = -1.4860
+Iteration 21060, loss = -1.4738
+Iteration 21070, loss = -1.4825
+Iteration 21080, loss = -1.5048
+Iteration 21090, loss = -1.5100
+Iteration 21100, loss = -1.4536
+Iteration 21110, loss = -1.4818
+Iteration 21120, loss = -1.4843
+Iteration 21130, loss = -1.4852
+Iteration 21140, loss = -1.4890
+Iteration 21150, loss = -1.5122
+Iteration 21160, loss = -1.4626
+Iteration 21170, loss = -1.5205
+Iteration 21180, loss = -1.5138
+Iteration 21190, loss = -1.4738
+Iteration 21200, loss = -1.5068
+Iteration 21210, loss = -1.4783
+Iteration 21220, loss = -1.4992
+Iteration 21230, loss = -1.4791
+Iteration 21240, loss = -1.4464
+Iteration 21250, loss = -1.4660
+Iteration 21260, loss = -1.5232
+Iteration 21270, loss = -1.4766
+Iteration 21280, loss = -1.4974
+Iteration 21290, loss = -1.4870
+Iteration 21300, loss = -1.4826
+Iteration 21310, loss = -1.4886
+Iteration 21320, loss = -1.4612
+Iteration 21330, loss = -1.5211
+Iteration 21340, loss = -1.5347
+Iteration 21350, loss = -1.4918
+Iteration 21360, loss = -1.4811
+Iteration 21370, loss = -1.4840
+Iteration 21380, loss = -1.5015
+Iteration 21390, loss = -1.4705
+Iteration 21400, loss = -1.4784
+Iteration 21410, loss = -1.4829
+Iteration 21420, loss = -1.4764
+Iteration 21430, loss = -1.5054
+Iteration 21440, loss = -1.4724
+Iteration 21450, loss = -1.4522
+Iteration 21460, loss = -1.5192
+Iteration 21470, loss = -1.4662
+Iteration 21480, loss = -1.4706
+Iteration 21490, loss = -1.5037
+Iteration 21500, loss = -1.4933
+Iteration 21510, loss = -1.5319
+Iteration 21520, loss = -1.5168
+Iteration 21530, loss = -1.5031
+Iteration 21540, loss = -1.4939
+Iteration 21550, loss = -1.4992
+Iteration 21560, loss = -1.5018
+Iteration 21570, loss = -1.5244
+Iteration 21580, loss = -1.5096
+Iteration 21590, loss = -1.4735
+Iteration 21600, loss = -1.5212
+Iteration 21610, loss = -1.4621
+Iteration 21620, loss = -1.4736
+Iteration 21630, loss = -1.4940
+Iteration 21640, loss = -1.4702
+Iteration 21650, loss = -1.4942
+Iteration 21660, loss = -1.5132
+Iteration 21670, loss = -1.4797
 Starting epoch 15
-Iteration 8000, loss = -1.6344
-chi2: 633.135
-
-Starting epoch 16
-Iteration 8500, loss = -1.5087
-chi2: 440.997
-
-Starting epoch 17
-Iteration 9000, loss = -1.3576
-chi2: 443.081
-
-Starting epoch 18
-Iteration 9500, loss = -1.5557
-chi2: 484.756
-
-Starting epoch 19
-Iteration 10000, loss = -1.6125
-chi2: 345.509
-
+Iteration 21680, loss = -1.4864
+Iteration 21690, loss = -1.4598
+Iteration 21700, loss = -1.5069
+Iteration 21710, loss = -1.5117
+Iteration 21720, loss = -1.5333
+Iteration 21730, loss = -1.5212
+Iteration 21740, loss = -1.4927
+Iteration 21750, loss = -1.4965
+Iteration 21760, loss = -1.4675
+Iteration 21770, loss = -1.4763
+Iteration 21780, loss = -1.4600
+Iteration 21790, loss = -1.4922
+Iteration 21800, loss = -1.4845
+Iteration 21810, loss = -1.4797
+Iteration 21820, loss = -1.5363
+Iteration 21830, loss = -1.4862
+Iteration 21840, loss = -1.4638
+Iteration 21850, loss = -1.4807
+Iteration 21860, loss = -1.5055
+Iteration 21870, loss = -1.4626
+Iteration 21880, loss = -1.5168
+Iteration 21890, loss = -1.4838
+Iteration 21900, loss = -1.4992
+Iteration 21910, loss = -1.4824
+Iteration 21920, loss = -1.4932
+Iteration 21930, loss = -1.4846
+Iteration 21940, loss = -1.4875
+Iteration 21950, loss = -1.4950
+Iteration 21960, loss = -1.4845
+Iteration 21970, loss = -1.4601
+slurmstepd: error: *** JOB 41593468 ON sh-14-02 CANCELLED AT 2019-05-01T09:40:05 ***

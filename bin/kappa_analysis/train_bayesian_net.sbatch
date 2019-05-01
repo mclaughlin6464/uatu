@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH --job-name=train_bayesian_net
-#SBATCH --time=04:00:00
+#SBATCH --time=12:00:00
 #SBATCH --gres gpu:2
-#SBATCH -p gpu, iric
-#SBATCH --ntasks=16
+#SBATCH -p iric
+#SBATCH --ntasks=8
 #SBATCH -o train_bayesian_net.out 
 
 module unload py-jupyter
