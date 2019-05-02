@@ -5,3 +5,4 @@ from test import *
 from traditional import *
 from saliency import *
 from attack import *
+from ConcreteDropout import *

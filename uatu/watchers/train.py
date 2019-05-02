@@ -34,9 +34,13 @@ def bayes_cost_fn(y, preds):
     #return tf.reduce_mean(z / (2 * (1 - tf.pow(rho, 2.))) + 2 * np.pi * tf.sqrt(
     #    tf.exp(log_s1) * tf.exp(log_s2) * (1 - tf.pow(rho, 2.)))), mu1, mu2, log_s1, log_s2, rho
     '''
+    print preds.get_shape()
+    print y.get_shape()
     num_out = 2 
     s = tf.slice(preds , [0,num_out/2] , [-1,num_out/2] )
+    print s.get_shape()
     y_conv = tf.slice(preds , [0,0] , [-1,num_out/2] )
+    print y_conv.get_shape()
     return tf.reduce_mean( tf.pow( y_conv -  y , 2.) * tf.exp(-s) + s)#  ,axis=1)# , [-1 , 1 ])
 
 def original_bayes_cost_fn(y, preds):
@@ -47,8 +51,8 @@ def original_bayes_cost_fn(y, preds):
     mu2 = tf.slice(preds, [0, 1], [-1, 1])
     # avoiding building a matrix...
 
-    z = tf.pow(mu1 - tf.slice(y, [0, 0], [-1, 1]), 2.) / (tf.exp(log_s1)+ 1e-3) + \
-        tf.pow(mu2 - tf.slice(y, [0, 1], [-1, 1]), 2.) / (tf.exp(log_s2)+1e-3) - \
+    z = tf.pow(mu1 - tf.slice(y, [0, 0], [-1, 1]), 2.) / (tf.exp(log_s1)+ 1e-6) + \
+        tf.pow(mu2 - tf.slice(y, [0, 1], [-1, 1]), 2.) / (tf.exp(log_s2)+1e-6) - \
         2 * rho * (mu1 - tf.slice(y, [0, 0], [-1, 1])) * (mu2 - tf.slice(y, [0, 1], [-1, 1])) / tf.sqrt(
         tf.exp(log_s1) * tf.exp(log_s2)+1e-6)
 
@@ -57,7 +61,7 @@ def original_bayes_cost_fn(y, preds):
 
 
 def train(model_init_fn, optimizer_init_fn, cost_fn, data, fname,\
-          restore = False,num_epochs = 1, print_every = 10, lr_np = 1e-6, lam_np = 1e-6, rate_np = 5e-1, bayes_prob = 0.1):
+          restore = False,num_epochs = 1, print_every = 10, lr_np = 1e-6, lam_np = 1e-6):
     tf.reset_default_graph()
     train_dset, val_dset, _ = data
 #    with tf.device(device):
@@ -69,11 +73,7 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, fname,\
     lam = tf.placeholder(tf.float32, name = 'regularization_rate') 
     #dropout_rate = tf.placeholder(tf.float32, name = 'dropout_rate') 
     # may need to adjust how i've generalized this...
-    # TODO
-    if bayes_prob == 0.0:
-        preds = model_init_fn(x,  training=training, lam = lam, rate=rate_np)
-    else:
-        preds = model_init_fn(x, bayes_prob = bayes_prob, training=training, lam = lam, rate=rate_np)
+    preds = model_init_fn(x,  training=training, lam = lam)#, rate=rate_n)
     #loss = tf.losses.absolute_difference(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
     #loss, mu1, mu2, log_s1, log_s2, z = cost_fn(y, preds)
     loss = cost_fn(y, preds)
