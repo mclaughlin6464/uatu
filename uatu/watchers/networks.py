@@ -153,10 +153,10 @@ def gupta_bayesian_network_init_fn(inputs, training=False, lam=1e-6, wrapper=Con
     # TODO I've removed the dropout for the standard network here implicitly
     dense1_out = wrapper(tf.layers.Dense(256, kernel_initializer=initializer))(flat_out, training=training)
     lr7_out = tf.nn.leaky_relu(dense1_out, alpha=0.01)
-    dense2_out = wrapper(tf.layers.Dense(lr7_out, 256, kernel_initializer=initializer))(lr7_out, training=training)
+    dense2_out = wrapper(tf.layers.Dense(256, kernel_initializer=initializer))(lr7_out, training=training)
     lr8_out = tf.nn.leaky_relu(dense2_out, alpha=0.01)
 
-    dense3_out = wrapper(tf.layers.Dense(lr8_out, nout, kernel_initializer=initializer))(lr8_out, training=training)
+    dense3_out = wrapper(tf.layers.Dense(nout, kernel_initializer=initializer))(lr8_out, training=training)
     return dense3_out
 
 def standard_optimizer_init_fn(lr = 0.0005):

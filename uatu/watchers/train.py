@@ -34,13 +34,13 @@ def bayes_cost_fn(y, preds):
     #return tf.reduce_mean(z / (2 * (1 - tf.pow(rho, 2.))) + 2 * np.pi * tf.sqrt(
     #    tf.exp(log_s1) * tf.exp(log_s2) * (1 - tf.pow(rho, 2.)))), mu1, mu2, log_s1, log_s2, rho
     '''
-    print preds.get_shape()
-    print y.get_shape()
+    #print preds.get_shape()
+    #print y.get_shape()
     num_out = 2 
     s = tf.slice(preds , [0,num_out/2] , [-1,num_out/2] )
-    print s.get_shape()
+    #print s.get_shape()
     y_conv = tf.slice(preds , [0,0] , [-1,num_out/2] )
-    print y_conv.get_shape()
+    #print y_conv.get_shape()
     return tf.reduce_mean( tf.pow( y_conv -  y , 2.) * tf.exp(-s) + s)#  ,axis=1)# , [-1 , 1 ])
 
 def original_bayes_cost_fn(y, preds):
@@ -50,14 +50,15 @@ def original_bayes_cost_fn(y, preds):
     mu1 = tf.slice(preds, [0, 0], [-1, 1])
     mu2 = tf.slice(preds, [0, 1], [-1, 1])
     # avoiding building a matrix...
+    y1 = tf.slice(y, [0, 0], [-1, 1])
+    y2 = tf.slice(y, [0, 1], [-1, 1])
 
-    z = tf.pow(mu1 - tf.slice(y, [0, 0], [-1, 1]), 2.) / (tf.exp(log_s1)+ 1e-6) + \
-        tf.pow(mu2 - tf.slice(y, [0, 1], [-1, 1]), 2.) / (tf.exp(log_s2)+1e-6) - \
-        2 * rho * (mu1 - tf.slice(y, [0, 0], [-1, 1])) * (mu2 - tf.slice(y, [0, 1], [-1, 1])) / tf.sqrt(
-        tf.exp(log_s1) * tf.exp(log_s2)+1e-6)
+    z = tf.pow(mu1 - y1, 2.)*(tf.exp(-log_s1)+ 1e-6) + \
+        tf.pow(mu2 - y2, 2.)*(tf.exp(-log_s2)+ 1e-6) - \
+        2 * rho * (mu1 - y1) * (mu2 - y2)*(tf.exp(-0.5*log_s1-0.5*log_s2)+1e-6)
 
     return tf.reduce_mean(z / (2.0 * (1 - tf.pow(rho, 2.))) + 
-        (log_s1 + log_s2 + tf.log(1 - tf.pow(rho, 2.)))/2.0 )
+        (log_s1 + log_s2 + tf.log(1 - tf.pow(rho, 2.))/2.0 ))
 
 
 def train(model_init_fn, optimizer_init_fn, cost_fn, data, fname,\
@@ -69,7 +70,8 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, fname,\
     x = tf.placeholder(tf.float32, [None, 256,256,1])
     y = tf.placeholder(tf.float32, [None,2])
 
-    training = tf.placeholder(tf.bool, name='training')
+    #training = tf.placeholder(tf.bool, name='training')
+    training = True
     lam = tf.placeholder(tf.float32, name = 'regularization_rate') 
     #dropout_rate = tf.placeholder(tf.float32, name = 'dropout_rate') 
     # may need to adjust how i've generalized this...
@@ -110,7 +112,7 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, fname,\
                 #print t,
                 sys.stdout.flush()
 
-                feed_dict = {x: x_np, y: y_np, training: True, lr: lr_np, lam:lam_np}#, dropout_rate:rate_np}
+                feed_dict = {x: x_np, y: y_np, lr: lr_np, lam:lam_np}#, dropout_rate:rate_np}
                 #print feed_dict
                 #print feed_dict[dropout_rate]
                 #print rate_np
@@ -150,7 +152,7 @@ def check_accuracy(sess, dset, x, scores, training=None):
     rmse = []
     do_chi2 = False
     for x_batch, y_batch in dset:
-        feed_dict = {x: x_batch, training: 0}
+        feed_dict = {x: x_batch}#, training: 0}
         y_pred = sess.run(scores, feed_dict=feed_dict)
         if y_pred.shape[1] == 2:
             perc_error.append(np.array(np.abs(y_pred[:,:2]-y_batch)/(y_batch)))
@@ -163,11 +165,12 @@ def check_accuracy(sess, dset, x, scores, training=None):
                 rho = 0
             else:
                 mu1, mu2, log_s1, log_s2, rho = y_pred.T
+                #print mu1[0], mu2[0], log_s1[0], log_s2[0], 0.9*np.tanh(rho[0])
 
             rho = 0.9*np.tanh(rho)
 
-            chi2 = (mu1 - y_batch[:,0])**2 /(np.exp(log_s1)+1e-3) + \
-                (mu2 - y_batch[:,1])**2 /(np.exp(log_s2)+1e-3) - \
+            chi2 = (mu1 - y_batch[:,0])**2 /(np.exp(log_s1)+1e-6) + \
+                (mu2 - y_batch[:,1])**2 /(np.exp(log_s2)+1e-6) - \
                 2 * rho * (mu1 - y_batch[:,0]) * (mu2 - y_batch[:,1]) / np.sqrt(np.exp(log_s1) * np.exp(log_s2)+1e-6)
 
             #chi2= (z / (2 * (1 - rho**2.)) + 

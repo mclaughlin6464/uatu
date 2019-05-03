@@ -45,7 +45,8 @@ def compute_attacked_maps(model_init_fn, cost_fn, network_fname, data, target_y_
                 feed_dict = {x: x_attacked_np,y:target_y_np, training: False}
                 #loss_np, update_ops_np = sess.run([loss,update_ops], feed_dict=feed_dict)
                 dX_np = sess.run([dX], feed_dict=feed_dict)[0][0]
-                x_attacked_np+=dX_np
+                # initially had a + that seemed wrong
+                x_attacked_np-=dX_np
 
             for am, _y_np in zip(x_attacked_np, y_np):
                 key = key_func(_y_np.reshape((1, 2)))
