@@ -14,7 +14,7 @@ def test(model_init_fn, data,n_samples, fname, samples_fname):
     x = tf.placeholder(tf.float32, [None, 256,256,1])
 
     #training = tf.placeholder(tf.bool, name='training')
-    training = False
+    training = True #False
 
     preds = model_init_fn(x, training=training)
 
