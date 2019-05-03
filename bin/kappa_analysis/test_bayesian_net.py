@@ -2,23 +2,12 @@ from uatu.watchers import *
 from sklearn.model_selection import train_test_split
 from time import time
 
-t0 = time()
-dir = '/scratch/users/swmclau2/UatuLightconeTraining/'
-#fname = path.join(dir, 'data.hdf5')
+dir = '/scratch/users/swmclau2/UatuLightconeTest/'
+fname = path.join(dir, 'UatuLightconeTest.hdf5')
 
-def whiten(X):
-    mu = X.mean()
-    s = X.std()
-    return (X-mu)/s
-
-X,Y = get_all_xy(dir)#, 64, shuffle=True, augment=True)
-X = whiten(X)
-
-_, X_test, _, y_test = train_test_split(X,Y, train_size = 0.8, shuffle = False)
-#X_val, X_test, y_val, y_test = train_test_split(X,Y, train_size = 0.9, shuffle = False)
-batch_size = 1 #currently required by my testing code, chagne if slow?
-test_dset = Dataset(X_test, y_test, batch_size, shuffle = False, augment = False)
+test_dset = DatasetFromFile(fname, batch_size=1, shuffle = False, augment = False,
+                            whiten=True, train_test_split=1.0, cache_size = 1)
 
 test(gupta_bayesian_network_init_fn, test_dset, n_samples = 100,\
-     fname = '/home/users/swmclau2/scratch/gupta_bayesian_net_kappa',
-     samples_fname='/home/users/swmclau2/scratch/gupta_bayesian_net_kappa_samples.hdf5')
+     fname = '/home/users/swmclau2/scratch/gupta_bayesian_net_kappa-28900',
+     samples_fname=path.join(dir, 'UatuLightconeBayesPres.hdf5'))

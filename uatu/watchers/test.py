@@ -13,7 +13,8 @@ def test(model_init_fn, data,n_samples, fname, samples_fname):
 
     x = tf.placeholder(tf.float32, [None, 256,256,1])
 
-    training = tf.placeholder(tf.bool, name='training')
+    #training = tf.placeholder(tf.bool, name='training')
+    training = False
 
     preds = model_init_fn(x, training=training)
 
@@ -34,7 +35,7 @@ def test(model_init_fn, data,n_samples, fname, samples_fname):
             assert y_np.shape[0] == 1 , 'batchsize greater than 1'
 
             samples = []
-            feed_dict = {x: x_np, training: False}
+            feed_dict = {x: x_np}#, training: False}
 
             for j in xrange(n_samples):
                 preds_np  = sess.run(preds, feed_dict=feed_dict)
