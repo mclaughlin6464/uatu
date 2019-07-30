@@ -36,4 +36,4 @@ data = (train_dset, test_dset, None)
 #dropout 0.2
 # standard cost
 train(gupta_bayesian_network_init_fn, standard_optimizer_init_fn, original_bayes_cost_fn,
-             data, num_epochs = 20, fname = '/home/users/swmclau2/scratch/gupta_bayes_net_kappa', print_every = 1000, lr_np = 1e-4, lam_np = 1e-6)#, rate_np = 0.0, bayes_prob = 0.05) 
+             data, num_epochs = 100, fname = '/home/users/swmclau2/scratch/gupta_bayes_net_kappa', print_every = 1000, lr_np = 2e-4, lam_np = 0.0)#, rate_np = 0.0, bayes_prob = 0.05) 

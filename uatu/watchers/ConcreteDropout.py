@@ -130,7 +130,7 @@ class ConcreteDropout(layers.Wrapper):
         if training:
             return self.layer.call(self.concrete_dropout(inputs))
         else:
-            self.layer.call(inputs)
+            return self.layer.call(inputs)
 
 
 def concrete_dropout(inputs, layer,

@@ -3,11 +3,13 @@ This module holds all the neural network models for uatu.
 
 To start, their architecture will be mostly hardcoded, but I may generalize it in the futuere.
 """
+
 try:
     import tensorflow as tf
-    from .ConcreteDropout import ConcreteDropout
+    from ConcreteDropout import ConcreteDropout
 except:
     print 'failed'
+    ConcreteDropout = lambda x: x
     pass
     
 
@@ -106,13 +108,20 @@ def shallow_convnet_init_fn(inputs, training=False):
     return dense3_out
 
 
+class DummyWrapper(object):
+
+    def __init__(self, model):
+        self.model = model
+
+    def __call__(self, inputs, training=False):
+        return self.model(inputs)
+
 def gupta_network_init_fn(inputs, **kwargs):
     '''
     Emulate the architecture in https://journals.aps.org/prd/pdf/10.1103/PhysRevD.97.103515 and 
     https://arxiv.org/pdf/1806.05995.pdf. 
     '''
-    wrapper = lambda x: x
-    return gupta_bayesian_network_init_fn(inputs, wrapper = wrapper, nout = 2, **kwargs)
+    return gupta_bayesian_network_init_fn(inputs, wrapper = DummyWrapper, nout = 2, **kwargs)
 
 
 def gupta_bayesian_network_init_fn(inputs, training=False, lam=1e-6, wrapper=ConcreteDropout, nout = 5):

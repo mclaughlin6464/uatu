@@ -7,6 +7,7 @@ except:
     pass
 import numpy as np
 import h5py
+from scipy.ndimage import rotate
 
 from .test import key_func
 
@@ -24,7 +25,7 @@ def compute_attacked_maps(model_init_fn, cost_fn, network_fname, data, target_y_
     x = tf.placeholder(tf.float32, [None, 256, 256,1])
     y = tf.placeholder(tf.float32, [None,2])
 
-    training = tf.placeholder(tf.bool, name='training')
+    #training = tf.placeholder(tf.bool, name='training')
     preds = model_init_fn(x, training=False)
 
     loss = cost_fn(y, preds)
@@ -41,12 +42,17 @@ def compute_attacked_maps(model_init_fn, cost_fn, network_fname, data, target_y_
         key_dict = {}
         for i, (x_np,  y_np) in enumerate(data):
             x_attacked_np = x_np.copy()
+            x_orig_power = x_attacked_np.mean()
             for i in xrange(100):
-                feed_dict = {x: x_attacked_np,y:target_y_np, training: False}
+                feed_dict = {x: x_attacked_np,y:target_y_np}#, training: False}
                 #loss_np, update_ops_np = sess.run([loss,update_ops], feed_dict=feed_dict)
-                dX_np = sess.run([dX], feed_dict=feed_dict)[0][0]
+                dX_np, loss_np = sess.run([dX, loss], feed_dict=feed_dict)#[0][0]
                 # initially had a + that seemed wrong
-                x_attacked_np-=dX_np
+                # TODO adding transpose to try to test out if rotations alter training
+                x_attacked_np-=rotate(dX_np[0], 90, (2,1))
+            
+            # ensure the attacked map has the same normalization as the old one.
+            x_attacked_np = x_attacked_np*x_orig_power/x_attacked_np.mean()
 
             for am, _y_np in zip(x_attacked_np, y_np):
                 key = key_func(_y_np.reshape((1, 2)))
