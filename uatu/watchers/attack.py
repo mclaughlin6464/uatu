@@ -83,3 +83,4 @@ def compute_attacked_maps(model_init_fn, cost_fn, network_fname, data, target_y_
                     y_dset[-1] = _y_np
 
                 f.close()
+
