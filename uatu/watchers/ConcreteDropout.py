@@ -74,9 +74,8 @@ class ConcreteDropout(layers.Wrapper):
 
         # initialise p
         self.p_logit = self.add_variable(name='p_logit',
-                                         shape=None,
-                                         initializer=tf.random_uniform(
-                                             (1,),
+                                         shape=(1,),
+                                         initializer=tf.random_uniform_initializer(
                                              self.init_min,
                                              self.init_max),
                                          dtype=tf.float32,
