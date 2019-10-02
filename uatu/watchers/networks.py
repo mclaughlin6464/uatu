@@ -4,13 +4,13 @@ This module holds all the neural network models for uatu.
 To start, their architecture will be mostly hardcoded, but I may generalize it in the futuere.
 """
 
-try:
-    import tensorflow as tf
-    from ConcreteDropout import ConcreteDropout
-except:
-    print 'failed'
-    ConcreteDropout = lambda x: x
-    pass
+#try:
+import tensorflow as tf
+from ConcreteDropout import ConcreteDropout
+#except:
+#print 'failed'
+#ConcreteDropout = lambda x: x
+#pass
     
 
 def standard_convnet_init_fn(inputs, training= False):
