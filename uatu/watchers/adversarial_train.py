@@ -23,19 +23,21 @@ def adversarial(epsilon = 0.01, K=10):
             loss = loss_func(y, preds)
             grads = tf.gradients(loss, x)
 
-            dx = tf.clip_by_value(tf.sign(grads), -epsilon, epsilon)
+            dx = tf.clip_by_value(tf.sign(grads), -epsilon, epsilon)[0]
 
             x+=dx
             adv_preds = model(x, **model_kwargs)
+            tf.stop_gradient(adv_preds)
 
             for i in xrange(K-1):
                 loss = loss_func(y, adv_preds)
                 grads = tf.gradients(loss, x)
 
-                dx = tf.clip_by_value(tf.sign(grads), -epsilon, epsilon)
+                dx = tf.clip_by_value(tf.sign(grads), -epsilon, epsilon)[0]
 
                 x+=dx
                 adv_preds = model(x, **model_kwargs)
+                tf.stop_gradient(adv_preds)
 
             return 0.5*loss + 0.5*loss_func(y, adv_preds)
 

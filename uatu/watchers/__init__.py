@@ -5,5 +5,5 @@ from test import *
 from traditional import *
 from saliency import *
 from attack import *
-from adversarial import *
+from adversarial_train import *
 #from ConcreteDropout import *
