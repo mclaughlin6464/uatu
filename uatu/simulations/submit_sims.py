@@ -75,13 +75,17 @@ def make_sherlock_command(jobname, outputdir, \
 
     sbatch_header = '\n#SBATCH '.join(sbatch_header)
 
+
+    load_str = 'module load fftw \n module load openmpi'
+
+
     call_str = ['srun', path.join(picola_location, 'L-PICOLA'),
                 path.join(outputdir, param_file)]
 
     call_str = ' '.join(call_str)
     # have to write to file in order to work.
     with open(path.join(outputdir, '%s.sbatch'%jobname), 'w') as f:
-        f.write(sbatch_header + '\n' + call_str)
+        f.write(sbatch_header +'\n' + load_str +  '\n' + call_str)
 
     return 'sbatch %s' % (path.join(outputdir, '%s.sbatch'%jobname))
 
@@ -126,7 +130,10 @@ def compute_pk(o_cdm, ln_10_As, outputdir):
 
     return cosmo.sigma8()
 
-def write_picola_params(o_cdm, sigma_8, outputdir, jobname):
+def write_picola_params(o_cdm, sigma_8, outputdir, jobname, seed = None):
+
+    if seed is None:
+        seed = time()%10000
 
     fname = path.join(outputdir, '%s.dat'%jobname)
 
@@ -136,7 +143,7 @@ def write_picola_params(o_cdm, sigma_8, outputdir, jobname):
     Om = Ocdm+Ob
 
 
-    formatted_config = picola_config.format(seed = time()%10000, #5001
+    formatted_config = picola_config.format(seed = seed,  
                                             outputdir=outputdir,\
                                             file_base = jobname,
                                             ocdm = Ocdm,
@@ -152,6 +159,10 @@ if __name__ == "__main__":
     N = int(argv[1])
     outputdir = argv[2] # any more args i'll use argparser
     jobname = 'uatu'
+
+    seed = None
+    if len(argv)>3:
+        seed = int(argv[3])
 
     o_cdm = omega_cdm_sample(N=N)
     ln10As = A_s_sample(N = N)
@@ -170,7 +181,7 @@ if __name__ == "__main__":
         with open(path.join(sub_outputdir, 'input_params%03d.dat'%idx), 'w') as f:
             f.write("O_m: %f\nln10As: %f\nsigma_8: %f"%(om, a, sigma_8))
 
-        write_picola_params(o, sigma_8, sub_outputdir, jobname)
+        write_picola_params(o, sigma_8, sub_outputdir, jobname, seed = seed)
         command = make_sherlock_command(jobname, sub_outputdir)
 
         call(command, shell=True)

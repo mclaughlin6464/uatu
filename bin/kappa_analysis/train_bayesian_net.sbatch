@@ -9,10 +9,10 @@
 module unload py-jupyter
 module load py-scipystack 
 module load py-tensorflow
-#module load openmpi/2.1.1
+module load openmpi/2.1.1
 module load fftw
 module load gsl
 #module load intelmpi/4.1.3.048 intel/13sp1.2.144
-module load python/2.7.13
+#module load python/2.7.13
 
 python train_bayesian_net.py 
