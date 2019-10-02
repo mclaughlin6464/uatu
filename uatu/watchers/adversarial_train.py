@@ -18,7 +18,7 @@ def adversarial(epsilon = 0.01, K=10):
     """
     def actual_decorator(loss_func):
         @wraps(loss_func)
-        def _func(y, preds, x, model):
+        def _func(y, preds, x, model, model_kwargs):
 
             loss = loss_func(y, preds)
             grads = tf.gradients(loss, x)
@@ -26,7 +26,7 @@ def adversarial(epsilon = 0.01, K=10):
             dx = tf.clip_by_value(tf.sign(grads), -epsilon, epsilon)
 
             x+=dx
-            adv_preds = model(x, training=False)
+            adv_preds = model(x, **model_kwargs)
 
             for i in xrange(K-1):
                 loss = loss_func(y, adv_preds)
@@ -35,7 +35,7 @@ def adversarial(epsilon = 0.01, K=10):
                 dx = tf.clip_by_value(tf.sign(grads), -epsilon, epsilon)
 
                 x+=dx
-                adv_preds = model(x, training=False)
+                adv_preds = model(x, **model_kwargs)
 
             return 0.5*loss + 0.5*loss_func(y, adv_preds)
 

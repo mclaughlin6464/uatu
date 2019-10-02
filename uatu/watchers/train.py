@@ -62,7 +62,7 @@ def original_bayes_cost_fn(y, preds):
 
 
 def train(model_init_fn, optimizer_init_fn, cost_fn, data, fname,\
-          restore = False,num_epochs = 1, print_every = 10, lr_np = 1e-6, lam_np = 1e-6):
+          restore = False,num_epochs = 1, print_every = 10, lr_np = 1e-6, lam_np = 1e-6, adv=False):
     tf.reset_default_graph()
     train_dset, val_dset, _ = data
 #    with tf.device(device):
@@ -78,7 +78,10 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, fname,\
     preds = model_init_fn(x,  training=training, lam = lam)#, rate=rate_n)
     #loss = tf.losses.absolute_difference(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
     #loss, mu1, mu2, log_s1, log_s2, z = cost_fn(y, preds)
-    loss = cost_fn(y, preds)
+    if adv:
+        loss = cost_fn(y, preds, x, model_init_fn, {'training':training, 'lam':lam})
+    else:
+        loss = cost_fn(y, preds)
 
     #loss = tf.reduce_mean(loss)
 
