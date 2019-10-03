@@ -75,13 +75,14 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, fname,\
     lam = tf.placeholder(tf.float32, name = 'regularization_rate') 
     #dropout_rate = tf.placeholder(tf.float32, name = 'dropout_rate') 
     # may need to adjust how i've generalized this...
-    preds = model_init_fn(x,  training=training, lam = lam)#, rate=rate_n)
-    #loss = tf.losses.absolute_difference(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
-    #loss, mu1, mu2, log_s1, log_s2, z = cost_fn(y, preds)
-    if adv:
-        loss = cost_fn(y, preds, x, model_init_fn, {'training':training, 'lam':lam})
-    else:
-        loss = cost_fn(y, preds)
+    with tf.variable_scope("kappa_filters") as scope:
+        preds = model_init_fn(x,  training=training, lam = lam)#, rate=rate_n)
+        #loss = tf.losses.absolute_difference(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
+        #loss, mu1, mu2, log_s1, log_s2, z = cost_fn(y, preds)
+        if adv:
+            loss = cost_fn(y, preds, x, model_init_fn, {'training':training, 'lam':lam}, scope)
+        else:
+            loss = cost_fn(y, preds)
 
     #loss = tf.reduce_mean(loss)
 

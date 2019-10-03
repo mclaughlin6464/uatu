@@ -19,4 +19,4 @@ data = (train_dset, test_dset, None)
 #lam 1e-6
 #dropout 0.2
 # standard cost
-train(gupta_network_init_fn, standard_optimizer_init_fn, adversarial_standard_abs_cost_fn, data, num_epochs = 5, fname = '/home/sean/Git/uatu/networks/gupta_net_kappa_adv_abs', print_every = 10, lr_np = 2e-4, lam_np = 0.0, adv = True)
+train(gupta_adv_network_init_fn, standard_optimizer_init_fn, adversarial_standard_abs_cost_fn, data, num_epochs = 5, fname = '/home/sean/Git/uatu/networks/gupta_net_kappa_adv_abs', print_every = 10, lr_np = 2e-4, lam_np = 0.0, adv = True)
