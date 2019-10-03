@@ -6,7 +6,7 @@ from functools import wraps
 
 from .train import standard_abs_cost_fn, standard_cost_fn, bayes_cost_fn, original_bayes_cost_fn
 
-def adversarial(epsilon = 0.01, K=10):
+def adversarial(epsilon = 0.05, K=1):
     """
     Decorator to convert loss functions into adversarial training loss functions
     :param epsilon:
@@ -30,6 +30,7 @@ def adversarial(epsilon = 0.01, K=10):
             tf.stop_gradient(adv_preds)
 
             for i in xrange(K-1):
+                print i,
                 loss = loss_func(y, adv_preds)
                 grads = tf.gradients(loss, x)
 
