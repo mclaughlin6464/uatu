@@ -6,7 +6,7 @@ from functools import wraps
 
 from .train import standard_abs_cost_fn, standard_cost_fn, bayes_cost_fn, original_bayes_cost_fn
 
-def adversarial(epsilon = 0.01, K=10):
+def adversarial(epsilon = 0.01, K=1):
     """
     Decorator to convert loss functions into adversarial training loss functions
     :param epsilon:
