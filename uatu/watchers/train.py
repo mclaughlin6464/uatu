@@ -105,8 +105,8 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, fname,\
             sess.run(tf.global_variables_initializer())
         # TODO
         #writer = tf.summary.FileWriter("/scratch/users/swmclau2/test_tensorboard/test")
-        writer = tf.summary.FileWriter("/home/sean/Git/uatu/tensorboard/")
-        writer.add_graph(sess.graph)
+        #writer = tf.summary.FileWriter("/home/sean/Git/uatu/tensorboard/")
+        #writer.add_graph(sess.graph)
 
         t = 0
         for epoch in xrange(num_epochs):
@@ -124,10 +124,10 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, fname,\
                 #loss_np,mu1_np,mu2_np, log_s1_np, log_s2_np, z_np, _  = sess.run([loss,mu1,mu2,log_s1, log_s2, z, train_op], feed_dict=feed_dict)
                 loss_np, _  = sess.run([loss, train_op], feed_dict=feed_dict)
                 
-                vars = 0
-                for v in tf.all_variables():
-                    vars += np.prod(v.get_shape().as_list())
-                print 'Vars', vars
+                #vars = 0
+                #for v in tf.all_variables():
+                #    vars += np.prod(v.get_shape().as_list())
+                #print 'Vars', vars
 
                 if t%10==0:
                     print 'Iteration %d, loss = %.4f' % (t, loss_np)
