@@ -84,3 +84,85 @@ def compute_attacked_maps(model_init_fn, cost_fn, network_fname, data, target_y_
 
                 f.close()
 
+
+def compute_shuffled_attacked_maps(model_init_fn, cost_fn, network_fname, data, true_to_target_map, target_fname, attrs):
+    try:
+        f = h5py.File(target_fname, 'w')
+        for key in attrs:
+            f.attrs[key] = attrs[key]
+        f.close()
+    except IOError:
+        raise IOError("Problem encountered opening %s" % target_fname)
+
+    tf.reset_default_graph()
+    x = tf.placeholder(tf.float32, [None, 256, 256, 1])
+    y = tf.placeholder(tf.float32, [None, 2])
+
+    # training = tf.placeholder(tf.bool, name='training')
+    preds = model_init_fn(x, training=False)
+
+    loss = cost_fn(y, preds)
+    grads = tf.gradients(loss, x)
+
+    # learning rate maybe needed?
+    dX = tf.divide(grads, tf.norm(grads))
+
+    with tf.device('/cpu:0'):
+        saver = tf.train.Saver()
+
+    with tf.Session() as sess:
+        saver.restore(sess, network_fname)
+        key_dict = {}
+        for i, (x_np, y_np) in enumerate(data):
+            assert y_np.shape[0] == 1, "Doesn't support batching"
+            x_attacked_np = x_np.copy()
+            x_orig_power = x_attacked_np.mean()
+            target_y_np = true_to_target_map[tuple(y_np.squeeze())]
+            for i in xrange(10):
+                feed_dict = {x: x_attacked_np, y: target_y_np}  # , training: False}
+                # loss_np, update_ops_np = sess.run([loss,update_ops], feed_dict=feed_dict)
+                dX_np, loss_np = sess.run([dX, loss], feed_dict=feed_dict)  # [0][0]
+                # initially had a + that seemed wrong
+                # TODO add the log barrier to these
+                x_attacked_np -= rotate(dX_np[0], 0, (2, 1))
+
+            # ensure the attacked map has the same normalization as the old one.
+            x_attacked_np = x_attacked_np * x_orig_power / x_attacked_np.mean()
+
+            # simplify rename
+            am = x_attacked_np
+
+            key = key_func(y_np.reshape((1, 2)))
+            if key not in key_dict:
+                key_dict[key] = len(key_dict)
+
+            box_key = 'Box%03d' % key_dict[key]
+
+            f = h5py.File(target_fname)
+            if box_key in f.keys():
+                grp = f[box_key]
+            else:
+                grp = f.create_group(box_key)
+
+            if 'X' not in grp.keys():
+                x_dset = grp.create_dataset('X', data=am.reshape((1, am.shape[0], am.shape[1], am.shape[2])),
+                                            maxshape=(None, x_np.shape[1], x_np.shape[2], x_np.shape[3]))
+                y_dset = grp.create_dataset('true_Y', data=y_np.reshape((1, 2)), maxshape=(None, 2))
+                ty_dset = grp.create_dataset('target_Y', data=target_y_np.reshape((1, 2)), maxshape=(None, 2))
+
+
+            else:
+                x_dset, y_dset, ty_dset = grp['X'], grp['true_Y'], grp['target_Y']
+
+                l = len(x_dset)
+
+                x_dset.resize((l + 1), axis=0)
+                x_dset[-1] = am
+
+                y_dset.resize((l + 1), axis=0)
+                y_dset[-1] = y_np
+
+                ty_dset.resize((l + 1), axis=0)
+                ty_dset[-1] = target_y_np
+
+            f.close()
