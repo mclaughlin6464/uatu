@@ -193,6 +193,55 @@ def gupta_adv_network_init_fn(inputs, training=False, lam=1e-6, wrapper=Concrete
 
     return dense3_out
 
+def gupta_adv_network_large_filters_init_fn(inputs, training=False, lam=1e-6, wrapper=ConcreteDropout, nout = 2):
+    '''
+    Emulate the architecture in https://journals.aps.org/prd/pdf/10.1103/PhysRevD.97.103515 and 
+    https://arxiv.org/pdf/1806.05995.pdf.
+    Implementation of Gal and Garmani approximation
+    '''
+
+    initializer = tf.variance_scaling_initializer(scale=2.0)
+    regularizer = tf.contrib.layers.l2_regularizer(scale = lam)
+
+    with tf.variable_scope("conv1"):
+        lr1_out = _conv_relu(inputs, [1, 32], 64, initializer, regularizer)
+    # can't do weight sharing with concrete dropout... cross that bridge later
+    #ap1_out = tf.layers.average_pooling2d(lr1_out, pool_size=3, strides=3)
+    with tf.variable_scope("conv2"):
+        lr2_out = _conv_relu(lr1_out, [32, 64], 32, initializer, regularizer)
+
+    ap2_out = tf.layers.average_pooling2d(lr2_out, pool_size=2, strides=2)
+
+    with tf.variable_scope("conv3"):
+        lr3_out = _conv_relu(ap2_out, [64, 128], 16, initializer, regularizer)
+
+    with tf.variable_scope("conv4"):
+        lr4_out = _conv_relu(lr3_out, [128, 128], 3, initializer, regularizer)
+
+    ap4_out = tf.layers.average_pooling2d(lr4_out, pool_size=2, strides=2)
+
+    with tf.variable_scope("conv5"):
+        lr5_out = _conv_relu(ap4_out, [128, 128], 3, initializer, regularizer)
+
+    with tf.variable_scope("conv6"):
+        lr6_out = _conv_relu(lr5_out, [128, 128], 3, initializer, regularizer)
+
+    ap6_out = tf.layers.average_pooling2d(lr6_out, pool_size=2, strides=2)
+
+    flat_out = tf.layers.flatten(ap6_out)
+    # TODO I've removed the dropout for the standard network here implicitly
+
+    with tf.variable_scope("dense1"):
+        dense1_out = _dense_relu(flat_out, [32*32*128, 256], initializer, regularizer)
+
+    with tf.variable_scope("dense2"):
+        dense2_out = _dense_relu(dense1_out, [256, 256], initializer, regularizer)
+
+    with tf.variable_scope("dense3"):
+        dense3_out = _dense_relu(dense2_out, [256, nout], initializer, regularizer)
+
+    return dense3_out
+
 
 def gupta_bayesian_network_init_fn(inputs, training=False, lam=1e-6, wrapper=ConcreteDropout, nout = 5):
     '''
