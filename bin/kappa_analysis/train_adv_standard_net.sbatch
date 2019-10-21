@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=train_standard_net
 #SBATCH --time=08:00:00
-#SBATCH --gres=gpu:1
+#SBATCH --gres=gpu:2
 #SBATCH -p iric 
 #SBATCH --ntasks=4
 ###SBATCH --exclusive
