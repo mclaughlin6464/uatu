@@ -36,7 +36,7 @@ class Dataset(object):
 class DatasetFromFile(object):
     def __init__(self, fname, batch_size, shuffle=False, augment = True, test_idxs = None,\
                  train_test_split=0.7, take_log = False, whiten = True, whiten_vals = None,\
-                 cache_size = 100):
+                 cache_size = 100, y_key = 'Y'):
 
         assert path.isfile(fname)
 
@@ -49,8 +49,12 @@ class DatasetFromFile(object):
 
         self.take_log = take_log
 
+        self.y_key = y_key
+
         f = h5py.File(fname, 'r')
-        n_boxes = len(f.keys()) 
+        n_boxes = len(f.keys())
+
+        assert self.y_key in f[f.keys[0]].keys(), "Invalid y_key %s."%self.y_key
 
         start, stop = f.attrs['start'], f.attrs['stop']
         shape = f.attrs['shape']
@@ -124,7 +128,7 @@ class DatasetFromFile(object):
                     bn, sbn = i
                     #print bn, sbn
                     X = f['Box%03d'%bn]['X'][sbn]
-                    Y = f['Box%03d'%bn]['Y'][sbn]
+                    Y = f['Box%03d'%bn][self.y_key][sbn]
 
                     X = (X-self.mean)/(self.std)
                     if self.augment:
