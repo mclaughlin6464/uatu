@@ -8,20 +8,23 @@ except:
 import numpy as np
 import h5py
 
-def test(model_init_fn, data,n_samples, fname, samples_fname):
+def test(model_init_fn, data, n_samples, fname, samples_fname, adv=False):
     tf.reset_default_graph()
 
-    x = tf.placeholder(tf.float32, [None, 256,256,1])
+    x = tf.placeholder(tf.float32, [None, 256,256,1], name = 'x')
 
     #training = tf.placeholder(tf.bool, name='training')
     training = True #False
 
-    preds = model_init_fn(x, training=training)
+    with tf.variable_scope('kappa_filters') as scope:
+        if adv:
+                preds = model_init_fn(x, training=training)
+        else:
+            preds = model_init_fn(x, training=training)
 
     with tf.device('/cpu:0'):
 
         saver = tf.train.Saver()
-
 
     with tf.Session() as sess:
         with tf.device('/cpu:0'):

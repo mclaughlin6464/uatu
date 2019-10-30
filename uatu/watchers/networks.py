@@ -4,13 +4,12 @@ This module holds all the neural network models for uatu.
 To start, their architecture will be mostly hardcoded, but I may generalize it in the futuere.
 """
 
-#try:
-import tensorflow as tf
-from ConcreteDropout import ConcreteDropout
-#except:
-#print 'failed'
-#ConcreteDropout = lambda x: x
-#pass
+try:
+    import tensorflow as tf
+    from ConcreteDropout import ConcreteDropout
+except:
+    print 'failed'
+    ConcreteDropout = lambda x: x
     
 
 def standard_convnet_init_fn(inputs, training= False):
@@ -121,6 +120,7 @@ def gupta_network_init_fn(inputs, **kwargs):
     Emulate the architecture in https://journals.aps.org/prd/pdf/10.1103/PhysRevD.97.103515 and 
     https://arxiv.org/pdf/1806.05995.pdf. 
     '''
+    print 'A'
     return gupta_bayesian_network_init_fn(inputs, wrapper = DummyWrapper, nout = 2, **kwargs)
 
 def _conv_relu(input, filters, kernel_size, kernel_initializer, kernel_regularizer):
@@ -249,6 +249,7 @@ def gupta_bayesian_network_init_fn(inputs, training=False, lam=1e-6, wrapper=Con
     https://arxiv.org/pdf/1806.05995.pdf.
     Implementation of Gal and Garmani approximation
     '''
+    print 'B'
     # TODO add more customization
     initializer = tf.variance_scaling_initializer(scale=2.0)
     regularizer = tf.contrib.layers.l2_regularizer(scale = lam)

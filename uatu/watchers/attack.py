@@ -11,7 +11,12 @@ from scipy.ndimage import rotate
 
 from .test import key_func
 
-def compute_attacked_maps(model_init_fn, cost_fn, network_fname, data, target_y_np, target_fname, attrs):
+def log_barrier(x_p, x_o, eps, lam):
+
+    norm = tf.norm(x_p - x_o+1e-6)
+    return -tf.log(eps - norm )/lam
+
+def compute_attacked_maps(model_init_fn, cost_fn, network_fname, data, target_y_np, target_fname, attrs, use_log_barrier = True, log_eps = 1.5):
 
     try:
         f = h5py.File(target_fname, 'w')
@@ -25,10 +30,17 @@ def compute_attacked_maps(model_init_fn, cost_fn, network_fname, data, target_y_
     x = tf.placeholder(tf.float32, [None, 256, 256,1])
     y = tf.placeholder(tf.float32, [None,2])
 
+    x_orig = tf.placeholder(tf.float32, [None, 256, 256,1])
     #training = tf.placeholder(tf.bool, name='training')
+# TODO may have to put scope in here now 
     preds = model_init_fn(x, training=False)
 
     loss = cost_fn(y, preds)
+
+    if use_log_barrier:
+        barrier_loss = log_barrier(x, x_orig, log_eps, log_barrier_weight)
+        loss = loss + barrier_loss
+
     grads = tf.gradients(loss, x)
 
     # learning rate maybe needed?
@@ -43,13 +55,22 @@ def compute_attacked_maps(model_init_fn, cost_fn, network_fname, data, target_y_
         for i, (x_np,  y_np) in enumerate(data):
             x_attacked_np = x_np.copy()
             x_orig_power = x_attacked_np.mean()
-            for i in xrange(100):
-                feed_dict = {x: x_attacked_np,y:target_y_np}#, training: False}
+
+            step = 1e-3
+            lam = 1e9
+            lam_incr = 1.00001
+
+            for i in xrange(10):
+                feed_dict = {x: x_attacked_np,y:target_y_np, x_orig: x_np, log_barrier_weight: lam }
                 #loss_np, update_ops_np = sess.run([loss,update_ops], feed_dict=feed_dict)
                 dX_np, loss_np = sess.run([dX, loss], feed_dict=feed_dict)#[0][0]
                 # initially had a + that seemed wrong
                 # TODO adding transpose to try to test out if rotations alter training
-                x_attacked_np-=rotate(dX_np[0], 90, (2,1))
+                x_attacked_np-=step*dX_np[0]
+
+                lam*=lam_incr
+                if lam >= 1e9:
+                    lam = 1e9
             
             # ensure the attacked map has the same normalization as the old one.
             x_attacked_np = x_attacked_np*x_orig_power/x_attacked_np.mean()
@@ -117,7 +138,7 @@ def compute_shuffled_attacked_maps(model_init_fn, cost_fn, network_fname, data, 
             assert y_np.shape[0] == 1, "Doesn't support batching"
             x_attacked_np = x_np.copy()
             x_orig_power = x_attacked_np.mean()
-            target_y_np = true_to_target_map[tuple(y_np.squeeze())]
+            target_y_np = true_to_target_map[tuple(y_np.squeeze())].reshape((1,-1))
             for i in xrange(10):
                 feed_dict = {x: x_attacked_np, y: target_y_np}  # , training: False}
                 # loss_np, update_ops_np = sess.run([loss,update_ops], feed_dict=feed_dict)
@@ -145,8 +166,8 @@ def compute_shuffled_attacked_maps(model_init_fn, cost_fn, network_fname, data, 
                 grp = f.create_group(box_key)
 
             if 'X' not in grp.keys():
-                x_dset = grp.create_dataset('X', data=am.reshape((1, am.shape[0], am.shape[1], am.shape[2])),
-                                            maxshape=(None, x_np.shape[1], x_np.shape[2], x_np.shape[3]))
+                x_dset = grp.create_dataset('X', data=am.reshape((1, am.shape[1], am.shape[2], am.shape[3])),
+                                            maxshape=(None, am.shape[1], am.shape[2], am.shape[3]))
                 y_dset = grp.create_dataset('true_Y', data=y_np.reshape((1, 2)), maxshape=(None, 2))
                 ty_dset = grp.create_dataset('target_Y', data=target_y_np.reshape((1, 2)), maxshape=(None, 2))
 

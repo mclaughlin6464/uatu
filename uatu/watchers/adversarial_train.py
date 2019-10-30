@@ -1,7 +1,10 @@
 """
 Perform adversarial training against NNs
 """
-import tensorflow as tf
+try:
+    import tensorflow as tf
+except ImportError:
+    pass
 from functools import wraps
 
 from .train import standard_abs_cost_fn, standard_cost_fn, bayes_cost_fn, original_bayes_cost_fn

@@ -54,7 +54,7 @@ class DatasetFromFile(object):
         f = h5py.File(fname, 'r')
         n_boxes = len(f.keys())
 
-        assert self.y_key in f[f.keys[0]].keys(), "Invalid y_key %s."%self.y_key
+        assert self.y_key in f[f.keys()[0]].keys(), "Invalid y_key %s."%self.y_key
 
         start, stop = f.attrs['start'], f.attrs['stop']
         shape = f.attrs['shape']
@@ -161,7 +161,7 @@ class DatasetFromFile(object):
 
     def get_test_dset(self):
         return DatasetFromFile(self.fname, self.batch_size, self.shuffle, self.augment, self.test_idxs,\
-                 1.0, self.take_log, self.whiten, whiten_vals = (self.mean, self.std))
+                 1.0, self.take_log, self.whiten, whiten_vals = (self.mean, self.std), y_key = self.y_key)
 
 
 

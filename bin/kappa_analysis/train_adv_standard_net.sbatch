@@ -5,7 +5,7 @@
 #SBATCH -p iric 
 #SBATCH --ntasks=4
 ###SBATCH --exclusive
-#SBATCH -o train_standard_net.out 
+#SBATCH -o train_adv_standard_net.out 
 
 module unload py-jupyter
 module load fftw
