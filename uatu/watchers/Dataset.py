@@ -3,6 +3,7 @@ import numpy as np
 from glob import glob
 import h5py
 import warnings
+#from __future__ import
 
 class Dataset(object):
     def __init__(self, X, Y, batch_size, shuffle=False, augment = True):
@@ -26,17 +27,17 @@ class Dataset(object):
         if self.shuffle:
             np.random.shuffle(idxs)
         if not self.augment:
-            return iter((self.X[i:i + B], self.Y[i:i + B]) for i in xrange(0, N, B))
+            return iter((self.X[i:i + B], self.Y[i:i + B]) for i in range(0, N, B))
         else: #augment randomly on the fly
             # TODO use the shape of the data
             a,b = np.random.randint(1, 3, size = 2) #randomly swap two axes, to rotate the input array
             # NOTE could flip, rotate axes as well
-            return iter((np.swapaxes(self.X[i:i + B], a,b), self.Y[i:i + B]) for i in xrange(0, N, B))
+            return iter((np.swapaxes(self.X[i:i + B], a,b), self.Y[i:i + B]) for i in range(0, N, B))
 
 class DatasetFromFile(object):
     def __init__(self, fname, batch_size, shuffle=False, augment = True, test_idxs = None,\
                  train_test_split=0.7, take_log = False, whiten = True, whiten_vals = None,\
-                 cache_size = 100, y_key = 'Y'):
+                 cache_size = 100, y_key = 'Y', transform = None):
 
         assert path.isfile(fname)
 
@@ -50,6 +51,11 @@ class DatasetFromFile(object):
         self.take_log = take_log
 
         self.y_key = y_key
+
+        if transform is None:
+            self.transform = lambda x:x
+        else:
+            self.transform = transform
 
         f = h5py.File(fname, 'r')
         n_boxes = len(f.keys())
@@ -84,7 +90,7 @@ class DatasetFromFile(object):
             
             i = 0
             for bi in box_idxs: 
-                for sbi in xrange(shape[0]):
+                for sbi in range(shape[0]):
                     all_idxs[i,0] = bi
                     all_idxs[i,1] = sbi
                     i+=1
@@ -109,11 +115,14 @@ class DatasetFromFile(object):
             self.counter = 0
             self.test_idxs = None
 
+    def __len__(self):
+        return self.N
+
     def __iter__(self):
 
         N, B = self.N, self.batch_size
         self.counter = 0
-        return iter(self.__next__() for i in xrange(0, N, B))
+        return iter(self.__next__() for i in range(0, N, B))
 
     def __next__(self):
 
@@ -122,7 +131,7 @@ class DatasetFromFile(object):
             #self.cacheY = np.zeros((self.cache_size, self.batch_size, 2))
             self.cacheX, self.cacheY = [],[]
             f = h5py.File(self.fname, 'r')
-            for j in xrange(self.cache_size):
+            for j in range(self.cache_size):
                 outputX, outputY = [] ,[]
                 for i in self.idxs[(self.counter+j)*self.batch_size:(self.counter+(j+1))*self.batch_size]:
                     bn, sbn = i
@@ -157,11 +166,13 @@ class DatasetFromFile(object):
             Y = self.cacheY[self.counter%(self.cache_size)]
 
         self.counter+=1
-        return X,Y
+
+
+        return self.transform(X), self.transform(Y)
 
     def get_test_dset(self):
         return DatasetFromFile(self.fname, self.batch_size, self.shuffle, self.augment, self.test_idxs,\
-                 1.0, self.take_log, self.whiten, whiten_vals = (self.mean, self.std))
+                 1.0, self.take_log, self.whiten, whiten_vals = (self.mean, self.std), y_key = self.y_key, transform=self.transform)
 
 
 
