@@ -38,7 +38,7 @@ class BasicBlock(nn.Module):
 
 
 class Scattering2dResNet(nn.Module):
-    def __init__(self, in_channels,  k=2, n=4, num_classes=10):
+    def __init__(self, in_channels,  k=2, n=4, depth = [32, 64] ):
         super(Scattering2dResNet, self).__init__()
         self.inplanes = 16 * k
         self.ichannels = 16 * k
@@ -50,11 +50,16 @@ class Scattering2dResNet(nn.Module):
             nn.BatchNorm2d(self.ichannels),
             nn.ReLU(True)
         )
+        self.layers = []
+        self.depth = depth-1 if type(depth) is int else len(depth)
+        self.n_filters = [16 for i in range(depth)] if type(depth) is int else depth
 
-        self.layer2 = self._make_layer(BasicBlock, 32 * k, n)
-        self.layer3 = self._make_layer(BasicBlock, 64 * k, n)
+        for nf in self.n_filters:
+            self.layers.append(self._make_layer(BasicBlock, nf * k, n))
+
+        #self.layer3 = self._make_layer(BasicBlock, 64 * k, n)
         self.avgpool = nn.AdaptiveAvgPool2d(2)
-        self.fc = nn.Linear(64 * k * 4, num_classes)
+        self.fc = nn.Linear(64 * k * 4, 2)
 
     def _make_layer(self, block, planes, blocks, stride=1):
         downsample = None
@@ -76,8 +81,9 @@ class Scattering2dResNet(nn.Module):
         x = x.view(x.size(0), self.K, 8, 8)
         x = self.init_conv(x)
 
-        x = self.layer2(x)
-        x = self.layer3(x)
+        for l in self.layers:
+            x = l(x)
+
         x = self.avgpool(x)
         x = x.view(x.size(0), -1)
         x = self.fc(x)
