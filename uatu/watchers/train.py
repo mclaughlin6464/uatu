@@ -9,6 +9,7 @@ except:
     pass
 import numpy as np
 import sys
+from __future__ import print_function
 
 def standard_cost_fn(y, preds):
     return tf.losses.mean_squared_error(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)
@@ -109,8 +110,8 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, fname,\
         #writer.add_graph(sess.graph)
 
         t = 0
-        for epoch in xrange(num_epochs):
-            print 'Starting epoch %d' % epoch
+        for epoch in range(num_epochs):
+            print('Starting epoch %d' % epoch)
             sys.stdout.flush()
             for x_np, y_np in train_dset:
                 #print t,
@@ -130,7 +131,7 @@ def train(model_init_fn, optimizer_init_fn, cost_fn, data, fname,\
                 #print 'Vars', vars
 
                 if t%10==0:
-                    print 'Iteration %d, loss = %.4f' % (t, loss_np)
+                    print('Iteration %d, loss = %.4f' % (t, loss_np) )
 
                 if t % print_every == 0:
                     sys.stdout.flush() 
@@ -190,11 +191,11 @@ def check_accuracy(sess, dset, x, scores, training=None):
 
     if not do_chi2:
         acc = np.abs(np.vstack(perc_error).mean(axis = 0))
-        print 'Om: %.2f%%, s8: %.2f%% accuracy' % (100 * acc[0], 100*acc[1])
+        print('Om: %.2f%%, s8: %.2f%% accuracy' % (100 * acc[0], 100*acc[1]) )
         rmse = np.sqrt(np.mean(np.vstack(rmse)**2, axis = 0))
-        print 'RMSE: %.4f, %.4f'%(rmse[0], rmse[1])
+        print('RMSE: %.4f, %.4f'%(rmse[0], rmse[1]))
     else:
         acc = np.abs(np.vstack(rmse).mean(axis = 0))
-        print 'Om: %.2f%%, s8: %.2f%% accuracy' % (100 * acc[0], 100*acc[1])
-        print 'chi2: %.3f'%(np.mean(perc_error)/2)
+        print('Om: %.2f%%, s8: %.2f%% accuracy' % (100 * acc[0], 100*acc[1]) )
+        print('chi2: %.3f'%(np.mean(perc_error)/2) )
 

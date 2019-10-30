@@ -7,6 +7,7 @@ except:
     pass
 import numpy as np
 import h5py
+from __future__ import print_function
 
 def test(model_init_fn, data, n_samples, fname, samples_fname, adv=False):
     tf.reset_default_graph()
@@ -29,24 +30,24 @@ def test(model_init_fn, data, n_samples, fname, samples_fname, adv=False):
     with tf.Session() as sess:
         with tf.device('/cpu:0'):
             saver.restore(sess, fname)
-        print 'Starting sampling'
+        print('Starting sampling')
         f = h5py.File(samples_fname, 'w')
         f.close()
 
         for i, (x_np,  y_np) in enumerate(data):
-            print i,
+            print(i)
             assert y_np.shape[0] == 1 , 'batchsize greater than 1'
 
             samples = []
             feed_dict = {x: x_np}#, training: False}
 
-            for j in xrange(n_samples):
+            for j in range(n_samples):
                 preds_np  = sess.run(preds, feed_dict=feed_dict)
                 samples.append(preds_np)
 
             samples = np.vstack(samples)
             key = key_func(y_np)
-            print key
+            print(key)
             f = h5py.File(samples_fname)
             if key in f.keys():
                 grp = f[key]

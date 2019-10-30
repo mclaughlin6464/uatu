@@ -8,6 +8,8 @@ except ImportError:
 from functools import wraps
 
 from .train import standard_abs_cost_fn, standard_cost_fn, bayes_cost_fn, original_bayes_cost_fn
+from __future__ import  print_function
+
 
 def adversarial(epsilon = 0.05, K=1):
     """
@@ -33,8 +35,8 @@ def adversarial(epsilon = 0.05, K=1):
             adv_preds = model(x, **model_kwargs)
             tf.stop_gradient(adv_preds)
 
-            for i in xrange(K-1):
-                print i,
+            for i in range(K-1):
+                #print(i)
                 loss = loss_func(y, adv_preds)
                 grads = tf.gradients(loss, x)
 

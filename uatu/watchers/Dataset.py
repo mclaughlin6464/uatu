@@ -3,7 +3,7 @@ import numpy as np
 from glob import glob
 import h5py
 import warnings
-#from __future__ import
+from __future__ import print_function
 
 class Dataset(object):
     def __init__(self, X, Y, batch_size, shuffle=False, augment = True):
@@ -210,18 +210,18 @@ def get_all_xy(dir, max = None):
         all_subdirs = all_subdirs[:max] 
 
     for boxno, subdir in enumerate(all_subdirs):
-        print subdir
+        print(subdir)
         try:
             X,Y = get_xy_from_dir(subdir, boxno)
             #assert X.shape[1] == 64
             Xs.append(X)
             Ys.append(Y)
         except IOError: #TODO only for testing!
-            print 'Failed on %s'%subdir
+            print('Failed on %s'%subdir)
         except ValueError: #wrong shape
-            print 'Skipped %s'%subdir
+            print('Skipped %s'%subdir)
         except AssertionError:
-            print 'Skipped %s'%subdir
+            print('Skipped %s'%subdir)
 
     return np.vstack(Xs), np.vstack(Ys)
 
@@ -242,7 +242,7 @@ def make_hdf5_file(dir,fname, start=None, stop = None):
 
     for boxno, subdir in enumerate(all_subdirs):
         bn = boxno+start if start is not None else boxno 
-        print subdir
+        print(subdir)
         X,Y = get_xy_from_dir(subdir, boxno)
 
         x_mean+=X.mean()
