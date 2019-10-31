@@ -16,7 +16,8 @@ def log_barrier(x_p, x_o, eps, lam):
     norm = tf.norm(x_p - x_o+1e-6)
     return -tf.log(eps - norm )/lam
 
-def compute_attacked_maps(model_init_fn, cost_fn, network_fname, data, target_y_np, target_fname, attrs, use_log_barrier = True, log_eps = 1.5):
+def compute_attacked_maps(model_init_fn, cost_fn, network_fname, data, target_y_np,\
+                          target_fname, attrs, use_log_barrier = True, log_eps = 1.5):
 
     try:
         f = h5py.File(target_fname, 'w')
@@ -31,6 +32,8 @@ def compute_attacked_maps(model_init_fn, cost_fn, network_fname, data, target_y_
     y = tf.placeholder(tf.float32, [None,2])
 
     x_orig = tf.placeholder(tf.float32, [None, 256, 256,1])
+    log_barrier_weight = tf.placeholder(tf.float32)
+
     #training = tf.placeholder(tf.bool, name='training')
 # TODO may have to put scope in here now 
     preds = model_init_fn(x, training=False)
@@ -54,13 +57,13 @@ def compute_attacked_maps(model_init_fn, cost_fn, network_fname, data, target_y_
         key_dict = {}
         for i, (x_np,  y_np) in enumerate(data):
             x_attacked_np = x_np.copy()
-            x_orig_power = x_attacked_np.mean()
+            #x_orig_power = x_attacked_np.mean()
 
             step = 1e-3
             lam = 1e9
             lam_incr = 1.00001
 
-            for i in xrange(100):
+            for i in range(100):
                 feed_dict = {x: x_attacked_np,y:target_y_np, x_orig: x_np, log_barrier_weight: lam }
                 #loss_np, update_ops_np = sess.run([loss,update_ops], feed_dict=feed_dict)
                 dX_np, loss_np = sess.run([dX, loss], feed_dict=feed_dict)#[0][0]
@@ -106,7 +109,9 @@ def compute_attacked_maps(model_init_fn, cost_fn, network_fname, data, target_y_
                 f.close()
 
 
-def compute_shuffled_attacked_maps(model_init_fn, cost_fn, network_fname, data, true_to_target_map, target_fname, attrs):
+def compute_shuffled_attacked_maps(model_init_fn, cost_fn, network_fname, data,\
+                                   true_to_target_map, target_fname, attrs,\
+                                   use_log_barrier=True, log_eps = 1.5):
     try:
         f = h5py.File(target_fname, 'w')
         for key in attrs:
@@ -119,10 +124,16 @@ def compute_shuffled_attacked_maps(model_init_fn, cost_fn, network_fname, data, 
     x = tf.placeholder(tf.float32, [None, 256, 256, 1])
     y = tf.placeholder(tf.float32, [None, 2])
 
+    x_orig = tf.placeholder(tf.float32, [None, 256, 256, 1])
     # training = tf.placeholder(tf.bool, name='training')
     preds = model_init_fn(x, training=False)
 
     loss = cost_fn(y, preds)
+    log_barrier_weight = tf.placeholder(tf.float32)
+
+    if use_log_barrier:
+        barrier_loss = log_barrier(x, x_orig, log_eps, log_barrier_weight)
+        loss = loss + barrier_loss
     grads = tf.gradients(loss, x)
 
     # learning rate maybe needed?
@@ -134,21 +145,29 @@ def compute_shuffled_attacked_maps(model_init_fn, cost_fn, network_fname, data, 
     with tf.Session() as sess:
         saver.restore(sess, network_fname)
         key_dict = {}
+
+        step = 1e-3
+        lam = 1e9
+        lam_incr = 1.00001
+
         for i, (x_np, y_np) in enumerate(data):
             assert y_np.shape[0] == 1, "Doesn't support batching"
             x_attacked_np = x_np.copy()
             x_orig_power = x_attacked_np.mean()
             target_y_np = true_to_target_map[tuple(y_np.squeeze())].reshape((1,-1))
-            for i in xrange(10):
+            for i in range(100):
                 feed_dict = {x: x_attacked_np, y: target_y_np}  # , training: False}
                 # loss_np, update_ops_np = sess.run([loss,update_ops], feed_dict=feed_dict)
                 dX_np, loss_np = sess.run([dX, loss], feed_dict=feed_dict)  # [0][0]
                 # initially had a + that seemed wrong
                 # TODO add the log barrier to these
-                x_attacked_np -= rotate(dX_np[0], 0, (2, 1))
+                x_attacked_np -= step*dX_np[0]#rotate(dX_np[0], 0, (2, 1))
 
+                lam *= lam_incr
+                if lam >= 1e9:
+                    lam = 1e9
             # ensure the attacked map has the same normalization as the old one.
-            x_attacked_np = x_attacked_np * x_orig_power / x_attacked_np.mean()
+            #x_attacked_np = x_attacked_np * x_orig_power / x_attacked_np.mean()
 
             # simplify rename
             am = x_attacked_np
