@@ -38,11 +38,13 @@ class BasicBlock(nn.Module):
 
 
 class Scattering2dResNet(nn.Module):
-    def __init__(self, in_channels,  k=2, n=4, depth = [32, 64] ):
+    def __init__(self, in_channels,J,  k=2, n=4, depth = [32, 64] ):
         super(Scattering2dResNet, self).__init__()
         self.inplanes = 16 * k
         self.ichannels = 16 * k
         self.K = in_channels
+        self.input_size = int(256/(2**J))
+
         self.init_conv = nn.Sequential(
             nn.BatchNorm2d(in_channels, eps=1e-5, affine=False),
             nn.Conv2d(in_channels, self.ichannels,
@@ -54,11 +56,13 @@ class Scattering2dResNet(nn.Module):
         self.depth = depth-1 if type(depth) is int else len(depth)
         self.n_filters = [16 for i in range(depth)] if type(depth) is int else depth
 
-        for nf in self.n_filters:
+        for i, nf in enumerate(self.n_filters):
             self.layers.append(self._make_layer(BasicBlock, nf * k, n))
+            setattr(self, "layer_%d"%i, self.layers[-1])
 
         #self.layer3 = self._make_layer(BasicBlock, 64 * k, n)
         self.avgpool = nn.AdaptiveAvgPool2d(2)
+# TODO likely wrong
         self.fc = nn.Linear(64 * k * 4, 2)
 
     def _make_layer(self, block, planes, blocks, stride=1):
@@ -78,7 +82,8 @@ class Scattering2dResNet(nn.Module):
         return nn.Sequential(*layers)
 
     def forward(self, x):
-        x = x.view(x.size(0), self.K, 8, 8)
+        # TODO function of J
+        x = x.view(x.size(0), self.K, self.input_size, self.input_size)
         x = self.init_conv(x)
 
         for l in self.layers:

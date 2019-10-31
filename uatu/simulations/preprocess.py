@@ -1,4 +1,5 @@
 #!/bin/bash
+from __future__ import print_function
 """
 Convert the raw simulation data into a format the CNN can accept
 """
@@ -294,7 +295,7 @@ def convert_all_particles(directory, **kwargs):
 
     all_subdirs = glob(path.join(directory, 'Box*/'))
     for boxno, subdir in enumerate(sorted(all_subdirs)):
-        print subdir
+        #print subdir
         if path.isfile(path.join(subdir, 'uatu_lightcone.info' )): # is a lightcone
             convert_particles_to_proj_density(subdir, boxno, **kwargs)
         else:

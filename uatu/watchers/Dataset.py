@@ -60,7 +60,7 @@ class DatasetFromFile(object):
         f = h5py.File(fname, 'r')
         n_boxes = len(f.keys())
 
-        assert self.y_key in f[f.keys()[0]].keys(), "Invalid y_key %s."%self.y_key
+        assert self.y_key in list(f[list(f.keys())[0]].keys()), "Invalid y_key %s."%self.y_key
 
         start, stop = f.attrs['start'], f.attrs['stop']
         shape = f.attrs['shape']

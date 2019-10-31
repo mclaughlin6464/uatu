@@ -60,7 +60,7 @@ def compute_attacked_maps(model_init_fn, cost_fn, network_fname, data, target_y_
             lam = 1e9
             lam_incr = 1.00001
 
-            for i in xrange(10):
+            for i in xrange(100):
                 feed_dict = {x: x_attacked_np,y:target_y_np, x_orig: x_np, log_barrier_weight: lam }
                 #loss_np, update_ops_np = sess.run([loss,update_ops], feed_dict=feed_dict)
                 dX_np, loss_np = sess.run([dX, loss], feed_dict=feed_dict)#[0][0]
@@ -73,7 +73,7 @@ def compute_attacked_maps(model_init_fn, cost_fn, network_fname, data, target_y_
                     lam = 1e9
             
             # ensure the attacked map has the same normalization as the old one.
-            x_attacked_np = x_attacked_np*x_orig_power/x_attacked_np.mean()
+            #x_attacked_np = x_attacked_np*x_orig_power/x_attacked_np.mean()
 
             for am, _y_np in zip(x_attacked_np, y_np):
                 key = key_func(_y_np.reshape((1, 2)))

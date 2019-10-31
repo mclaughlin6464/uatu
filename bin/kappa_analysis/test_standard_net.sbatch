@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=test_standard_net
-#SBATCH --time=02:00:00
+#SBATCH --time=00:30:00
 #SBATCH --gres gpu:2
 #SBATCH -p iric
 #SBATCH --ntasks=8
