@@ -1,3 +1,4 @@
+from __future__ import print_function
 """
 Train the neural network passed in.
 Mostly copied from the CS231n notes
@@ -9,7 +10,6 @@ except:
     pass
 import numpy as np
 import sys
-from __future__ import print_function
 
 def standard_cost_fn(y, preds):
     return tf.losses.mean_squared_error(labels=y, predictions=preds, reduction=tf.losses.Reduction.SUM)

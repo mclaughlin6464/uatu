@@ -1,3 +1,4 @@
+from __future__ import print_function
 """
 This module holds all the neural network models for uatu.
 

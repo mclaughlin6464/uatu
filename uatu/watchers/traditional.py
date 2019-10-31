@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 """
 Perform a traditional analysis on the matter correlation function.
 """
@@ -33,15 +35,15 @@ def compute_cov_from_all_boxes(bins, dir, max = 50):
     xis = []
     all_subdirs = glob(path.join(dir, 'Box*/'))
     for boxno, subdir in enumerate(sorted(all_subdirs)):
-        print subdir
+        print(subdir)
         if boxno == max:
             break
         xis.append(compute_xi_from_box(bins, subdir))
 
     xis = np.array(xis)
-    print type(xis), xis.shape
-    print xis.dtype
-    print xis
+    print(type(xis), xis.shape)
+    print(xis.dtype)
+    print(xis)
 
     return np.cov(xis, rowvar = False)#, axis = 0)
 

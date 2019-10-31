@@ -1,9 +1,9 @@
+from __future__ import print_function
 from os import path
 import numpy as np
 from glob import glob
 import h5py
 import warnings
-from __future__ import print_function
 
 class Dataset(object):
     def __init__(self, X, Y, batch_size, shuffle=False, augment = True):

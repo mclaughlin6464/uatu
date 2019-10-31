@@ -243,8 +243,8 @@ def convert_particles_to_proj_density(directory, boxno, Lbox = 512.0, N = 2048, 
     # TODO apply dithering to get more maps from one projection
     maps = np.zeros((n_per_map ** 2, pixels_per_side, pixels_per_side))
 
-    for i in xrange(n_per_map):
-        for j in xrange(n_per_map):
+    for i in range(n_per_map):
+        for j in range(n_per_map):
             #print i,j
             #slice = proj_map[int(i/2.0 * pixels_per_side): int((i/2.0+1) * pixels_per_side), \
                                                         #int(j/2.0 * pixels_per_side): int((j/2.0+1) * pixels_per_side)]

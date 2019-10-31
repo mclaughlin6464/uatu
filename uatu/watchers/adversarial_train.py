@@ -1,6 +1,8 @@
+from __future__ import  print_function
 """
 Perform adversarial training against NNs
 """
+
 try:
     import tensorflow as tf
 except ImportError:
@@ -8,7 +10,6 @@ except ImportError:
 from functools import wraps
 
 from .train import standard_abs_cost_fn, standard_cost_fn, bayes_cost_fn, original_bayes_cost_fn
-from __future__ import  print_function
 
 
 def adversarial(epsilon = 0.05, K=1):

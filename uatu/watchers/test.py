@@ -1,3 +1,4 @@
+from __future__ import print_function
 """
 Test trained networks
 """
@@ -7,7 +8,6 @@ except:
     pass
 import numpy as np
 import h5py
-from __future__ import print_function
 
 def test(model_init_fn, data, n_samples, fname, samples_fname, adv=False):
     tf.reset_default_graph()
