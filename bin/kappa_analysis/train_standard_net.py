@@ -7,7 +7,7 @@ t0 = time()
 dir = '/oak/stanford/orgs/kipac/users/swmclau2/Uatu/UatuLightconeTraining/'
 #dir = '/scratch/users/swmclau2/UatuLightconeTraining/'
 #fname = path.join(dir, 'UatuLightconeTraining.hdf5')
-fname = path.join(dir, 'UatuLightconeAttackedShuffled.hdf5')
+fname = path.join(dir, 'UatuLightconeAttackedShuffled_v2.hdf5')
 
 print path.isdir(fname)
 
@@ -38,4 +38,4 @@ data = (train_dset, test_dset, None)
 #lam 1e-6
 #dropout 0.2
 # standard cost
-train(gupta_network_init_fn, standard_optimizer_init_fn, standard_abs_cost_fn, data, num_epochs = 5, fname = '/home/users/swmclau2/scratch/uatu_networks/gupta_net_kappa_abs_shuffled_attack_v2', print_every = 1000, lr_np = 2e-4, lam_np = 0.0)
+train(gupta_network_init_fn, standard_optimizer_init_fn, standard_abs_cost_fn, data, num_epochs = 15, fname = '/home/users/swmclau2/scratch/uatu_networks/gupta_net_kappa_abs_shuffle_attack_v2', print_every = 1000, lr_np = 1e-4, lam_np = 1e-6)

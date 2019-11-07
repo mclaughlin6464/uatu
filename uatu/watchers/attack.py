@@ -126,7 +126,8 @@ def compute_shuffled_attacked_maps(model_init_fn, cost_fn, network_fname, data,\
 
     x_orig = tf.placeholder(tf.float32, [None, 256, 256, 1])
     # training = tf.placeholder(tf.bool, name='training')
-    preds = model_init_fn(x, training=False)
+    with tf.variable_scope('kappa_filters') as scope:
+        preds = model_init_fn(x, training=False)
 
     loss = cost_fn(y, preds)
     log_barrier_weight = tf.placeholder(tf.float32)
@@ -156,7 +157,7 @@ def compute_shuffled_attacked_maps(model_init_fn, cost_fn, network_fname, data,\
             x_orig_power = x_attacked_np.mean()
             target_y_np = true_to_target_map[tuple(y_np.squeeze())].reshape((1,-1))
             for i in range(100):
-                feed_dict = {x: x_attacked_np, y: target_y_np}  # , training: False}
+                feed_dict = {x: x_attacked_np, y: target_y_np, x_orig: x_np, log_barrier_weight: lam }  # , training: False}
                 # loss_np, update_ops_np = sess.run([loss,update_ops], feed_dict=feed_dict)
                 dX_np, loss_np = sess.run([dX, loss], feed_dict=feed_dict)  # [0][0]
                 # initially had a + that seemed wrong

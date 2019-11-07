@@ -24,12 +24,19 @@ L = 8
 if mode == 0:
     # do a little fuckery
     _scattering = scattering
-    scattering = lambda x: _scattering(x)[:,0] # TODO double check this
+    scattering = lambda x: _scattering(x)[:,0]
     K = 1
 if mode == 1:
     K = 1 + L*J
+    #K = L*J
+    #_scattering = scattering
+    #scattering = lambda x: _scattering(x)[:,1:]
+
 elif mode == 2:
     K = int(1 + L*J +(L**2)*(J*(J-1))/2.0)
+    #K = int(L*J + (L**2)*(J*(J-1))/2.0)
+    #_scattering = scattering
+    #scattering = lambda x: _scattering(x)[:,1:] 
 
 width = 2
 
@@ -57,7 +64,7 @@ epochs = 30
 
 output_dir= '/home/users/swmclau2/scratch/uatu_networks/'
 
-save_path = path.join(output_dir, 'scattering_resnet_max_mode_%d.pth'%mode)
+save_path = path.join(output_dir, 'scattering_resnet_no_smooth_max_mode_%d_full.pth'%mode)
 
 for epoch in range(0, epochs):
     #if epoch%20==0:
