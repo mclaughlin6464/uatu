@@ -53,7 +53,7 @@ key_dict = {}
 with h5py.File(path.join(dir, output_fname), 'w') as f:
     for i, (x,y) in enumerate(train_dset):
         print(i, y)
-        scatter = scattering(x.cuda()).cpu().numpy()
+        scatter = scattering(x.squeeze().cuda()).cpu().numpy()
 
         key = key_func(y.reshape((1, 2)))
         if key not in key_dict:
@@ -67,8 +67,8 @@ with h5py.File(path.join(dir, output_fname), 'w') as f:
             grp = f.create_group(box_key)
 
         if 'X' not in grp.keys():
-            x_dset = grp.create_dataset('X', data=scatter.reshape((1, -1)),
-                                        maxshape=(None, scatter.shape[0], scatter.shape[1], scatter.shape[2], scatter.shape[3]))
+            x_dset = grp.create_dataset('X', data=scatter.reshape((1, scatter.shape[0], scatter.shape[1], scatter.shape[2])),
+                                        maxshape=(None, scatter.shape[0], scatter.shape[1], scatter.shape[2] ))
             y_dset = grp.create_dataset('Y', data=y.reshape((1, 2)), maxshape=(None, 2))
 
         else:
