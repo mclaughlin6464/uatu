@@ -8,7 +8,7 @@ from sys import argv
 
 mode = int(argv[1]) # 0, 1, or 2
 max_order = 2 if mode == 2 else 1
-J = 2 # 0, 1, or
+J = 3 # 0, 1, or
 shape = (256, 256)
 
 use_cuda = True
@@ -64,9 +64,9 @@ epochs = 30
 
 output_dir= '/home/users/swmclau2/scratch/uatu_networks/'
 
-save_path = path.join(output_dir, 'scattering_resnet_no_smooth_max_mode_%d_full.pth'%mode)
+save_path = path.join(output_dir, 'scattering_resnet_max_mode_%d_J_%d.pth'%(mode, J))
 
-for epoch in range(0, epochs):
+for epoch in range(epochs):
     #if epoch%20==0:
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
     #lr*=0.2
