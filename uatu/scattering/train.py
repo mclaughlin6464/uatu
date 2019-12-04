@@ -27,9 +27,8 @@ def adv_train(model, device, train_loader, optimizer, epoch, scattering, print_e
     loss_fn = F.l1_loss if loss == 'mae' else F.mse_loss
     for batch_idx, (data, target) in enumerate(train_loader):
         data, target = torch.squeeze(data).to(device), target.to(device)
-        optimizer.zero_grad()
-        output = model(scattering(data))
-        orig_loss = loss_fn(output, target)
+        #output = model(scattering(data))
+        #orig_loss = loss_fn(output, target)
 
         #with torch.no_grad():
         adv_data = compute_attacked_map(model,scattering, loss_fn, data, target) 
@@ -41,9 +40,10 @@ def adv_train(model, device, train_loader, optimizer, epoch, scattering, print_e
             
         adv_loss = loss_fn(adv_output, target)
 
-        loss = 0.5*orig_loss + 0.5*adv_loss
-        #loss = adv_loss
+        #loss = 0.5*orig_loss + 0.5*adv_loss
+        loss = adv_loss
 
+        optimizer.zero_grad()
         loss.backward()
         optimizer.step()
 
