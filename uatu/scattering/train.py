@@ -17,7 +17,7 @@ def train(model, device, train_loader, optimizer, epoch, scattering, print_every
         if batch_idx % print_every == 0:
             print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
                 epoch, batch_idx * len(data), len(train_loader),
-                100. * batch_idx / len(train_loader), loss.item()))
+                100. * batch_idx*len(data) / len(train_loader), loss.item()))
             sys.stdout.flush()
 
 # TODO i could decorate this like I did in the tf stuff

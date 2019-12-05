@@ -47,16 +47,16 @@ width = 2
 
 model = Scattering2dResNet(K, J, k=width).to(device)
 
-
 t0 = time()
 dir = '/oak/stanford/orgs/kipac/users/swmclau2/Uatu/UatuLightconeTraining/'
+#dir = '/home/sean/Git/uatu/data/'
+
 fname = path.join(dir, 'UatuLightconeTraining.hdf5')
 
 print(path.isdir(fname) )
 
 
 batch_size = 32
-
 
 train_dset = DatasetFromFile(fname,batch_size, shuffle=True, augment=True, train_test_split = 0.8, whiten = True, cache_size = 50, transform=torch.Tensor)
 val_dset = train_dset.get_test_dset()
@@ -68,6 +68,7 @@ lr = 1e-4
 epochs = 50 
 
 output_dir= '/home/users/swmclau2/scratch/uatu_networks/'
+#output_dir = '/home/sean/Git/uatu/networks/'
 
 #save_path = path.join(output_dir, 'scattering_resnet_max_mode_%d_J_%d_adv_%02d.pth'%(mode, J))
 
@@ -84,3 +85,4 @@ for epoch in range(epochs):
 
 # TODO cacheing?
 # TODO custom loss funciton
+

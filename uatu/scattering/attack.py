@@ -12,7 +12,7 @@ def fgsm_attack(image, eps, data_grad):
     # Create the perturbed image by adjusting each pixel of the input image
 # TODO not sure about this
 # detach necessary here? 
-    perturbed_image = image + eps*sign_data_grad
+    perturbed_image = image.detach() + eps*sign_data_grad.detach()
     # Adding clipping to maintain [0,1] range
     #perturbed_image = torch.clamp(perturbed_image, 0, 1)
     # Return the perturbed image
@@ -25,7 +25,7 @@ def compute_attacked_map(model, scattering, cost_fn, data, target, use_log_barri
     # Set requires_grad attribute of tensor. Important for Attack
     perturbed_data = data.clone()
     perturbed_data.requires_grad = True
-    scattering.requires_grad = False 
+    scattering.requires_grad = False
     # Forward pass the data through the model
     init_pred = model(scattering(perturbed_data))
     # TODO put this in a loop with the log barrier
@@ -42,11 +42,11 @@ def compute_attacked_map(model, scattering, cost_fn, data, target, use_log_barri
         # Calculate gradients of model in backward pass
         loss.backward(retain_graph = i<n_steps-1)
 
-        # Collect datagrad
+# Collect datagrad
         data_grad = perturbed_data.grad.data
 
         # Call FGSM Attack
-        epsilon = 0.01
+        epsilon = 1e-3 
         perturbed_data = fgsm_attack(perturbed_data, epsilon, data_grad)
 
         # Re-classify the perturbed image
