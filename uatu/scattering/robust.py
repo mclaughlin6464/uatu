@@ -40,10 +40,10 @@ def compute_robust_map(scattering, model, x0, xt, learning_rate= 1e-3, lr_decay 
         # TODO can I use an optimizer here, like Adam, etc?
         x0_grad = perturbed_x0.grad.data
         # Call FGSM Attack
-         perturbed_x0 = fgsm_attack(perturbed_x0, learning_rate, x0_grad)
-         perturbed_x0 = torch.autograd.Variable(perturbed_x0.data, requires_grad=True)
+        perturbed_x0 = fgsm_attack(perturbed_x0, learning_rate, x0_grad)
+        perturbed_x0 = torch.autograd.Variable(perturbed_x0.data, requires_grad=True)
 
         if i>0 and i%update_steps == 0:
             learning_rate*=lr_decay
-
-         return perturbed_x0#, init_pred, output
+        
+        return perturbed_x0#, init_pred, output

@@ -21,13 +21,14 @@ model = Scattering2dResNet(K, J, k=width).to(device)
 
 
 t0 = time()
-dir = '/oak/stanford/orgs/kipac/users/swmclau2/Uatu/UatuLightconeTraining/'
+#dir = '/oak/stanford/orgs/kipac/users/swmclau2/Uatu/UatuLightconeTraining/'
+dir = '/home/sean/Git/uatu/data/'
 fname = path.join(dir, 'UatuLightconeTraining.hdf5')
 
-batch_size = 32
+batch_size = 8  
 
 
-train_dset = DatasetFromFile(fname,batch_size, shuffle=True, augment=True, train_test_split = 0.8, whiten = True, cache_size = 50, transform=torch.Tensor)
+train_dset = DatasetFromFile(fname,batch_size, shuffle=True, augment=True, train_test_split = 0.3, whiten = True, cache_size = 10, transform=torch.Tensor)
 val_dset = train_dset.get_test_dset()
 
 data = (train_dset, val_dset, None)
@@ -36,7 +37,8 @@ data = (train_dset, val_dset, None)
 lr = 1e-4
 epochs = 30 
 
-output_dir= '/home/users/swmclau2/scratch/uatu_networks/'
+#output_dir= '/home/users/swmclau2/scratch/uatu_networks/'
+output_dir = '/home/sean/Git/uatu/networks/'
 
 for epoch in range(epochs):
     #if epoch%20==0:
@@ -48,10 +50,7 @@ for epoch in range(epochs):
 
     torch.save(model.state_dict(), save_path)
 
-    if epoch%5==0:
+    if epoch%1==0:
         torch.save(model.state_dict(), path.join(output_dir, 'resnet_max_mode_%d_J_%d_epoch_%02d.pth'%(mode, J, epoch)))
 
 
-
-# TODO cacheing?
-# TODO custom loss funciton
