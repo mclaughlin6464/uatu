@@ -2,17 +2,16 @@ import torch
 import torch.nn as nn
 import torch.functional as F
 
-def log_barrier(x_p, x_o, eps=1.5, lam=1e9):
-    # TODO, in pytorch
-    norm = (x_p - x_o).norm(dim =1) + 1e-6
+def log_barrier(x_p, x_o, eps=2.5, lam=1e6):
+    norm = (x_p - x_o).norm(p=float('Inf')) + 1e-6
     return -torch.log(eps - norm )/lam
 
 def fgsm_attack(image, eps, data_grad):
+
     sign_data_grad = data_grad.sign()
     # Create the perturbed image by adjusting each pixel of the input image
-# TODO not sure about this
-# detach necessary here? 
-    perturbed_image = image.detach() + eps*sign_data_grad.detach()
+    perturbed_image = image.detach() - eps*sign_data_grad.detach()
+
     # Adding clipping to maintain [0,1] range
     #perturbed_image = torch.clamp(perturbed_image, 0, 1)
     # Return the perturbed image
@@ -47,7 +46,8 @@ def compute_attacked_map(model, scattering, cost_fn, data, target, use_log_barri
 
         # Call FGSM Attack
         epsilon = 1e-3 
-        perturbed_data = fgsm_attack(perturbed_data, epsilon, data_grad)
+# sign change is important to make it a gradient ascent
+        perturbed_data = fgsm_attack(perturbed_data, epsilon, -1*data_grad)
 
         # Re-classify the perturbed image
         if i < n_steps-1:
