@@ -40,10 +40,11 @@ elif mode == 2:
     # _scattering = scattering
     # scattering = lambda x: _scattering(x)[:,1:]
 
- model_path = '/home/sean/Git/uatu/networks/scattering_resnet_max_mode_2_J_2_adv_20.pth'
- model = Scattering2dResNet(K, J, k=width).to(device)
- model.load_state_dict(torch.load(model_path, map_location='cpu'))
- model.eval()
+model_path = '/home/sean/Git/uatu/networks/scattering_resnet_max_mode_2_J_2_adv_20.pth'
+width = 2
+model = Scattering2dResNet(K, J, k=width).to(device)
+model.load_state_dict(torch.load(model_path, map_location='cpu'))
+model.eval()
 
 dir = '/oak/stanford/orgs/kipac/users/swmclau2/Uatu/UatuLightconeTraining/'
 fname = path.join(dir, 'UatuLightconeTraining.hdf5')
@@ -70,7 +71,7 @@ with h5py.File(path.join(dir, output_fname), 'w') as f:
         unique_ys, inv_idxs = np.unique(y.reshape((batch_size, 2)), return_inverse = True)
         y_idxs =  [np.where(inv_idxs == i)[0] for i in xrange(len(unique_ys))]  
 
-        for  _y, i  in zip(unique_ys, y_idxs) 
+        for  _y, i  in zip(unique_ys, y_idxs):
             n_y = _y.shape[0]
             key = key_func(_y[0].reshape((1, 2)))
             if key not in key_dict:

@@ -16,7 +16,7 @@ def get_embedding(x, model, scattering = lambda x: x):
 
     return model.avgpool(x)
 
-def compute_robust_map(scattering, model, x0, xt, learning_rate= 1e-3, lr_decay = 0.9, n_steps = 1000, update_steps = 100): #use_log_barrier = True, log_eps = 1.5)
+def compute_robust_map(scattering, model, x0, xt, learning_rate= 5e-4, lr_decay = 0.9, n_steps = 1000, update_steps = 100): #use_log_barrier = True, log_eps = 1.5)
 
     # Send the data and label to the device
     x0, xt = x0.to(device), xt.to(device)
