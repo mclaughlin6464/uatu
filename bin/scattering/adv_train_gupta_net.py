@@ -7,27 +7,22 @@ from time import time
 from sys import argv
 from scipy.ndimage import gaussian_filter
 
-mode = 0
 J = 0 # 0, 1, or
 shape = (256, 256)
 
 use_cuda = True
 device = torch.device("cuda" if use_cuda else "cpu")
 
-scattering = lambda x:x 
 K = 1
-width = 2
 
-model = Scattering2dResNet(K, J, k=width).to(device)
+model = GuptaNet(K).to(device)
 
-
-t0 = time()
 dir = '/oak/stanford/orgs/kipac/users/swmclau2/Uatu/UatuLightconeTraining/'
 #dir = '/home/sean/Git/uatu/data/'
 fname = path.join(dir, 'UatuLightconeTraining.hdf5')
 
-batch_size = 4  
-smoothing = 1
+batch_size = 32  
+smoothing = 0
 
 transform = lambda x : torch.Tensor(gaussian_filter(x, smoothing))
 
@@ -49,10 +44,10 @@ for epoch in range(epochs):
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
     #lr*=0.2
 
-    train(model, device, train_dset, optimizer, epoch+1, scattering)#, smoothing = 1)
+    adv_train(model, device, train_dset, optimizer, epoch+1)
     val_test(model, device, val_dset, scattering)
 
     if epoch%1==0:
-        torch.save(model.state_dict(), path.join(output_dir, 'resnet_max_mode_%d_J_%d_smooth_%d_epoch_%02d.pth'%(mode, J, smoothing, epoch)))
+        torch.save(model.state_dict(), path.join(output_dir, 'adv_gupta_net_smooth_%d_epoch_%02d.pth'%(smoothing, epoch)))
 
 

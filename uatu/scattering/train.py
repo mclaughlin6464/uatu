@@ -2,8 +2,9 @@ import torch
 import torch.nn.functional as F
 from .attack import compute_attacked_map
 import sys
+from scipy.ndimage import gaussian_filter
 
-def train(model, device, train_loader, optimizer, epoch, scattering, print_every = 1000, loss = 'mae'):
+def train(model, device, train_loader, optimizer, epoch, scattering= lambda x : x, print_every = 1000, loss = 'mae'):
     model.train()
 
     loss_fn = F.l1_loss if loss == 'mae' else F.mse_loss
@@ -21,7 +22,7 @@ def train(model, device, train_loader, optimizer, epoch, scattering, print_every
             sys.stdout.flush()
 
 # TODO i could decorate this like I did in the tf stuff
-def adv_train(model, device, train_loader, optimizer, epoch, scattering, print_every = 1000, loss = 'mae'):
+def adv_train(model, device, train_loader, optimizer, epoch, scattering = lambda x: x, print_every = 1000, loss = 'mae'):
     model.train()
 
     loss_fn = F.l1_loss if loss == 'mae' else F.mse_loss
@@ -50,5 +51,5 @@ def adv_train(model, device, train_loader, optimizer, epoch, scattering, print_e
         if batch_idx % print_every == 0:
             print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
                 epoch, batch_idx * len(data), len(train_loader),
-                100. * batch_idx / len(train_loader), loss.item()))
+                100. * batch_idx*len(data) / len(train_loader), loss.item()))
             sys.stdout.flush()

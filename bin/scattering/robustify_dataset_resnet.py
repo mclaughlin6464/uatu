@@ -7,41 +7,20 @@ from uatu.watchers.Dataset import *
 from uatu.watchers.test import key_func
 from uatu.scattering import Scattering2dResNet
 from uatu.scattering import compute_robust_map 
+from sys import argv
 
-mode = 2
-max_order = 2 if mode == 2 else 1
-J = 2 # 0, 1, or
+mode = 0
+J = 0 # 0, 1, or
 shape = (256, 256)
 
 use_cuda = True
 device = torch.device("cuda" if use_cuda else "cpu")
 
-scattering = Scattering2D(J=J, shape=shape, max_order=max_order)
-if use_cuda:
-    scattering = scattering.cuda()
-
-L = 8
-# K = 1 + L*J+ (L**2)*(J*(J-1))/2.0
-
-if mode == 0:
-    # do a little fuckery
-    _scattering = scattering
-    scattering = lambda x: _scattering(x)[:, 0]
-    K = 1
-if mode == 1:
-    K = 1 + L * J
-    # K = L*J
-    # _scattering = scattering
-    # scattering = lambda x: _scattering(x)[:,1:]
-
-elif mode == 2:
-    K = int(1 + L * J + (L ** 2) * (J * (J - 1)) / 2.0)
-    # K = int(L*J + (L**2)*(J*(J-1))/2.0)
-    # _scattering = scattering
-    # scattering = lambda x: _scattering(x)[:,1:]
-
-model_path = '/home/sean/Git/uatu/networks/scattering_resnet_max_mode_2_J_2_adv_20.pth'
+scattering = lambda x: x 
+K =1
 width = 2
+
+model_path = argv[1] 
 model = Scattering2dResNet(K, J, k=width).to(device)
 model.load_state_dict(torch.load(model_path, map_location='cpu'))
 model.eval()
@@ -49,11 +28,11 @@ model.eval()
 dir = '/oak/stanford/orgs/kipac/users/swmclau2/Uatu/UatuLightconeTraining/'
 fname = path.join(dir, 'UatuLightconeTraining.hdf5')
 
-output_fname  = path.join(dir, 'UatuLightconeTrainingRobustified.hdf5')
+output_fname  = path.join(dir, argv[2]) 
 
-batch_size =32 
+batch_size = 4
 train_dset = DatasetFromFile(fname,batch_size, shuffle=False, augment=False,
-                             train_test_split = 1.0, whiten = True, cache_size = 64, transform=torch.Tensor)
+                             train_test_split = 1.0, whiten = True, cache_size = 100, transform=torch.Tensor)
 
 key_dict = {}
 
