@@ -1,5 +1,5 @@
 ### Similar to attacks, make robust clones of trainign examples
-
+import torch
 from .attack import fgsm_attack, log_barrier
 
 
@@ -7,7 +7,7 @@ from .attack import fgsm_attack, log_barrier
 def get_embedding(x, model, scattering = lambda x: x):
     x = scattering(x)
 
-    x = x.view(1, model.K, model.input_size, model.input_size)#
+    x = x.view(-1, model.K, model.input_size, model.input_size)#
 
     x = model.init_conv(x)
 
@@ -16,7 +16,7 @@ def get_embedding(x, model, scattering = lambda x: x):
 
     return model.avgpool(x)
 
-def compute_robust_map(scattering, model, x0, xt, learning_rate= 5e-4, lr_decay = 0.9, n_steps = 1000, update_steps = 100): #use_log_barrier = True, log_eps = 1.5)
+def compute_robust_map(scattering, device, model, x0, xt, learning_rate= 5e-4, lr_decay = 0.9, n_steps = 1000, update_steps = 100): #use_log_barrier = True, log_eps = 1.5)
 
     # Send the data and label to the device
     x0, xt = x0.to(device), xt.to(device)

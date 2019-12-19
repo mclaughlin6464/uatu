@@ -49,7 +49,7 @@ for epoch in range(epochs):
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
     #lr*=0.2
 
-    train(model, device, train_dset, optimizer, epoch+1, scattering, smoothing = 1)
+    train(model, device, train_dset, optimizer, epoch+1, scattering)#, smoothing = 1)
     val_test(model, device, val_dset, scattering)
 
     if epoch%1==0:

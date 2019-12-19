@@ -4,7 +4,7 @@ from .attack import compute_attacked_map
 import sys
 from scipy.ndimage import gaussian_filter
 
-def train(model, device, train_loader, optimizer, epoch, scattering, print_every = 1000, loss = 'mae'):
+def train(model, device, train_loader, optimizer, epoch, scattering= lambda x : x, print_every = 1000, loss = 'mae'):
     model.train()
 
     loss_fn = F.l1_loss if loss == 'mae' else F.mse_loss
@@ -22,7 +22,7 @@ def train(model, device, train_loader, optimizer, epoch, scattering, print_every
             sys.stdout.flush()
 
 # TODO i could decorate this like I did in the tf stuff
-def adv_train(model, device, train_loader, optimizer, epoch, scattering, print_every = 1000, loss = 'mae'):
+def adv_train(model, device, train_loader, optimizer, epoch, scattering = lambda x: x, print_every = 1000, loss = 'mae'):
     model.train()
 
     loss_fn = F.l1_loss if loss == 'mae' else F.mse_loss
