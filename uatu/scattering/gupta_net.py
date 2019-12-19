@@ -7,25 +7,23 @@ class BasicBlock(nn.Module):
     def __init__(self, planes,  stride=1):
         super(BasicBlock, self).__init__()
         assert len(planes) == 3
+        self.planes = planes
         self.conv1 = conv3x3(planes[0], planes[1], stride)
         #self.bn1 = nn.BatchNorm2d(planes)
         self.relu = nn.LeakyReLU(inplace=True)
         self.conv2 = conv3x3(planes[1], planes[2])
         #self.bn2 = nn.BatchNorm2d(planes)
-        self.downsample = nn.AvgPool2d(2,2) 
+        self.downsample = nn.AvgPool2d(2, 2) 
         self.stride = stride
 
     def forward(self, x):
         out = self.conv1(x)
         #out = self.bn1(out)
         out = self.relu(out)
-
         out = self.conv2(out)
         #out = self.bn2(out)
         out = self.relu(out)
-
         out = self.downsample(out) 
-
         return out 
 
 # TODO subclass of this that can except scattering 
@@ -47,8 +45,8 @@ class GuptaNet(nn.Module):
             setattr(self, "layer_%d"%i, self.layers[-1])
 
         final_imsize = int(self.input_size/(2**self.depth)) # each block downsamples by 2
-        print(final_imsize, self.n_filters[-1])
-        self.fc1 = nn.Linear(final_imsize*self.n_filters[-1], 256)
+
+        self.fc1 = nn.Linear((final_imsize**2)*self.n_filters[-1], 256)
         self.fc2 = nn.Linear(256, 256)
         self.fc3 = nn.Linear(256, 2)
 
@@ -56,6 +54,7 @@ class GuptaNet(nn.Module):
         x = x.view(x.size(0), self.K, self.input_size, self.input_size)
 
         for l in self.layers:
+            print(x.shape)
             x = l(x)
 
         x = x.view(x.size(0), -1)
