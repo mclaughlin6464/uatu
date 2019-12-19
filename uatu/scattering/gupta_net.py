@@ -12,7 +12,7 @@ class BasicBlock(nn.Module):
         self.relu = nn.LeakyReLU(inplace=True)
         self.conv2 = conv3x3(planes[1], planes[2])
         #self.bn2 = nn.BatchNorm2d(planes)
-        self.downsample = nn.AdaptiveAvgPool2d(2) 
+        self.downsample = nn.AvgPool2d(2,2) 
         self.stride = stride
 
     def forward(self, x):
@@ -42,11 +42,12 @@ class GuptaNet(nn.Module):
 
         self.n_filters.insert(0, in_channels) # add in channels to it
 
-        for i in range(self.depth-1):
-            self.layers.append(BasicBlock(self.n_filters[i:i+3]))
+        for i in range(self.depth):
+            self.layers.append(BasicBlock(self.n_filters[2*i:2*i+3]))
             setattr(self, "layer_%d"%i, self.layers[-1])
 
         final_imsize = int(self.input_size/(2**self.depth)) # each block downsamples by 2
+        print(final_imsize, self.n_filters[-1])
         self.fc1 = nn.Linear(final_imsize*self.n_filters[-1], 256)
         self.fc2 = nn.Linear(256, 256)
         self.fc3 = nn.Linear(256, 2)
@@ -58,6 +59,7 @@ class GuptaNet(nn.Module):
             x = l(x)
 
         x = x.view(x.size(0), -1)
+        print(x.shape)
         x = self.fc1(x)
         x = self.fc2(x)
         x = self.fc3(x)
