@@ -25,8 +25,11 @@ model = Scattering2dResNet(K, J, k=width).to(device)
 model.load_state_dict(torch.load(model_path, map_location='cpu'))
 model.eval()
 
-dir = '/oak/stanford/orgs/kipac/users/swmclau2/Uatu/UatuLightconeTraining/'
+#dir = '/oak/stanford/orgs/kipac/users/swmclau2/Uatu/UatuLightconeTraining/'
+dir = '/home/sean/Git/uatu/data/'
+
 fname = path.join(dir, 'UatuLightconeTraining.hdf5')
+
 
 output_fname  = path.join(dir, argv[2]) 
 
@@ -42,17 +45,17 @@ x0_shape = (batch_size, shape[0], shape[1])
 
 with h5py.File(path.join(dir, output_fname), 'w') as f:
     for i, (xt,y) in enumerate(train_dset):
-        print(i, y)
+        print(i, y[0])
         x0 = torch.Tensor(np.random.randn(*x0_shape))
         x0 = x0*xt.std()+xt.mean()
         robust_x = compute_robust_map(scattering, device, model, x0, xt).cpu().detach().numpy()
 
-        unique_ys, inv_idxs = np.unique(y.reshape((batch_size, 2)), return_inverse = True)
+        unique_ys,first_idxs, inv_idxs = np.unique(y.reshape((batch_size, 2))[:,0], return_inverse = True, return_index = True)
         y_idxs =  [np.where(inv_idxs == i)[0] for i in range(len(unique_ys))]  
-
+        unique_ys = np.array(y).reshape((batch_size, 2))[first_idxs,:]
         for  _y, i  in zip(unique_ys, y_idxs):
-            n_y = _y.shape[0]
-            key = key_func(_y[0].reshape((1, 2)))
+            n_y = i.shape[0]# if len(_y.shape)>0 else 1
+            key = key_func(np.array(_y).reshape((1, 2)))
             if key not in key_dict:
                 key_dict[key] = len(key_dict)
         
@@ -64,9 +67,10 @@ with h5py.File(path.join(dir, output_fname), 'w') as f:
                 grp = f.create_group(box_key)
 
             if 'X' not in grp.keys():
-                x_dset = grp.create_dataset('X', data=robust_x[i].reshape((n_y, robust_x.shape[1], robust_x.shape[2], robust_x.shape[3])),
-                                            maxshape=(None, robust_x.shape[1], robust_x.shape[2], robust_x.shape[3] ))
-                y_dset = grp.create_dataset('Y', data=_y.reshape((n_y, 2)), maxshape=(None, 2))
+                x_dset = grp.create_dataset('X', data=robust_x[i].reshape((n_y, robust_x.shape[1], robust_x.shape[2])),
+                                            maxshape=(None, robust_x.shape[1], robust_x.shape[2]))
+
+                y_dset = grp.create_dataset('Y', data=np.tile(_y, (n_y, 1)), maxshape=(None, 2))
 
             else:
                 x_dset, y_dset = grp['X'], grp['Y']
@@ -77,4 +81,4 @@ with h5py.File(path.join(dir, output_fname), 'w') as f:
                 x_dset[-n_y:] = robust_x[i] 
 
                 y_dset.resize((l + n_y), axis=0)
-                y_dset[-n_y:] = _y
+                y_dset[-n_y:] = np.tile(_y, (n_y,1))
