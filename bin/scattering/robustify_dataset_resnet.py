@@ -33,7 +33,7 @@ fname = path.join(dir, 'UatuLightconeTraining.hdf5')
 
 output_fname  = path.join(dir, argv[2]) 
 
-batch_size = 4
+batch_size = 8
 train_dset = DatasetFromFile(fname,batch_size, shuffle=False, augment=False,
                              train_test_split = 1.0, whiten = True, cache_size = 100, transform=torch.Tensor)
 
