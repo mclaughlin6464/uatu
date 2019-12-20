@@ -45,10 +45,10 @@ with h5py.File(path.join(dir, output_fname), 'w') as f:
         print(i, y)
         x0 = torch.Tensor(np.random.randn(*x0_shape))
         x0 = x0*xt.std()+xt.mean()
-        robust_x = compute_robust_map(scattering, device, model, x0, xt).cpu().numpy()
+        robust_x = compute_robust_map(scattering, device, model, x0, xt).cpu().detach().numpy()
 
         unique_ys, inv_idxs = np.unique(y.reshape((batch_size, 2)), return_inverse = True)
-        y_idxs =  [np.where(inv_idxs == i)[0] for i in xrange(len(unique_ys))]  
+        y_idxs =  [np.where(inv_idxs == i)[0] for i in range(len(unique_ys))]  
 
         for  _y, i  in zip(unique_ys, y_idxs):
             n_y = _y.shape[0]

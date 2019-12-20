@@ -17,8 +17,8 @@ K = 1
 
 model = GuptaNet(K).to(device)
 
-#dir = '/oak/stanford/orgs/kipac/users/swmclau2/Uatu/UatuLightconeTraining/'
-dir = '/home/sean/Git/uatu/data/'
+dir = '/oak/stanford/orgs/kipac/users/swmclau2/Uatu/UatuLightconeTraining/'
+#dir = '/home/sean/Git/uatu/data/'
 fname = path.join(dir, 'UatuLightconeTraining.hdf5')
 
 batch_size = 2  
@@ -36,8 +36,8 @@ data = (train_dset, val_dset, None)
 lr = 1e-4
 epochs = 30 
 
-#output_dir= '/home/users/swmclau2/scratch/uatu_networks/'
-output_dir = '/home/sean/Git/uatu/networks/'
+output_dir= '/home/users/swmclau2/scratch/uatu_networks/'
+#output_dir = '/home/sean/Git/uatu/networks/'
 
 for epoch in range(epochs):
     #if epoch%20==0:

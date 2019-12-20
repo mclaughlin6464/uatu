@@ -54,11 +54,9 @@ class GuptaNet(nn.Module):
         x = x.view(x.size(0), self.K, self.input_size, self.input_size)
 
         for l in self.layers:
-            print(x.shape)
             x = l(x)
 
         x = x.view(x.size(0), -1)
-        print(x.shape)
         x = self.fc1(x)
         x = self.fc2(x)
         x = self.fc3(x)
