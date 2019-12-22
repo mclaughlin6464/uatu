@@ -15,13 +15,13 @@ device = torch.device("cuda" if use_cuda else "cpu")
 
 K = 1
 
-model = GuptaNet(K).to(device)
+model = GuptaNet(K, p_dropout=0.2).to(device)
 
 dir = '/oak/stanford/orgs/kipac/users/swmclau2/Uatu/UatuLightconeTraining/'
 #dir = '/home/sean/Git/uatu/data/'
 fname = path.join(dir, 'UatuLightconeTraining.hdf5')
 
-batch_size = 2  
+batch_size = 32  
 smoothing = 0
 
 transform = lambda x : torch.Tensor(gaussian_filter(x, smoothing))
@@ -32,19 +32,21 @@ val_dset = train_dset.get_test_dset()
 
 data = (train_dset, val_dset, None)
 
+scattering = lambda x: x
 # Optimizer
-lr = 1e-4
-epochs = 30 
+lr = 1e-6
+epochs = 20 
 
 output_dir= '/home/users/swmclau2/scratch/uatu_networks/'
 #output_dir = '/home/sean/Git/uatu/networks/'
 
 for epoch in range(epochs):
     #if epoch%20==0:
-    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
-    #lr*=0.2
+    optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=1e-6)
+    if epoch > 0 and epoch%5==0:
+        lr*=0.5
 
-    train(model, device, train_dset, optimizer, epoch+1)
+    train(model, device, train_dset, optimizer, epoch+1, print_every=1000)
     val_test(model, device, val_dset, scattering)
 
     if epoch%1==0:

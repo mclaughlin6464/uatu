@@ -25,8 +25,8 @@ model = Scattering2dResNet(K, J, k=width).to(device)
 model.load_state_dict(torch.load(model_path, map_location='cpu'))
 model.eval()
 
-#dir = '/oak/stanford/orgs/kipac/users/swmclau2/Uatu/UatuLightconeTraining/'
-dir = '/home/sean/Git/uatu/data/'
+dir = '/oak/stanford/orgs/kipac/users/swmclau2/Uatu/UatuLightconeTraining/'
+#dir = '/home/sean/Git/uatu/data/'
 
 fname = path.join(dir, 'UatuLightconeTraining.hdf5')
 

@@ -32,8 +32,9 @@ val_dset = train_dset.get_test_dset()
 
 data = (train_dset, val_dset, None)
 
+scattering = lambda x: x
 # Optimizer
-lr = 1e-4
+lr = 1e-6
 epochs = 30 
 
 output_dir= '/home/users/swmclau2/scratch/uatu_networks/'
@@ -41,7 +42,9 @@ output_dir= '/home/users/swmclau2/scratch/uatu_networks/'
 
 for epoch in range(epochs):
     #if epoch%20==0:
-    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
+    optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=1e-4)
+    if epoch > 0 and epoch%5==0:
+        lr*=0.5
     #lr*=0.2
 
     adv_train(model, device, train_dset, optimizer, epoch+1)
