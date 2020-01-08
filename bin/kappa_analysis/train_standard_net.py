@@ -38,4 +38,4 @@ data = (train_dset, test_dset, None)
 #lam 1e-6
 #dropout 0.2
 # standard cost
-train(gupta_network_init_fn, standard_optimizer_init_fn, standard_abs_cost_fn, data, num_epochs = 15, fname = '/home/users/swmclau2/scratch/uatu_networks/gupta_net_kappa_abs_shuffle_attack_v2', print_every = 1000, lr_np = 1e-4, lam_np = 1e-6)
+train(gupta_network_init_fn, standard_optimizer_init_fn, standard_cost_fn, data, num_epochs = 30, fname = '/home/users/swmclau2/scratch/uatu_networks/gupta_net_test', print_every = 1000, lr_np = 1e-4, lam_np = 1e-6)

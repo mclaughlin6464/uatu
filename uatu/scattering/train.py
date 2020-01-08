@@ -9,7 +9,7 @@ def train(model, device, train_loader, optimizer, epoch, scattering= lambda x : 
 
     loss_fn = F.l1_loss if loss == 'mae' else F.mse_loss
     for batch_idx, (data, target) in enumerate(train_loader):
-        data, target = torch.squeeze(data).to(device), target.to(device)
+        data, target = torch.squeeze(data, 3).to(device), target.to(device)
         optimizer.zero_grad()
         output = model(scattering(data))
         loss = loss_fn(output, target)
@@ -18,7 +18,7 @@ def train(model, device, train_loader, optimizer, epoch, scattering= lambda x : 
         if batch_idx % print_every == 0:
             print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
                 epoch, batch_idx * len(data), len(train_loader),
-                100. * batch_idx*len(data) / len(train_loader), loss.item()))
+                100. * batch_idx*len(data) / len(train_loader), len(data)*loss.item()))
             sys.stdout.flush()
 
 # TODO i could decorate this like I did in the tf stuff
@@ -27,7 +27,7 @@ def adv_train(model, device, train_loader, optimizer, epoch, scattering = lambda
 
     loss_fn = F.l1_loss if loss == 'mae' else F.mse_loss
     for batch_idx, (data, target) in enumerate(train_loader):
-        data, target = torch.squeeze(data).to(device), target.to(device)
+        data, target = torch.squeeze(data, 3).to(device), target.to(device)
         #output = model(scattering(data))
         #orig_loss = loss_fn(output, target)
 
