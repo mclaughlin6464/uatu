@@ -253,6 +253,8 @@ def gupta_bayesian_network_init_fn(inputs, training=False, lam=1e-6, wrapper=Con
     #print 'B'
     # TODO add more customization
     initializer = tf.variance_scaling_initializer(scale=2.0)
+    #initializer = tf.constant_initializer(1.0)
+
     regularizer = tf.contrib.layers.l2_regularizer(scale = lam)
     axis = -1
     conv1_out = wrapper(tf.layers.Conv2D(32, kernel_size=3, padding='same',\

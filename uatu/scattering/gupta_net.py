@@ -55,6 +55,7 @@ class GuptaNet(nn.Module):
 
         final_imsize = int(self.input_size/(2**self.depth)) # each block downsamples by 2
 
+        self.relu = nn.LeakyReLU(inplace=True)
         self.fc1 = nn.Linear((final_imsize**2)*self.n_filters[-1], 256)
         self.fc2 = nn.Linear(256, 256)
         self.fc3 = nn.Linear(256, 2)
@@ -67,7 +68,9 @@ class GuptaNet(nn.Module):
 
         x = x.view(x.size(0), -1)
         x = self.fc1(x)
+        x= self.relu(x)
         x = self.fc2(x)
+        x= self.relu(x)
         x = self.fc3(x)
 
         return x
