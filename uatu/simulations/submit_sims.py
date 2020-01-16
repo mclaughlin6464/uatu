@@ -13,7 +13,7 @@ from classy import Class
 from config_strings import picola_config
 from collections import OrderedDict
 
-def make_LHC(self, ordered_params, N, seed = None):
+def make_LHC(ordered_params, N, seed = None):
     """
     Return a vector of points in parameter space that defines a latin hypercube.
     :param ordered_params:
@@ -35,7 +35,6 @@ def make_LHC(self, ordered_params, N, seed = None):
         np.random.shuffle(point)  # makes the cube random.
         points.append(point)
     return np.stack(points).T
-
 
 def omega_cdm_sample(lower = 0.1, upper = 0.15, N= 500):
     """
@@ -113,7 +112,7 @@ def make_sherlock_command(jobname, outputdir, \
 
     return 'sbatch %s' % (path.join(outputdir, '%s.sbatch'%jobname))
 
-def compute_pk(o_cdm, ln_10_As, outputdir):
+def compute_pk(O_cdm, sigma8, outputdir):
     """
     Use class to compute the power spectrum and sigma 8 as initial conditions for the sims.
     :param o_cdm:
@@ -129,13 +128,14 @@ def compute_pk(o_cdm, ln_10_As, outputdir):
     z = 20.0 #Note maybe allow to vary, or make global
     params = {
         'output': 'mPk',
-        'ln10^{10}A_s': ln_10_As,
+        #'ln10^{10}A_s': ln_10_As,
+        'sigma8': sigma8,
         'P_k_max_h/Mpc': 100.0,
         'n_s': 0.96,
         'h': 0.7,
         'non linear': 'halofit',
         'omega_b': 0.022,
-        'omega_cdm': o_cdm,
+        'omega_cdm': O_cdm*0.7**2,
         'z_pk': z}
 
     cosmo = Class()
@@ -154,7 +154,7 @@ def compute_pk(o_cdm, ln_10_As, outputdir):
 
     return cosmo.sigma8()
 
-def write_picola_params(o_cdm, sigma_8, outputdir, jobname, seed = None):
+def write_picola_params(Ocdm, sigma_8, outputdir, jobname, seed = None):
 
     if seed is None:
         seed = time()%10000
@@ -162,7 +162,6 @@ def write_picola_params(o_cdm, sigma_8, outputdir, jobname, seed = None):
     fname = path.join(outputdir, '%s.dat'%jobname)
 
     #convert to actual Ocdm
-    Ocdm = o_cdm/(0.7**2)
     Ob = 0.022/(0.7**2)
     Om = Ocdm+Ob
 
@@ -190,10 +189,13 @@ if __name__ == "__main__":
 
     #o_cdm = omega_cdm_sample(N=N)
     #ln10As = A_s_sample(N = N)
-    ordered_params = OrderedDict({'o_cdm':(0.1, 0.5), 'sigma_8' 
-    Om = o_cdm/(0.7**2) + 0.022/(0.7**2)
+    ordered_params = OrderedDict({'O_cdm':(0.1, 0.5), 'sigma_8': (0.5, 1.2)})
+    Ob =  0.022
+    h = 0.7
 
-    for idx, (o,om, a) in enumerate(zip(o_cdm,Om, ln10As)):
+    LHC = make_LHC(ordered_params, N)
+
+    for idx, point in enumerate(LHC):
         sub_outputdir = path.join(outputdir, 'Box%03d'%idx)
         sub_jobname = jobname + '_%03d'%idx
         if not path.isdir(sub_outputdir):
@@ -202,9 +204,12 @@ if __name__ == "__main__":
         with open(path.join(sub_outputdir, 'output_redshifts.dat'), 'w') as f:
             f.write("2.0, 5\n0.0, 10") #all we need
 
-        sigma_8 = compute_pk(o, a, sub_outputdir)
+        Om = point[0]+Ob
+        sigma_8 = point[1]
+
+        compute_pk()
         with open(path.join(sub_outputdir, 'input_params%03d.dat'%idx), 'w') as f:
-            f.write("O_m: %f\nln10As: %f\nsigma_8: %f"%(om, a, sigma_8))
+            f.write("O_m: %f\nsigma_8: %f"%(Om, sigma_8))
 
         write_picola_params(o, sigma_8, sub_outputdir, jobname, seed = seed)
         command = make_sherlock_command(jobname, sub_outputdir)
