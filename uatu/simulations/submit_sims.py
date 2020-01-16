@@ -11,6 +11,30 @@ import numpy as np
 from classy import Class
 
 from config_strings import picola_config
+from collections import OrderedDict
+
+def make_LHC(self, ordered_params, N, seed = None):
+    """
+    Return a vector of points in parameter space that defines a latin hypercube.
+    :param ordered_params:
+        OrderedDict that defines the ordering, name, and ranges of parameters
+        used in the trianing data. Keys are the names, value of a tuple of (lower, higher) bounds
+    :param N:
+        Number of points per dimension in the hypercube. Default is 500.
+    :return
+        A latin hyper cube sample in HOD space in a numpy array.
+    """
+    if seed is None:
+        seed = int(time())
+    np.random.seed(seed)
+
+    points = []
+    # by linspacing each parameter and shuffling, I ensure there is only one point in each row, in each dimension.
+    for plow, phigh in ordered_params.itervalues():
+        point = np.linspace(plow, phigh, num=N)
+        np.random.shuffle(point)  # makes the cube random.
+        points.append(point)
+    return np.stack(points).T
 
 
 def omega_cdm_sample(lower = 0.1, upper = 0.15, N= 500):
@@ -164,8 +188,9 @@ if __name__ == "__main__":
     if len(argv)>3:
         seed = int(argv[3])
 
-    o_cdm = omega_cdm_sample(N=N)
-    ln10As = A_s_sample(N = N)
+    #o_cdm = omega_cdm_sample(N=N)
+    #ln10As = A_s_sample(N = N)
+    ordered_params = OrderedDict({'o_cdm':(0.1, 0.5), 'sigma_8' 
     Om = o_cdm/(0.7**2) + 0.022/(0.7**2)
 
     for idx, (o,om, a) in enumerate(zip(o_cdm,Om, ln10As)):

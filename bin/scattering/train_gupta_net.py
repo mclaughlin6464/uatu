@@ -21,7 +21,7 @@ dir = '/oak/stanford/orgs/kipac/users/swmclau2/Uatu/UatuLightconeTraining/'
 #dir = '/home/sean/Git/uatu/data/'
 fname = path.join(dir, 'UatuLightconeTraining.hdf5')
 
-batch_size = 2#32  
+batch_size = 32  
 smoothing = 0
 
 #transform = lambda x : torch.Tensor(gaussian_filter(x, smoothing))
@@ -35,8 +35,8 @@ data = (train_dset, val_dset, None)
 
 scattering = lambda x: x
 # Optimizer
-lr = 5e-5
-epochs = 50 
+lr = 1e-5
+epochs = 20 
 
 output_dir= '/home/users/swmclau2/scratch/uatu_networks/'
 #output_dir = '/home/sean/Git/uatu/networks/'
@@ -46,15 +46,15 @@ output_dir= '/home/users/swmclau2/scratch/uatu_networks/'
 for epoch in range(epochs):
     #if epoch%20==0:
     optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=1e-9)
-    if epoch > 0 and epoch%5==0:
-        lr*=0.5
+#    if epoch > 0 and epoch%10==0:
+#        lr*=0.5
 #    if epoch> 3:
 #        lr = 5e-7
 
-    train(model, device, train_dset, optimizer, epoch+1, print_every=2500, loss = 'mse')
+    train(model, device, train_dset, optimizer, epoch+1, print_every=200)#, loss = 'mse')
     val_test(model, device, val_dset, scattering)
 
     if epoch%1==0:
-        torch.save(model.state_dict(), path.join(output_dir, 'gupta_net_smooth_%d_epoch_%02d.pth'%(smoothing, epoch)))
+        torch.save(model.state_dict(), path.join(output_dir, 'gupta_net_smooth_%d_epoch_%02d_redux.pth'%(smoothing, epoch)))
 
 
