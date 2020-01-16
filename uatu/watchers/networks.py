@@ -142,7 +142,7 @@ def _dense_relu(input, filters, kernel_initializer, kernel_regularizer):
                               initializer=kernel_initializer, regularizer=kernel_regularizer)
     biases = tf.get_variable("biases", [filters[1]])
     dense = tf.matmul(input, weights) + biases
-    return tf.nn.leaky_relu(dense, alpha=0.01)
+    return dense# tf.nn.leaky_relu(dense, alpha=0.01)
 
 
 def gupta_adv_network_init_fn(inputs, training=False, lam=1e-6, wrapper=ConcreteDropout, nout = 2):
@@ -192,7 +192,7 @@ def gupta_adv_network_init_fn(inputs, training=False, lam=1e-6, wrapper=Concrete
     with tf.variable_scope("dense3"):
         dense3_out = _dense_relu(dense2_out, [256, nout], initializer, regularizer)
 
-    return dense3_out
+    return dense1_out#dense3_out
 
 def gupta_adv_network_large_filters_init_fn(inputs, training=False, lam=1e-6, wrapper=ConcreteDropout, nout = 2):
     '''

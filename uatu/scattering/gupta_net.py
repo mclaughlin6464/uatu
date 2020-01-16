@@ -66,11 +66,13 @@ class GuptaNet(nn.Module):
         for l in self.layers:
             x = l(x)
 
+        x = x.transpose(1,3).contiguous()
         x = x.view(x.size(0), -1)
         x = self.fc1(x)
-        x= self.relu(x)
+        return x
+        x = self.relu(x)
         x = self.fc2(x)
-        x= self.relu(x)
+        x = self.relu(x)
         x = self.fc3(x)
 
         return x
