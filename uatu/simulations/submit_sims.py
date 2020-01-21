@@ -10,7 +10,7 @@ from time import time
 import numpy as np
 from classy import Class
 
-from config_strings import picola_config
+from .config_strings import *
 from collections import OrderedDict
 
 def make_LHC(ordered_params, N, seed = None):
@@ -69,7 +69,7 @@ def A_s_sample(log_mean = 3.089, log_std = 0.036, N = 500):
     #return np.exp(log_10_as)*1e-10
 
 def make_sherlock_command(jobname, outputdir, \
-                          picola_location = '/home/users/swmclau2/picola/l-picola/', max_time = 2):
+                          fastpm_location = '/home/users/swmclau2/picola/l-picola/', max_time = 2):
     '''
     Return a list of strings that comprise a bash command to call picola on the cluster.
     Designed to work on sherlock's sbatch system. It must write a file
@@ -102,9 +102,10 @@ def make_sherlock_command(jobname, outputdir, \
     load_str = 'module load fftw \n module load openmpi'
 
 
-    call_str = ['srun', path.join(picola_location, 'L-PICOLA'),
+    #call_str = ['srun', path.join(picola_location, 'L-PICOLA'),
+    #            path.join(outputdir, param_file)]
+    call_str = ['srun', path.join(fastpm_location, 'fastpm'),
                 path.join(outputdir, param_file)]
-
     call_str = ' '.join(call_str)
     # have to write to file in order to work.
     with open(path.join(outputdir, '%s.sbatch'%jobname), 'w') as f:
@@ -177,6 +178,21 @@ def write_picola_params(Ocdm, sigma_8, outputdir, jobname, seed = None):
     with open(fname, 'w') as f:
         f.write(formatted_config)
 
+def write_fastpm_params(Ocdm, Ob, outputdir, jobname, seed = None):
+
+    if seed is None:
+        seed = time()%10000
+
+    fname = path.join(outputdir, '%s.dat'%jobname)
+
+    Om = Ocdm+Ob
+
+    formatted_config = fastpm_config.format(seed = seed,
+                                            outputdir=outputdir,\
+                                            omega_m= Om)
+    with open(fname, 'w') as f:
+        f.write(formatted_config)
+
 if __name__ == "__main__":
     from sys import argv
     N = int(argv[1])
@@ -186,12 +202,13 @@ if __name__ == "__main__":
     seed = None
     if len(argv)>3:
         seed = int(argv[3])
+    # TODO use argparser to specify fastpm or picola
 
     #o_cdm = omega_cdm_sample(N=N)
     #ln10As = A_s_sample(N = N)
-    ordered_params = OrderedDict({'O_cdm':(0.1, 0.5), 'sigma_8': (0.5, 1.2)})
-    Ob =  0.022
+    ordered_params = OrderedDict({'O_cdm':(0.1, 0.4), 'sigma_8': (0.6, 1.1)})
     h = 0.7
+    Ob = 0.0486
 
     LHC = make_LHC(ordered_params, N)
 
@@ -201,8 +218,8 @@ if __name__ == "__main__":
         if not path.isdir(sub_outputdir):
             mkdir(sub_outputdir)
 
-        with open(path.join(sub_outputdir, 'output_redshifts.dat'), 'w') as f:
-            f.write("2.0, 5\n0.0, 10") #all we need
+        #with open(path.join(sub_outputdir, 'output_redshifts.dat'), 'w') as f:
+        #    f.write("2.0, 5\n0.0, 10") #all we need
 
         O_cdm = point[0]
         Om = O_cdm+Ob
@@ -212,7 +229,8 @@ if __name__ == "__main__":
         with open(path.join(sub_outputdir, 'input_params%03d.dat'%idx), 'w') as f:
             f.write("O_m: %f\nsigma_8: %f"%(Om, sigma_8))
 
-        write_picola_params(O_cdm, sigma_8, sub_outputdir, jobname, seed = seed)
+        #write_picola_params(O_cdm, sigma_8, sub_outputdir, jobname, seed = seed)
+        write_fastpm_params(O_cdm, Ob, sub_outputdir, jobname, seed=seed )
         command = make_sherlock_command(jobname, sub_outputdir)
 
         #call(command, shell=True)

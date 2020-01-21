@@ -261,3 +261,37 @@ Nrep_pos_y   0                  % The maximum number of box replicates in the po
 Nrep_neg_z   0                  % The maximum number of box replicates in the negative z-direction
 Nrep_pos_z   0                  % The maximum number of box replicates in the positive z-direction
 """
+
+fastpm_config="""
+nc = 256
+boxsize  = 512.0
+
+time_step = linspace(0.1, 1.0, 3)
+
+output_redshifts = {0.0} --redshift of output
+
+omega_m = {omega_m: f}
+h = 0.7
+
+read_powerspectrum = "{outputdir}/class_pk.dat "
+remove_cosmic_variance = False
+random_seed = {seed:d}
+
+pm_nc_factor = 2
+np_alloc_factor = 4.0
+
+write_nonlineark= "{outputdir}/fastpm"
+
+-- 1d power spectrum (raw), without shotnoise correction
+write_powerspectrum = "{outputdir}/powerspec-debug"
+
+lc_fov = 360
+
+lc_amin = 0.1
+lc_amax = 1.0
+
+lc_write_usmesh = "{ouputdir}/lightcone"
+lc_usmesh_tiles = fastpm.outerproduct({-1, 0}, {-1, 0}, {-1, 0})
+--lc_usmesh_fof_padding = 20.0
+lc_usmesh_alloc_factor = 2.0
+"""
