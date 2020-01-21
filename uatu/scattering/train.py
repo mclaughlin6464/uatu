@@ -28,23 +28,22 @@ def adv_train(model, device, train_loader, optimizer, epoch, scattering = lambda
     loss_fn = F.l1_loss if loss == 'mae' else F.mse_loss
     for batch_idx, (data, target) in enumerate(train_loader):
         data, target = torch.squeeze(data, 3).to(device), target.to(device)
-        #output = model(scattering(data))
-        #orig_loss = loss_fn(output, target)
 
-        #with torch.no_grad():
-        adv_data = compute_attacked_map(model,scattering, loss_fn, data, target) 
+        optimizer.zero_grad()
+        output = model(scattering(data))
+        orig_loss = loss_fn(output, target)
+
+        # not sure if this matters tbh
+        with torch.no_grad():
+            adv_data = compute_attacked_map(model,scattering, loss_fn, data, target) 
         
-        #with torch.no_grad(): # don't wanna run gradients back through the perturbation
-        #    model.eval()
         adv_output = model(scattering(adv_data))
-        #    model.train()
             
         adv_loss = loss_fn(adv_output, target)
 
-        #loss = 0.5*orig_loss + 0.5*adv_loss
-        loss = adv_loss
+        # TODO could weight these 
+        loss = 0.5*orig_loss + 0.5*adv_loss
 
-        optimizer.zero_grad()
         loss.backward()
         optimizer.step()
 

@@ -204,15 +204,16 @@ if __name__ == "__main__":
         with open(path.join(sub_outputdir, 'output_redshifts.dat'), 'w') as f:
             f.write("2.0, 5\n0.0, 10") #all we need
 
-        Om = point[0]+Ob
+        O_cdm = point[0]
+        Om = O_cdm+Ob
         sigma_8 = point[1]
 
-        compute_pk()
+        compute_pk(O_cdm, sigma_8, sub_outputdir)
         with open(path.join(sub_outputdir, 'input_params%03d.dat'%idx), 'w') as f:
             f.write("O_m: %f\nsigma_8: %f"%(Om, sigma_8))
 
-        write_picola_params(o, sigma_8, sub_outputdir, jobname, seed = seed)
+        write_picola_params(O_cdm, sigma_8, sub_outputdir, jobname, seed = seed)
         command = make_sherlock_command(jobname, sub_outputdir)
 
-        call(command, shell=True)
+        #call(command, shell=True)
 
