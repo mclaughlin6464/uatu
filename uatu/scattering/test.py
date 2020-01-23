@@ -2,7 +2,7 @@ import torch
 #import torch.Functional as F
 import numpy as np
 
-def val_test(model, device, test_loader, scattering):
+def val_test(model, device, test_loader, scattering=lambda x:x):
 
     model.eval()
     perc_error = []
