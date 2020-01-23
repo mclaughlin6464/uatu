@@ -10,7 +10,7 @@ from time import time
 import numpy as np
 from classy import Class
 
-from .config_strings import *
+from config_strings import *
 from collections import OrderedDict
 
 def make_LHC(ordered_params, N, seed = None):
@@ -69,7 +69,7 @@ def A_s_sample(log_mean = 3.089, log_std = 0.036, N = 500):
     #return np.exp(log_10_as)*1e-10
 
 def make_sherlock_command(jobname, outputdir, \
-                          fastpm_location = '/home/users/swmclau2/picola/l-picola/', max_time = 2):
+                          fastpm_location = '/home/users/swmclau2/Git/fastpm/src/', max_time = 2):
     '''
     Return a list of strings that comprise a bash command to call picola on the cluster.
     Designed to work on sherlock's sbatch system. It must write a file
@@ -187,7 +187,7 @@ def write_fastpm_params(Ocdm, Ob, outputdir, jobname, seed = None):
 
     Om = Ocdm+Ob
 
-    formatted_config = fastpm_config.format(seed = seed,
+    formatted_config = fastpm_config.format(seed = int(seed),
                                             outputdir=outputdir,\
                                             omega_m= Om)
     with open(fname, 'w') as f:

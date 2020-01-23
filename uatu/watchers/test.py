@@ -67,4 +67,5 @@ def key_func(y):
     :return:  key, the key corresponding to this y
     """
 
+    y = y.astype(float)
     return "Om_{om:.6f}_s8_{s8:.6f}".format(om=y[0,0], s8=y[0,1])

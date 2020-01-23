@@ -33,7 +33,8 @@ def compute_attacked_map(model, scattering, cost_fn, data, target, use_log_barri
 
         data_grad = torch.autograd.grad(loss, [perturbed_data])[0]
                     
-        epsilon = 2e-4
+        #epsilon = 1e-4
+        epsilon = 1e-7 
         # sign change is important to make it a gradient ascent
         perturbed_data = fgsm_attack(perturbed_data, epsilon, -1*data_grad)
 

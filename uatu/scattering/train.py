@@ -42,7 +42,8 @@ def adv_train(model, device, train_loader, optimizer, epoch, scattering = lambda
         adv_loss = loss_fn(adv_output, target)
 
         # TODO could weight these 
-        loss = 0.5*orig_loss + 0.5*adv_loss
+        #loss = orig_loss# + 0.5*adv_loss
+        loss = adv_loss
 
         loss.backward()
         optimizer.step()
