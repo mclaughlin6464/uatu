@@ -95,13 +95,13 @@ class Scattering2dResNet(nn.Module):
 
 
 class DeepResnet(nn.Module):
-    def __init__(self,  init_downsample_factor=4, in_channels=1, n_subplanes=2, n_sublocks=4, depth = [16, 32, 64, 64, 64, 64, 64] ):
+    def __init__(self,input_size=256,  init_downsample_factor=4, in_channels=1, n_subplanes=2, n_sublocks=4, depth = [16, 32, 64, 64, 64, 64, 64] ):
         super(DeepResnet, self).__init__()
         self.inplanes = 16 * n_subplanes
         self.ichannels = 16 * n_subplanes
         self.K = in_channels
-        self.input_size = 256# int(256/(2**J))
-        self.downsample_size = self.input_size/init_downsample_factor
+        self.input_size = input_size# int(256/(2**J))
+        self.downsample_size = int(self.input_size/init_downsample_factor)
 
         self.init_conv = nn.Sequential(
             nn.BatchNorm2d(in_channels, eps=1e-5, affine=False),
@@ -123,7 +123,7 @@ class DeepResnet(nn.Module):
         self.avgpool = nn.AdaptiveAvgPool2d(4)
 
         #self.fc = nn.Linear(64 * n_subplanes * 4, 2)
-        self.fc = nn.Linear(64 * n_subplanes * 16, 2)
+        self.fc = nn.Linear(n_subplanes * 16*self.n_filters[-1], 2)
 
     def _make_layer(self, block, planes, blocks, stride=1):
         downsample = None

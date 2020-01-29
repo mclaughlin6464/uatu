@@ -1,4 +1,4 @@
-from .resnet import Scattering2dResNet
+from .resnet import Scattering2dResNet, DeepResnet
 from .train import *
 from .test import *
 from .attack import *

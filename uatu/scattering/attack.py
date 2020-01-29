@@ -17,7 +17,7 @@ def fgsm_attack(image, eps, data_grad):
     # Return the perturbed image
     return perturbed_image
 
-def compute_attacked_map(model, scattering, cost_fn, data, target, use_log_barrier = False, n_steps = 5):#, log_eps = 1.5)
+def compute_attacked_map(model, scattering, cost_fn, data, target, use_log_barrier = False, n_steps = 5, lr = 1e-7):#, log_eps = 1.5)
     perturbed_data = data.clone()
     for i in range(n_steps):
 
@@ -33,9 +33,7 @@ def compute_attacked_map(model, scattering, cost_fn, data, target, use_log_barri
 
         data_grad = torch.autograd.grad(loss, [perturbed_data])[0]
                     
-        #epsilon = 1e-4
-        epsilon = 1e-7 
         # sign change is important to make it a gradient ascent
-        perturbed_data = fgsm_attack(perturbed_data, epsilon, -1*data_grad)
+        perturbed_data = fgsm_attack(perturbed_data, lr, -1*data_grad)
 
     return perturbed_data#, init_pred, output
