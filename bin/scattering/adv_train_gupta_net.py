@@ -16,6 +16,9 @@ device = torch.device("cuda" if use_cuda else "cpu")
 K = 1
 
 model = GuptaNet(K, p_dropout=0.0).to(device)
+# resuming training from ol model
+model_path = '/scratch/users/swmclau2/uatu_networks/gupta_net_smooth_0_epoch_50_adv_test3.pth'
+model.load_state_dict(torch.load(model_path, map_location='cpu'))
 
 dir = '/oak/stanford/orgs/kipac/users/swmclau2/Uatu/UatuLightconeTraining/'
 #dir = '/home/sean/Git/uatu/data/'
@@ -35,7 +38,7 @@ data = (train_dset, val_dset, None)
 
 scattering = lambda x: x
 # Optimizer
-lr = 2e-6
+lr = 1e-6
 epochs = 50 
 
 output_dir= '/home/users/swmclau2/scratch/uatu_networks/'
@@ -57,6 +60,6 @@ for epoch in range(epochs):
     val_test(model, device, val_dset, scattering)
 
     if epoch%5==0:
-        torch.save(model.state_dict(), path.join(output_dir, 'gupta_net_smooth_%d_epoch_%02d_adv_test3.pth'%(smoothing, epoch)))
+        torch.save(model.state_dict(), path.join(output_dir, 'gupta_net_smooth_%d_epoch_%02d_adv_test4.pth'%(smoothing, epoch+50)))
 
 

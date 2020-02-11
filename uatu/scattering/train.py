@@ -9,7 +9,10 @@ def train(model, device, train_loader, optimizer, epoch, scattering= lambda x : 
 
     loss_fn = F.l1_loss if loss == 'mae' else F.mse_loss
     for batch_idx, (data, target) in enumerate(train_loader):
-        data, target = torch.squeeze(data, 3).to(device), target.to(device)
+        if len(data.shape) > 3:
+            data = torch.squeeze(data, 3)
+
+        data, target = data.to(device), target.to(device)
         optimizer.zero_grad()
         output = model(scattering(data))
         loss = loss_fn(output, target)
@@ -27,7 +30,10 @@ def adv_train(model, device, train_loader, optimizer, epoch, scattering = lambda
 
     loss_fn = F.l1_loss if loss == 'mae' else F.mse_loss
     for batch_idx, (data, target) in enumerate(train_loader):
-        data, target = torch.squeeze(data, 3).to(device), target.to(device)
+        if len(data.shape) > 3:
+            data = torch.squeeze(data, 3)
+
+        data, target = data.to(device), target.to(device)
 
         optimizer.zero_grad()
         output = model(scattering(data))
