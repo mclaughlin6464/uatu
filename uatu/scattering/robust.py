@@ -42,14 +42,14 @@ def compute_robust_map(scattering, device, model, x0, xt, learning_rate= 1e-3, l
     perturbed_x0 = x0.clone()
     perturbed_x0.requires_grad = True
     # Forward pass the data through the model
-    init_pred = get_gupta_embedding(xt, model, scattering)
+    init_pred = get_embedding(xt, model, scattering)
 
     for i in range(n_steps):
         optimizer = torch.optim.Adam([perturbed_x0], lr=learning_rate)#, weight_decay=1e-9)
 
         optimizer.zero_grad()
 
-        output = get_gupta_embedding(perturbed_x0, model, scattering)
+        output = get_embedding(perturbed_x0, model, scattering)
         loss = (output-init_pred).norm() + log_barrier(perturbed_x0, x0) 
         loss.backward(retain_graph = True)
 

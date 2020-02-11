@@ -10,7 +10,9 @@ def val_test(model, device, test_loader, scattering=lambda x:x):
 
     with torch.no_grad():
         for data, target in test_loader:
-            data = torch.squeeze(data.to(device),3)#, target.to(device)
+            if len(data.shape) > 3:
+                data = torch.squeeze(data, 3)
+            data = data.to(device)#, target.to(device)
             output = model(scattering(data)).cpu()
             perc_error.append(np.array(np.abs(output- target) / (target)))
             rmse.append(np.array(output - target))
