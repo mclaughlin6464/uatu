@@ -1,10 +1,18 @@
 import torch.nn as nn
+import torch
 
 
 def conv3x3(in_planes, out_planes, stride=1):
     "3x3 convolution with padding"
     return nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride,
                      padding=1, bias=True)
+
+def shuffle(x):
+    orig_size = x.size
+    x = x.view(x.size(0), -1)
+    rand_idxs = torch.randperm(x.size[1], requires_grad=False)
+    x = x[:, rand_idxs]
+    return x.view(*orig_size)
 
 
 class BasicBlock(nn.Module):
@@ -36,9 +44,28 @@ class BasicBlock(nn.Module):
 
         return out
 
+class ShuffleBlock(BasicBlock):
+
+    def forward(self, x):
+        residual = x
+        x = shuffle(x)
+        out = self.conv1(x)
+        out = self.bn1(out)
+        out = self.relu(out)
+        out = shuffle(out)
+        out = self.conv2(out)
+        out = self.bn2(out)
+
+        if self.downsample is not None:
+            residual = self.downsample(x)
+
+        out += residual
+        out = self.relu(out)
+
+        return out
 
 class Scattering2dResNet(nn.Module):
-    def __init__(self, in_channels,J,  k=2, n=4, depth = [32, 64] ):
+    def __init__(self, in_channels,J,  k=2, n=4, depth = [32, 64], shuffle_layers=0 ):
         super(Scattering2dResNet, self).__init__()
         self.inplanes = 16 * k
         self.ichannels = 16 * k
@@ -57,7 +84,11 @@ class Scattering2dResNet(nn.Module):
         self.n_filters = [16 for i in range(depth)] if type(depth) is int else depth
 
         for i, nf in enumerate(self.n_filters):
-            self.layers.append(self._make_layer(BasicBlock, nf * k, n))
+            block = BasicBlock
+            if i == len(self.n_filters)-shuffle_layers-1:
+                block = ShuffleBlock # append a shuffle block to the end
+
+            self.layers.append(self._make_layer(block, nf * k, n))
             setattr(self, "layer_%d"%i, self.layers[-1])
 
         #self.layer3 = self._make_layer(BasicBlock, 64 * k, n)
@@ -95,7 +126,9 @@ class Scattering2dResNet(nn.Module):
 
 
 class DeepResnet(nn.Module):
-    def __init__(self,input_size=256,  init_downsample_factor=4, in_channels=1, n_subplanes=2, n_sublocks=4, depth = [16, 32, 64, 64, 64, 64, 64] ):
+    def __init__(self,input_size=256,  init_downsample_factor=4,\
+                 in_channels=1, n_subplanes=2, n_sublocks=4,\
+                 depth = [16, 32, 64, 64, 64, 64, 64], shuffle_layers=0):
         super(DeepResnet, self).__init__()
         self.inplanes = 16 * n_subplanes
         self.ichannels = 16 * n_subplanes
@@ -112,11 +145,14 @@ class DeepResnet(nn.Module):
             nn.AdaptiveAvgPool2d(self.downsample_size)
         )
         self.layers = []
-        self.depth = depth-1 if type(depth) is int else len(depth)
+        #self.depth = depth-1 if type(depth) is int else len(depth)
         self.n_filters = [16 for i in range(depth)] if type(depth) is int else depth
 
         for i, nf in enumerate(self.n_filters):
-            self.layers.append(self._make_layer(BasicBlock, nf * n_subplanes, n_sublocks))
+            block = BasicBlock
+            if i == len(self.n_filters) - shuffle_layers - 1:
+                block = ShuffleBlock  # append a shuffle block to the end
+            self.layers.append(self._make_layer(block, nf * n_subplanes, n_sublocks))
             setattr(self, "layer_%d"%i, self.layers[-1])
 
         #self.layer3 = self._make_layer(BasicBlock, 64 * k, n)
