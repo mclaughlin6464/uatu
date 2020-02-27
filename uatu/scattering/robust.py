@@ -4,8 +4,7 @@ from .attack import fgsm_attack, log_barrier
 
 # TODO would be nice to get a depth of embedding
 def get_embedding(x, model, scattering = lambda x: x):
-    x = scattering(x)
-
+    #x = scattering(x)
     x = x.view(-1, model.K, model.input_size, model.input_size)#
 
     x = model.init_conv(x)
@@ -42,6 +41,7 @@ def compute_robust_map(scattering, device, model, x0, xt, learning_rate= 1e-3, l
     perturbed_x0 = x0.clone()
     perturbed_x0.requires_grad = True
     # Forward pass the data through the model
+    #get_embedding = get_gupta_embedding
     init_pred = get_embedding(xt, model, scattering)
 
     for i in range(n_steps):
@@ -50,7 +50,7 @@ def compute_robust_map(scattering, device, model, x0, xt, learning_rate= 1e-3, l
         optimizer.zero_grad()
 
         output = get_embedding(perturbed_x0, model, scattering)
-        loss = (output-init_pred).norm() + log_barrier(perturbed_x0, x0) 
+        loss = (output-init_pred).norm() + log_barrier(perturbed_x0, x0, eps=0.5, lam = 1e2) 
         loss.backward(retain_graph = True)
 
         optimizer.step()

@@ -5,6 +5,8 @@ import h5py
 from uatu.watchers.Dataset import *
 from uatu.watchers.test import key_func
 from uatu.scattering import * 
+from astropy.units import deg
+
 
 shape = (256, 256)
 in_channels = 1
@@ -24,35 +26,39 @@ model.eval()
 dir = '/oak/stanford/orgs/kipac/users/swmclau2/Uatu/UatuLightconeTraining/'
 fname = path.join(dir, 'UatuLightconeTraining.hdf5')
 
-output_fname  = path.join(dir, 'UatuLightconeTrainingRobustifyDeepResnet.hdf5')
+output_fname  = path.join(dir, 'UatuLightconeTrainingRobustifyDeepResnetGRF.hdf5')
+grf_fname = path.join(dir, 'UatuLightconeTrainingGRF_smooth0.0.hdf5')
 
-batch_size = 4 
+batch_size = 4
 train_dset = DatasetFromFile(fname,batch_size, shuffle=False, augment=False,
                              train_test_split = 1.0, whiten = True, cache_size = 128, transform=torch.Tensor)
+grf_dset = DatasetFromFile(grf_fname,batch_size, shuffle=False, augment=False,
+                             train_test_split = 1.0, whiten = True, cache_size = 64, transform=torch.Tensor)
 
 key_dict = {}
+scattering = lambda x: x
 
 np.random.seed(64)
-
 x0_shape = (batch_size, shape[0], shape[1])
-scattering = lambda x:x
-with h5py.File(path.join(dir, output_fname), 'w') as f:
-    for i, (xt,y) in enumerate(train_dset):
-        print(i)
-        xt = xt.squeeze()
-        x0 = torch.Tensor(np.random.randn(xt.shape[0], shape[0], shape[1] ))
-        x0 = x0*xt.std()+xt.mean()
-        #print(x0.shape, xt.shape)
-        robust_x = compute_robust_map(scattering, device, model, x0, xt).cpu().detach().numpy()
+l = int(len(train_dset)*1.0/batch_size)
+for i, ((xt,y), (x0,_)) in enumerate(zip(train_dset, grf_dset)):
+# TODO start batches
+    xt = xt.squeeze()
+    x0 = x0.squeeze()
+    #x0 = torch.Tensor(np.random.randn(xt.shape[0], shape[0], shape[1]))
+    x0 =  ((x0-x0.mean())/x0.std())*xt.std()+xt.mean() 
 
-        unique_ys, first_idxs, inv_idxs = np.unique(y.reshape((xt.shape[0], 2))[:,0],return_index=True, return_inverse = True)#, axis=0)
-        
-        y_idxs =  [np.where(inv_idxs == i)[0] for i in range(len(unique_ys))]  
+    robust_x = compute_robust_map(scattering, device, model, x0, xt).cpu().detach().numpy()
 
-        unique_ys = y[first_idxs, :]
-        if len(unique_ys.shape)==1:
-            np.expand_dims(unique_ys, axis=0)
+    unique_ys, first_idxs, inv_idxs = np.unique(y.reshape((xt.shape[0], 2))[:,0],return_index=True, return_inverse = True)#, axis=0)
+    
+    y_idxs =  [np.where(inv_idxs == i)[0] for i in range(len(unique_ys))]  
 
+    unique_ys = y[first_idxs, :]
+    if len(unique_ys.shape)==1:
+        np.expand_dims(unique_ys, axis=0)
+
+    with h5py.File(path.join(dir, output_fname)) as f:
         for  _y, i  in zip(unique_ys, y_idxs):
 
             n_y = i.shape[0]

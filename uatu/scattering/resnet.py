@@ -8,11 +8,13 @@ def conv3x3(in_planes, out_planes, stride=1):
                      padding=1, bias=True)
 
 def shuffle(x):
-    orig_size = x.size
+    orig_size = x.size()
     x = x.view(x.size(0), -1)
-    rand_idxs = torch.randperm(x.size[1], requires_grad=False)
+    # shuffle the same over batch, allegedly not a problem
+    # TODO this should not shuffle across channels, but that doesn't seem to matter? 
+    rand_idxs = torch.randperm(x.size(1), requires_grad=False)
     x = x[:, rand_idxs]
-    return x.view(*orig_size)
+    return x.view(orig_size)
 
 
 class BasicBlock(nn.Module):
@@ -150,7 +152,7 @@ class DeepResnet(nn.Module):
 
         for i, nf in enumerate(self.n_filters):
             block = BasicBlock
-            if i == len(self.n_filters) - shuffle_layers - 1:
+            if i == len(self.n_filters) - shuffle_layers:
                 block = ShuffleBlock  # append a shuffle block to the end
             self.layers.append(self._make_layer(block, nf * n_subplanes, n_sublocks))
             setattr(self, "layer_%d"%i, self.layers[-1])
