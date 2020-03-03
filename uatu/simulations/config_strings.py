@@ -263,10 +263,10 @@ Nrep_pos_z   0                  % The maximum number of box replicates in the po
 """
 
 fastpm_config="""
-nc = 256
-boxsize  = 512.0
+nc = 512.0 
+boxsize  = 1024.0
 
-time_step = linspace(0.1, 1.0, 3)
+time_step = linspace(0.1, 1.0, 10)
 
 output_redshifts = {{0.0}} --redshift of output
 
@@ -278,20 +278,20 @@ remove_cosmic_variance = False
 random_seed = {seed:d}
 
 pm_nc_factor = 2
-np_alloc_factor = 4.0
+np_alloc_factor = 2.5
 
-write_nonlineark= "{outputdir}/fastpm"
+--write_nonlineark= "{outputdir}/fastpm"
 
 -- 1d power spectrum (raw), without shotnoise correction
 write_powerspectrum = "{outputdir}/powerspec-debug"
 
-lc_fov = 360
+lc_fov = 0
 
-lc_amin = 0.1
+lc_amin = 0.8
 lc_amax = 1.0
 
 lc_write_usmesh = "{outputdir}/lightcone"
-lc_usmesh_tiles = fastpm.outerproduct({{-1, 0}}, {{-1, 0}}, {{-1, 0}})
+--lc_usmesh_tiles = fastpm.outerproduct({{-1, 0}}, {{-1, 0}}, {{-1, 0}})
 --lc_usmesh_fof_padding = 20.0
 lc_usmesh_alloc_factor = 2.0
 """

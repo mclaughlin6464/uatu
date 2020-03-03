@@ -49,7 +49,7 @@ class BasicBlock(nn.Module):
 class ShuffleBlock(BasicBlock):
 
     def forward(self, x):
-        residual = x
+        residual = shuffle(x) # important, don't want spatial information sneaking in from lower in the network!
         x = shuffle(x)
         out = self.conv1(x)
         out = self.bn1(out)

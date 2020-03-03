@@ -126,15 +126,15 @@ def compute_pk(O_cdm, sigma8, outputdir):
         sigma8. Return the value of sigma8 necessary to run the sims
     """
 
-    z = 20.0 #Note maybe allow to vary, or make global
+    z = 0.0 #Note maybe allow to vary, or make global
     params = {
         'output': 'mPk',
         #'ln10^{10}A_s': ln_10_As,
         'sigma8': sigma8,
-        'P_k_max_h/Mpc': 100.0,
+        'P_k_max_h/Mpc': 500.0,
         'n_s': 0.96,
         'h': 0.7,
-        'non linear': 'halofit',
+        #'non linear': 'halofit',
         'omega_b': 0.022,
         'omega_cdm': O_cdm*0.7**2,
         'z_pk': z}
@@ -144,11 +144,11 @@ def compute_pk(O_cdm, sigma8, outputdir):
 
     cosmo.compute()#level = ["initnonlinear"])
 
-    k_size = 600
-    ks = np.logspace(-3, 1.5, k_size).reshape(k_size,1,1)
+    k_size = 1000
+    ks = np.logspace(-5, 2.5, k_size).reshape(k_size,1,1)
     zs = np.array([z])
 
-    pks =  cosmo.get_pk(ks, zs, k_size, 1, 1)[:,0,0]
+    pks =  cosmo.get_pk_lin(ks*0.7, zs, k_size, 1, 1)[:,0,0]*(0.7**3)
 
     np.savetxt(path.join(outputdir, 'class_pk.dat'), np.c_[ks[:,0,0], pks],\
                delimiter = ' ')
