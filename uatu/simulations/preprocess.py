@@ -3,20 +3,126 @@ from __future__ import print_function
 """
 Convert the raw simulation data into a format the CNN can accept
 """
-from os import path
-from time import time
-from itertools import izip, product
-from collections import OrderedDict
 
 import numpy as np
-import healpy as hp
-import pandas as pd
+import astropy.units as u
+from astropy.cosmology import z_at_value
+from lenstools.simulations.fastpm import FastPMSnapshot
+from lenstools.simulations.raytracing import DensityPlane, PotentialPlane, RayTracer
+from lenstools.image.convergence import ConvergenceMap
+import bigfile
+from shutil import copy
+from os import path
 from glob import glob
-#from __future__ import absolute_import, division, print_function, unicode_literals
-from scipy.interpolate import interp1d
-from astropy import cosmology
-from astropy.constants import c  # the speed of light
-from numba import jit
+
+class MyFastPMSnapshot(FastPMSnapshot):
+
+    def getHeader(self):
+
+        #fastpm doesn't always save thigns in teh way that lenstools wants
+        basename = path.realpath(self.fp.basename)
+        header_files = glob(basename[:-2] + '/Header/*')
+        for hf in header_files:
+            copy(hf, basename)
+        # Initialize header
+        header = dict()
+        bf_header = self.fp["."].attrs
+
+        ###############################################
+        # Translate fastPM header into lenstools header#
+        ###############################################
+
+        # Number of particles/files
+        header["num_particles_file"] = bf_header["NC"][0] ** 3
+        header["num_particles_total"] = header["num_particles_file"]
+        header["num_files"] = 1
+
+        # Cosmology
+        header["Om0"] = bf_header["OmegaM"][0]
+        header["Ode0"] = 1. - header["Om0"]
+        header["w0"] = -1.
+        header["wa"] = 0.
+        header["h"] = bf_header['HubbleParam'][0]
+
+        # Box size in kpc/h
+        header["box_size"] = bf_header["BoxSize"][0] * 1.0e3
+
+        # Masses
+        header["masses"] = bf_header['MassTable'] * header["h"]
+
+        #################
+
+        return header
+
+    def getPositions(self, first=None, last=None, save=True):
+
+        # Get data pointer
+        data = bigfile.BigData(self.fp)
+
+        # Read in positions in Mpc/h
+        if (first is None) or (last is None):
+            positions = data["Position"][:] * self.Mpc_over_h
+        # aemit = data["Aemit"][:]
+        else:
+            positions = data["Position"][first:last] * self.Mpc_over_h
+        # aemit = data["Aemit"][first:last]
+
+        # Enforce periodic boundary conditions
+        for n in (0, 1):
+            positions[:, n][positions[:, n] < 0] += self.header["box_size"]
+            positions[:, n][positions[:, n] > self.header["box_size"]] -= self.header["box_size"]
+
+        # Maybe save
+        if save:
+            self.positions = positions
+        # self.aemit = aemit
+
+        # Initialize useless attributes to None
+        self.weights = None
+        self.virial_radius = None
+        self.concentration = None
+
+        # Return
+        return positions
+
+def compute_potential_planes(snap, z_source, num_lenses, res=8192, smooth=1):
+    chi_max = snap.cosmology.comoving_distance(z_source)
+
+    thickness = chi_max / num_lenses
+    chi_start = thickness / 2
+    chi_end = chi_max - thickness / 2
+
+    # Lens centers
+    chi_centers = np.linspace(chi_start.value, chi_end.value, num_lenses) * chi_max.unit
+
+    tracer = RayTracer()
+    for i,chi in enumerate(chi_centers):
+        zlens = z_at_value(snap.cosmology.comoving_distance,chi)
+        d,r,n = snap.cutPlaneGaussianGrid(normal=2,center=chi,thickness=thickness,plane_resolution=res,kind="potential", smooth=smooth)
+
+        lens = PotentialPlane(d.value,angle=snap.header["box_size"],comoving_distance=chi,redshift=zlens,cosmology=snap.cosmology,unit=u.rad**2)
+        tracer.addLens(lens)
+
+    #Add a fudge lens at the end (needed by ODE solver implementation)
+    chi_fudge = chi_end + thickness
+    z_fudge = 1000.
+    tracer.addLens(PotentialPlane(np.zeros((res,res)),angle=snap.header["box_size"],redshift=z_fudge,comoving_distance=chi_fudge,cosmology=snap.cosmology,num_particles=None))
+
+    #Order lenses
+    tracer.reorderLenses()
+    return tracer
+
+def conv_in_fov(lens_planes, start_coord, fov = 10*u.deg, fov_resolution = 256):
+
+    coords = np.linspace(0, fov.value, fov_resolution)
+    mesh_coords = np.meshgrid((coords, coords))
+
+    pos = (np.array(mesh_coords) + np.array(start_coord).reshape((-1, 1,1)) ) * fov.unit
+
+    conv_born = lens_planes.convergenceBorn(pos, z=z, save_intermediate=False)
+    conv_born = ConvergenceMap(conv_born, angle=fov)
+
+    return conv_born.data
 
 def ra_dec_z(x, cosmo=None):
     """
@@ -178,7 +284,30 @@ def naive_weighting(x, cosmo, **kwargs):
     """
     return np.ones((x.shape[0],))
 
-def convert_particles_to_proj_density(directory, boxno, Lbox = 512.0, N = 2048, ang_size_image = 10,\
+def convert_particles_to_convergence(lightcone_dir, ang_size_image=10, ang_space_patches =None, fov_resolution = 256, potential_kwargs ={} ):
+
+    snap = MyFastPMSnapshot.open(lightcone_dir)
+
+    potential_defaults = {'z_source': 0.3, 'num_lenes': 25}
+    potential_defaults.update(potential_kwargs)
+
+    lens_planes = compute_potential_planes(snap, **potential_defaults)
+
+    if ang_space_patches is None:
+        ang_space_patches = ang_size_image
+
+    n_sub = 360.0/ang_space_patches -1
+
+    conv = np.zeros((n_sub**2, fov_resolution, fov_resolution))
+    for i, ra in enumerate(np.arange(0.0, 360.0, ang_space_patches)):
+        for j,dec in enumerate(np.linspace(0.0, 360.0, ang_space_patches)):
+            conv[i*n_sub+j] = conv_in_fov(lens_planes, (ra, dec), fov=ang_size_image * u.deg, fov_resolution=fov_resolution)
+
+    boxno = int(directory[-4:-1])
+    np.save(path.join(directory, 'proj_map_%03d.npy'%boxno), conv)
+
+
+def _convert_particles_to_proj_density(directory, boxno, Lbox = 512.0, N = 2048, ang_size_image = 10,\
                                 pixels_per_side = 256, weighting_func = kappa_weighting, n_z_bins = 4):
     """
     Project a particle distribution to a 2-D map. Optionally apply a kernel, to simulate lensing.
@@ -258,7 +387,7 @@ def convert_particles_to_proj_density(directory, boxno, Lbox = 512.0, N = 2048, 
 
 
 # TODO clarify syntax between this and above? work a little differency
-@jit
+#@jit
 def convert_particles_to_density(directory,boxno, Lbox = 512, Lvoxel = 2, N_voxels_per_side = 4, full = True):
     # Lvoxel, size on an individual density voxel
     # number of voxels in a subvolume
@@ -296,10 +425,10 @@ def convert_all_particles(directory, **kwargs):
     all_subdirs = glob(path.join(directory, 'Box*/'))
     for boxno, subdir in enumerate(sorted(all_subdirs)):
         #print subdir
-        if path.isfile(path.join(subdir, 'uatu_lightcone.info' )): # is a lightcone
-            convert_particles_to_proj_density(subdir, boxno, **kwargs)
-        else:
-            convert_particles_to_density(subdir,boxno, **kwargs)
+        #if path.isfile(path.join(subdir, 'uatu_lightcone.info' )): # is a lightcone
+        convert_particles_to_convergence(path.join(subdir , 'lightcone/1/'), **kwargs)
+        #else:
+        #    convert_particles_to_density(subdir,boxno, **kwargs)
 
     # TODO delte the particles?
 
@@ -307,4 +436,5 @@ if __name__ == "__main__":
     from sys import argv
 
     directory = argv[1]
-    convert_all_particles(directory)
+    #convert_all_particles(directory)
+    convert_particles_to_convergence(directory)

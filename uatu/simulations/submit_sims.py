@@ -68,7 +68,7 @@ def A_s_sample(log_mean = 3.089, log_std = 0.036, N = 500):
 
     #return np.exp(log_10_as)*1e-10
 
-def make_sherlock_command(jobname, outputdir, \
+def make_sherlock_command(jobname, outputdir, N, \
                           fastpm_location = '/home/users/swmclau2/Git/fastpm/src/', max_time = 2):
     '''
     Return a list of strings that comprise a bash command to call picola on the cluster.
@@ -83,14 +83,15 @@ def make_sherlock_command(jobname, outputdir, \
     :return:
         Command, a string to call to submit the job.
     '''
-    log_file = jobname + '.out'
-    err_file = jobname + '.err'
+    log_file = jobname + '_%a.out'
+    err_file = jobname + '_%a.err'
     param_file = jobname + '.dat'
     sbatch_header = ['#!/bin/bash',
                      '--job-name=%s' % jobname,
-                     '-p iric',  # KIPAC queue
-                     '--output=%s' % path.join(outputdir, log_file),
-                     '--error=%s' % path.join(outputdir, err_file),
+                     '-p iric,kipac',  # KIPAC queues
+                     '--array=0-%d'%(N-1),
+                     '--output=%s' %(outputdir+ log_file),
+                     '--error=%s' %(outputdir +  err_file),
                      '--time=%d:00:00' %max_time,  # max_time is in minutes
                      '--nodes=%d' % 1,
                      '--exclusive',
@@ -104,11 +105,15 @@ def make_sherlock_command(jobname, outputdir, \
 
     #call_str = ['srun', path.join(picola_location, 'L-PICOLA'),
     #            path.join(outputdir, param_file)]
-    call_str = ['srun', path.join(fastpm_location, 'fastpm'),
-                path.join(outputdir, param_file)]
+    python_path = path.dirname(path.abspath(__file__))
+    
+    call_str = ['tmp=`printf "$03d" %a\n`',
+                'srun', path.join(fastpm_location, 'fastpm'),
+               outputdir + 'Box$tmp/', param_file, '\n',
+                'python', path.join(python_path, 'preprocess.py'), outputdir + 'Box$tmp/lightcone/1/']
     call_str = ' '.join(call_str)
     # have to write to file in order to work.
-    with open(path.join(outputdir, '%s.sbatch'%jobname), 'w') as f:
+    with open(outputdir, '%s.sbatch'%jobname, 'w') as f:
         f.write(sbatch_header +'\n' + load_str +  '\n' + call_str)
 
     return 'sbatch %s' % (path.join(outputdir, '%s.sbatch'%jobname))
@@ -213,8 +218,9 @@ if __name__ == "__main__":
     LHC = make_LHC(ordered_params, N)
 
     for idx, point in enumerate(LHC):
-        sub_outputdir = path.join(outputdir, 'Box%03d'%idx)
-        sub_jobname = jobname + '_%03d'%idx
+        sub_outputdir = path.join(outputdir, 'Box%03d'%idx) # removed leading zeros
+
+        #sub_jobname = jobname + '_%03d'%idx
         if not path.isdir(sub_outputdir):
             mkdir(sub_outputdir)
 
@@ -231,7 +237,9 @@ if __name__ == "__main__":
 
         #write_picola_params(O_cdm, sigma_8, sub_outputdir, jobname, seed = seed)
         write_fastpm_params(O_cdm, Ob, sub_outputdir, jobname, seed=seed )
-        command = make_sherlock_command(jobname, sub_outputdir)
 
-        #call(command, shell=True)
+    output_base = outputdir+'Box%s/'
+    command = make_sherlock_command(jobname, outputdir, N)
+
+    call(command, shell=True)
 

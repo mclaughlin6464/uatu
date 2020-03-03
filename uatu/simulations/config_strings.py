@@ -283,11 +283,11 @@ np_alloc_factor = 2.5
 --write_nonlineark= "{outputdir}/fastpm"
 
 -- 1d power spectrum (raw), without shotnoise correction
-write_powerspectrum = "{outputdir}/powerspec-debug"
+-- write_powerspectrum = "{outputdir}/powerspec-debug"
 
 lc_fov = 0
 
-lc_amin = 0.8
+lc_amin = 0.7
 lc_amax = 1.0
 
 lc_write_usmesh = "{outputdir}/lightcone"
