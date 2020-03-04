@@ -278,7 +278,7 @@ remove_cosmic_variance = False
 random_seed = {seed:d}
 
 pm_nc_factor = 2
-np_alloc_factor = 2.5
+np_alloc_factor = 2.0
 
 --write_nonlineark= "{outputdir}/fastpm"
 

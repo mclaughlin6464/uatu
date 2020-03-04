@@ -107,13 +107,13 @@ def make_sherlock_command(jobname, outputdir, N, \
     #            path.join(outputdir, param_file)]
     python_path = path.dirname(path.abspath(__file__))
     
-    call_str = ['tmp=`printf "$03d" %a\n`',
+    call_str = ['tmp=`printf "%03d" ${SLURM_ARRAY_TASK_ID}`\n',
                 'srun', path.join(fastpm_location, 'fastpm'),
-               outputdir + 'Box$tmp/', param_file, '\n',
+               outputdir + 'Box$tmp/'+ param_file+ '\n',
                 'python', path.join(python_path, 'preprocess.py'), outputdir + 'Box$tmp/lightcone/1/']
     call_str = ' '.join(call_str)
     # have to write to file in order to work.
-    with open(outputdir, '%s.sbatch'%jobname, 'w') as f:
+    with open(outputdir+ '%s.sbatch'%jobname, 'w') as f:
         f.write(sbatch_header +'\n' + load_str +  '\n' + call_str)
 
     return 'sbatch %s' % (path.join(outputdir, '%s.sbatch'%jobname))
