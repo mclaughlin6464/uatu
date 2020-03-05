@@ -1,8 +1,5 @@
 #!/bin/bash
-from __future__ import print_function
-"""
-Convert the raw simulation data into a format the CNN can accept
-"""
+#from __future__ import print_function
 
 import numpy as np
 import astropy.units as u
@@ -16,7 +13,6 @@ from os import path
 from glob import glob
 
 class MyFastPMSnapshot(FastPMSnapshot):
-
     def getHeader(self):
 
         #fastpm doesn't always save thigns in teh way that lenstools wants
@@ -94,7 +90,6 @@ def compute_potential_planes(snap, z_source, num_lenses, res=8192, smooth=1):
 
     # Lens centers
     chi_centers = np.linspace(chi_start.value, chi_end.value, num_lenses) * chi_max.unit
-
     tracer = RayTracer()
     for i,chi in enumerate(chi_centers):
         zlens = z_at_value(snap.cosmology.comoving_distance,chi)
@@ -107,19 +102,19 @@ def compute_potential_planes(snap, z_source, num_lenses, res=8192, smooth=1):
     chi_fudge = chi_end + thickness
     z_fudge = 1000.
     tracer.addLens(PotentialPlane(np.zeros((res,res)),angle=snap.header["box_size"],redshift=z_fudge,comoving_distance=chi_fudge,cosmology=snap.cosmology,num_particles=None))
-
     #Order lenses
     tracer.reorderLenses()
     return tracer
 
-def conv_in_fov(lens_planes, start_coord, fov = 10*u.deg, fov_resolution = 256):
+def conv_in_fov(lens_planes, z_lens, start_coord, fov = 10*u.deg, fov_resolution = 256):
 
     coords = np.linspace(0, fov.value, fov_resolution)
-    mesh_coords = np.meshgrid((coords, coords))
+    mesh_coords = np.meshgrid(coords, coords)
 
     pos = (np.array(mesh_coords) + np.array(start_coord).reshape((-1, 1,1)) ) * fov.unit
-
-    conv_born = lens_planes.convergenceBorn(pos, z=z, save_intermediate=False)
+    #print pos.shape
+    conv_born = lens_planes.convergenceBorn(pos, z=z_lens, save_intermediate=False)
+    #print conv_born.data.shape
     conv_born = ConvergenceMap(conv_born, angle=fov)
 
     return conv_born.data
@@ -288,22 +283,23 @@ def convert_particles_to_convergence(lightcone_dir, ang_size_image=10, ang_space
 
     snap = MyFastPMSnapshot.open(lightcone_dir)
 
-    potential_defaults = {'z_source': 0.3, 'num_lenes': 25}
+    potential_defaults = {'z_source': 0.3, 'num_lenses': 25}
     potential_defaults.update(potential_kwargs)
 
     lens_planes = compute_potential_planes(snap, **potential_defaults)
-
+    z = potential_defaults['z_source']
     if ang_space_patches is None:
         ang_space_patches = ang_size_image
 
-    n_sub = 360.0/ang_space_patches -1
+    n_sub = int( (360.0-ang_size_image)/ang_space_patches +1 )
 
-    conv = np.zeros((n_sub**2, fov_resolution, fov_resolution))
+    conv = np.zeros((int(n_sub**2), fov_resolution, fov_resolution))
     for i, ra in enumerate(np.arange(0.0, 360.0, ang_space_patches)):
-        for j,dec in enumerate(np.linspace(0.0, 360.0, ang_space_patches)):
-            conv[i*n_sub+j] = conv_in_fov(lens_planes, (ra, dec), fov=ang_size_image * u.deg, fov_resolution=fov_resolution)
+        for j,dec in enumerate(np.arange(0.0, 360.0, ang_space_patches)):
+            print i,j, ra, dec
+            conv[i*n_sub+j] = conv_in_fov(lens_planes, z, (ra, dec), fov=ang_size_image * u.deg, fov_resolution=fov_resolution)
 
-    boxno = int(directory[-4:-1])
+    boxno = int(directory[-16:-13])
     np.save(path.join(directory, 'proj_map_%03d.npy'%boxno), conv)
 
 
@@ -371,7 +367,7 @@ def _convert_particles_to_proj_density(directory, boxno, Lbox = 512.0, N = 2048,
     #n_per_map = proj_map.shape[0] / pixels_per_side
     n_per_map = 2*proj_map.shape[0] / pixels_per_side -1#more aggressive tiling
     # TODO apply dithering to get more maps from one projection
-    maps = np.zeros((n_per_map ** 2, pixels_per_side, pixels_per_side))
+    maps = np.zeros((int(n_per_map ** 2), pixels_per_side, pixels_per_side))
 
     for i in range(n_per_map):
         for j in range(n_per_map):
@@ -382,8 +378,8 @@ def _convert_particles_to_proj_density(directory, boxno, Lbox = 512.0, N = 2048,
 
             maps[i * n_per_map + j] = np.log10(proj_map[int(i/2.0 * pixels_per_side): int((i/2.0+1) * pixels_per_side), \
                                                         int(j/2.0 * pixels_per_side): int((j/2.0+1) * pixels_per_side)])
-
-    np.save(path.join(directory, 'proj_map_%03d.npy'%boxno), maps)
+    base_directory = directory[:-12]
+    np.save(path.join(base_directory, 'proj_map_%03d.npy'%boxno), maps)
 
 
 # TODO clarify syntax between this and above? work a little differency
@@ -421,12 +417,14 @@ def convert_particles_to_density(directory,boxno, Lbox = 512, Lvoxel = 2, N_voxe
     np.save(path.join(directory, 'particle_hist_%03d.npy'%boxno), voxel_list)
 
 def convert_all_particles(directory, **kwargs):
-
+    from time import time
+    t0 = time()
     all_subdirs = glob(path.join(directory, 'Box*/'))
     for boxno, subdir in enumerate(sorted(all_subdirs)):
         #print subdir
         #if path.isfile(path.join(subdir, 'uatu_lightcone.info' )): # is a lightcone
         convert_particles_to_convergence(path.join(subdir , 'lightcone/1/'), **kwargs)
+        print time()-t0, 's'
         #else:
         #    convert_particles_to_density(subdir,boxno, **kwargs)
 
