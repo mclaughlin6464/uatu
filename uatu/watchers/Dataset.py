@@ -37,7 +37,7 @@ class Dataset(object):
 class DatasetFromFile(object):
     def __init__(self, fname, batch_size, shuffle=False, augment = True, test_idxs = None,\
                  train_test_split=0.7, take_log = False, whiten = True, whiten_vals = None,\
-                 cache_size = 100, y_key = 'Y', transform = None):
+                 cache_size = 100, y_key = 'Y', transformX = None, transformY=None):
 
         assert path.isfile(fname)
 
@@ -52,10 +52,15 @@ class DatasetFromFile(object):
 
         self.y_key = y_key
 
-        if transform is None:
-            self.transform = lambda x:x
+        if transformX is None:
+            self.transformX = lambda x:x
         else:
-            self.transform = transform
+            self.transformX = transformX
+
+        if transformY is None:
+            self.transformY = lambda x:x
+        else:
+            self.transformY = transformY
 
         f = h5py.File(fname, 'r')
         n_boxes = len(f.keys())
@@ -168,7 +173,7 @@ class DatasetFromFile(object):
         self.counter+=1
 
 
-        return self.transform(X), self.transform(Y)
+        return self.transformX(X), self.transformY(Y)
 
     def get_test_dset(self):
         return DatasetFromFile(self.fname, self.batch_size, self.shuffle, self.augment, self.test_idxs,\

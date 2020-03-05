@@ -13,6 +13,7 @@ def shuffle(x):
     # shuffle the same over batch, allegedly not a problem
     # TODO this should not shuffle across channels, but that doesn't seem to matter? 
     rand_idxs = torch.randperm(x.size(1), requires_grad=False)
+    #print(rand_idxs)
     x = x[:, rand_idxs]
     return x.view(orig_size)
 
