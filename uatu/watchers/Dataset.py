@@ -36,8 +36,8 @@ class Dataset(object):
 
 class DatasetFromFile(object):
     def __init__(self, fname, batch_size, shuffle=False, augment = True, test_idxs = None,\
-                 train_test_split=0.7, take_log = False, whiten = True, whiten_vals = None,\
-                 cache_size = 100, y_key = 'Y', transformX = None, transformY=None):
+                 train_test_split=0.7, take_log = False, whiten = True, whiten_vals = None, log_whiten=False,\
+                 cache_size = 100, y_key = 'Y', data_mod= None, transform=None):
 
         assert path.isfile(fname)
 
@@ -52,15 +52,15 @@ class DatasetFromFile(object):
 
         self.y_key = y_key
 
-        if transformX is None:
-            self.transformX = lambda x:x
+        if data_mod is None:
+            self.data_mod= lambda x:x
         else:
-            self.transformX = transformX
+            self.data_mod= data_mod 
 
-        if transformY is None:
-            self.transformY = lambda x:x
+        if transform is None:
+            self.transform = lambda x:x
         else:
-            self.transformY = transformY
+            self.transform = transform
 
         f = h5py.File(fname, 'r')
         n_boxes = len(f.keys())
@@ -75,8 +75,12 @@ class DatasetFromFile(object):
             if 'mean' not in f.attrs:
                 warnings.warn("Whiten specified but no mean and std in the file attributes. Ignoring.")
             elif whiten_vals is None:
-                self.mean = f.attrs['mean']
-                self.std = f.attrs['std']
+                if log_whiten:
+                    self.mean = np.log10(f.attrs['mean'])
+                    self.std = np.log10(f.attrs['std'])
+                else:
+                    self.mean = f.attrs['mean']
+                    self.std = f.attrs['std']
             else:
                 self.mean, self.std = whiten_vals
         elif whiten_vals is not None:
@@ -143,6 +147,8 @@ class DatasetFromFile(object):
                     #print bn, sbn
                     X = f['Box%03d'%bn]['X'][sbn]
                     Y = f['Box%03d'%bn][self.y_key][sbn]
+                    
+                    X = self.data_mod(X)
 
                     X = (X-self.mean)/(self.std)
                     if self.augment:
@@ -173,11 +179,11 @@ class DatasetFromFile(object):
         self.counter+=1
 
 
-        return self.transformX(X), self.transformY(Y)
+        return self.transform(X), self.transform(Y)
 
     def get_test_dset(self):
         return DatasetFromFile(self.fname, self.batch_size, self.shuffle, self.augment, self.test_idxs,\
-                 1.0, self.take_log, self.whiten, whiten_vals = (self.mean, self.std), y_key = self.y_key, transform=self.transform)
+                 1.0, self.take_log, self.whiten, whiten_vals = (self.mean, self.std), y_key = self.y_key,data_mod=self.data_mod, transform=self.transform)
 
 
 

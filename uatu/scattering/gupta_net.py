@@ -14,9 +14,9 @@ class BasicBlock(nn.Module):
         else:
             dropout = nn.Dropout2d(p_dropout)
 
+        self.bn = nn.BatchNorm2d(planes[0])
         self.dropout = dropout
         self.conv1 = conv3x3(planes[0], planes[1], stride)
-        #self.bn1 = nn.BatchNorm2d(planes)
         self.relu = nn.LeakyReLU(inplace=True)
         self.conv2 = conv3x3(planes[1], planes[2], stride)
         #self.bn2 = nn.BatchNorm2d(planes)
@@ -24,6 +24,7 @@ class BasicBlock(nn.Module):
         self.stride = stride
 
     def forward(self, x):
+        x = self.bn(x)
         out = self.conv1(x)
         #out = self.bn1(out)
         out = self.dropout(out)

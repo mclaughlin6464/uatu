@@ -296,7 +296,7 @@ def convert_particles_to_convergence(lightcone_dir, ang_size_image=10, ang_space
     conv = np.zeros((int(n_sub**2), fov_resolution, fov_resolution))
     for i, ra in enumerate(np.arange(0.0, 360.0, ang_space_patches)):
         for j,dec in enumerate(np.arange(0.0, 360.0, ang_space_patches)):
-            print i,j, ra, dec
+            #print i,j, ra, dec
             conv[i*n_sub+j] = conv_in_fov(lens_planes, z, (ra, dec), fov=ang_size_image * u.deg, fov_resolution=fov_resolution)
 
     boxno = int(directory[-16:-13])
@@ -424,7 +424,7 @@ def convert_all_particles(directory, **kwargs):
         #print subdir
         #if path.isfile(path.join(subdir, 'uatu_lightcone.info' )): # is a lightcone
         convert_particles_to_convergence(path.join(subdir , 'lightcone/1/'), **kwargs)
-        print time()-t0, 's'
+        #print time()-t0, 's'
         #else:
         #    convert_particles_to_density(subdir,boxno, **kwargs)
 
