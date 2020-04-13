@@ -34,10 +34,10 @@ def test(model, device, test_loader, output_fname, scattering=lambda x:x):
                 data = torch.squeeze(data,3)
 
             data = data.to(device)
-            output = model(scattering(data)).cpu()
-
+            output = model(scattering(data)).cpu().numpy()
+            target= target.numpy()
             for y_pred, y_true in zip(output, target):
-                key = key_func(y_true)
+                key = key_func(y_true.reshape((1,-1)))
                 with h5py.File(output_fname) as f:
                     if key in f.keys():
                         grp = f[key]
@@ -45,4 +45,4 @@ def test(model, device, test_loader, output_fname, scattering=lambda x:x):
                         grp = f.create_group(key)
                     n_prev = len(grp.keys())
 
-                    grp.create_dataset('Map_%03d'%(n_prev), data = y_pred)
+                    grp.create_dataset('Map_%04d'%(n_prev), data = y_pred)
