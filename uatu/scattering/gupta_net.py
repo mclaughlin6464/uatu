@@ -1,7 +1,7 @@
 import torch.nn as nn
 #from torch.nn import functional as F
 
-from .resnet import conv3x3
+from .resnet import conv3x3, shuffle  
 
 class BasicBlock(nn.Module):
     def __init__(self, planes,  stride=1, p_dropout = 0.0):
@@ -36,9 +36,14 @@ class BasicBlock(nn.Module):
         out = self.downsample(out) 
         return out 
 
+class ShuffleBlock(BasicBlock):
+
+    def forward(self,x):
+        super().forward(shuffle(x))
+
 # TODO subclass of this that can except scattering 
 class GuptaNet(nn.Module):
-    def __init__(self, in_channels,p_dropout= 0.0,  J= 0, depth = [32, 64, 128, 128, 128, 128] ):
+    def __init__(self, in_channels,p_dropout= 0.0,  J= 0, depth = [32, 64, 128, 128, 128, 128], shuffle_layers=0 ):
         super(GuptaNet, self).__init__()
         self.K = in_channels
         self.input_size = int(256/(2**J))
@@ -51,7 +56,12 @@ class GuptaNet(nn.Module):
         self.n_filters.insert(0, in_channels) # add in channels to it
 
         for i in range(self.depth):
-            self.layers.append(BasicBlock(self.n_filters[2*i:2*i+3], p_dropout=p_dropout))
+            block = BasicBlock
+            if i == self.depth-shuffle_layers:
+                print('Appending shuffle block')
+                block = ShuffleBlock # append a shuffle block to the end
+
+            self.layers.append(block(self.n_filters[2*i:2*i+3], p_dropout=p_dropout))
             setattr(self, "layer_%d"%i, self.layers[-1])
 
         final_imsize = int(self.input_size/(2**self.depth)) # each block downsamples by 2
