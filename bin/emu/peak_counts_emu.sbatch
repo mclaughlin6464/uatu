@@ -7,4 +7,4 @@
 #SBATCH -o peak_counts_emu.out 
 
 
-python peak_counts_emu.py
+python peak_counts_emu_data.py
