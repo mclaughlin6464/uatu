@@ -39,7 +39,7 @@ class BasicBlock(nn.Module):
 class ShuffleBlock(BasicBlock):
 
     def forward(self,x):
-        super().forward(shuffle(x))
+        return super().forward(shuffle(x))
 
 # TODO subclass of this that can except scattering 
 class GuptaNet(nn.Module):
