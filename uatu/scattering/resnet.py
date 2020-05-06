@@ -155,6 +155,7 @@ class DeepResnet(nn.Module):
         for i, nf in enumerate(self.n_filters):
             block = BasicBlock
             if i == len(self.n_filters) - shuffle_layers:
+                print('Appending Shuffle Block')
                 block = ShuffleBlock  # append a shuffle block to the end
             self.layers.append(self._make_layer(block, nf * n_subplanes, n_sublocks))
             setattr(self, "layer_%d"%i, self.layers[-1])
