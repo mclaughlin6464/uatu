@@ -19,10 +19,11 @@ with h5py.File(training_filename, 'r') as f:
     mean, std = f.attrs['mean'], f.attrs['std']
     X =  f['Box000']['X'][()].squeeze()
 
+smooth = 0#1
+noise = 0.0#0.29
+shape_noise = noise/np.sqrt((2.34**2)*30)
 
-shape_noise = 0.3/np.sqrt((2.34**2)*30)
-
-def noise_and_smooth(image, noise_level = shape_noise, smooth=1):
+def noise_and_smooth(image, noise_level = shape_noise, smooth=smooth):
     i = image + np.random.randn(*image.shape)*noise_level
     return gaussian_filter(i, smooth)
 
@@ -30,7 +31,7 @@ def noise_and_smooth(image, noise_level = shape_noise, smooth=1):
 # In[ ]:
 
 
-smoothX = noise_and_smooth(X[0])
+smoothX = noise_and_smooth(X[0], smooth=smooth)
 
 
 
@@ -53,7 +54,7 @@ def compute_all_pc(images):
     
     all_pcs = np.zeros((images.shape[0], 40))
     for i, im in enumerate(images):
-        nu, all_pcs[i] = image_pc(noise_and_smooth(im))
+        nu, all_pcs[i] = image_pc(noise_and_smooth(im, smooth=smooth))
     return nu, all_pcs
 
 
@@ -89,7 +90,7 @@ def create_peak_counts_dset(conv_dset_fname):
             
             mean_pc[i] = all_pcs.mean(axis=0)
             #err_pc[i] = all_pcs.std(axis=0)
-            cov_pc[i] = all_pcs.cov(axis=0)
+            cov_pc[i] = np.cov(all_pcs, rowvar=False)
             
         return mean_pc, cov_pc
 
@@ -99,13 +100,13 @@ training_pc, training_cov = create_peak_counts_dset(training_filename)
 
 test_pc, test_cov = create_peak_counts_dset(test_filename)
 
-np.save('training_pc.npy', training_pc)
-np.save('training_cov.npy', training_cov)
+np.save('training_pc_smooth_%d.npy'%smooth, training_pc)
+np.save('training_cov_smooth_%d.npy'%smooth, training_cov)
 # In[ ]:
 
 
-np.save('test_pc.npy', test_pc)
-np.save('test_cov.npy', test_cov)
+np.save('test_pc_smooth_%d.npy'%smooth, test_pc)
+np.save('test_cov_smooth_%d.npy'%smooth, test_cov)
 
 
 

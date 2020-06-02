@@ -25,7 +25,7 @@ def train(model, device, train_loader, optimizer, epoch, scattering= lambda x : 
             sys.stdout.flush()
 
 # TODO i could decorate this like I did in the tf stuff
-def adv_train(model, device, train_loader, optimizer, epoch, scattering = lambda x: x, print_every = 1000, loss = 'mae', attack_lr = 1e-7, attack_nsteps = 5):
+def adv_train(model, device, train_loader, optimizer, epoch, scattering = lambda x: x, print_every = 1000, loss = 'mae', attack_lr = 1e-3, attack_nsteps = 5):
     model.train()
 
     loss_fn = F.l1_loss if loss == 'mae' else F.mse_loss
@@ -41,7 +41,9 @@ def adv_train(model, device, train_loader, optimizer, epoch, scattering = lambda
 
         # not sure if this matters tbh
         with torch.no_grad():
-            adv_data = compute_attacked_map(model,scattering, loss_fn, data, target, lr=attack_lr, n_steps = attack_nsteps) 
+            adv_data = compute_attacked_map(model,scattering, loss_fn, data, target, lr=attack_lr, n_steps = attack_nsteps,
+                                             min_loss=False) #remember were maximizing the loss on this example inside 
+                                                # eps = attack_lr*attack_nsteps
         
         adv_output = model(scattering(adv_data))
             

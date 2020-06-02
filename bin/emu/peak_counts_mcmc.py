@@ -3,11 +3,11 @@ from GPy.models import GPKroneckerGaussianRegression
 from GPy.kern import *
 from itertools import izip
 import h5py
-from scipy.linalg inv
-from multiprocess import Pool
+from scipy.linalg import inv
+from multiprocessing import Pool
 import emcee as mc
 
-def lnprior(theta):
+def lnprior(theta, *args):
 
     om, s8 = theta
 
@@ -38,11 +38,10 @@ def lnlike(theta, nu, y, inv_cov):
         The log liklihood of theta given the measurements and the emulator.
     """
 
-    emu_pred = 10 ** emu.predict(theta.reshape((1,-1)),nu, mean_only=True)[0]
-
+    emu_pred = 10 ** emu.predict(theta.reshape((1,-1)),nu, mean_only=True)[0].squeeze()
     delta = emu_pred - y
-    #print delta
-    return - np.dot(delta, np.dot(inv_cov, delta))
+    chi2 = -np.dot(delta, np.dot(inv_cov, delta))
+    return -np.dot(delta, np.dot(inv_cov, delta))
 
 def lnprob(theta, *args):
     """
@@ -57,7 +56,6 @@ def lnprob(theta, *args):
     lp = lnprior(theta, *args)
     if not np.isfinite(lp):
         return -np.inf
-
     return lp + lnlike(theta, *args)
 
 def run_mcmc_iterator(y, cov, nu, pos0, nwalkers=1000, nsteps=100, ncores=16):
@@ -110,13 +108,17 @@ def run_mcmc_iterator(y, cov, nu, pos0, nwalkers=1000, nsteps=100, ncores=16):
         yield result[0]
 
 if __name__ == '__main__':
-    training_pc = np.load('training_pc.npy')
-    training_cov = np.load('training_cov.npy')
-    training_err = np.sqrt(np.diag(training_cov))
+    from sys import argv
+    training_pc = np.load('training_pc_smooth_0.npy')
+    training_cov = np.load('training_cov_smooth_0.npy')
+    #training_err = np.sqrt(np.diag(training_cov))
 
-    test_pc = np.load('test_pc.npy')
-    test_cov = np.load('test_cov.npy')
-    test_err = np.sqrt(np.diag(test_cov))
+    test_pc = np.load('test_pc_smooth_0.npy')
+    test_cov = np.load('test_cov_smooth_0.npy')
+    #test_err = np.sqrt(np.diag(test_cov))
+
+    training_pc[training_pc==0.0]=1e-2 # make loggable
+    test_pc[test_pc==0.0]=1e-2
 
     training_filename = '/home/users/swmclau2/oak/Uatu/UatuFastPMTraining/UatuFastPMTraining.hdf5'
     test_filename = '/home/users/swmclau2/oak/Uatu/UatuFastPMTest/UatuFastPMTest.hdf5'
@@ -134,35 +136,35 @@ if __name__ == '__main__':
 
     mean_cosmo = test_cosmos.mean(axis=0)
 
-    test_idx = np.argmin((test_cosmos-mean_cosmo)**2, axis = 0)
-
+    #test_idx = np.argmin(np.sum((test_cosmos-mean_cosmo)**2, axis=1), axis = 0)
+    test_idx = int(argv[1])
     y = test_pc[test_idx]
     cov = test_cov[test_idx]
-
+    cov+=np.diag(np.ones(cov.shape[0]))*1e-12 # stablize 
     # set prior bounds
+    global MIN_OM, MIN_S8, MAX_S8, MAX_OM
     MIN_OM, MIN_S8 = train_cosmos.min(axis=0)
     MAX_OM, MAX_S8 = train_cosmos.max(axis=0)
 
-    global MIN_OM, MIN_S8, MAX_S8, MAX_OM
     thresholds = np.linspace(-0.01, 0.04, 41)
     nu = ((thresholds[1:] + thresholds[:-1]) / 2.0).reshape((-1, 1))
 
     kern1 = RBF(2, ARD=True)
     kern2 = RBF(1, ARD=True)
 
+    global emu
     emu = GPKroneckerGaussianRegression(train_cosmos, nu, np.log10(training_pc), kern1,
                                        kern2)  # , Yerr=np.log10(training_err))
     emu.optimize_restarts(num_restarts=5, verbose = True);
-    global emu
-    nwalkers, nsteps = 500, 2000
+    nwalkers, nsteps = 500, 20000
 
     pos0 = np.random.randn(nwalkers, 2)
     pos0[:,0] = pos0[:,0]*0.1 +0.3
     pos0[:,1] = pos0[:,1]*0.1+0.8
-    chain_fname = '~/scratch/uatu_preds/uatu_pc_emu_mcmc.hdf5'
+    chain_fname = '/scratch/users/swmclau2/uatu_preds/uatu_pc_emu_mcmc_%02d_smooth_0.hdf5'%test_idx
     with h5py.File(chain_fname, 'w') as f:
         f.create_dataset('chain', (0, 2), chunks = True, compression = 'gzip', maxshape = (None, 2))
-
+    
     for step, pos in enumerate(run_mcmc_iterator(y, cov, nu,  nwalkers=nwalkers, \
                                                  nsteps=nsteps, ncores=16,
                                                  pos0=pos0)):
@@ -171,4 +173,4 @@ if __name__ == '__main__':
             chain_dset = f['chain']
             l = len(chain_dset)
             chain_dset.resize((l + nwalkers), axis=0)
-            chain_dset[-nwalkers:] = pos[0]
+            chain_dset[-nwalkers:] = pos#[0]

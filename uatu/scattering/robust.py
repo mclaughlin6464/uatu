@@ -33,7 +33,8 @@ def get_gupta_embedding(x, model, scattering = lambda x:x):
         
     return x
 
-def compute_robust_map(scattering, device, model, x0, xt, learning_rate= 1e-3, lr_decay = 0.9, n_steps = 200, update_steps = 50): #use_log_barrier = True, log_eps = 1.5)
+def compute_robust_map(scattering, device, model, x0, xt, learning_rate= 1e-3, lr_decay = 0.9, n_steps = 200, update_steps = 50,\
+                         get_embedding=get_embedding): #use_log_barrier = True, log_eps = 1.5)
 
     # Send the data and label to the device
     x0, xt = x0.to(device), xt.to(device)
