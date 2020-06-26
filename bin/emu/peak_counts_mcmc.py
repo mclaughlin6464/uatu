@@ -6,6 +6,7 @@ import h5py
 from scipy.linalg import inv
 from multiprocessing import Pool
 import emcee as mc
+import cPickle as pickle
 
 def lnprior(theta, *args):
 
@@ -149,13 +150,21 @@ if __name__ == '__main__':
     thresholds = np.linspace(-0.01, 0.04, 41)
     nu = ((thresholds[1:] + thresholds[:-1]) / 2.0).reshape((-1, 1))
 
-    kern1 = RBF(2, ARD=True)
-    kern2 = RBF(1, ARD=True)
+
+    with open('noiseless_emu_kern.pkl', 'r') as f:
+        kerns = pickle.load(f)
+    # tmp
+    k1 = RBF(2, ARD=True) + Bias(2)
+    k2 = RBF(1, ARD=True) + Bias(1)
+
+    klist = []
+    for i, (k, ko) in enumerate(zip(kerns, [k1,k2])): 
+        klist.append(ko.from_dict(k))
 
     global emu
-    emu = GPKroneckerGaussianRegression(train_cosmos, nu, np.log10(training_pc), kern1,
-                                       kern2)  # , Yerr=np.log10(training_err))
-    emu.optimize_restarts(num_restarts=5, verbose = True);
+    emu = GPKroneckerGaussianRegression(train_cosmos, nu, np.log10(training_pc), klist[0],
+                                       klist[1])  # , Yerr=np.log10(training_err))
+
     nwalkers, nsteps = 500, 20000
 
     pos0 = np.random.randn(nwalkers, 2)

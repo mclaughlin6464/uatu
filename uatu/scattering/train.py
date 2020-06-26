@@ -25,7 +25,7 @@ def train(model, device, train_loader, optimizer, epoch, scattering= lambda x : 
             sys.stdout.flush()
 
 # TODO i could decorate this like I did in the tf stuff
-def adv_train(model, device, train_loader, optimizer, epoch, scattering = lambda x: x, print_every = 1000, loss = 'mae', attack_lr = 1e-3, attack_nsteps = 5):
+def adv_train(model, device, train_loader, optimizer, epoch, scattering = lambda x: x, print_every = 1000, loss = 'mae', attack_lr = 1e-2, attack_nsteps = 1):
     model.train()
 
     loss_fn = F.l1_loss if loss == 'mae' else F.mse_loss
@@ -51,7 +51,8 @@ def adv_train(model, device, train_loader, optimizer, epoch, scattering = lambda
 
         # TODO could weight these 
         #loss = orig_loss# + 0.5*adv_loss
-        loss = adv_loss
+        loss = 0.5*orig_loss + 0.5*adv_loss
+        #loss = adv_loss
 
         loss.backward()
         optimizer.step()

@@ -10,7 +10,22 @@ def fgsm_attack(image, eps, data_grad):
 
     sign_data_grad = data_grad.sign()
     # Create the perturbed image by adjusting each pixel of the input image
-    perturbed_image = image.detach() - eps*sign_data_grad.detach()
+    image_std = image.std().detach()
+    perturbed_image = image.detach() - eps*image_std*sign_data_grad.detach()
+
+    return perturbed_image
+
+def clip_attack(image, eps, data_grad):
+
+    sign_data_grad = data_grad.clone()
+    # clipping    
+    delta = eps*image.std().detach()
+
+    sign_data_grad[sign_data_grad>delta] = delta
+    sign_data_grad[sign_data_grad<-delta] = -delta
+
+    # Create the perturbed image by adjusting each pixel of the input image
+    perturbed_image = image.detach() - sign_data_grad.detach()
 
     return perturbed_image
 
@@ -34,6 +49,6 @@ def compute_attacked_map(model, scattering, cost_fn, data, target, use_log_barri
         # sign change is important to make it a gradient ascent if we are trying to maximize the loss on a particular ex.
         if not min_loss:  
             data_grad*=-1
-        perturbed_data = fgsm_attack(perturbed_data, lr, *data_grad)
+        perturbed_data = clip_attack(perturbed_data, lr, data_grad)
 
     return perturbed_data#, init_pred, output
