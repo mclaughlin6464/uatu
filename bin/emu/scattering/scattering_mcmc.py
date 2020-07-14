@@ -185,25 +185,37 @@ if __name__ == '__main__':
     global MIN_OM, MIN_S8, MAX_S8, MAX_OM
     Js = np.array(range(J)).reshape((-1,1))
 
+    with open('scattering_emu_kern.pkl', 'r') as f:
+            kerns = pickle.load(f)
+
     kern1 = RBF(2, ARD=True)
     kern2 = RBF(1, ARD=True)
     kern3 = RBF(1, ARD=True)
 
-
-    emu = GPKroneckerGaussianRegression(train_cosmos, nu, np.log10(training_pc), kern1,
-                                       kern2)  # , Yerr=np.log10(training_err))
-    #emu.optimize_restarts(num_restarts=5, verbose = True);
     global emus
+    klist = []
+    for emu in kerns:
+        klist.append([])
+        for i, (k, ko) in enumerate(zip(emus, [kern1,kern2,kern3])):
+            klist[-1].append(ko.from_dict(k))
+
+    emu1 = GPKroneckerGaussianRegression(train_cosmos, Js, X1_training, klist[0][0],
+                                       klist[1][1])  # , Yerr=np.log10(training_err))
+    emu2 = GPKroneckerGaussianRegression(train_cosmos, Js, X2_training.reshape((J,J), order='F'), klist[0][0],
+                                       klist[1][1], additional_Xs=[Js], additional_kerns=[klist[1][2]])  # , Yerr=np.log10(training_err))
+    emus = [emu1,emu2]
+    #emu.optimize_restarts(num_restarts=5, verbose = True);
     nwalkers, nsteps = 500, 2000
 
     pos0 = np.random.randn(nwalkers, 2)
     pos0[:,0] = pos0[:,0]*0.1 +0.3
     pos0[:,1] = pos0[:,1]*0.1+0.8
-    chain_fname = '~/scratch/uatu_preds/uatu_pc_emu_mcmc.hdf5'
+    chain_fname = '~/scratch/uatu_preds/uatu_scattering_emu_mcmc.hdf5'
+
     with h5py.File(chain_fname, 'w') as f:
         f.create_dataset('chain', (0, 2), chunks = True, compression = 'gzip', maxshape = (None, 2))
 
-    for step, pos in enumerate(run_mcmc_iterator(y, cov, nu,  nwalkers=nwalkers, \
+    for step, pos in enumerate(run_mcmc_iterator(y, cov, Js,  nwalkers=nwalkers, \
                                                  nsteps=nsteps, ncores=16,
                                                  pos0=pos0)):
         with h5py.File(chain_fname, 'r+') as f:
