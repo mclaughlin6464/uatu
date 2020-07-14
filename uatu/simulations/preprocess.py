@@ -300,7 +300,7 @@ def convert_particles_to_convergence(lightcone_dir, ang_size_image=10, ang_space
             conv[i*n_sub+j] = conv_in_fov(lens_planes, z, (ra, dec), fov=ang_size_image * u.deg, fov_resolution=fov_resolution)
 
     boxno = int(directory[-16:-13])
-    np.save(path.join(directory, 'proj_map_%03d.npy'%boxno), conv)
+    np.save(path.join(directory, 'proj_map_%d_%03d.npy'%(fov_resolution, boxno)), conv)
 
 
 def _convert_particles_to_proj_density(directory, boxno, Lbox = 512.0, N = 2048, ang_size_image = 10,\
