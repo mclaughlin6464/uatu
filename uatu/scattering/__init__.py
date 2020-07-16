@@ -4,3 +4,4 @@ from .test import *
 from .attack import *
 from .robust import *
 from .gupta_net import GuptaNet
+from.scattering_nets import Scattering_Net
