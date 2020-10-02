@@ -23,6 +23,7 @@ class BasicBlock(nn.Module):
         super(BasicBlock, self).__init__()
         self.conv1 = conv3x3(inplanes, planes, stride)
         self.bn1 = nn.BatchNorm2d(planes)
+        # TODO replace with Leaky
         self.relu = nn.ReLU(inplace=True)
         self.conv2 = conv3x3(planes, planes)
         self.bn2 = nn.BatchNorm2d(planes)
@@ -141,11 +142,13 @@ class DeepResnet(nn.Module):
         self.downsample_size = int(self.input_size/init_downsample_factor)
 
         self.init_conv = nn.Sequential(
+            # both of these bools were previously False as of Aug 26, 2020
+            # tweaking now?
             nn.BatchNorm2d(in_channels, eps=1e-5, affine=False),
             nn.Conv2d(in_channels, self.ichannels,
                   kernel_size=3, stride=1, padding=1, bias=False),
             #nn.BatchNorm2d(self.ichannels),
-            nn.ReLU(True),
+            nn.ReLU(inplace=True),
             nn.AdaptiveAvgPool2d(self.downsample_size)
         )
         self.layers = []

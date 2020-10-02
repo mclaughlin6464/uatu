@@ -42,13 +42,20 @@ def lnlike(theta, Js, y, inv_cov, use_idxs):
         if len(emu.Y.shape)>2:
             emu_pred = emu.predict(theta.reshape((1,-1)),Js, mean_only=True,
                      additional_Xnews=[Js])[0].squeeze()
-            emu_pred = emu_pred.reshape((J,J), order='F').flatten() # need to reshape
+            emu_pred = emu_pred.reshape((J,J)).T.flatten() # need to reshape
         else:
             emu_pred = emu.predict(theta.reshape((1,-1)),Js, mean_only=True)[0].squeeze()
         emu_preds.append(emu_pred)
     
-    emu_pred = np.hstack(emu_preds)[use_idxs]
+    emu_pred = np.exp(np.hstack(emu_preds)[use_idxs])
+    print theta
+    print emu_pred 
+    print y
     delta = emu_pred - y
+    print - np.dot(delta, np.dot(inv_cov, delta))
+
+    #print delta
+    print '*'*10
 
     return - np.dot(delta, np.dot(inv_cov, delta))
 
@@ -107,7 +114,7 @@ def run_mcmc_iterator(y, cov, Js, use_idxs, pos0, nwalkers=1000, nsteps=100, nco
     """
 
     ncores = ncores#_run_tests(y, cov, r_bin_centers, param_names, fixed_params, ncores)
-    #pool = Pool(processes=ncores)
+    pool = Pool(processes=ncores)
 
     inv_cov = inv(cov)
 
@@ -120,8 +127,8 @@ def run_mcmc_iterator(y, cov, Js, use_idxs, pos0, nwalkers=1000, nsteps=100, nco
 
 if __name__ == '__main__':
 
-    smooth = 0
-    noise = 0.0
+    smooth = 0.0
+    noise = 0.00
     J = 4
 
     training_filename = '/home/users/swmclau2/oak/Uatu/UatuFastPMTraining/UatuFastPMTrainingScattering_smooth_%0.1f_noise_%0.1f.hdf5'%(smooth,noise)
@@ -145,11 +152,12 @@ if __name__ == '__main__':
     train_cosmos = train_cosmos[idxs]
 
     X1_train = np.log(train_scattering[:,:, 1:1+J])
-    X2_train = np.log(train_scattering[:,:,1+J:])- np.repeat(X1_train, J, axis=2)
+    X2_train = np.log(train_scattering[:,:,1+J:])#- np.repeat(X1_train, J, axis=2)
     X_train = np.concatenate([X1_train, X2_train], axis =2 )
 
     X_train_bar = X_train.mean(axis=1)
-    cov = np.mean(np.stack([np.cov(_X, rowvar=False) for _X in X_train]), axis =0)
+    #cov = np.mean(np.stack([np.cov(_X, rowvar=False) for _X in X_train]), axis =0)
+    #cov = np.mean(np.stack([np.cov(_X, rowvar=False) for _X in np.exp(X_train)]), axis =0)
 
     with h5py.File(test_filename, 'r') as f:
         for i, key in enumerate(f.keys()):
@@ -158,18 +166,18 @@ if __name__ == '__main__':
             test_scattering[i] = f[key]['X'][()]
 
     X1_test = np.log(test_scattering[:,:, 1:1+J])
-    X2_test = np.log(test_scattering[:,:,1+J:])- np.repeat(X1_test, J, axis=2)
+    X2_test = np.log(test_scattering[:,:,1+J:])#- np.repeat(X1_test, J, axis=2)
     X_test = np.concatenate([X1_test, X2_test], axis =2 )
 
     X_test_bar = X_test.mean(axis=1)
 
+    #print X_train.mean(axis=(0,1))
+    #print X_test.mean(axis=(0,1))
+
     mean_cosmo = test_cosmos.mean(axis=0)
     test_idx = np.argmin(np.sum((test_cosmos-mean_cosmo)**2, axis = 1), axis = 0)
-    y = X_test_bar[test_idx]
-    print test_cosmos[test_idx]
-    from sys import exit
-    exit(0)
-    #cov = test_cov[test_idx]
+    y = np.exp(X_test_bar[test_idx])
+    cov = np.cov(np.exp(X_test[test_idx]), rowvar=False)
     # set prior bounds
 
     global MIN_OM, MIN_S8, MAX_S8, MAX_OM
@@ -177,45 +185,63 @@ if __name__ == '__main__':
     MAX_OM, MAX_S8 = train_cosmos.max(axis=0)
 
     Js = np.array(range(J)).reshape((-1,1))
-    with open('scattering_emu_kern.pkl', 'r') as f:
-            kerns = pickle.load(f)
-    kern1 = RBF(2, ARD=True)
-    kern2 = RBF(1, ARD=True)
-    kern3 = RBF(1, ARD=True)
-    global emus
-    emus = []
-    klist = []
-    for emu in kerns:
-        klist.append([])
-        for i, (k, ko) in enumerate(zip(emu, [kern1,kern2,kern3])):
-            #print ko.from_dict(k)
-            klist[-1].append(ko.from_dict(k))
+    #with open('scattering_emu_kern_noise_%0.1f_smooth_%0.1f.pkl'%(noise,smooth), 'r') as f:
+    #        kerns = pickle.load(f)
+    #global emus
+    #emus = []
+    #klist = []
+    #for emu in kerns:
+    #    klist.append([])
+    kern1 = RBF(2, ARD=True)+Bias(2)
+    kern2 = RBF(1, ARD=True)+Bias(1)
+    kern3 = RBF(1, ARD=True)+Bias(1)
 
-    emu1 = GPKroneckerGaussianRegression(train_cosmos, Js, X1_train.mean(axis=1), klist[0][0],
-                                       klist[0][1])  # , Yerr=np.log10(training_err))
-    emu2 = GPKroneckerGaussianRegression(train_cosmos, Js, X2_train.mean(axis=1).reshape((-1,J,J)), klist[1][0],
-                                       klist[1][1], additional_Xs=[Js], additional_kerns=[klist[1][2]])  # , Yerr=np.log10(training_err))
+    #    for i, (k, ko) in enumerate(zip(emu, [kern1,kern2,kern3])):
+            #print ko.from_dict(k)
+    #        klist[-1].append(ko.from_dict(k))
+
+    emu1 = GPKroneckerGaussianRegression(train_cosmos, Js, X1_train.mean(axis=1), kern1,
+                                       kern2 , Yerr=X1_train.std(axis=1)**2)
+    kern1 = RBF(2, ARD=True)+Bias(2)
+    kern2 = RBF(1, ARD=True)+Bias(1)
+    kern3 = RBF(1, ARD=True)+Bias(1)
+
+
+    emu2 = GPKroneckerGaussianRegression(train_cosmos, Js, X2_train.mean(axis=1).reshape((-1,J,J)), kern1,
+                                       kern2, additional_Xs=[Js], additional_kerns=[kern3] , Yerr=(X2_train.std(axis=1)**2).reshape((-1,J,J)) )
     emus = [emu1,emu2]
+
+    for emu in emus:
+        emu.optimize_restarts(num_restarts=5, robust=True)
     
     #emus = [emu1]
     #y = y[:J]
     #cov = cov[:J][:,:J]
     # drop the parts with no information
     use_idxs = np.zeros((20,), dtype=bool)
-    use_idxs[:J] = True
-    #for i in xrange(J):
-    #    j = i+1
-    #    use_idxs[(i+1)*J+j:(i+2)*J] = True
+    #use_idxs[:J] = True 
+    for i in xrange(J):
+        j = i+1
+        use_idxs[(i+1)*J+j:(i+2)*J] = True
 
     y = y[use_idxs]
+    #cov = np.diag(np.diag(cov)[use_idxs])
     cov = cov[use_idxs][:, use_idxs]
     #emu.optimize_restarts(num_restarts=5, verbose = True);
-    nwalkers, nsteps = 100, 5000 
+    nwalkers, nsteps = 100, 1000 
 
     pos0 = np.random.randn(nwalkers, 2)
     pos0[:,0] = pos0[:,0]*0.1 +0.3
     pos0[:,1] = pos0[:,1]*0.1+0.8
-    chain_fname = '/scratch/users/swmclau2/uatu_preds/uatu_scattering_s1_emu_mcmc.hdf5'
+    if sum(use_idxs)==J:
+        chain_fname = '/scratch/users/swmclau2/uatu_preds/uatu_scattering_smooth_%0.1f_noise_%0.1f_s1_emu_mcmc.hdf5'%(smooth,noise)
+    elif sum(use_idxs)==J**2:
+        chain_fname = '/scratch/users/swmclau2/uatu_preds/uatu_scattering_smooth_%0.1f_noise_%0.1f_s2_emu_mcmc.hdf5'%(smooth,noise)
+
+    else:
+        chain_fname = '/scratch/users/swmclau2/uatu_preds/uatu_scattering_smooth_%0.1f_noise_%0.1f_s1_s2_emu_mcmc.hdf5'%(smooth,noise)
+
+    print 'Truth', test_cosmos[test_idx]
 
     with h5py.File(chain_fname, 'w') as f:
         f.create_dataset('chain', (0, 2), chunks = True, compression = 'gzip', maxshape = (None, 2))

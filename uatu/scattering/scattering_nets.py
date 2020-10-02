@@ -16,7 +16,7 @@ class Scattering_Net(nn.Module):
         self.input_size = int(256)
 
         self.scattering = Scattering2D(J=J, shape=(self.input_size, self.input_size),\
-                                       max_order=2, L = self.L)#.to(device)
+                                       max_order=2, L = self.L)#.cuda()#.to(device)
 
         self.scattering_output_size =J+J*J # could remove informationless ones
 
@@ -27,29 +27,28 @@ class Scattering_Net(nn.Module):
         setattr(self, "layer_%d" %0, self.layers[-1])
 
         for i, d in enumerate(depth[1:]):
-            self.layers.append(nn.Linear(depth[i-1], d))
+            self.layers.append(nn.Linear(depth[i], d))
             setattr(self, "layer_%d"%(i+1), self.layers[-1])
 
     def get_compressed_scattering(self,x):
-
-        S = self.scattering(x).mean((2, 3), keepdim=True)  # .to('cpu').numpy()
-        ls0, ls1, ls2 = 1, self.J, self.J*self.J
-        #s0 = S[:, :ls0].squeeze().unsqueeze(1)#.to(device)
+        S = self.scattering(x).squeeze()
+        S = S.mean((2, 3), keepdim=True).squeeze()  # .to('cpu').numpy()
+        ls0, ls1, ls2 = 1, self.J*self.L, self.J*self.J*self.L*self.L
+        s0 = S[:, :ls0].squeeze().unsqueeze(1)#.to(device)
         s1 = S[:, ls0:ls0 + ls1].reshape((-1, self.J, self.L)).mean((2,), keepdim=True).squeeze()  # .unsqueeze(1)
         s2 = S[:, ls0 + ls1:].reshape((-1, self.J, self.L, self.J, self.L)).mean((2, 4), keepdim=True).squeeze().reshape( \
             (s1.shape[0], self.J * self.J))  # .unsqueeze(1)
         # print(s0.shape, s1.shape, s2.shape)
-        return torch.cat([s1, s2], dim=1)
+        return torch.log(torch.cat([s1, s2], dim=1).to('cuda'))
 
     def forward(self, x):
-        x = x.view(x.size(0),self.K, self.input_size, self.input_size)
+        x = x.view(x.size(0), self.K, self.input_size, self.input_size)
 
-        if self.training:
-            with torch.no_grad: # don't train through the scattering stuff
-                x = self.get_compressed_scattering(x)
-        else:
-            x = self.get_compressed_scattering(x)
-
+        #if self.training:
+            #with torch.no_grad: # don't train through the scattering stuff
+        #        x = self.get_compressed_scattering(x)
+        #else:
+        x = self.get_compressed_scattering(x)
         for l in self.layers[:-1]:
             x = l(x)
             x = self.relu(x)

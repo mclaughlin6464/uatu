@@ -192,7 +192,7 @@ def get_xy_from_dir(dir, boxno):
     assert path.isdir(dir)
 
     #X = np.load(path.join(dir, 'particle_hist_%03d.npy'%boxno))
-    X = np.load(path.join(dir, 'proj_map_%03d.npy'%boxno))
+    X = np.load(path.join(dir, 'proj_map_512_%03d.npy'%boxno))
     #X = X.reshape((X.shape[0], X.shape[1], X.shape[2], X.shape[3], 1))
     X = X.reshape((X.shape[0], X.shape[1], X.shape[2], 1))
 

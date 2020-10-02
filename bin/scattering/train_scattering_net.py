@@ -10,7 +10,7 @@ J = 4
 
 use_cuda = True
 device = torch.device("cuda" if use_cuda else "cpu")
-model = Scattering_Net(J)
+model = Scattering_Net(J, depth=[256,128,64]).to(device)
 
 dir = '/oak/stanford/orgs/kipac/users/swmclau2/Uatu/UatuFastPMTraining/'
 #dir = '/home/sean/Git/uatu/data/'
@@ -42,7 +42,7 @@ if init_epoch>0:
     model.load_state_dict(torch.load(model_path, map_location='cpu'))
 
 # Optimizer
-lr = 5e-5
+lr = 1e-6
 epochs = 10 
 
 for i in range(init_epoch):
@@ -51,7 +51,7 @@ for i in range(init_epoch):
 
 for epoch in range(init_epoch, epochs):
     #if epoch%20==0:
-    optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=1e-7)
+    optimizer = torch.optim.Adam(model.parameters(), lr=lr)#, weight_decay)=1e-7)
     if (epoch)%5==0 and epoch>0:
         lr*=0.5
 

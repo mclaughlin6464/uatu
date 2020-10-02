@@ -77,8 +77,9 @@ class MyFastPMSnapshot(FastPMSnapshot):
         self.weights = None
         self.virial_radius = None
         self.concentration = None
-
         # Return
+        print len(positions)
+        print positions
         return positions
 
 def compute_potential_planes(snap, z_source, num_lenses, res=8192, smooth=1):
@@ -93,6 +94,7 @@ def compute_potential_planes(snap, z_source, num_lenses, res=8192, smooth=1):
     tracer = RayTracer()
     for i,chi in enumerate(chi_centers):
         zlens = z_at_value(snap.cosmology.comoving_distance,chi)
+        print chi, thickness, res, smooth
         d,r,n = snap.cutPlaneGaussianGrid(normal=2,center=chi,thickness=thickness,plane_resolution=res,kind="potential", smooth=smooth)
 
         lens = PotentialPlane(d.value,angle=snap.header["box_size"],comoving_distance=chi,redshift=zlens,cosmology=snap.cosmology,unit=u.rad**2)
@@ -285,7 +287,7 @@ def convert_particles_to_convergence(lightcone_dir, ang_size_image=10, ang_space
 
     potential_defaults = {'z_source': 0.3, 'num_lenses': 25}
     potential_defaults.update(potential_kwargs)
-
+    #print 'snap',len(snap.positions), snap.positions
     lens_planes = compute_potential_planes(snap, **potential_defaults)
     z = potential_defaults['z_source']
     if ang_space_patches is None:
@@ -299,8 +301,8 @@ def convert_particles_to_convergence(lightcone_dir, ang_size_image=10, ang_space
             #print i,j, ra, dec
             conv[i*n_sub+j] = conv_in_fov(lens_planes, z, (ra, dec), fov=ang_size_image * u.deg, fov_resolution=fov_resolution)
 
-    boxno = int(directory[-16:-13])
-    np.save(path.join(directory, 'proj_map_%d_%03d.npy'%(fov_resolution, boxno)), conv)
+    boxno = int(lightcone_dir[-16:-13])
+    np.save(path.join(lightcone_dir, 'proj_map_%d_%03d.npy'%(fov_resolution, boxno)), conv)
 
 
 def _convert_particles_to_proj_density(directory, boxno, Lbox = 512.0, N = 2048, ang_size_image = 10,\

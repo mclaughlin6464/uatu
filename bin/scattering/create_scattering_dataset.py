@@ -9,20 +9,22 @@ from kymatio import Scattering2D
 
 shape = (256, 256)
 #dir = '/oak/stanford/orgs/kipac/users/swmclau2/Uatu/UatuFastPMTraining/'
+dir = '/scratch/users/swmclau2/UatuFastPM/'
 #fname = path.join(dir, 'UatuFastPMTraining.hdf5')
+fname = path.join(dir, 'UatuFastPMHRTraining.hdf5')
 
-dir = '/oak/stanford/orgs/kipac/users/swmclau2/Uatu/UatuFastPMTest/'
-fname = path.join(dir, 'UatuFastPMTest.hdf5')
+#dir = '/oak/stanford/orgs/kipac/users/swmclau2/Uatu/UatuFastPMTest/'
+#fname = path.join(dir, 'UatuFastPMTest.hdf5')
 
 smooth = 0
-noise = 0.0#29
+noise = 0.0
 np.random.seed(0)
 data_mod = lambda x: gaussian_filter(x+np.random.randn(*x.shape)*shape_noise, smooth)#+1.0) # add a normalization, hopefully sufficient
 device = 'cuda'
 transform = lambda x: torch.Tensor(x).to(device)
 
 shape_noise = noise/np.sqrt((2.34**2)*30) #sigma_e/sqrt(A*n)
-output_fname  = path.join(dir, 'UatuFastPMTestScattering_smooth_%0.1f_noise_%0.1f.hdf5'%(smooth, noise))
+output_fname  = path.join(dir, 'UatuFastPMTrainingScattering_smooth_%0.1f_noise_%0.1f.hdf5'%(smooth, noise))
 
 batch_size = 16 
 attrs = {}
@@ -34,7 +36,7 @@ train_dset = DatasetFromFile(fname,batch_size, shuffle=False, augment=False,
                              train_test_split = 1.0, whiten = False, cache_size = 64,\
                               data_mod = data_mod, transform=transform)
 
-J = 4
+J = 8
 L = 4
 shape = (256,256)
 

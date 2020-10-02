@@ -19,7 +19,7 @@ output_fname  = path.join(dir, 'UatuFastPMTrainingGRF_smooth_%0.1f_noise_%0.1f.h
 batch_size =32 
 shape_noise = noise/np.sqrt((2.34**2)*30) #sigma_e/sqrt(A*n)
 np.random.seed(0)
-data_mod = lambda x: np.log10(gaussian_filter(x+np.random.randn(*x.shape)*shape_noise, smooth)+1.0) # add a normalization, hopefully sufficient
+data_mod = lambda x: gaussian_filter(x+np.random.randn(*x.shape)*shape_noise, smooth) # add a normalization, hopefully sufficient
 attrs = {}
 with h5py.File(fname, 'r') as f:
     for key in f.attrs.keys():
@@ -36,7 +36,7 @@ gen = GaussianNoiseGenerator(shape=shape,side_angle=side_angle)
 x0_shape = (batch_size, shape[0], shape[1])
 l = int(len(train_dset)*1.0/batch_size)
 with h5py.File(path.join(dir, output_fname), 'w') as f:
-    for key, val in attrs.iteritems():
+    for key, val in attrs.items():
         f.attrs[key] = val
 
     for i, (xt,y) in enumerate(train_dset):
