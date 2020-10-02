@@ -2,10 +2,16 @@ import torch.nn as nn
 import torch
 
 
+
+
+def convNxN(N, in_planes, out_planes, stride=1):
+    "3x3 convolution with padding"
+    return nn.Conv2d(in_planes, out_planes, kernel_size=N, stride=stride,
+                     padding=1, bias=True)
+
 def conv3x3(in_planes, out_planes, stride=1):
     "3x3 convolution with padding"
-    return nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride,
-                     padding=1, bias=True)
+    return convNxN(N, in_planes,out_planes, stride)
 
 def shuffle(x):
     orig_size = x.size()
