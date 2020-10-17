@@ -50,18 +50,18 @@ if init_epoch>0:
     model.load_state_dict(torch.load(model_path, map_location='cpu'))
 
 # Optimizer
-lr = 1e-5
+lr = 1e-6
 epochs = 10
 
 for i in range(init_epoch):
     if i%5 and i>0:
-        lr*=0.1
+        lr*=0.5
 
 for epoch in range(init_epoch, epochs):
     #if epoch%20==0:
     optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=1e-4)
     if (epoch)%5==0 and epoch>0:
-        lr*=0.1
+        lr*=0.5
 
     train(model, device, train_dset, optimizer, epoch+1)#,attack_lr = 1e-2, attack_nsteps = 5)#, smoothing = 1)
     val_test(model, device, val_dset)

@@ -33,6 +33,23 @@ def get_gupta_embedding(x, model, scattering = lambda x:x):
         
     return x
 
+def get_fluri_embedding(x, model, scattering = lambda x:x):
+    x = x.view(-1, model.K, model.input_size, model.input_size)#
+
+    for i, l in enumerate(model.layers):
+        x = l(x)
+                        
+    # confused if this is necessary?
+    x = x.view(x.size(0), -1)
+    #print(x.shape)
+    x = model.fc1(x)
+    #x = model.relu(x)#print(x.shape)
+    #x = model.fc2(x)
+    #print(x.shape)
+        
+    return x
+
+
 def compute_robust_map(scattering, device, model, x0, xt, learning_rate= 5e-3, lr_decay = 0.2, n_steps = 200, update_steps = 50,\
                          get_embedding=get_embedding): #use_log_barrier = True, log_eps = 1.5)
 

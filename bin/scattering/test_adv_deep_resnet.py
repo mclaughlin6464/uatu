@@ -17,7 +17,7 @@ smooth = int(argv[1] )
 noise = float(argv[2])
 shape_noise = noise/np.sqrt((2.34**2)*30) #sigma_e/sqrt(A*n)
 
-epoch = 4#9 
+epoch = int(argv[3]) 
 np.random.seed(0)
 
 data_mod = lambda x: gaussian_filter(x+np.random.randn(*x.shape)*shape_noise, smooth)
@@ -44,7 +44,7 @@ device = torch.device("cuda" if use_cuda else "cpu")
 depth = 3#[16, 32, 64, 64, 64, 64, 64]
 model = DeepResnet(input_size = shape[0], in_channels=in_channels, n_subplanes=width, depth=depth).to(device)
 
-model_path = '/home/users/swmclau2/scratch/uatu_networks/deep_resnet_reg_smooth_%0.1f_noise_%0.1f_%02d_adv_v3.pth'%(smooth, noise,epoch)
+model_path = '/home/users/swmclau2/scratch/uatu_networks/deep_resnet_reg_smooth_%0.1f_noise_%0.1f_%02d_adv_v6.pth'%(smooth, noise,epoch)
 model.load_state_dict(torch.load(model_path, map_location='cpu'))
 
 test(model, device, orig_test_dset, output_fname)

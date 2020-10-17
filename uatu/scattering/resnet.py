@@ -11,7 +11,7 @@ def convNxN(N, in_planes, out_planes, stride=1):
 
 def conv3x3(in_planes, out_planes, stride=1):
     "3x3 convolution with padding"
-    return convNxN(N, in_planes,out_planes, stride)
+    return convNxN(3, in_planes,out_planes, stride)
 
 def shuffle(x):
     orig_size = x.size()

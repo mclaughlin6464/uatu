@@ -75,12 +75,12 @@ class GuptaBlock(nn.Module):
 
 class FluriBlock(nn.Module):
     def __init__(self, planes, stride=2, N=3):
-        super(GuptaBlock, self).__init__()
+        super(FluriBlock, self).__init__()
         assert len(planes) == 2
         self.planes = planes
 
-        self.conv = convNxN(N=N, planes[0], planes[1], stride)
-        #self.relu = nn.LeakyReLU(inplace=True)
+        self.conv = convNxN(N, planes[0], planes[1], stride)
+        self.relu = nn.ReLU(inplace=True)
         # self.bn2 = nn.BatchNorm2d(planes)
         self.stride = stride
 
@@ -89,7 +89,7 @@ class FluriBlock(nn.Module):
         out = self.conv(x)
         # out = self.bn1(out)
         #out = self.dropout(out)
-        #out = self.relu(out)
+        out = self.relu(out)
         # out = self.conv2(out)
         # out = self.dropout(out)
         # out = self.bn2(out)
@@ -118,7 +118,7 @@ class GuptaNet(nn.Module):
                 raise NotImplementedError
                 block = ShuffleBlock # append a shuffle block to the end
 
-            self.layers.append(block(self.n_filters[i:i+1], p_dropout=p_dropout))
+            self.layers.append(block(self.n_filters[i:i+2], p_dropout=p_dropout))
             setattr(self, "layer_%d"%i, self.layers[-1])
 
         self.downsample = nn.AvgPool2d(2, 2)
@@ -146,7 +146,8 @@ class GuptaNet(nn.Module):
         return x
 
 class FluriNet(nn.Module):
-    def __init__(self, in_channels,p_dropout= 0.0,  J= 0, depth = [16,32,64,128,256], filter_sizes = 3, shuffle_layers=0 ):
+    def __init__(self, in_channels,p_dropout= 0.0,  J= 0, depth = [16,32,64,128,256], 
+    filter_sizes = [7,5,5,3,3], shuffle_layers=0 ):
         super(FluriNet, self).__init__()
 
         self.K = in_channels
@@ -162,22 +163,22 @@ class FluriNet(nn.Module):
         if type(filter_sizes) is int:
             self.filter_sizes = [filter_sizes for i in range(self.depth)]
         else:
-            assert len(filter_sizes) == self.n_filters
+            assert len(filter_sizes) == self.depth
             self.filter_sizes = filter_sizes
 
-        for i, f in range(zip(self.depth, self.filter_sizes)):
+        for i, f in enumerate(self.filter_sizes):
             block = FluriBlock
             if i == self.depth - shuffle_layers:
                 print('Appending shuffle block')
                 raise NotImplementedError
                 block = ShuffleBlock  # append a shuffle block to the end
 
-            self.layers.append(block(self.n_filters[i:i+1], p_dropout=p_dropout, N=f))
+            self.layers.append(block(self.n_filters[i:i+2], N=f))
             setattr(self, "layer_%d" % i, self.layers[-1])
 
-        final_imsize = int(self.input_size / (2 ** (self.depth - 1)))  # each block downsamples by 2
-        self.relu = nn.LeakyReLU(inplace=True)
-        self.fc1 = nn.Linear(final_imsize, 256)
+        final_imsize = int(self.input_size / (2 ** (self.depth)))  # each block downsamples by 2
+        self.relu = nn.ReLU(inplace=True)
+        self.fc1 = nn.Linear(self.n_filters[-1]*(final_imsize**2), 256)
         self.fc2 = nn.Linear(256, 2)
 
     def forward(self, x):
@@ -190,5 +191,6 @@ class FluriNet(nn.Module):
         x = x.view(x.size(0), -1)
         #return x
         x = self.fc1(x)
-        #x = self.relu(x)
+        x = self.relu(x)
         x = self.fc2(x)
+        return x

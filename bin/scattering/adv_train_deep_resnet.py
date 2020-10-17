@@ -47,7 +47,7 @@ if init_epoch>=0:
 
 # Optimizer
 lr = 5e-5#1e-4
-epochs = 5
+epochs = 10 
 
 for i in range(init_epoch):
     if i%3 and i>0:

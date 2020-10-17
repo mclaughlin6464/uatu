@@ -78,8 +78,8 @@ class MyFastPMSnapshot(FastPMSnapshot):
         self.virial_radius = None
         self.concentration = None
         # Return
-        print len(positions)
-        print positions
+        #print len(positions)
+        #print positions
         return positions
 
 def compute_potential_planes(snap, z_source, num_lenses, res=8192, smooth=1):
@@ -94,7 +94,7 @@ def compute_potential_planes(snap, z_source, num_lenses, res=8192, smooth=1):
     tracer = RayTracer()
     for i,chi in enumerate(chi_centers):
         zlens = z_at_value(snap.cosmology.comoving_distance,chi)
-        print chi, thickness, res, smooth
+        #print chi, thickness, res, smooth
         d,r,n = snap.cutPlaneGaussianGrid(normal=2,center=chi,thickness=thickness,plane_resolution=res,kind="potential", smooth=smooth)
 
         lens = PotentialPlane(d.value,angle=snap.header["box_size"],comoving_distance=chi,redshift=zlens,cosmology=snap.cosmology,unit=u.rad**2)

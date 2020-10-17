@@ -34,7 +34,7 @@ orig_test_dset = DatasetFromFile(orig_fname,batch_size, shuffle=False, augment=F
                                  whiten = False, cache_size = 200, data_mod=data_mod, transform=transform)
 
 output_dir= '/home/users/swmclau2/scratch/uatu_preds/'
-output_fname = path.join(output_dir, 'deep_resnet_shuffle_reg_smooth_%0.1f_noise_%0.1f_%02d_v3.hdf5'%(smooth, noise,epoch))
+output_fname = path.join(output_dir, 'deep_resnet_shuffle_reg_smooth_%0.1f_noise_%0.1f_%02d_v6.hdf5'%(smooth, noise,epoch))
 #deep_resnet_shuffle2_reg_smooth_%0.1f_noise_%0.1f_%02d.pth
 
 shape = (256, 256)
