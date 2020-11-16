@@ -48,14 +48,14 @@ def lnlike(theta, Js, y, inv_cov, use_idxs):
         emu_preds.append(emu_pred)
     
     emu_pred = np.exp(np.hstack(emu_preds)[use_idxs])
-    print theta
-    print emu_pred 
-    print y
+    #print theta
+    #print emu_pred 
+    #print y
     delta = emu_pred - y
-    print - np.dot(delta, np.dot(inv_cov, delta))
+    #print - np.dot(delta, np.dot(inv_cov, delta))
 
     #print delta
-    print '*'*10
+    #print '*'*10
 
     return - np.dot(delta, np.dot(inv_cov, delta))
 
@@ -127,8 +127,8 @@ def run_mcmc_iterator(y, cov, Js, use_idxs, pos0, nwalkers=1000, nsteps=100, nco
 
 if __name__ == '__main__':
 
-    smooth = 0.0
-    noise = 0.00
+    smooth = 1.0
+    noise = 0.29
     J = 4
 
     training_filename = '/home/users/swmclau2/oak/Uatu/UatuFastPMTraining/UatuFastPMTrainingScattering_smooth_%0.1f_noise_%0.1f.hdf5'%(smooth,noise)
@@ -219,11 +219,11 @@ if __name__ == '__main__':
     #cov = cov[:J][:,:J]
     # drop the parts with no information
     use_idxs = np.zeros((20,), dtype=bool)
-    #use_idxs[:J] = True 
-    for i in xrange(J):
+    use_idxs[:J] = True  #s1
+    #use_idxs[J:] = True #s2
+    for i in xrange(J): #s2, but with non-informative parts removed
         j = i+1
         use_idxs[(i+1)*J+j:(i+2)*J] = True
-
     y = y[use_idxs]
     #cov = np.diag(np.diag(cov)[use_idxs])
     cov = cov[use_idxs][:, use_idxs]
@@ -235,7 +235,7 @@ if __name__ == '__main__':
     pos0[:,1] = pos0[:,1]*0.1+0.8
     if sum(use_idxs)==J:
         chain_fname = '/scratch/users/swmclau2/uatu_preds/uatu_scattering_smooth_%0.1f_noise_%0.1f_s1_emu_mcmc.hdf5'%(smooth,noise)
-    elif sum(use_idxs)==J**2:
+    elif sum(use_idxs)==J*(J-1)/2:
         chain_fname = '/scratch/users/swmclau2/uatu_preds/uatu_scattering_smooth_%0.1f_noise_%0.1f_s2_emu_mcmc.hdf5'%(smooth,noise)
 
     else:
@@ -255,4 +255,4 @@ if __name__ == '__main__':
             l = len(chain_dset)
             chain_dset.resize((l + nwalkers), axis=0)
             #print pos.coords
-            chain_dset[-nwalkers:] = pos.coords#[0]
+            chain_dset[-nwalkers:] = pos[0]#.coords#[0]

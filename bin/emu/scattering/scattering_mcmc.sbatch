@@ -8,4 +8,5 @@
 #SBATCH -o scattering_mcmc.out 
 ###SBATCH -o peak_counts_mcmc_23.out 
 
+module unload openmpi
 python scattering_mcmc.py #$SLURM_ARRAY_TASK_ID

@@ -17,16 +17,19 @@ model = DeepResnet(input_size = shape[0], in_channels=in_channels, n_subplanes=w
 
 dir = '/oak/stanford/orgs/kipac/users/swmclau2/Uatu/UatuFastPMTraining/'
 #dir = '/home/sean/Git/uatu/data/'
-orig_fname = path.join(dir, 'UatuFastPMTraining.hdf5')
+batch_size =  32#16 
+smooth = int(argv[1])
+noise = float(argv[2])#0.29#29
+if smooth==0:
+    orig_fname = path.join(dir, 'UatuFastPMTraining.hdf5')
+else:
+    orig_fname = path.join(dir, 'UatuFastPMTraining_smooth_1.0_noise_0.3.hdf5')
 #clone_fname  = path.join(dir, 'UatuLightconeTrainingRobustifyDeepResnetAdvGRF.hdf5')
 
+#shape_noise = noise/np.sqrt(A*30) #sigma_e/sqrt(A*n)
+#np.random.seed(0)
+data_mod = lambda x: x #gaussian_filter(x+np.random.randn(*x.shape)*shape_noise, smooth) # add a normalization, hopefully sufficient
 
-batch_size = 32  
-smooth = int(argv[1]) 
-noise = float(argv[2]) #0.29#0.29#29
-shape_noise = noise/np.sqrt((2.34**2)*30) #sigma_e/sqrt(A*n)
-np.random.seed(0)
-data_mod = lambda x: gaussian_filter(x+np.random.randn(*x.shape)*shape_noise, smooth) # add a normalization, hopefully sufficient
 transform = torch.Tensor
 #train_dset = DatasetFromFile(clone_fname,batch_size, shuffle=True, augment=True, train_test_split = 0.8,\
 #                                 whiten = False, cache_size = 100, transform=transform)
@@ -41,7 +44,7 @@ orig_val_dset = orig_train_dset.get_test_dset()
 output_dir= '/home/users/swmclau2/scratch/uatu_networks/'
 init_epoch = 0
 if init_epoch>0:
-    model_path = path.join(output_dir, 'deep_resnet_reg_smooth_%0.1f_noise_%0.1f_%02d_v6.pth'%(smooth, noise,init_epoch))
+    model_path = path.join(output_dir, 'deep_resnet_reg_smooth_%0.1f_noise_%0.1f_%02d_v8.pth'%(smooth, noise,init_epoch))
     model.load_state_dict(torch.load(model_path, map_location='cpu'))
 
 # Optimizer
@@ -63,5 +66,5 @@ for epoch in range(init_epoch, epochs):
     val_test(model, device, orig_val_dset)
 
     if epoch%1==0:
-        torch.save(model.state_dict(), path.join(output_dir, 'deep_resnet_reg_smooth_%0.1f_noise_%0.1f_%02d_v6.pth'%(smooth, noise,epoch)))
+        torch.save(model.state_dict(), path.join(output_dir, 'deep_resnet_reg_smooth_%0.1f_noise_%0.1f_%02d_v8.pth'%(smooth, noise,epoch)))
 

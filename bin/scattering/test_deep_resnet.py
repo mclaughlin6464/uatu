@@ -16,7 +16,9 @@ batch_size = 32
 
 smooth = int(argv[1])#1
 noise = float(argv[2])#0.29#29
-shape_noise = noise/np.sqrt((2.34**2)*30) #sigma_e/sqrt(A*n)
+#shape_noise = noise/np.sqrt((2.34**2)*30) #sigma_e/sqrt(A*n)
+A = 11.8#hp.nside2pixarea(1024, True)*(60**2)
+shape_noise = noise/np.sqrt(A*30) #sigma_e/sqrt(A*n)
 
 epoch = int(argv[3])#10
 np.random.seed(0)
@@ -31,7 +33,7 @@ orig_test_dset = DatasetFromFile(orig_fname,batch_size, shuffle=False, augment=F
                                  whiten = False, cache_size = 200, data_mod=data_mod, transform=transform)
 
 output_dir= '/home/users/swmclau2/scratch/uatu_preds/'
-output_fname = path.join(output_dir, 'deep_resnet_reg_smooth_%0.1f_noise_%0.1f_%02d_v6.hdf5'%(smooth, noise,epoch))
+output_fname = path.join(output_dir, 'deep_resnet_reg_smooth_%0.1f_noise_%0.1f_%02d_v7.hdf5'%(smooth, noise,epoch))
 
 shape = (256, 256)
 in_channels = 1

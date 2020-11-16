@@ -11,13 +11,15 @@ shape = (256, 256)
 smooth = 1
 dir = '/oak/stanford/orgs/kipac/users/swmclau2/Uatu/UatuFastPMTraining/'
 fname = path.join(dir, 'UatuFastPMTraining.hdf5')
-smooth = 0
-noise = 0.0#29
+smooth = 1
+noise = 0.29
 
 output_fname  = path.join(dir, 'UatuFastPMTrainingGRF_smooth_%0.1f_noise_%0.1f.hdf5'%(smooth, noise))
 
 batch_size =32 
-shape_noise = noise/np.sqrt((2.34**2)*30) #sigma_e/sqrt(A*n)
+A = 11.8#hp.nside2pixarea(1024, True)*(60**2)
+shape_noise = noise/np.sqrt(A*30) #sigma_e/sqrt(A*n)
+
 np.random.seed(0)
 data_mod = lambda x: gaussian_filter(x+np.random.randn(*x.shape)*shape_noise, smooth) # add a normalization, hopefully sufficient
 attrs = {}
