@@ -41,8 +41,8 @@ else:
 data_mod = lambda x: x #gaussian_filter(x+np.random.randn(*x.shape)*shape_noise, smooth) # add a normalization, hopefully sufficient
 
 output_dir = '/scratch/users/swmclau2/clone_maps/' 
-output_fname  = path.join(output_dir, 'UatuFastPMTrainingRobustifyDeepResnetRegAdvWhiteNoise%0.1f_v8.hdf5'%smooth) 
-#output_fname  = path.join(output_dir, 'UatuFastPMTrainingRobustifyDeepResnetRegAdvGRF%0.1f_v7.hdf5'%smooth) 
+#output_fname  = path.join(output_dir, 'UatuFastPMTrainingRobustifyDeepResnetRegAdvWhiteNoise%0.1f_v8.hdf5'%smooth) 
+output_fname  = path.join(output_dir, 'UatuFastPMTrainingRobustifyDeepResnetRegAdvGRF%0.1f_v8.hdf5'%smooth) 
 
 grf_fname = path.join(dir, 'UatuFastPMTrainingGRF_smooth_%0.1f_noise_%0.1f.hdf5'%(smooth, noise))
 A = 11.8
@@ -82,8 +82,8 @@ print('Start Idx: %d'%start_idx)
 train_dset = DatasetFromFile(orig_fname,batch_size, shuffle=False, augment=False,
                              train_test_split = 1.0, whiten = False, cache_size = 128, data_mod=data_mod, transform=transform)
 
-#grf_dset = DatasetFromFile(grf_fname,batch_size, shuffle=False, augment=False,
-#                             train_test_split = 1.0, whiten = False, cache_size = 64, data_mod = lambda x:x, transform=transform)
+grf_dset = DatasetFromFile(grf_fname,batch_size, shuffle=False, augment=False,
+                             train_test_split = 1.0, whiten = False, cache_size = 64, data_mod = lambda x:x, transform=transform)
 
 
 scattering = lambda x:x
@@ -91,8 +91,8 @@ np.random.seed(64)
 x0_shape = (batch_size, shape[0], shape[1])
 l = int(len(train_dset)*1.0/batch_size)
 print('Beginning')
-#for i, ((xt,y), (x0,_)) in enumerate(zip(train_dset, grf_dset)):
-for i, (xt,y) in enumerate(train_dset):
+for i, ((xt,y), (x0,_)) in enumerate(zip(train_dset, grf_dset)):
+#for i, (xt,y) in enumerate(train_dset):
 
 # TODO start batches
     if i< start_idx:
@@ -100,8 +100,8 @@ for i, (xt,y) in enumerate(train_dset):
         continue
     print(i, flush=True)
     xt = xt.squeeze()
-    x0 = torch.Tensor(np.random.randn(*xt.shape))*xt.std()+xt.mean()
-    x0 = x0.to(device)#.squeeze()
+    #x0 = torch.Tensor(np.random.randn(*xt.shape))*xt.std()+xt.mean()
+    #x0 = x0.to(device)#.squeeze()
     x0 =  ((x0-x0.mean())/x0.std())*xt.std()+xt.mean() 
 
     robust_x = compute_robust_map(scattering, device, model, x0, xt).cpu().detach().numpy()

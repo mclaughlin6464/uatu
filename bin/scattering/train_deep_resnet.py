@@ -52,7 +52,7 @@ lr = 1e-4
 epochs = 5 
 
 for i in range(init_epoch):
-    if i%3 and i>0:
+    if i%3==0 and i>0:
         lr*=0.1
 
 for epoch in range(init_epoch, epochs):

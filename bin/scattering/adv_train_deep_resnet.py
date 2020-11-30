@@ -44,11 +44,11 @@ orig_val_dset = orig_train_dset.get_test_dset()
 output_dir= '/home/users/swmclau2/scratch/uatu_networks/'
 init_epoch = int(argv[3]) #-1
 if init_epoch>=0:
-    model_path = path.join(output_dir, 'deep_resnet_reg_smooth_%0.1f_noise_%0.1f_%02d_adv_v8.pth'%(smooth, noise,init_epoch))
+    model_path = path.join(output_dir, 'deep_resnet_reg_smooth_%0.1f_noise_%0.1f_%02d_adv_v9.pth'%(smooth, noise,init_epoch))
     model.load_state_dict(torch.load(model_path, map_location='cpu'))
 
 # Optimizer
-lr = 5e-5
+lr = 1e-4
 epochs = 10 
 
 for i in range(init_epoch):
@@ -62,10 +62,10 @@ for epoch in range(init_epoch, epochs):
     if (epoch)%3==0 and epoch>0:
         lr*=0.1
 
-    adv_train(model, device, orig_train_dset, optimizer, epoch+1, attack_lr = 1e-2, attack_nsteps = 5,alpha=0.0)#, smoothing = 1)
+    adv_train(model, device, orig_train_dset, optimizer, epoch+1, attack_lr = 1e-2, attack_nsteps = 5,alpha=0.5)#, smoothing = 1)
     #val_test(model, device, val_dset)
     val_test(model, device, orig_val_dset)
 
     if epoch%1==0:
-        torch.save(model.state_dict(), path.join(output_dir, 'deep_resnet_reg_smooth_%0.1f_noise_%0.1f_%02d_adv_v8.pth'%(smooth, noise, epoch)))
+        torch.save(model.state_dict(), path.join(output_dir, 'deep_resnet_reg_smooth_%0.1f_noise_%0.1f_%02d_adv_v9.pth'%(smooth, noise, epoch)))
 
